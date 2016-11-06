@@ -1,0 +1,629 @@
+body, html{height: 100%;}		
+			body{background-color: #F5F5F5;}		
+			a:HOVER{text-decoration: none;}
+			
+			/*이미지 마우스 오버 투명도(남여별 인기작 리스트)*/
+			.gender_list_img { border : 0;
+			     }
+			.gender_list_img:hover {
+			opacity:0.5;
+			filter:alpha(opacity=50); /* For IE8 and earlier */
+			    }
+    
+    		/*마우스 오버 테두리 선
+			 a{
+			    display: inline-block;
+			    
+			    border-radius: 4px;
+			    padding: 5px;
+			    transition: 0.3s;
+			}
+			
+			a:hover {
+			    box-shadow: 0 0 2px 1px rgba
+			    (0, 140, 186, 0.5);
+			}
+			
+			/*<hr>*/
+			.main_hr{
+				margin: 0;
+				padding: 0;
+				border: 1px solid #DCDCDC;
+			}
+			
+			
+			.genre_row{
+				padding: 5px 15px 30px 15px;
+			}
+			
+			
+	
+		/*---------------------------header(메인 헤더) area----------------------------*/			
+			/*메인 헤더영역*/
+			.main_header{
+				width : 100%;
+				margin : 0 auto;
+				padding : 0;
+				height: 130px;
+				background-color: #FFFFFF;
+			}
+			
+			/*메인 헤더 wrapper div*/
+			.main_header_wrapperdiv{
+				
+				position: relative;
+				margin: 0 auto;
+			}
+			.main_header_wrapperdiv > ul{
+				position: absolute;
+				bottom: 10px;
+				right: 20px;
+			}
+			
+			
+			/*로그인 버튼*/
+
+			
+			/* 메인 헤더 이미지를 감싸는 div */
+			.main_header_image{
+				
+				height : 100%;
+				margin: 0 auto;
+				padding: 0;
+				
+			}
+				/*메인 이미지*/
+				.main_h1{
+					background : url("../imgs/main/bookstory.jpg") center bottom no-repeat;
+					background-size : contain;
+					margin: 0 auto;
+					padding: 0;
+					width: 168px;
+					height: 128px;
+					
+				}
+				
+				.search_form > input,input{
+					display: inline-block;
+				}
+				
+				.search_form{
+					border: none;
+				}
+				
+				#main_image_link{
+					display: block;
+					width: 168px;
+					height: 128px;
+				}
+				
+		
+		/*---------------------------navigation(메뉴) area----------------------------*/
+		
+			/*메인 네비 영역*/
+			.main_navi{
+				width : 100%;
+				border : none;
+				background-color : #FFFFFF;
+				margin: 0 auto;
+				border-bottom: 2px solid #DCDCDC;
+				
+			}
+			
+			.main_navi_list{
+				width : 100%;
+				
+			}
+			
+			.main_navi_list:LAST-CHILD{
+				margin-right: 10px;
+			}
+			
+			.main_navi_sub{
+				background-color: #F5F5F5;
+			}
+			/*메인 헤더 리스트*/
+
+	
+
+		
+		/*---------------------------section(메인 컨텐츠) area----------------------------*/
+		
+		
+			.main_container{
+				background: background-color: #F5F5F5;
+				min-height: 700px;
+				padding: 
+			
+			}
+			
+			.thumbnail_box{
+				width: 100%;
+			}
+			
+			a:hover{
+			text-decoration: none;
+		}
+		
+		/* ------- 메인 장르별 추천작 리스트(4개)  시작 ------- */
+		
+			/*이미지 속 new 이미지*/
+			.icon_new{
+				display: block;
+				width: 42px;
+				height: 42px;
+				background-image: url("../imgs/clipping/sp_icon.png");
+				background-position: 0 -40px;
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				z-index: 10;
+			}
+			
+			/*이미지 속 완결 이미지*/
+			.icon_com{
+				display: block;
+				width: 42px;
+				height: 42px;
+				background-image: url("../imgs/clipping/sp_icon.png");
+				background-position: 0 -90px;
+				position: absolute;
+				top: 10px;
+				left: 10px;
+				z-index: 10;
+			}
+				
+		
+
+		.main_list_genre{
+			padding: 3px 3px;
+			padding-bottom: 30px;
+		}
+		.thumbnail{
+			margin-bottom: 0px;
+		}
+		
+		.main_thumbbox{
+			border: 1px solid #c0c0c0;
+			padding: 0;
+			border-radius: 0;
+		}
+		
+		.main_thumbbox:hover{
+			border-radius: 0;
+			border : 1px solid #00BFFF;
+			text-decoration: none;
+		}
+		
+		/*장르 선택 버튼*/
+		
+		.genre_button{
+			margin-top: 5px;
+		}
+		
+		
+			/*장르별 추천작*/
+			.main_genre_a_list .caption{
+				display: block;
+				position: absolute;
+			}
+			
+			.list_info > span{
+				display: block;
+				text-align: left;
+				font-size: 14px;
+				margin-left: 10px;
+				padding: 5px 0px 5px 5px;
+			}
+			
+			.list_info{
+				
+			}
+			
+			
+			/*--------- 장르별 추천작 이미지 속 텍스트 ----------*/
+			/*해상도 별 크기 xs일때*/
+			
+			@media (max-width: 767px){
+				.list_info .genre{
+					font-size: 16px;
+				}
+			}
+			
+			@media (min-width: 768px){
+
+			
+			}
+			
+			/*장르*/
+
+			.list_info .genre{
+				font-size: 16px;
+				color: #009cd8;
+			}
+			/* 제목*/
+			.list_info .subj{
+				font-size: 18px;
+				vertical-align: top;
+				
+				white-space : nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				
+				position: relative;
+				top : 10px;
+			}
+			
+			/* 회차 & 작가이름*/
+			.list_info .author_num{
+				padding-top: 0;
+				
+			}
+			
+			/* 작품 회차 & 작가이름*/
+			.list_info .author_num span{
+			
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			/* 작가이름*/
+			.list_info .author{
+				color: #959595;
+				vertical-align: top;
+				padding-top: 2px;
+			}
+			
+			
+			/* 작품 회차*/
+			.list_info .num_total{
+				color: #959595;
+				margin-left: 15px;
+				padding-top: 2px;
+				
+			}
+			
+			.list_info .score_area{
+				display : inline-block;
+				
+				color: #ff0000;
+				height: 30px;
+				
+			}
+			
+			/*작품 별점*/
+			.list_info .icon_star{
+				display : inline-block;
+				width : 16px;
+				height : 16px;
+				background-image: url("../imgs/clipping/sp_icon.png");
+				background-repeat: no-repeat;
+				
+				background-position: -40px -20px;
+				vertical-align: -4px;
+
+			}
+			
+			/*작품 점수*/
+			.list_info .score{
+				display: inline-block;
+				height: 16px;
+				font-size: 14px;
+			}
+			
+			.icon_star{
+
+			}
+			
+			.main_list_img{
+				border: 1px;
+			}
+			
+			/*장르별 추천작 리스트 작품 점수*/
+			/*장르별 추천작 리스트 작품 관심*/
+			.caption > .favorite{
+			
+			display: inline-block;
+
+			}
+			
+			
+			/*장르별 추천작 리스트 bottom 공간 확보용 빈상자*/
+			.emptybox{
+				display : block;
+				height: 8px;
+			}
+			
+			
+			
+			/*장르별 추천작 리스트 작품 관심*/	
+			
+			/*------- 장르별 추천작 이미지 속 텍스트 -----*/
+			
+		/* ------- 메인 장르별 추천작 리스트(4개)  끝 ------- */
+			
+			
+			.height { height: 10px; padding: 0; }
+		
+			
+			
+			/*"장르별 추천작" 제목*/
+			#genre_title{
+				display: inline-block;
+				width: 200px;
+			}
+			.genre_choice{
+				margin-top: 5px;
+			}
+				
+			
+			
+    		
+			/*--------------------------------------------------*/
+			/*남여별 인기작 & 통합 랭킹 제목*/
+			
+			.gender_row{
+				padding-bottom: 20px;
+			}
+			
+				/*남여별 인기작*/
+				
+				
+				/*남여별 인기작 제목*/
+				
+				.list_gender_title{
+					display: inline-block;
+				}
+				
+				/*남여별 인기작 남여 선택 버튼*/
+				.list_gender_button{
+					display: inline-block;
+					padding-bottom: 5px;
+					padding-left: 10px;
+				}
+				
+				.main_gender_list_male{
+					display: none;
+				}
+				
+				.female_button{
+					background-color: #FFEBCD;
+					border-top-right-radius: 0;
+					border-top-left-radius: 20px;
+					border-bottom-right-radius: 0;
+					border-bottom-left-radius: 20px;
+				}
+				
+				.male_button{
+					
+					border-top-right-radius: 20px;
+					border-bottom-right-radius: 20px;
+					border-bottom-left-radius: 0;
+				
+				}
+				
+				
+				
+			
+			@media(max-width: 767px){
+				.list_gender_02, .list_gender_04, .list_gender_06{
+					margin-right: 0px;
+				}
+			}	
+
+			
+			.list_gender_li{
+				padding: 0;
+				
+				
+			}
+			
+			.list_gender{
+				margin: auto;
+			}
+			
+			
+			/*----- 남여별 인기작 이미지 속 텍스트 시작------*/
+			.main_gender_list{
+				position: relative;
+				padding: 0;
+				
+			}
+			
+			.main_gender_list:hover{
+				border-radius: 0;
+				
+				text-decoration: underline;
+				opacity: 0.7;
+			}
+			
+			.main_gender_info{
+				position: absolute;
+				bottom: 20px;
+				left: 20px;
+				
+			}
+			
+			.gender_title, .gender_author{
+				display: block;
+				color: #fff;
+			}
+			
+			.gender_title{
+			    white-space: nowrap;
+			    overflow : hidden;
+			    text-overflow : ellipsis;
+			    margin-bottom: 10px;
+			    font-size: 18px;
+			    font-weight: bold;
+			}
+			
+			
+				/*남여별 인기작 백그라운드 그라데이션*/
+			.gender_list_skin{
+					position : absolute;
+					left : 0px;
+					bottom : 0px;
+				    width: 100%;
+				    height: 100%;
+				    background: linear-gradient( to top, rgba(0, 0, 0, 0.58), rgba(255, 254, 254, 0) )
+				   
+				    
+			}
+			
+			/*----- 남여별 인기작 이미지 속 텍스트 끝 ------*/
+					
+			
+			
+			
+					
+						
+				/*랭킹 영역*/
+				
+				.total_rank_gender_btn {
+				   border: 1px solid #a19e8f;
+				   background: #a19e8f;
+				   background: -webkit-gradient(linear, left top, left bottom, from(#a19e8f), to(#a19e8f));
+				   background: -webkit-linear-gradient(top, #a19e8f, #a19e8f);
+				   background: -moz-linear-gradient(top, #a19e8f, #a19e8f);
+				   background: -ms-linear-gradient(top, #a19e8f, #a19e8f);
+				   background: -o-linear-gradient(top, #a19e8f, #a19e8f);
+				   background-image: -ms-linear-gradient(top, #a19e8f 0%, #a19e8f 100%);
+				   padding: 9px 18px;
+				   -webkit-border-radius: 3px;
+				   -moz-border-radius: 3px;
+				   border-radius: 3px;
+				   -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+				   -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+				   box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+				   text-shadow: #7ea4bd 0 1px 0;
+				   color: #ffffff;
+				   font-size: 17px;
+				   font-family: helvetica, serif;
+				   text-decoration: none;
+				   vertical-align: middle;
+				   }
+				.total_rank_gender_btn:hover {
+				   border: 1px solid #303538;
+				   text-shadow: #303538 0 1px 0;
+				   background: #303538;
+				   background: -webkit-gradient(linear, left top, left bottom, from(#303538), to(#303538));
+				   background: -webkit-linear-gradient(top, #303538, #303538);
+				   background: -moz-linear-gradient(top, #303538, #303538);
+				   background: -ms-linear-gradient(top, #303538, #303538);
+				   background: -o-linear-gradient(top, #303538, #303538);
+				   background-image: -ms-linear-gradient(top, #303538 0%, #303538 100%);
+				   color: #ffffff;
+				   }
+				.total_rank_gender_btn:active {
+				   text-shadow: #303538 0 1px 0;
+				   border: 1px solid #303538;
+				   background: #303538;
+				   background: -webkit-gradient(linear, left top, left bottom, from(#303538), to(#303538));
+				   background: -webkit-linear-gradient(top, #303538, #303538);
+				   background: -moz-linear-gradient(top, #303538, #303538);
+				   background: -ms-linear-gradient(top, #303538, #303538);
+				   background: -o-linear-gradient(top, #303538, #303538);
+				   background-image: -ms-linear-gradient(top, #303538 0%, #303538 100%);
+				   color: #ffffff;
+				   }
+								
+								
+				
+				
+				
+			.total_rank_gender_btn:HOVER{
+				
+			}
+				
+			.total_rank_gender_btn{
+			
+				
+			}	
+			#total_rank_gender_female{
+				border-top-right-radius: 0;
+   				border-bottom-right-radius: 0;
+			}	
+			
+			#total_rank_gender_male{
+				border-top-left-radius: 0;
+   				border-bottom-left-radius: 0;
+			}	
+				
+			.totla_rank_gender{
+				margin-bottom: 10px;
+			}	
+				
+			.ranking_area{
+				width: 358px;
+				margin: auto;
+			}
+			
+			.ranking_title{
+				display: block;
+			}
+			.ranking_author{
+				display: block;
+			}
+			.ranking_img{
+				display: block;
+			}
+			
+			.list_rank_inner{
+				padding: 0;
+			}
+			
+			/*------------통합 랭킹----------*/
+		
+			.age_favor > .list-group-item > h5{
+				text-align: left;
+				padding-left: 15px;
+			}
+			
+			/*------------통합 랭킹----------*/
+		
+			.age_favor > .list-group-item > h5{
+				text-align: left;
+				padding-left: 15px;
+			}
+			
+			/*------------통합 랭킹----------*/
+		
+		
+			/*연령별 선호작 빈 공간*/
+			.empty_box_rank{
+				height: 15px;
+			}
+			
+			/*통합 랭킹 탭*/
+			.total_ranking_tab{
+				background-color: white;
+				border-left: 1px solid #DCDCDC;
+				border-right: 1px solid #DCDCDC;
+				border-bottom: 1px solid #DCDCDC;
+				
+			}
+			
+			.listgroup_rank li{
+				text-align: left;
+				border: none;
+			}
+			
+			.listgroup_rank li{
+				
+			}
+			
+			
+			
+			
+
+
+		/*메인 푸터*/
+		
+		#main_footer{
+			padding-top : 30px;
+			height: 150px;
+			background: #FFF;
+			border-top: 2px solid #DCDCDC;
+		
+		}

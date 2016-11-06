@@ -1,0 +1,21 @@
+body {
+	background-color: #FFF;
+}
+
+.main_container {
+	margin-top: 25px;
+}
+
+body .Article1{
+	padding: 25px;
+}
+
+body .Article3{
+	padding: 25px;
+	height: 240px;
+}
+
+body .Article_size{
+	margin: auto;
+	width: 80%;
+}

@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+/*현재 위치 메뉴 색*/
+			.novelList a{
+				color : #CD8F49 !important;
+			}	
+			
+			
+		/*장르별 메뉴 색상*/
+		.main_navi_sub .navbar-nav>li>a {
+			color: black;
+			font-size: 17px;
+		}
+		
+		/*장르별 현재 페이지 색상*/
+		.genre_active > a{
+			color : #CD8F49 !important;
+			display: block;
+		}

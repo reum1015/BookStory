@@ -1,0 +1,227 @@
+body, html{height: 100%;}		
+			body{background-color: #F5F5F5;}		
+			a:HOVER{text-decoration: none;}
+			
+			/*이미지 마우스 오버 투명도(남여별 인기작 리스트)*/
+			.gender_list_img { border : 0;
+			     }
+			.gender_list_img:hover {
+			opacity:0.5;
+			filter:alpha(opacity=50); /* For IE8 and earlier */
+			    }
+    
+    		/*마우스 오버 테두리 선
+			 a{
+			    display: inline-block;
+			    
+			    border-radius: 4px;
+			    padding: 5px;
+			    transition: 0.3s;
+			}
+			
+			a:hover {
+			    box-shadow: 0 0 2px 1px rgba
+			    (0, 140, 186, 0.5);
+			}
+			
+			/*<hr>*/
+			.main_hr{
+				margin: 0;
+				padding: 0;
+				border: 1px solid #DCDCDC;
+			}
+			
+			
+			.genre_row{
+				padding: 5px 15px 30px 15px;
+			}
+			
+			
+	
+		/*---------------------------header(메인 헤더) area----------------------------*/			
+			/*메인 헤더영역*/
+			.main_header{
+				width : 100%;
+				margin : 0 auto;
+				padding : 0;
+				height: 130px;
+				background-color: #FFFFFF;
+			}
+			
+			/*메인 헤더 wrapper div*/
+			.main_header_wrapperdiv{
+				
+				position: relative;
+				margin: 0 auto;
+			}
+			.main_header_wrapperdiv > ul{
+				position: absolute;
+				bottom: 10px;
+				right: 20px;
+			}
+			
+			
+			/*로그인 버튼*/
+
+			
+			/* 메인 헤더 이미지를 감싸는 div */
+			.main_header_image{
+				
+				height : 100%;
+				margin: 0 auto;
+				padding: 0;
+				
+			}
+				/*메인 이미지*/
+				.main_h1{
+					background : url("../../imgs/main/bookstory.jpg") center bottom no-repeat;
+					background-size : contain;
+					margin: 0 auto;
+					padding: 0;
+					width: 168px;
+					height: 128px;
+					
+				}
+				
+				.search_form > input,input{
+					display: inline-block;
+				}
+				
+				.search_form{
+					border: none;
+				}
+				
+				#main_image_link{
+					display: block;
+					width: 168px;
+					height: 128px;
+				}
+				
+		
+		/*---------------------------navigation(메뉴) area----------------------------*/
+		
+			/*메인 네비 영역*/
+			.main_navi{
+				width : 100%;
+				border : none;
+				background-color : #FFFFFF;
+				margin: 0 auto;
+				border-bottom: 2px solid #DCDCDC;
+				
+			}
+			
+			.main_navi_list{
+				width : 100%;
+				
+			}
+			
+			.main_navi_list:LAST-CHILD{
+				margin-right: 10px;
+			}
+			
+			.main_navi_sub{
+				background-color: #F5F5F5;
+			}
+			/*메인 헤더 리스트*/
+
+	
+
+		
+		/*---------------------------section(메인 컨텐츠) area----------------------------*/
+		
+		
+			.main_container{
+				background: background-color: #F5F5F5;
+				min-height: 700px;
+				padding: 
+			
+			}
+			
+			.thumbnail_box{
+				width: 100%;
+			}
+			
+			a:hover{
+			text-decoration: none;
+		}
+		
+		/*-----------------------  totalSearch  -------------------------------------------*/
+		
+		body{
+			background-color: white;
+		}
+		
+		body,html,.row-offcanvas {
+  height:100%;
+}
+
+body {
+  padding-top: 50px;
+}
+
+#sidebar {
+  width: inherit;
+  min-width: 220px;
+  max-width: 220px;
+  /* background-color:#f5f5f5; */
+  float: left;
+  height:100%;
+  position:relative;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+#main {
+  height:100%;
+  overflow:auto;
+}
+
+	.active_choice{
+		background-color:  #CD8F49;
+	}
+
+
+
+/*
+ * off Canvas sidebar
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 768px) {
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+    width:calc(100% + 220px);
+  }
+    
+  .row-offcanvas-left
+  {
+    left: -220px;
+  }
+
+  .row-offcanvas-left.active {
+    left: 0;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+  }
+}
+		
+		
+		
+		
+		
+		
+		
+
+		/*메인 푸터*/
+		
+		#main_footer{
+			padding-top : 30px;
+			height: 150px;
+			background: #FFF;
+			border-top: 2px solid #DCDCDC;
+		
+		}

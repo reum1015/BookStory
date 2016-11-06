@@ -1,0 +1,128 @@
+body .content{
+	padinng-top: 46px;
+}
+
+.stargrade{
+	
+	display: inline-block;
+	vertical-align: top;
+	zoom: 1;
+	width: 114px;
+	height: 22px;
+	text-align: left;
+	background-image: url("../../imgs/clipping/sp_icon.png");
+	background-position: 0px -230px;
+}
+
+.grade_area{
+	display: inline-block;
+    color: #ff0000;
+    height: 30px;
+}
+
+.info_book{
+	margin: 0px;
+	font-size: 14px;
+	color: #888;
+	padding-bottom: 5px;
+}
+
+.publish{
+	margin-left: 13px;
+}
+
+.genre{
+	margin-left: 13px;
+}
+
+.dsc{
+	overflow: hidden;
+    height: 140px;
+    font-size: 13px;
+    color: #666;
+}
+
+.block_12{
+	padding-bottom: 15px;
+	border-bottom: solid 1px #999;
+}
+
+
+.content6 {
+	padding-top: 20px;
+}
+
+.favorite_module{
+	display: inline-block;
+	zoom: 1;
+	width: 58px;
+    height: 47px;
+    background-image: url("../../imgs/clipping/sp_but.png");
+    background-position: -60px -170px;
+}
+
+.btn_h3{
+	padding-top: 15px;
+}
+
+.total {
+	font-size: 18px;
+    color: #999;
+    font-family: arial;
+    font-weight: normal;
+}
+
+.block_12_1{
+	border-top:solid 1px #CCC;
+	border-bottom: solid 1px #CCC;
+}
+
+.block_12_2{
+	border-bottom: solid 1px #CCC;
+}
+
+.episode_size{
+	margin-top: 20px;
+	font-size: large;
+	font-style: black;
+}
+
+.score_area{
+	display: inline-block;
+	color: #ff0000;
+}
+
+.icon_star_s{
+	width: 12px;
+    height: 12px;
+    display: inline-block;
+    background-image: url("../../imgs/clipping/sp_icon.png");
+    background-position: -50px -120px;
+}
+
+.check_box_list{
+	margin-top: 25px;
+}
+
+body .coment_li{
+	display: inline-block;
+	width: 100%;
+	height: 70px;
+	border-bottom: solid 1px #ccc;
+}
+
+body ul>li .coment_div{
+	display: inline-block;
+}
+
+body .nic1{
+	font-weight: bold;
+	font-size: large;
+	color: #0CC;
+}
+
+body .nic2{
+	font-size:medium;
+	color: #999;
+}
+

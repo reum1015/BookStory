@@ -1,0 +1,19 @@
+body .jb-center {
+	text-align: center;
+}
+
+body .container main_container{
+	margin: auto;
+}
+
+body {
+	background-color: #FFF;
+}
+
+.main_container {
+	margin-top: 50px;
+}
+
+body .container .freeimg {
+	display: block;
+}

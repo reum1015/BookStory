@@ -1,0 +1,384 @@
+body, html{height: 100%;}		
+			body{background-color: #F5F5F5;}		
+			a:HOVER{text-decoration: none;}
+			
+			/*이미지 마우스 오버 투명도(남여별 인기작 리스트)*/
+			.gender_list_img { border : 0;
+			     }
+			.gender_list_img:hover {
+			opacity:0.5;
+			filter:alpha(opacity=50); /* For IE8 and earlier */
+			    }
+    
+    		/*마우스 오버 테두리 선
+			 a{
+			    display: inline-block;
+			    
+			    border-radius: 4px;
+			    padding: 5px;
+			    transition: 0.3s;
+			}
+			
+			a:hover {
+			    box-shadow: 0 0 2px 1px rgba
+			    (0, 140, 186, 0.5);
+			}
+			
+			/*<hr>*/
+			.main_hr{
+				margin: 0;
+				padding: 0;
+				border: 1px solid #DCDCDC;
+			}
+			
+	
+		/*---------------------------header(메인 헤더) area----------------------------*/			
+			/*메인 헤더영역*/
+			.main_header{
+				width : 100%;
+				margin : 0 auto;
+				padding : 0;
+				height: 130px;
+				background-color: #FFFFFF;
+			}
+			
+			/*메인 헤더 wrapper div*/
+			.main_header_wrapperdiv{
+				
+				position: relative;
+				margin: 0 auto;
+			}
+			.main_header_wrapperdiv > ul{
+				position: absolute;
+				bottom: 10px;
+				right: 20px;
+			}
+			
+			
+			/*로그인 버튼*/
+
+			
+			/* 메인 헤더 이미지를 감싸는 div */
+			.main_header_image{
+				
+				height : 100%;
+				margin: 0 auto;
+				padding: 0;
+				
+			}
+				/*메인 이미지*/
+				.main_h1{
+					background : url("../imgs/main/bookstory.jpg") center bottom no-repeat;
+					background-size : contain;
+					margin: 0 auto;
+					padding: 0;
+					width: 168px;
+					height: 128px;
+				}
+				
+				.search_form > input,input{
+					display: inline-block;
+				}
+				
+				.search_form{
+					border: none;
+				}
+				
+				
+				
+				
+		
+		/*---------------------------navigation(메뉴) area----------------------------*/
+		
+			/*메인 네비 영역*/
+		
+		
+		/*요일별*/
+		
+			.table>thead>tr>th {
+			    border-bottom: none;
+			    padding-top: 0;
+			    padding-bottom: 0;
+			   
+			}
+			.table>thead{
+				height: 100%;
+			}
+		
+			#myNavbar_sub{
+				height: 50px;
+			}
+		
+			.main_navi{
+				width : 100%;
+				border : none;
+				background-color : #FFFFFF;
+				margin: 0 auto;
+				border-bottom: 2px solid #DCDCDC;
+			}
+			
+			.main_navi_list{
+				width : 100%;
+				
+			}
+			
+			.main_navi_list:LAST-CHILD{
+				margin-right: 10px;
+			}
+			
+
+
+			.main_navi_sub{
+			background-color: #F5F5F5;
+			height: 50px;
+		}	
+		
+		.main_navi_sub_list{
+			padding: 0;
+		}
+		
+		/*요일별 색상*/
+		.main_navi_sub .navbar-nav>li>a {
+			color: black;
+			font-size: 17px;
+		}
+		
+		/*요일별 현재 페이지 색상*/
+		
+		.day_active > a{
+			color : #CD8F49 !important;
+			display: block;
+		}
+		
+		    /*장르선택 위치*/
+	    #genre_button{
+				margin-top: 3px;
+		}
+		
+		
+		
+			
+			
+
+		/*---------------------------section(메인 컨텐츠) area----------------------------*/
+		
+		
+			.main_container{
+				background: background-color: #F5F5F5;
+				min-height: 700px;
+			}
+			
+			
+			
+			
+		/*------------------------------------------시작------------------------------------*/	
+		
+			/* ------- 메인 장르별 추천작 리스트(4개)  시작 ------- */
+			
+			.genre_row{
+				margin-top: 15px;
+			}
+
+		.main_list_genre{
+			padding: 3px 3px;
+			padding-bottom: 30px;
+		}
+		.thumbnail{
+			margin-bottom: 0px;
+		}
+		
+		.main_thumbbox{
+			border: 1px solid #c0c0c0;
+			padding: 0;
+			border-radius: 0;
+		}
+		
+		.main_thumbbox:hover{
+			border-radius: 0;
+			border : 1px solid #00BFFF;
+			text-decoration: none;
+		}
+		
+		/*장르 선택 버튼*/
+		
+
+		
+		
+			/*장르별 추천작*/
+			.main_genre_a_list .caption{
+				display: block;
+				position: absolute;
+			}
+			
+			.list_info > span{
+				display: block;
+				text-align: left;
+				font-size: 14px;
+				margin-left: 10px;
+				padding: 5px 0px 5px 5px;
+			}
+			
+			.list_info{
+				
+			}
+			
+			
+			/*--------- 장르별 추천작 이미지 속 텍스트 ----------*/
+			/*해상도 별 크기 xs일때*/
+			
+			@media (max-width: 767px){
+				.list_info .genre{
+					font-size: 16px;
+				}
+			}
+			
+			@media (min-width: 768px){
+
+			
+			}
+			
+			/*장르*/
+
+			.list_info .genre{
+				font-size: 16px;
+				color: #009cd8;
+			}
+			/* 제목*/
+			.list_info .subj{
+				font-size: 18px;
+				vertical-align: top;
+				
+				white-space : nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				
+				position: relative;
+				top : 10px;
+			}
+			
+			/* 회차 & 작가이름*/
+			.list_info .author_num{
+				padding-top: 0;
+				
+			}
+			
+			/* 작품 회차 & 작가이름*/
+			.list_info .author_num span{
+			
+				display: inline-block;
+				vertical-align: top;
+			}
+			
+			/* 작가이름*/
+			.list_info .author{
+				color: #959595;
+				vertical-align: top;
+				padding-top: 2px;
+			}
+			
+			
+			/* 작품 회차*/
+			.list_info .num_total{
+				color: #959595;
+				margin-left: 15px;
+				padding-top: 2px;
+				
+			}
+			
+			.list_info .score_area{
+				display : inline-block;
+				
+				color: #ff0000;
+				height: 30px;
+				
+			}
+			
+			/*작품 별점*/
+			.list_info .icon_star{
+				display : inline-block;
+				width : 16px;
+				height : 16px;
+				background-image: url("../imgs/clipping/sp_icon.png");
+				background-repeat: no-repeat;
+				
+				background-position: -40px -20px;
+				vertical-align: -4px;
+
+			}
+			
+			/*작품 점수*/
+			.list_info .score{
+				display: inline-block;
+				height: 16px;
+				font-size: 14px;
+			}
+			
+			.icon_star{
+
+			}
+			
+			.main_list_img{
+				border: 1px;
+			}
+			
+			/*장르별 추천작 리스트 작품 점수*/
+			/*장르별 추천작 리스트 작품 관심*/
+			.caption > .favorite{
+			
+			display: inline-block;
+
+			}
+			
+			
+			/*장르별 추천작 리스트 bottom 공간 확보용 빈상자*/
+			.emptybox{
+				display : block;
+				height: 8px;
+			}
+			
+			
+			
+			/*장르별 추천작 리스트 작품 관심*/	
+			
+			/*------- 장르별 추천작 이미지 속 텍스트 -----*/
+			
+		/* ------- 메인 장르별 추천작 리스트(4개)  끝 ------- */
+			
+			
+			.height { height: 10px; padding: 0; }
+		
+			
+			
+			/*"장르별 추천작" 제목*/
+			#genre_title{
+				display: inline-block;
+				width: 200px;
+			}
+			.genre_choice{
+				margin-top: 5px;
+			}
+				
+			.day_button{
+				margin-top: 10px;
+				margin-bottom: 5px;
+			}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+ 	/*---------------------------------------  끝    -------------------------------------------*/
+		/*메인 푸터*/
+		
+		.main_footer{
+			padding-top : 30px;
+			height: 150px;
+			background: #FFF;
+			border-top: 2px solid #DCDCDC;
+		}
