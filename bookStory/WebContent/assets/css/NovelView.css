@@ -1,0 +1,314 @@
+body, html {
+	height: 100%;
+}
+
+body {
+	background-color: #F5F5F5;
+}
+
+a:HOVER {
+	text-decoration: none;
+}
+
+/*이미지 마우스 오버 투명도(남여별 인기작 리스트)*/
+.gender_list_img {
+	border: 0;
+}
+
+.gender_list_img:hover {
+	opacity: 0.5;
+	filter: alpha(opacity = 50); /* For IE8 and earlier */
+}
+
+/*마우스 오버 테두리 선
+			 a{
+			    display: inline-block;
+			    
+			    border-radius: 4px;
+			    padding: 5px;
+			    transition: 0.3s;
+			}
+			
+			a:hover {
+			    box-shadow: 0 0 2px 1px rgba
+			    (0, 140, 186, 0.5);
+			}
+			
+			/*<hr>*/
+.main_hr {
+	margin: 0;
+	padding: 0;
+	border: 1px solid #DCDCDC;
+}
+
+/*---------------------------header(메인 헤더) area----------------------------*/
+/*메인 헤더영역*/
+.main_header {
+	width: 100%;
+	margin: 0 auto;
+	padding: 0;
+	height: 130px;
+	background-color: #FFFFFF;
+}
+
+/*메인 헤더 wrapper div*/
+.main_header_wrapperdiv {
+	position: relative;
+	margin: 0 auto;
+}
+
+.main_header_wrapperdiv>ul {
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+}
+
+/*로그인 버튼*/
+
+/* 메인 헤더 이미지를 감싸는 div */
+.main_header_image {
+	height: 100%;
+	margin: 0 auto;
+	padding: 0;
+}
+/*메인 이미지*/
+.main_h1 {
+	background: url("../imgs/main/bookstory.jpg") center bottom no-repeat;
+	background-size: contain;
+	margin: 0 auto;
+	padding: 0;
+	width: 168px;
+	height: 128px;
+}
+
+.search_form>input, input {
+	display: inline-block;
+}
+
+.search_form {
+	border: none;
+}
+
+/*---------------------------navigation(메뉴) area----------------------------*/
+
+/*메인 네비 영역*/
+.main_navi {
+	width: 100%;
+	border: none;
+	background-color: #FFFFFF;
+	margin: 0 auto;
+	border-bottom: 2px solid #DCDCDC;
+}
+
+.main_navi_list {
+	width: 100%;
+}
+
+.main_navi_list:LAST-CHILD {
+	margin-right: 10px;
+}
+
+/*---------------------------section(메인 컨텐츠) area----------------------------*/
+.main_container {
+	background: background-color: #F5F5F5;
+	min-height: 400px;
+}
+
+/*------------------------------------------시작------------------------------------*/
+
+/** 내용 타이틀 바 CSS */
+
+#titlebar_header {
+text-align: left;
+ border-bottom: solid 1px #dadbdc;
+ display: inline-block;
+}
+
+.titlebar {
+    padding: 8px 11px 11px 13px;
+    border-right: solid 1px #dadbdc;
+    background: #fff;
+    
+    box-sizing: border-box;    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: inline-block;
+}
+
+.titlebar2 {
+    padding: 8px 11px 11px 13px;
+    background: #fff;
+    
+    box-sizing: border-box;    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: inline-block;
+}
+
+.prevpage {
+	display: inline-block;
+	
+}
+
+.novellist {
+	display: inline-block;
+}
+
+
+
+
+.titlebar3 {
+    padding: 8px 11px 11px 13px;
+    background: #fff;
+    
+    box-sizing: border-box;    
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    display: inline-block;
+}
+
+.chk_bookmark label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.icon_bookmark2 {
+    width: 19px;
+    height: 29px;
+    background-image: url(../assets/imgs/clipping/sp_icon.png);
+     background-position: -90px -290px;
+}
+
+.bmk {
+overflow: hidden;
+}
+
+[class^=icon_] {
+    font-size: 0;
+    line-height: 0;
+    vertical-align: top;
+    color: rgba(1, 0, 0, 0) !important;
+    display: inline-block;
+    overflow: hidden;       
+}
+
+.titlebar4 {
+    padding: 8px 11px 11px 13px;
+    display: inline-block;
+    background: #fff;
+    width: auto;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+/** 여기부터 소설 내용 파트 */
+
+.div {
+    display: block;
+}
+.date {
+font-size: 18px;
+}
+
+.viewer_container .detail_view_header {
+    width: 500px;
+    margin: 0 auto;
+    padding: 66px 0 27px;
+    border-bottom: solid 1px #ebebeb;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    word-break: break-all;
+    line-height: 1.3;
+}
+.viewer_container .detail_view_content {
+    width: 500px;
+    margin: 0 auto;
+    padding: 23px 0 72px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 15px;
+    line-height: 26px;
+    min-height: auto;
+}
+ /** 여기부터 밑에 부분 */
+
+.viewer_footer {
+height: 200px;
+}
+
+
+#grade_bar {
+display: inlilne-block;
+height: 50px;
+margin: 15px;
+border-top: solid 1px #ebebeb;
+border-bottom: solid 1px #ebebeb;
+}
+/** 별점주기 */
+
+.star_grade {
+  width: 114px;
+    height: 24px;
+    margin-top: 9px;
+  display: block;
+   background-image: url(../assets/imgs/clipping/sp_icon.png);
+     background-position:  0 -230px;
+     }
+     
+     .CurrentStarScore {
+     color: #ff0000;
+     }
+     
+   #currentStarScoreCount  {
+     font-size: 14px;
+     color: #888;
+     }
+     
+   .grade_insert {
+   top: 5px;
+   }  
+     
+/** !! 별점 주기 끝 */
+
+/** 작가의 말 */
+.author_comment {
+   width: 500px;
+    padding-top: 10px;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 26px;
+}
+
+/** !! 작가의 말 끝 */
+
+/** top 화살표 */
+
+/**!! top 화살표 */
+
+/** 양옆 화살표 */
+.prevpage_fix {
+	
+}
+/** !! 양옆 화살표 */
+
+
+
+
+
+
+/*---------------------------------------  끝    -------------------------------------------*/
+/*메인 푸터*/
+.aa {
+	background: #F5F5F5;
+	height: 200px;
+}
+
+.main_footer {
+	height: 80px;
+	background: #F5F5F5;
+	border-top: 2px solid #DCDCDC;
+}
