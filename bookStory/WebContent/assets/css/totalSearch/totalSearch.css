@@ -185,6 +185,13 @@ body {
  * off Canvas sidebar
  * --------------------------------------------------
  */
+ 
+ .total_row{
+ 	 margin-top: 30px;
+ 	
+ }
+ 
+ 
 @media screen and (max-width: 768px) {
   .row-offcanvas {
     position: relative;
@@ -192,11 +199,14 @@ body {
     -moz-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
     width:calc(100% + 220px);
+   
+    
   }
     
   .row-offcanvas-left
   {
     left: -220px;
+    
   }
 
   .row-offcanvas-left.active {
