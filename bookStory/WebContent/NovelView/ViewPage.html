@@ -42,13 +42,15 @@
 	    <script type="text/javascript" src="assets/js/ie10.js"></script>
 	    <![endif]-->
 	    
-	    <style type="text/css">
-			
-	    </style>
 		
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript">
+	function open1() {
+	    window.open('01-open.html');
+	    }
+	
+	</script>
 <!-- main css -->
-<link rel="stylesheet" type="text/css" href="../assets/css/LoginMain.css" />
+<link rel="stylesheet" type="text/css" href="../assets/css/NovelView.css" />
 
 
 <style type="text/css">
@@ -60,158 +62,6 @@
 	background: #fff;
 }
 
-/** 내용 타이틀 바 CSS */
-
-#titlebar_header {
-text-align: left;
- border-bottom: solid 1px #dadbdc;
-}
-
-.titlebar {
-    padding: 8px 11px 11px 13px;
-    border-right: solid 1px #dadbdc;
-    background: #fff;
-    width: 180px;    
-    box-sizing: border-box;    
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    display: inline-block;
-}
-
-.titlebar2 {
-    padding: 8px 11px 11px 13px;
-    background: #fff;
-    width: 500px;
-    box-sizing: border-box;    
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    display: inline-block;
-}
-
-.titlebar3 {
-    padding: 8px 11px 11px 13px;
-    background: #fff;
-    width: 70px;
-    box-sizing: border-box;    
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    display: inline-block;
-}
-
-.chk_bookmark label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-}
-
-.icon_bookmark2 {
-    width: 19px;
-    height: 29px;
-    background-image: url(../assets/imgs/clipping/sp_icon.png);
-     background-position: -90px -290px;
-}
-
-[class^=icon_] {
-    font-size: 0;
-    line-height: 0;
-    vertical-align: top;
-    color: rgba(1, 0, 0, 0) !important;
-    display: inline-block;
-    overflow: hidden;      
-    
-}
-
-.titlebar4 {
-    padding: 8px 11px 11px 13px;
-    display: inline-block;
-    background: #fff;
-    width: auto;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-}
-
-/** 여기부터 소설 내용 파트 */
-
-div {
-    display: block;
-}
-
-.viewer_container .detail_view_header {
-    width: 500px;
-    margin: 0 auto;
-    padding: 66px 0 27px;
-    border-bottom: solid 1px #ebebeb;
-    font-size: 32px;
-    font-weight: bold;
-    letter-spacing: -2px;
-    word-break: break-all;
-    line-height: 1.3;
-}
-
-.viewer_container .detail_view_header .date {
-    display: block;
-    padding-top: 7px;
-    font-size: 14px;
-    font-weight: normal;
-    letter-spacing: normal;
-    color: #666;
-}
-
-.viewer_container .detail_view_content {
-    width: 500px;
-    margin: 0 auto;
-    padding: 23px 0 72px;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    font-size: 15px;
-    line-height: 26px;
-}
- /** 여기부터 밑에 부분 */
-
-
-/** 별점 주기*/
-.viewer_footer .section_grade {
-    position: relative;
-    height: 49px;
-    padding: 0 259px;
-    margin: 0 auto;
-    border-top: solid 1px #eee;
-}
-
-.viewer_footer .section_grade .stargrade {
-    margin-top: 13px;
-}
-
-
-.stargrade {
-    display: inline-block;
-    vertical-align: top;
-    zoom: 1;
-    width: 114px;
-    height: 22px;
-    background-image: url("../imgs/clipping/sp_icon.png");
-    background-position: 0 -230px;
-    text-align: left;
-}
-
-.stargrade + em {
-    display: inline-block;
-    vertical-align: top;
-    zoom: 1;
-    margin-left: 2px;
-    font-family: arial;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 23px;
-    color: #ff0000;
-}
-
-/** 별점 주기 끝 */
-
-
-/** top 화살표 */
 
 
 </style>
@@ -230,14 +80,14 @@ div {
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="../Login/SignUpAgree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="../Login/Login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="../Login/SignUpAgree.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="../Login/Login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="../index.jsp" id="main_image_link"></a>
+						<a href="../index.html" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -258,16 +108,16 @@ div {
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="../index.jsp" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="../index.html" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="../todayNovel/todayNovel.jsp">TodayNovel</a></li>
-						        <li class="novelList"><a href="../novelList/novelList.jsp">NoveList</a></li>
-						        <li class="community"><a href="../community/articleList.jsp">Community</a></li>
-						        <li class="mymenu"><a href="../myMenu/recentNovelList.jsp">MyMenu</a></li>
-       							<li class="main_admin"><a href="../admin/adminUserInfo.jsp" class="main_navi_admin active">administrator</a></li>
+						        <li class="todayNovel"><a href="../todayNovel/todayNovel.html">TodayNovel</a></li>
+						        <li class="novelList"><a href="../novelList/novelList.html">NoveList</a></li>
+						        <li class="community"><a href="../community/articleList.html">Community</a></li>
+						        <li class="mymenu"><a href="../myMenu/recentNovelList.html">MyMenu</a></li>
+       							<li class="main_admin"><a href="../admin/adminUserInfo.html" class="main_navi_admin active">administrator</a></li>
        				    
         						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -317,19 +167,32 @@ div {
 				<div class="section_area_viewer">
 				
 				<!-- title bar -->
-				<div id="titlebar_header" class="viewer_header" >
+				<div id="titlebar_header" class="row col-lg-12" >
 				
-                <div id="title_title" class="titlebar">
+                <div id="title_title" class="titlebar col-lg-2 col-sm-2">
 					<a href="#">소설제목</a>
 				</div>
-				<div id="title_list" class="titlebar2">
-					<a>소설리스트</a>
+				
+				
+				<div id="title_list" class="titlebar2 col-lg-7 col-sm-6">
+			
+			<button type="button" class="prevpage col-lg-1 btn-default">&lt;</button>
+				   <div>
+				  <select name="novellist" class="novellist col-lg-10 btn-default">
+				  <option>제 201화. 이름 없는</option>
+				   <option value="title1">소설제목1</option>  
+				   <option value="title2">소설제목2</option>
+				   <option value="title3">소설제목3</option>
+			</select>
+				 </div>
+			<button type="button" class="nextpage col-lg-1 btn-default">&gt;</button>
 				</div>
-				<div id="title_bookmark" class="titlebar3">
+				
+				<div id="title_bookmark" class="titlebar3 col-lg-1 col-sm-1">
 					<input type="checkbox" id="bmk" class="bmk" >
 					<label for="bmk" title="책갈피 추가" class="icon_bookmark2 " id="bookmarkIcon">책갈피</label>
 				</div>
-				<div id="title_bookmark" class="titlebar4">
+				<div id="title_bookmark" class="titlebar4 col-lg-2 col-sm-2">
 					<a>보기설정</a>
 				</div>				
 				
@@ -338,10 +201,12 @@ div {
 				
 				<!-- view content -->
 				<div class="viewer_container">
-				<h2 class="detail_view_header">
-				18.어렵네 제목
-				<span class="date">201.10.18</span>
+				<div class="detail_view_header">
+				<h2>18.어렵네 제목
 				</h2>
+				<span class="date">2016.10.18</span>
+				</div>
+				
 				
 				<div class="detail_view_content">
 				<p>무엇을 바라고 좋아했던 게 아니다. 
@@ -384,36 +249,50 @@ div {
 								
 				<!-- view footer -->
 			<div class="viewer_footer">
+			
 			<!-- 별점주기 -->
-			<div class="section_grade">
-			<span class="star_grade">
-			<span style="width:99.2%" id="currentStarScorePercent">별점</span>
-			</span>
-			<em id="currentStarScore">9.92</em>
-			<span class="num" id="currentStarScoreCount">1394명</span>
-			<div class="grade_insert">
-			<button type="button" class="but_grade">별점주기</button>
-						</div>
+			<div id="grade_bar" class="col-lg-12 col-sm-12">
+			<div class="star_grade col-lg-3 col-lg-offset-3 col-sm-3 col-sm-offset-3">
+			<label for="str" title="별점" class="icon_stargrade"  id="stargradeIcon">별점</label>
+			</div>
+			
+			<div class="col-lg-1 col-sm-1"><a id="currentStarScore" class="CurrentStarScore">9.92</a></div>
+			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">1394명</a></div>
+			
+			<div class="grade_insert col-lg-3 col-sm-3">
+			<button type="button" class="but_grade" onclick="open1(); return false; ">별점주기</button></div>
+			
 			</div>
 			<!-- //별점주기 -->	
 				
 				<!-- 작가의말 -->
-				
-				
-				
-				<!-- // 작가의말 -->
-				
-				
+			<div class="author_comment">
+				<h4 class="author_comment_title">작가의 말</h4>
+				 <p>
+				 이것은 마치 오마하 해변 상륙작전 당시, 사방에서 터지는 포화속에 간신히 살아남은 연합군 군인의 모습
+				 </p>
 				</div>
+				<!-- // 작가의말 -->
+			</div>
 				<!-- // view footer -->
-				
-				
-				
-				
-				
-				
-				
-				
+	
+	<!-- 
+	
+		<a href="#" id="previousVolumeBtn" class="lk_story_prev N=a:flt.prev _volumeMove(113897,321)" 
+	style="top: 200px; position: absolute; left: -1px;">
+			<span class="icon_story_prev"></span>
+			<div class="ly_move">
+			
+		<span class="htxt_story_prev">이전회로 가기</span>
+			
+			
+				<span class="ellipsis">제321화. 흙바닥에 줄을 그어도</span>
+			</div>
+		</a>
+		
+	<button type="button" class="nextpage_fix col-lg-1 btn-default">&gt;</button>
+	
+				 -->
 				</div>				
 			</div>		
 		</div>
