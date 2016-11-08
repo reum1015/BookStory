@@ -151,6 +151,47 @@ body {
 	background-color: white;
 }
 
+			/*네비 슬라이드 영역*/
+			
+			.search_container, .total_row{
+				height: 100%;
+			}
+			
+			.slider_menu{
+				height: 100%;
+				border-right: 1px solid #c0c0c0;	
+				border-left: 1px solid #c0c0c0;	
+				text-align: left;
+				padding-right: 0;
+				padding-left: 0;
+				text-indent: 20px;
+			}
+			
+			
+			.slider_nav li a{
+				color: black;
+				font-size: 14px;
+				font-family: 'Nanum Gothic';
+			}
+			.slider_nav li{
+				border-bottom: 1px solid #c0c0c0;
+			}
+			
+			
+			.slider_nav li a:hover{
+				background-color: #CD8F49;
+			}
+			
+			.slider_nav li a:active{
+				background-color: #CD8F49;
+			}
+			
+			
+			
+			.active_this{
+				background-color: #CD8F49;
+			}
+
 		
 		
 		
