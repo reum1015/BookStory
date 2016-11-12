@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
-
 			<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
 			- ANSI(euc-kr), UTF-8 -->
 		<meta charset="utf-8"/>
@@ -48,9 +47,8 @@
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- main css -->
-<link rel="stylesheet" type="text/css" href="../assets/css/LoginMain.css" />
-<link rel="stylesheet" href="../assets/js/plugins/pickadate/themes/default.css" />
-<link rel="stylesheet" href="../assets/js/plugins/pickadate/themes/default.date.css" />
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/LoginMain.css" />
 
 <style type="text/css">
 .aa {
@@ -59,102 +57,31 @@
 }
 
 .bb {
-	padding-top: 30px;
+   padding-top:  50px;
 	width: 60%;
 	height: 100%;
+	text-align: center;
 	font-size: 25px;
 }
 
 .form-group {
-padding: 11px 11px 11px 13px;
+width: 80%;
+margin-left: 140px;
 }
-
-.join_row {
-    padding: 8px 11px 11px 13px;
-    border-top: solid 1px #f0f0f0;
-    background: #fff;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-}
-
-.form-control-box {
-border: none;
-}
-
-.row_title {
-    display: inline-block;
-    height: 33px;
-    margin-left: 2px;
-    font-size: 8px;
-    font-weight: bold;
-    line-height: 33px;
-    color: #999;
-}
-
-
-div {
-display: block;
-}
-
-
-.btn btn-default {
-font-color: #E6E6E6
-}
-
-
 </style>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
-	/*
-	 $(function(){ 
-	 var menupos = $(".main_header").offset().top; 
-	 $(window).scroll(function(){ 
-	 if($(window).scrollTop() >= menupos) { 
-	 $(".main_header").css("position","fixed"); 
-	 $(".main_header").css("top","0");
-	 $('#top_mar').show();
-	 } 
-	 }); 
-	 }); 
-	 */
-	 $(function() {
-		 $("#sample1").pickadate({
-			 
-			 /** 월 이름 표시 옵션 */
-			 weekdaysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],	
-			 
-			 today: '오늘',
-			 clear: '지우기',
-			 close: '닫기',
-		 
-			 /** 년, 월 선택 버튼 표시 텍스트 */
-			 labelMonthNext: '다음달로 이동',
-			 labelMonthPrev: '이전달로 이동',
-			 labelMonthSelect: '월 선택',
-			 labelYearSelect: '년도 선택',
-			 selectMonths: true,
-			 selectYears: true,
-			 
-			 
-		 });
-	 });
-	 
-	  
-</script>
-<!-- pickadate plugin -->
 
 </head>
 <body>
 
+	<!-- 메인 헤더 -->
 		<!-- 메인 헤더 -->
 		<header class="main_header clearfix page-header hidden-xs">
 			
 			<!-- 메인 wrapper div -->
 			<div class="container clearfix main_header_wrapperdiv">
 				
-				<!-- 메인 헤더 회원정보 수정 화면-->
+				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
 				        <li><a href="../Login/SignUpAgree.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 				        <li><a href="../Login/Login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -234,72 +161,29 @@ font-color: #E6E6E6
 </nav>	
 
 
-	
 
 
 	<!-- 메인 화면 시작 -->
-	<div class="container main_container">
+	<div id="container main_container">
 		<div class="container bb">
-			<fieldset>
-				<legend>회원 정보 수정</legend>
-				<form id="join_form" method="post">
+			<h1>
+				<strong>회원탈퇴가 완료되었습니다.</strong>
+			</h1>
+			<br> <br>
 
-					<div class="form-group">
-					
-							<div  id="idDiv" class="join_row">
-                        <input type="password" id="user_pw"
-							class="form-control-box" placeholder="비밀번호수정" />
-                           </div>
-                           
-							<div  id="idDiv" class="join_row">
-							<input type="password" id="user_pw" class="form-control-box"
-							placeholder="비밀번호 재확인" /> </div>
-					</div>
 
-					<div class="form-group">
-								<div  id="idDiv" class="join_row">
-						<input type="text" id="user_name" class="form-control-box"
-							placeholder="이름" />
-							</div>
-						
-						
-								
-					</div>
-					
-					<div class="form-group">
-								<div  id="idDiv" class="join_row">
-						<input type="text" id="nic_name" class="form-control-box"
-							placeholder="닉네임" />
-							</div>
-						
-						
-								
-					</div>
-					
-					<div class="form-group">
-							<div  id="idDiv" class="join_row">
-						<input type="text" id="user_id" class="form-control-box"
-							placeholder="이메일" />
-							</div>
-									<div  id="idDiv" class="join_row">
-							<input type="text" id="user_id" class="form-control-box" placeholder="휴대전화번호" />
-							</div>
-					</div>
-					
-	                 <div class="form-group">
-					<a class="btn btn-block btn-warning" href="../myMenu/infochangeSuccess.html">확인</a>
-					</div>
-					
-				</form>
-			</fieldset>
+           <div class="form-group">
+             <a href="../index.html" class="btn btn-warning col-md-10">홈으로</a>
+			</div>
+<br> <br>
+
 		</div>
 	</div>
+
 
 	<!-- 메인 화면 끝 -->
 
 	<!-- footer -->
-	
-
 	<footer class="page-footer text-center" id="main_footer">
 		<div class="container footer_container">
 			<p class="text-center">
@@ -319,10 +203,5 @@ font-color: #E6E6E6
 	<!-- Javascript -->
 	    <script src="../assets/js/jquery.min.js"></script>
 	    <script src="../assets/js/bootstrap.min.js"></script>
-	<script src="../assets/js/plugins/pickadate/picker.js"></script>
-	<script src="../assets/js/plugins/pickadate/picker.date.js"></script>
-	<script src="../assets/js/plugins/pickadate/translations/ko_KR.js"></script>
-	
-
 </body>
 </html>
