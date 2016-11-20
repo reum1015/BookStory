@@ -124,9 +124,9 @@ body, html{height: 100%;}
 		/*---------------------------section(메인 컨텐츠) area----------------------------*/
 		
 		
-			.main_container{
+			.admin_main_container{
 				
-				min-height: 700px;
+				min-height: 200px;
 			}
 			
 			
@@ -367,4 +367,5 @@ body, html{height: 100%;}
 			height: 150px;
 			background: #FFF;
 			border-top: 2px solid #DCDCDC;
+			width: 100%;
 		}
