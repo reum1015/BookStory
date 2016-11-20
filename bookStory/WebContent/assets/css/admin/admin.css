@@ -134,12 +134,52 @@ body, html{height: 100%;}
 			
 		/*------------------------------------------시작------------------------------------*/	
 		
+			
+		
+		
+		
+			/** amdmin main */
+			.admin_main_container, .admin_main_row{
+				height: 100%;
+			}
+			
+			
+			.amdin_main_slider{
+				height: 100%;
+				border-right: 1px solid #c0c0c0;	
+				text-align: left;
+				padding-right: 0;
+				padding-left: 0;
+				text-indent: 20px;
+				background: linear-gradient( to right, #fff 15%, #CD8F49 );
+				
+			}
+			
+
+	
+			.main_slider_nav li a{
+				color: #000 !important;
+			}
+			
+			.main_slider_nav > li > a:hover{
+				background-color: #CD8F49;
+			}
+			
+			.main_slider_nav li a:focus{
+				background-color: #CD8F49;
+			}
+			
+		
 			html body{
 				background-color: #FFF;
 			}
 			
 			.admin_hr{
 				border: 1px solid black;
+			}
+			
+			.icon_color{
+				color: black;
 			}
 			
 			/*회원 관리*/
