@@ -172,8 +172,14 @@
 			<div class="col-md-2 amdin_main_slider">
 	    		<ul class="nav main_slider_nav" id="admin_main_menu">
 	    			<li class="search_list"><a href="admin_userInfo.jsp"><span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a></li>
-	    			<li class="search_list"><a href="#up_sub" data-toggle="collapse" data-parent="#admin_main_menu"><span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a></li>
-
+	    			<li class="search_list"><a href="#up_sub" data-toggle="collapse" data-parent="#admin_main_menu" id="accordion1">
+	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a>
+	    				<ul id="firstLink" class="collapse">
+	    					<li></li>
+	    				
+	    				</ul>
+	    			</li>	
+					
 	    			<li class="search_list"><a href="#"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
 	    			<li class="search_list"><a href="#"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
 	    		</ul>
