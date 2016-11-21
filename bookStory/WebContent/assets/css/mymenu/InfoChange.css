@@ -1,0 +1,49 @@
+.aa {
+	width: 60%;
+	height: 100%;
+}
+
+.bb {
+	padding-top: 30px;
+	width: 60%;
+	height: 100%;
+	font-size: 25px;
+}
+
+.form-group {
+padding: 11px 11px 11px 13px;
+}
+
+.join_row {
+    padding: 8px 11px 11px 13px;
+    border-top: solid 1px #f0f0f0;
+    background: #fff;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.form-control-box {
+border: none;
+}
+
+.row_title {
+    display: inline-block;
+    height: 33px;
+    margin-left: 2px;
+    font-size: 8px;
+    font-weight: bold;
+    line-height: 33px;
+    color: #999;
+}
+
+
+div {
+display: block;
+}
+
+
+.btn btn-default {
+font-color: #E6E6E6
+}
+
