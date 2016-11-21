@@ -9,18 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import study.jsp.bookstory.helper.BaseController;
 
-@WebServlet("/admin/book_new_upload.do")
-public class AdminBookUpload extends BaseController{
+@WebServlet("/admin/admin_userInfo.do")
+public class AdminUserInfo extends BaseController{
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6585786554545935433L;
+	private static final long serialVersionUID = -8435966275594212677L;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String view = "admin/admin_book_upload";
+		String view = "admin/admin_userInfo";
 		
 		return view;
 	}

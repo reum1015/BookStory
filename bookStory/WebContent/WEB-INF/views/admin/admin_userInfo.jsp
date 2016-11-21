@@ -81,7 +81,7 @@
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -102,7 +102,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
@@ -192,10 +192,7 @@
     		
 	    	<!-- 어드민 컨텐트 영역 -->
 			<div class="col-sm-10 admin_content admin_userInfo_container">
-
-			
-
-				<h1 class="page-header">회원 관리</h1>
+			<h1 class="page-header">회원 관리</h1>
 			<table id="example" class="table table-hover table-bordered table-responsive user_info_table" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
@@ -462,11 +459,11 @@
 		
 	</div>	
 	
-	
+	</div>
 	
 				<!-- footer -->
 	<footer class="page-footer text-center" id="main_footer">
-		<div class="footer_container">
+		<div class="container footer_container">
 			<p class="text-center">
 			<h5>
 				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
@@ -483,7 +480,7 @@
 	
 	
 	
-</div>
+
 	
 
 

@@ -108,7 +108,7 @@
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -129,7 +129,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">

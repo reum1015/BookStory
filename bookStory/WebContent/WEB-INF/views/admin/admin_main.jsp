@@ -81,7 +81,7 @@
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -102,7 +102,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
@@ -171,12 +171,13 @@
 		<!-- 어드민 슬라이드 메뉴 영역 -->
 			<div class="col-md-2 amdin_main_slider">
 	    		<ul class="nav main_slider_nav" id="admin_main_menu">
-	    			<li class="search_list"><a href="admin_userInfo.jsp"><span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a></li>
-	    			<li class="search_list"><a href="#up_sub" data-toggle="collapse" data-parent="#admin_main_menu" id="accordion1">
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do"><span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a></li>
+	    			<li class="search_list"><a href="#upload_sub" data-toggle="collapse" data-parent="#admin_main_menu" id="accordion1">
 	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a>
-	    				<ul id="firstLink" class="collapse">
-	    					<li></li>
-	    				
+	    				<ul id="upload_sub" class="collapse">
+	    					<li>공지사항 업로드</li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/book_new_upload.do">작품 업로드</a></li>
+	    					<li>에피소드 업로드</li>
 	    				</ul>
 	    			</li>	
 					

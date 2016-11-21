@@ -139,8 +139,8 @@ body, html{height: 100%;}
 		
 		
 			/** amdmin main */
-			.admin_main_container, .admin_main_row{
-				height: 100%;
+			.admin_main_container{
+				
 			}
 			
 			
