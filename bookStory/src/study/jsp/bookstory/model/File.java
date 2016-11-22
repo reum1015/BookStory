@@ -2,14 +2,14 @@ package study.jsp.bookstory.model;
 
 public class File {
 
-	int id;							// 파일번호
-	String origin_name;		// 파일이름원본
-	String file_dir;				// 업로드 된 폴더 경로
-	String file_name;			// 저장된 파일 이름
-	String content_type;		// 파일형식
-	int file_size;					// 파일크기
-	String reg_date;			// 등록일자
-	String edit_date;			// 변경일자
+	private int id;							// 파일번호
+	private String origin_name;		// 파일이름원본
+	private String file_dir;				// 업로드 된 폴더 경로
+	private String file_name;			// 저장된 파일 이름
+	private String content_type;		// 파일형식
+	private int file_size;					// 파일크기
+	private String reg_date;			// 등록일자
+	private String edit_date;			// 변경일자
 	
 	public int getId() {
 		return id;

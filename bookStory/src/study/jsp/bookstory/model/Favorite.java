@@ -2,7 +2,7 @@ package study.jsp.bookstory.model;
 
 public class Favorite {
 
-	int id;		// 선호작품 번호
+	private int id;		// 선호작품 번호
 
 	public int getId() {
 		return id;

@@ -2,7 +2,7 @@ package study.jsp.bookstory.model;
 
 public class BookMark {
 
-	int id; 	// 북마크 번호
+	private int id; 	// 북마크 번호
 
 	public int getId() {
 		return id;

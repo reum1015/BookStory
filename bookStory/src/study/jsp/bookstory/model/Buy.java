@@ -2,10 +2,10 @@ package study.jsp.bookstory.model;
 
 public class Buy {
 
-	int id;						// 구매번호
-	String buy_day;			// 구입날짜
-	int buy_point;			// n개의 총구입가격
-	int allbuy_point;			// 책에 해당하는 전체 에피소드 가격
+	private int id;						// 구매번호
+	private String buy_day;			// 구입날짜
+	private int buy_point;			// n개의 총구입가격
+	private int allbuy_point;			// 책에 해당하는 전체 에피소드 가격
 	
 	public int getId() {
 		return id;

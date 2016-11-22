@@ -2,11 +2,11 @@ package study.jsp.bookstory.model;
 
 public class Rent {
 
-	int id;						// 대여번호
-	String rent_day;			// 대여날짜
-	String rent_outday;		// 대여끝나는 날짜
-	int rent_point;			// n개의 총 대여가격
-	int allrent_point;		// 책대여가격
+	private int id;						// 대여번호
+	private String rent_day;			// 대여날짜
+	private String rent_outday;		// 대여끝나는 날짜
+	private int rent_point;			// n개의 총 대여가격
+	private int allrent_point;		// 책대여가격
 	
 	public int getId() {
 		return id;

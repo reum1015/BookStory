@@ -2,15 +2,15 @@ package study.jsp.bookstory.model;
 
 public class Article {
 
-	int id;					// 게시글 번호
-	String category;	// 카테고리(공지)
-	String subject;		// 글제목
-	String text;			// 글내용
-	int hit;				// 조회수
-	String reg_date;	// 작성일자
-	String edit_date;	// 수정일자
-	String ip_address;	// 아이피 주소
-	int reported;		// 신고상태 유무
+	private int id;					// 게시글 번호
+	private String category;	// 카테고리(공지)
+	private String subject;		// 글제목
+	private String text;			// 글내용
+	private int hit;				// 조회수
+	private String reg_date;	// 작성일자
+	private String edit_date;	// 수정일자
+	private String ip_address;	// 아이피 주소
+	private int reported;		// 신고상태 유무
 	
 	public int getId() {
 		return id;

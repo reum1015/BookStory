@@ -2,10 +2,10 @@ package study.jsp.bookstory.model;
 
 public class Report {
 
-	int id;							// 신고번호
-	String reg_date;			// 신고당한 날짜
-	int target_memberid;		// 신고당한 회원id
-	int blind;						// 블라인드 처리 유무
+	private int id;							// 신고번호
+	private String reg_date;			// 신고당한 날짜
+	private int target_memberid;		// 신고당한 회원id
+	private int blind;						// 블라인드 처리 유무
 	
 	public int getId() {
 		return id;

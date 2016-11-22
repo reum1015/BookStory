@@ -2,18 +2,18 @@ package study.jsp.bookstory.model;
 
 public class Member {
 	
-	int id;						// 회원번호
-	String nick_name;		// 닉네임
-	String birth_date;		// 생일
-	String name;				// 이름
-	String user_id; 			// 아이디
-	String user_pw;			// 패스워드
-	String email;				// 이메일
-	String gender;			// 성별
-	String tel;				// 전화번호
-	int point;					// 포인트
-	String reg_date;		// 가입일자
-	String edit_date;		// 변경일자
+	private int id;						// 회원번호
+	private String nick_name;		// 닉네임
+	private String birth_date;		// 생일
+	private String name;				// 이름
+	private String user_id; 			// 아이디
+	private String user_pw;			// 패스워드
+	private String email;				// 이메일
+	private String gender;			// 성별
+	private String tel;				// 전화번호
+	private int point;					// 포인트
+	private String reg_date;		// 가입일자
+	private String edit_date;		// 변경일자
 	
 	public int getId() {
 		return id;

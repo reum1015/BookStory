@@ -2,13 +2,13 @@ package study.jsp.bookstory.model;
 
 public class Comment {
 
-	int id;						// 댓글 번호
-	String content;			// 댓글 내용
-	String reg_date;		// 작성 일자
-	String edit_date;		// 변경 일자
-	String ip_address;		// 아이피 주소
-	int reported;			// 신고 상태 유무
-	int blind;					// 블라인드 처리
+	private int id;						// 댓글 번호
+	private String content;			// 댓글 내용
+	private String reg_date;		// 작성 일자
+	private String edit_date;		// 변경 일자
+	private String ip_address;		// 아이피 주소
+	private int reported;			// 신고 상태 유무
+	private int blind;					// 블라인드 처리
 	
 	public int getId() {
 		return id;
