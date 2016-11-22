@@ -227,9 +227,15 @@ font-size: 25px;
 	margin-bottom: 20px;
 }
 
-div {
+.div {
 	display: block;
 }
+
+.sign_up_title {
+	margin-left: 130px;
+	width: 80%;		
+}
+
 
 /** 첫번째 박스 */
 .terms_chk_all {
@@ -326,6 +332,7 @@ padding: 11px 11px 11px 13px;
 }
 
 .form-control-box {
+	width: 100%;
 border: none;
 }
 
@@ -349,6 +356,26 @@ display: block;
 font-color: #E6E6E6
 }
 
+label.gender {
+	margin-bottom: 0;
+	padding: 0;]
+	oveflow: hidden;
+}
+
+label.gender > span {
+	display: block;
+	padding: 10px 15px;
+}
+
+label.gender > input[type=radio] {
+	display: none;
+}
+
+label.gender > input:checked + span {
+	display: block;
+	color: #fff;
+	background-color: #285e8e;
+}
 
 <!-- 회원가입 성공 -->
 .sign_up_su {

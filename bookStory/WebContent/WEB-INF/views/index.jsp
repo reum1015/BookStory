@@ -2,13 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <!DOCTYPE html>
 <html lang='ko'>
-	<head>
-	<!-- 최아름 -->
-	
-	<!-- 수정용 -->
-	
-	<!-- djdjdj -->
-	<!-- 깃허브 주석 -->
+<head>
 	<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
 			- ANSI(euc-kr), UTF-8 -->
 		<meta charset="utf-8"/>
