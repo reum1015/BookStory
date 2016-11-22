@@ -50,7 +50,7 @@
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- main css -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/LoginMain.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/InfoChange.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/plugins/pickadate/themes/default.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/plugins/pickadate/themes/default.date.css" />
@@ -112,8 +112,8 @@
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todayNovel/mon_novel.do">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novelList/novel_list.do">NoveList</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
+						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
 						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
 						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do" class="main_navi_admin active">mymenu</a></li>
        							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do">administrator</a></li>

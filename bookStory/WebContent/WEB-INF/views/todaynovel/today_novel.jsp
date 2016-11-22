@@ -13,34 +13,34 @@
 		maximum-scale=1.0,user-scalable=no">
 		
 		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="../assets/icon/book01.png"/>
+		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
 		<link rel="apple-touch-icon-precomposed" 
-			  href="../assets/icon/apple-touch-icon-144-precomposed.png"/>
+			  href="${pageContext.request.contextPath}/assets/icon/apple-touch-icon-144-precomposed.png"/>
 			  
 		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
 		
 		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="../assets/css/nanumfont.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
 		
 		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="../assets/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
 		
-		<link rel="stylesheet" type="text/css" href="../assets/css/navbarfont.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
 		
 		<!-- 반응형 웹을 지원하지 않을 경우 -->
-		<!-- <link rel="stylesheet" type="text/css" href="../assets/css/non-responsive.css"/> -->
+		<!-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/non-responsive.css"/> -->
 		
 		<!-- IE8 이하 버전 지원 -->
 	    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="../assets/js/html5shiv.js"></script>
-	    <script type="text/javascript" src="../assets/js/respond.min.js"></script>
+	    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/html5shiv.js"></script>
+	    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/respond.min.js"></script>
 	    <![endif]-->
 	
 	    <!-- IE10 반응형 웹 버그 보완 -->
 	    <!--[if gt IE 9]>
-	    <link rel="stylesheet" type="text/css" href="../assets/css/ie10.css" />
-	    <script type="text/javascript" src="../assets/js/ie10.js"></script>
+	    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/ie10.css" />
+	    <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ie10.js"></script>
 	    <![endif]-->
 	    
 	    <style type="text/css">
@@ -57,8 +57,8 @@
 		<script type="text/javascript">
 
 		</script>
-		<link rel="stylesheet" type="text/css" href="../assets/css/naviStateColor/todayNovelCommon.css"/>
-		<link rel="stylesheet" type="text/css" href="../assets/css/todaynovel.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/todayNovelCommon.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/todaynovel.css"/>
 	</head>
 	<body>
 
@@ -71,14 +71,14 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="../Login/SignUpAgree.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="../Login/Login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="index.html" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -99,16 +99,16 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="../index.html" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="todayNovel.html">TodayNovel</a></li>
-						        <li class="novelList"><a href="../novelList/novelList.html">NoveList</a></li>
-						        <li class="community"><a href="../community/articleList.html">Community</a></li>
-						        <li class="mymenu"><a href="../myMenu/recentNovelList.html">MyMenu</a></li>
-       							<li class="main_admin"><a href="../admin/adminUserInfo.html" class="main_navi_admin active">administrator</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
+						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do">MyMenu</a></li>
+       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do" class="main_navi_admin active">administrator</a></li>
        				    
         						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -155,9 +155,9 @@
     				<div class="container main_navi_sub_list">
     					<div class="" id="myNavbar_sub">
       						<ul class="nav navbar-nav">
-						        <li><a href="./adminUserInfo.html">회원 관리</a></li>
-						        <li><a href="./articlemanage.html">게시판 OR 댓글 관리</a></li>
-						        <li><a href="./articleUpload.html">작품 올리기</a></li>
+						        <li><a href="./adminUserInfo.do">회원 관리</a></li>
+						        <li><a href="./articlemanage.do">게시판 OR 댓글 관리</a></li>
+						        <li><a href="./articleUpload.do">작품 올리기</a></li>
      						</ul>
     					</div>
     				</div>
@@ -197,16 +197,18 @@
   					<div class="container main_navi_sub_list">
     					<div class="" id="myNavbar_sub">
       						<ul class="nav navbar-nav">
-						       <li><a href="./todayNovel.html">월요일</a></li>
-						        <li class="day_active"><a href="./tueNovel.html">화요일</a></li>
-						        <li><a href="./wenNovel.html">수요일</a></li>
-						        <li><a href="./thuNovel.html">목요일</a></li>
-						        <li><a href="./friNovel.html">금요일</a></li>
-						        <li><a href="./satNovel.html">토요일</a></li>
-						        <li><a href="./sunNovel.html">일요일</a></li>
+						        <li class="day_active"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">월요일</a></li>
+						        <li><a href="#">화요일</a></li>
+						        <li><a href="#">수요일</a></li>
+						        <li><a href="#">목요일</a></li>
+						        <li><a href="#">금요일</a></li>
+						        <li><a href="#">토요일</a></li>
+						        <li><a href="#">일요일</a></li>
 						        
      						</ul>
-     				<!-- 버튼 그룹 -->
+     					
+     					
+     					<!-- 버튼 그룹 -->
 						<div class="pull-right">
 							<!-- 장르선택 버튼 -->
     					  <div class="btn-group check_button">
@@ -235,6 +237,8 @@
 							
 							</div>
 							<!-- //버튼 그룹 -->
+							
+							
     					</div>
     				</div>
 			</nav>	
@@ -248,7 +252,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist01.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist01.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -279,7 +283,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist02.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist02.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -309,7 +313,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist03.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist03.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -340,7 +344,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -369,7 +373,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -398,37 +402,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
-								
-				                    <span class="caption list_info">
-				                    	<span class="genre">미스테리</span>
-				                    	<span class="subj v2">르네 마그리트의 '연인'</span>
-				                    	
-				                    	<span>
-				                    		<span class="author v2">유지나</span> 
-				                    		<span class="num_total">총 5회</span>
-				                    	</span>
-				                    	<span class="score_area">
-											<span class="icon_star"></span>
-											<em>9.94</em>
-										</span>
-				                    	<span class="favorite">
-											<span>관심</span>
-											<span>22,215</span>
-										</span>
-										<span class="emptybox">
-										
-										</span>
-									</span>
-							</a>
-						</div>
-					</div>
-					
-					           <!-- 항목4 -->
-             <div class="col-xs-6 col-sm-3 main_list_genre">
-						<div class="thumbnail main_thumbbox">
-							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -458,7 +432,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -488,7 +462,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -518,7 +492,7 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -548,7 +522,37 @@
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
 							<a href="#" class="main_alist">
-								<img alt="thumb" src="../assets/imgs/genre/mainlist04.png" class="main_list_img">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
+								
+				                    <span class="caption list_info">
+				                    	<span class="genre">미스테리</span>
+				                    	<span class="subj v2">르네 마그리트의 '연인'</span>
+				                    	
+				                    	<span>
+				                    		<span class="author v2">유지나</span> 
+				                    		<span class="num_total">총 5회</span>
+				                    	</span>
+				                    	<span class="score_area">
+											<span class="icon_star"></span>
+											<em>9.94</em>
+										</span>
+				                    	<span class="favorite">
+											<span>관심</span>
+											<span>22,215</span>
+										</span>
+										<span class="emptybox">
+										
+										</span>
+									</span>
+							</a>
+						</div>
+					</div>
+					
+					           <!-- 항목4 -->
+             <div class="col-xs-6 col-sm-3 main_list_genre">
+						<div class="thumbnail main_thumbbox">
+							<a href="#" class="main_alist">
+								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png" class="main_list_img">
 								
 				                    <span class="caption list_info">
 				                    	<span class="genre">미스테리</span>
@@ -614,15 +618,15 @@
 
 			<address>
 				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="../assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
+					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
 			</address>
 		</div>
 	</footer>
 
 	
 	<!-- Javascript -->
-	    <script src="../assets/js/jquery.min.js"></script>
-	    <script src="../assets/js/bootstrap.min.js"></script>
+	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 
 	</body>
 </html>

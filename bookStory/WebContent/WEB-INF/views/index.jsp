@@ -105,7 +105,7 @@
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="/index.do" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -126,7 +126,7 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="/index." class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
@@ -135,7 +135,7 @@
       						
       						
       							<!-- 주석용 깃허브 -->
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
 						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
 						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
 						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do">MyMenu</a></li>
@@ -201,7 +201,7 @@
 			      </div>
 			    </div>
 			    <div class="item">
-			      <a href="#"><img src="${pageContext.request.contextPath}/assets/imgs/carousel/02.png" alt="..."></a>
+			      <a href="#"><img src="${pageContext.request.contextPath}/assets/imgs/carousel/02.jpg" alt="..."></a>
 			      <div class="carousel-caption">
 			        	<h4>내용입력</h4>
 			      </div>
@@ -250,7 +250,7 @@
              <!-- 항목1 -->
              <div class="col-xs-6 col-sm-3 main_list_genre">
 						<div class="thumbnail main_thumbbox">
-							<a href="bookList/bookList.html" class="main_alist">
+							<a href="${pageContext.request.contextPath}/booklist/book_list.do" class="main_alist">
 								<span class="icon_new"></span>
 								<img alt="thumb" src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist01.png" class="main_list_img">
 								
