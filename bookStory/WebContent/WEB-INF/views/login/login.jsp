@@ -72,7 +72,7 @@
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -98,11 +98,11 @@
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.jsp">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novellist.jsp">NoveList</a></li>
-						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.jsp">Community</a></li>
-						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.jsp">MyMenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.jsp" class="main_navi_admin active">administrator</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
+						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novellist.do">NoveList</a></li>
+						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do">MyMenu</a></li>
+       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do" class="main_navi_admin active">administrator</a></li>
         						<li><a href="#" class="visible-xs signup_icon"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         						<li><a href="#" class="visible-xs login_icon"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
        							<li>

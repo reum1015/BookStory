@@ -67,14 +67,14 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -95,16 +95,16 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.jsp">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.jsp">NoveList</a></li>
-						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.jsp">Community</a></li>
-						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.jsp">MyMenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.jsp" class="main_navi_admin active">administrator</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
+						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do">MyMenu</a></li>
+       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do" class="main_navi_admin active">administrator</a></li>
         						<li><a href="#" class="visible-xs signup_icon"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         						<li><a href="#" class="visible-xs login_icon"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
        							<li>
@@ -158,14 +158,14 @@
 				</tr>
 				<tr>
 					<th class="text-center">공지</th>
-					<th class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></th>
+					<th class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></th>
 					<th class="text-center">작성자</th>
 					<th class="text-center">작성일</th>
 					<th class="text-center">413</th>
 				</tr>
 				<tr>
 					<th class="text-center">공지</th>
-					<th class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></th>
+					<th class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></th>
 					<th class="text-center">작성자</th>
 					<th class="text-center">작성일</th>
 					<th class="text-center">5434</th>
@@ -174,56 +174,56 @@
 			<tbody>
 				<tr>
 					<td class="text-center">8</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">13</td>
 				</tr>
 				<tr>
 					<td class="text-center">7</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">312</td>
 				</tr>
 				<tr>
 					<td class="text-center">6</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">43</td>
 				</tr>
 				<tr>
 					<td class="text-center">5</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">39</td>
 				</tr>
 				<tr>
 					<td class="text-center">4</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">908</td>
 				</tr>
 				<tr>
 					<td class="text-center">3</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">908</td>
 				</tr>
 				<tr>
 					<td class="text-center">2</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">908</td>
 				</tr>
 				<tr>
 					<td class="text-center">1</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.jsp">제목제목제목제목제목제목제목제목제목</a></td>
+					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
 					<td class="text-center">작성자</td>
 					<td class="text-center">작성일</td>
 					<td class="text-center">908</td>
@@ -231,7 +231,7 @@
 			</tbody>
 		</table>
 			<p class="navbar-right">
-				<a href="./article_write.jsp"><button type="submit" class="btn btn-default">글쓰기</button></a>
+				<a href="./article_write.do"><button type="submit" class="btn btn-default">글쓰기</button></a>
 			</p>
 		<div class="jb-center">
            <ul class="pagination">
