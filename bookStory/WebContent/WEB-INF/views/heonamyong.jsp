@@ -14,6 +14,8 @@
 <body>
 	<div class="container">
 		<h1>Hello JSP</h1>
+		index Test
+		
 	</div>
 </body>
 </html>
