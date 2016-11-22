@@ -53,7 +53,7 @@
 		</script>
 		
 		<!-- 스타일 sheet -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/myMenu.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/mymenuCommon.css" />
 	
 	</head>
@@ -67,14 +67,14 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -95,18 +95,19 @@
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-     				<a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand bookstoryhome">BookStory</a>
+     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
     			</div>
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.jsp">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.jsp">NoveList</a></li>
-						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.jsp">Community</a></li>
-						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.jsp">mymenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.jsp" class="main_navi_admin active">administrator</a></li>
-        						<li><a href="#" class="visible-xs signup_icon"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        						<li><a href="#" class="visible-xs login_icon"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
+						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do">MyMenu</a></li>
+       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_user_info.do" class="main_navi_admin active">administrator</a></li>
+       				    
+        						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
        							<li>
 				        			<form class="navbar-form navbar-left pull-left search_form visible-xs" role="search">
 							        	<fieldset>
@@ -155,12 +156,12 @@
     						 <table class="table table-striped table-bordered table-hover" id="table">
     						 <thead id="thead">
     						 	<tr id="tr">
-    						 	    <th id="th"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.jsp"><span>최근 본 작품</span></a></th>
-    						 		<th><a href="${pageContext.request.contextPath}/mymenu/favor_novel_list.jsp"><span>관심작품</span></a></th>
-    						 		<th><a href="${pageContext.request.contextPath}/mymenu/bookmark_list.jsp"><span>책갈피</span></a></th>
-    						 		<th><a href="${pageContext.request.contextPath}/mymenu/purchase_list.jsp"><span>구매내역</span></a></th>
-    						 		<th><a href="${pageContext.request.contextPath}/mymenu/my_point.jsp"><span>내 포인트</span></a></th>
-    						 		<th><a href="${pageContext.request.contextPath}/mymenu/my_info.jsp"><span>내정보</span></a></th>
+    						 	    <th id="th"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do"><span>최근 본 작품</span></a></th>
+    						 		<th><a href="${pageContext.request.contextPath}/mymenu/favor_novel_list.do"><span>관심작품</span></a></th>
+    						 		<th><a href="${pageContext.request.contextPath}/mymenu/bookmark_list.do"><span>책갈피</span></a></th>
+    						 		<th><a href="${pageContext.request.contextPath}/mymenu/purchase_list.do"><span>구매내역</span></a></th>
+    						 		<th><a href="${pageContext.request.contextPath}/mymenu/my_point.do"><span>내 포인트</span></a></th>
+    						 		<th><a href="${pageContext.request.contextPath}/mymenu/my_info.do"><span>내정보</span></a></th>
 
     						 		
     						 	</tr>
