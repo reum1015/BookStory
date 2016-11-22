@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-					<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
+	
+	<!-- 깃허브 주석 -->
+	<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
 			- ANSI(euc-kr), UTF-8 -->
 		<meta charset="utf-8"/>
 		<!-- IE의 호환성 보기 모드 금지 -->
@@ -65,7 +67,7 @@
 
 		.nav-tabs > li > a { margin-right: 2px; line-height: 1.42857; border: 1px solid transparent; border-radius: 0px; }
 	    
-
+		
 	    </style>
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -131,7 +133,11 @@
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.jsp">TodayNovel</a></li>
+      						
+      						
+      						
+      							<!-- 주석용 깃허브 -->
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
 						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.jsp">NoveList</a></li>
 						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.jsp">Community</a></li>
 						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.jsp">MyMenu</a></li>
