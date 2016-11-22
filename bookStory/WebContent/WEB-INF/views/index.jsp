@@ -108,8 +108,8 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->

@@ -67,8 +67,8 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/signUpAgree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/signUpAgree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
@@ -166,7 +166,7 @@
 						<input type="text" id="phone" class="form-control"
 							placeholder="가입시 등록했던 휴대전화 번호를 입력하세요." />
 					</div>
-					<a class="btn btn-success" href="${pageContext.request.contextPath}/login/id_confirm.jsp">확인</a>
+					<a class="btn btn-success" href="${pageContext.request.contextPath}/login/id_confirm.do">확인</a>
 				</fieldset>
 			</form>
 		</div>

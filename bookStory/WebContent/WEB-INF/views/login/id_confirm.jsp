@@ -60,14 +60,14 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -158,9 +158,9 @@
 					</div>
 					<br>
 					<div class="container login_button">
-					 <a class="btn btn-success" href="${pageContext.request.contextPath}/login/login.jsp">로그인하기</a> 
+					 <a class="btn btn-success" href="${pageContext.request.contextPath}/login/login.do">로그인하기</a> 
 					 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-					 <a class="btn btn-primary" href="${pageContext.request.contextPath}/login/forget_pw.jsp">비밀번호 찾기</a>
+					 <a class="btn btn-primary" href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기</a>
 					 </div>
 				</fieldset>
 			</form>

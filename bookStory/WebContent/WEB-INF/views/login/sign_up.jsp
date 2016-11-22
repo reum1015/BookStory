@@ -105,14 +105,14 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -190,7 +190,7 @@
 		<div class="container login_forms">
 		
 			<fieldset>
-				<legend>회원가입</legend>
+				<legend class="sign_up_title" >회원가입</legend>
 				<form id="join_form" method="post">
 
 					<div class="form-group">
@@ -225,10 +225,12 @@
 					
 							<div class="btn-group btn-group-justified" role="group" aria-label="${pageContext.request.contextPath}.">
 							  <div class="btn-group" role="group">
-							    <button type="button" class="btn btn-default gender">남자</button>
+							  <label class="btn btn-default gender">
+							  <input type="radio" name="gender" value="M" /><span>남자</span></label>							  
 							  </div>
 							  <div class="btn-group" role="group">
-							    <button type="button" class="btn btn-default gender">여자</button>
+							  <label class="btn btn-default gender">
+							  <input type="radio" name="gender" value="F" /><span>여자</span></label>		
 							  </div>
 							</div>										
 						
@@ -252,7 +254,7 @@
 					</div>
 					
 	                 <div class="form-group">
-					<a class="btn btn-block btn-success" href="${pageContext.request.contextPath}/login/sign_up_success.jsp">확인</a>
+					<a class="btn btn-block btn-success" href="${pageContext.request.contextPath}/login/sign_up_success.do">확인</a>
 					</div>
 					
 				</form>

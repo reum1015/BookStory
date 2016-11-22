@@ -65,8 +65,8 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
@@ -172,9 +172,9 @@
 						
 					<div class="container login_button">					
 						<ol class="list-inline">
-							<li><a href="${pageContext.request.contextPath}/login/forget_id.jsp">아이디찾기  /</a></li>
-							<li><a href="${pageContext.request.contextPath}/login/forget_pw.jsp">비밀번호 찾기  /</a></li>
-							<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp">회원가입</a></li>
+							<li><a href="${pageContext.request.contextPath}/login/forget_id.do">아이디찾기  /</a></li>
+							<li><a href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기  /</a></li>
+							<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do">회원가입</a></li>
 						</ol>
 						</div>
 

@@ -71,14 +71,14 @@ $("#chk_all").change(function() {
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
 				<div class="container main_header_image">
 					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.jsp" id="main_image_link"></a>
+						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
 					</h1>
 					<p class="sr-only">북스토리 메인 헤더영역</p>
 				</div>
@@ -151,11 +151,11 @@ $("#chk_all").change(function() {
 
 
 	<!-- 메인 화면 시작 -->
-	<div class="container main_container">
+	<div class="container mid">
 		<!-- 동의, 비동의 버튼 포함 클래스 -->
 		<div class="container login_forms">
 			<!-- 동의서 안에박스 -->
-			<div id="container terms_p">
+			<div class="container login_forms_su" style="width: 100%; background: #fff;">
 
 				<!-- 첫번째 박스 -->
 				<p class="terms_chk_all">
@@ -253,9 +253,9 @@ $("#chk_all").change(function() {
 
 			<div class="btn_group">
 
-				<a  href="./sign_up.jsp" class="btn btn-success btn-lg col-md-6">동의</a>
+				<a  href="./sign_up.do" class="btn btn-success btn-lg col-md-6">동의</a>
 
-				<a href="${pageContext.request.contextPath}/index.jsp" class="btn btn-default btn-lg col-md-6">비동의</a>
+				<a href="${pageContext.request.contextPath}/index.do" class="btn btn-default btn-lg col-md-6">비동의</a>
 
 			</div>
 			
