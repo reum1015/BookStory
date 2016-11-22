@@ -11,7 +11,7 @@ import study.jsp.helper.BaseController;
 /**
  * Servlet implementation class MyPoint
  */
-@WebServlet("/myMenu/my_point.do")
+@WebServlet("/mymenu/my_point.do")
 public class MyPoint extends BaseController {
 
 	private static final long serialVersionUID = 999332364233759918L;
@@ -19,7 +19,7 @@ public class MyPoint extends BaseController {
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "myMenu/my_point";
+		return "mymenu/my_point";
 	}
 	
 }

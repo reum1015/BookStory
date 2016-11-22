@@ -101,8 +101,8 @@
 				
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.jsp"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
    					</ul>
 				
 				<!-- 메인 헤더 이미지 -->
@@ -134,11 +134,11 @@
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.jsp">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.jsp">NoveList</a></li>
-						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.jsp">Community</a></li>
-						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.jsp">MyMenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.jsp" class="main_navi_admin active">administrator</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
+						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do">MyMenu</a></li>
+       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do" class="main_navi_admin active">administrator</a></li>
         						<li><a href="#" class="visible-xs signup_icon"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         						<li><a href="#" class="visible-xs login_icon"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
        							<li>
@@ -183,9 +183,9 @@
   							<div class="container main_navi_sub_list">
     							<div class="" id="myNavbar_sub">
 		      						<ul class="nav navbar-nav">
-								        <li><a href="${pageContext.request.contextPath}/admin/adminUserInfo.jsp">회원 관리</a></li>
-								        <li><a href="${pageContext.request.contextPath}/admin/replyManage.jsp">게시글 댓글 관리</a></li>
-								        <li><a href="${pageContext.request.contextPath}/admin/articleUpload.jsp">작품 올리기</a></li>
+								        <li><a href="${pageContext.request.contextPath}/admin/adminUserInfo.do">회원 관리</a></li>
+								        <li><a href="${pageContext.request.contextPath}/admin/replyManage.do">게시글 댓글 관리</a></li>
+								        <li><a href="${pageContext.request.contextPath}/admin/articleUpload.do">작품 올리기</a></li>
 		     						</ul>
 	    						</div>
     						</div>

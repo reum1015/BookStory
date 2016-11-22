@@ -11,7 +11,7 @@ import study.jsp.helper.BaseController;
 /**
  * Servlet implementation class OutSuccess
  */
-@WebServlet("/myMenu/out_success.do")
+@WebServlet("/mymenu/out_success.do")
 public class OutSuccess extends BaseController {
 
 	private static final long serialVersionUID = -1821869838946189084L;
@@ -19,7 +19,7 @@ public class OutSuccess extends BaseController {
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "myMenu/out_success";
+		return "mymenu/out_success";
 	}
 
 }

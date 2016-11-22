@@ -11,7 +11,7 @@ import study.jsp.helper.BaseController;
 /**
  * Servlet implementation class FavorNovelList
  */
-@WebServlet("/myMenu/favor_novel_list.do")
+@WebServlet("/mymenu/favor_novel_list.do")
 public class FavorNovelList extends BaseController {
 
 	private static final long serialVersionUID = 4396098289263241945L;
@@ -19,7 +19,7 @@ public class FavorNovelList extends BaseController {
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "myMenu/favor_novel_list";
+		return "mymenu/favor_novel_list";
 	}
 	
 

@@ -55,7 +55,7 @@
 		
 	
 		<!-- 스타일 sheet -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/myMenu.css" />
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/mymenuCommon.css" />
 	
 	</head>
@@ -102,11 +102,11 @@
     				<div class="container">
     					<div class="collapse navbar-collapse" id="myNavbar">
       						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
+						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/mon_novel.do">TodayNovel</a></li>
 						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
 						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
 						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do" class="main_navi_admin active">MyMenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_user_info.do">administrator</a></li>
+       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do">administrator</a></li>
        				    
         						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

@@ -50,7 +50,6 @@
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 		
 		<script type="text/javascript">
-
 		</script>
 		
 		<!-- admin css -->
@@ -145,6 +144,10 @@
 </nav>	
 
 
+
+
+					
+<!-- 메인 화면 시작 -->
 <div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
 		<!-- 어드민 슬라이드 메뉴 영역 -->
@@ -171,58 +174,71 @@
 	    		<h1 class="page-header" id="upload_title">Episode Upload
 			</h1>
 			
-				<h1 class="page-header" id="upload_title">작품업로드
-
-			</h1>
-			
-			
-			<!-- 신규작품 Article Upload 폼 시작 -->
-			<form class="form-horizontal new_upload" enctype="multipart/form-data">
+			<!-- 기존 Article Upload 폼 시작 -->
+			<form class="form-horizontal existing_upload" enctype="multipart/form-data">
 				<fieldset>
-					<legend>신규작품</legend>
+				
+					<legend>기존 작품</legend>
 				<div class="form-group">
-					<label class="control-label col-xs-2" for="writer">작가명 </label>
+					<label class="control-label col-xs-2" for="writer">검색 </label>
+					<div class="col-xs-10 ">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="작가명 혹은 작품명" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info" type="button" style="background-color: #CD8F49; border-color:#CD8F49">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+						
+						
+					</div>
+					</div>
+				</div>
+				
+				<!-- 작품 제목 -->
+				<div class="form-group">
+					<label class="control-label col-xs-2" for="user_title">작품 제목 </label>
 					<div class="col-xs-10">
-						<input type="text" class="form-control" id="writer" name="writer" placeholder="아이디를 입력해 주세요">
+												
+								<select class="form-control" id="genre">
+								<option>우아한 환생</option>
+								<option>두입술 사이</option>
+								<option>나쁜 관계</option>					
+							</select>
 						
 					</div>
 				</div>
+				
 							
 				<!--  장르 & 요일 선택 -->
 				<div class="form-group">
-			
-						<label for="genre" class="control-label col-xs-2">장르선택</label>
+
+						<label for="genre" class="control-label col-xs-2">장르</label>
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="genre">
 								<option>로맨스</option>
-								<option>SF&amp;판타지</option>
+								<option selected>SF&amp;판타지</option>
 								<option>무협</option>
 								<option>미스테리</option>
 								<option>퓨전</option>							
 							</select>
 						</div>
 						
-						<label for="dayby" class="control-label col-xs-2">요일선택</label>
+						<label for="dayby" class="control-label col-xs-2">요일</label>
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="genre">
 								<option>월요일</option>
 								<option>화요일</option>
 								<option>수요일</option>
 								<option>목요일</option>
-								<option>금요일</option>
+								<option selected>금요일</option>
 								<option>토요일</option>
 								<option>일요일</option>							
 							</select>
 						</div>						
 				</div>
 				
-				<!-- 작품 내용 -->
-				<div class="form-group">
-					<label class="control-label col-xs-2" for="user_title">작품 제목 </label>
-					<div class="col-xs-10">
-						<input type="text" class="form-control" id="user_title" name="user_title" placeholder="작품 제목을 입렵해 주세요 ">
-					</div>
-				</div>
+				
 				
 				<div class="form-group">
 					<label class="col-xs-2 control-label" for="user_content">작품 내용</label>
@@ -231,21 +247,16 @@
 					</div>
 				
 				</div>
-				<!-- 파일 업로드 -->
-			<div class="form-group">
-				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
-				<div class="col-xs-10">
-					<input type="file" class="form-control" name="file" multiple/>
-				</div>
-			</div>
+
 			<!-- 파일 업로드 -->
 			<div class="form-group">
-				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
+				<label for="file" class="col-xs-2 control-label">파일첨부(리스트)</label>
 				<div class="col-xs-10">
 					<input type="file" class="form-control" name="file" multiple/>
 				</div>
 			</div>
-			
+				
+				
 				<!-- 작가 코멘트 -->
 
 				
@@ -267,7 +278,7 @@
 			
 				
 			
-				</fieldset>
+			</fieldset>
 			</form><!-- 신규 Article Upload 폼 시작 -->
 					
 	    	
@@ -279,21 +290,6 @@
 
 	</div>
 			<!-- 메인 화면 끝 -->
-
-
-
-
-
-
-
-		
-		
-			
-			
-			
-		
-		
-		
 	
 	<!-- footer -->
 	<footer class="page-footer text-center" id="main_footer">

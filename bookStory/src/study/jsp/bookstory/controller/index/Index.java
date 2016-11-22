@@ -22,7 +22,7 @@ public class Index extends BaseController{
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String view = "";
-		view = "/index";
+		view = "index";
 		
 		return view;
 	}

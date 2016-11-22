@@ -11,7 +11,7 @@ import study.jsp.helper.BaseController;
 /**
  * Servlet implementation class InfoChange
  */
-@WebServlet("/myMenu/info_change.do")
+@WebServlet("/mymenu/info_change.do")
 public class InfoChange extends BaseController {
 
 	private static final long serialVersionUID = -1982796924127475707L;
@@ -19,7 +19,7 @@ public class InfoChange extends BaseController {
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "myMenu/info_change";
+		return "mymenu/info_change";
 	}
 	
 }

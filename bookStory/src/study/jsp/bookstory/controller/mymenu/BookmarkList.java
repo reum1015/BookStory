@@ -11,7 +11,7 @@ import study.jsp.helper.BaseController;
 /**
  * Servlet implementation class BookmarkList
  */
-@WebServlet("/myMenu/bookmark_list.do")
+@WebServlet("/mymenu/bookmark_list.do")
 public class BookmarkList extends BaseController {
 
 	/**
@@ -22,7 +22,7 @@ public class BookmarkList extends BaseController {
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "myMenu/bookmark_list";
+		return "mymenu/bookmark_list";
 	}
 	
 
