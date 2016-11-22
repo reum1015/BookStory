@@ -183,7 +183,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-2" for="writer">작가명 </label>
 					<div class="col-xs-10">
-						<input type="text" class="form-control" id="writer" name="writer" placeholder="아이디를 입력해 주세요">
+						<input type="text" class="form-control" id="writer" name="book_auther" placeholder="아이디를 입력해 주세요">
 						
 					</div>
 				</div>
@@ -193,25 +193,25 @@
 			
 						<label for="genre" class="control-label col-xs-2">장르선택</label>
 						<div class="col-xs-4 ">							
-								<select class="form-control" id="genre">
-								<option>로맨스</option>
-								<option>SF&amp;판타지</option>
-								<option>무협</option>
-								<option>미스테리</option>
-								<option>퓨전</option>							
+								<select class="form-control" id="genre" >
+								<option value="romance">로맨스</option>
+								<option value="fantasy">SF&amp;판타지</option>
+								<option value="heroism">무협</option>
+								<option value="mystery">미스테리</option>
+								<option value="fusion">퓨전</option>							
 							</select>
 						</div>
 						
 						<label for="dayby" class="control-label col-xs-2">요일선택</label>
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="genre">
-								<option>월요일</option>
-								<option>화요일</option>
-								<option>수요일</option>
-								<option>목요일</option>
-								<option>금요일</option>
-								<option>토요일</option>
-								<option>일요일</option>							
+								<option value="MON">월요일</option>
+								<option value="THE">화요일</option>
+								<option value="WEN">수요일</option>
+								<option value="THU">목요일</option>
+								<option value="FRI">금요일</option>
+								<option value="SAT">토요일</option>
+								<option value="MON">일요일</option>							
 							</select>
 						</div>						
 				</div>
@@ -220,42 +220,28 @@
 				<div class="form-group">
 					<label class="control-label col-xs-2" for="user_title">작품 제목 </label>
 					<div class="col-xs-10">
-						<input type="text" class="form-control" id="user_title" name="user_title" placeholder="작품 제목을 입렵해 주세요 ">
+						<input type="text" class="form-control" id="user_title" name="book_name" placeholder="작품 제목을 입렵해 주세요 ">
 					</div>
 				</div>
 				
-				<div class="form-group">
-					<label class="col-xs-2 control-label" for="user_content">작품 내용</label>
-					<div class="col-xs-10">
-						<textarea class="form-control" rows="15"></textarea>
-					</div>
-				
-				</div>
-				<!-- 파일 업로드 -->
+			
+			<!-- 파일 업로드 -->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="file" multiple/>
+					<input type="file" class="form-control" name="carousel_img" multiple/>
 				</div>
 			</div>
 			<!-- 파일 업로드 -->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="file" multiple/>
+					<input type="file" class="form-control" name="main_img" multiple/>
 				</div>
 			</div>
 			
 				<!-- 작가 코멘트 -->
 
-				
-				<div class="form-group">
-					<label class="col-xs-2 control-label" for="content">작가 코멘트</label>
-					<div class="col-xs-10">
-						<textarea class="ckeditor form-control" rows="3" id="content"></textarea>
-					</div>
-				
-				</div>
 				
 				    <div class="form-group">
 			      <div class="col-xs-offset-2 col-xs-10">
