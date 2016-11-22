@@ -1,4 +1,4 @@
-package study.jsp.bookstory.helper;
+package study.jsp.helper;
 
 public class PageHelper {
 	/***** GET파라미터로 처리할 값 *****/

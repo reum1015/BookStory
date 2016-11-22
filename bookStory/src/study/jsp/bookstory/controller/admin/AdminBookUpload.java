@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import study.jsp.bookstory.helper.BaseController;
+import study.jsp.helper.BaseController;
 
 @WebServlet("/admin/book_new_upload.do")
 public class AdminBookUpload extends BaseController{

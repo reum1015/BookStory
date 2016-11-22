@@ -1,4 +1,4 @@
-package study.jsp.bookstory.helper;
+package study.jsp.helper;
 
 public class Util {
 

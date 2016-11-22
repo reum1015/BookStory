@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import study.jsp.bookstory.helper.BaseController;
+import study.jsp.helper.BaseController;
 
 @WebServlet("/admin/admin_main.do")
 public class AdminMain extends BaseController{

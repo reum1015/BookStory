@@ -1,4 +1,4 @@
-package study.jsp.bookstory.helper;
+package study.jsp.helper;
 
 /**
  * 업로드 된 파일의 정보를 저장하기 위한 JavaBeans
