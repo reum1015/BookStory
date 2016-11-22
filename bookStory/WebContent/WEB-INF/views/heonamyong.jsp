@@ -16,6 +16,8 @@
 		<h1>Hello JSP</h1>
 		index Test
 		
+		
+		test add;;;;;;
 	</div>
 </body>
 </html>
