@@ -186,8 +186,8 @@
 	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a>
 	    				<ul id="upload_sub" class="collapse">
 	    					<li>공지사항 업로드</li>
-	    					<li><a href="${pageContext.request.contextPath}/admin/book_new_upload.do">신규 작품 업로드</a></li>
-	    					<li><a href="${pageContext.request.contextPath}/admin/new_episode_upload.do">에피소드 업로드</a></li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/novel_upload.do">신규 작품 업로드</a></li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/episode_upload.do">에피소드 업로드</a></li>
 	    				</ul>
 	    			</li>	
 					

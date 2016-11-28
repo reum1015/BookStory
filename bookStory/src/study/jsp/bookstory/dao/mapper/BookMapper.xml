@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!-- Member 테이블에 대한 CRUD 기능을 구현하기 위한 Mapper -->
+<mapper namespace="BookMapper">
+	
+	<!-- Beans 클래스의 객체이름(id)과 클래스 이름(type)를 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.Book" id="book">
+	<!-- 빈즈의 멤버 변수(property) 이름과 대상테이블의 컬럼(column)을 연결한다-->
+		<result property="id" column="id"/>
+		<result property="book_name" column="book_name"/>
+		<result property="book_author" column="book_author"/>
+		<result property="totalstar_rate" column="totalstar_rate"/>
+		<result property="total_hit" column="total_hit"/>
+		<result property="intro" column="intro"/>
+		<result property="genre" column="genre"/>
+		<result property="carousel_img" column="carousel_img"/>
+		<result property="main_img" column="main_img"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="edit_date" column="edit_date"/>
+		<result property="total_point" column="total_point"/>
+		<result property="rent_point" column="rent_point"/>
+		<result property="book_end" column="book_end"/>
+		<result property="total_favorite" column="total_favorite"/>
+	</resultMap>
+
+
+	<insert id="insertBook" parameterType="study.jsp.bookstory.model.Book" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO book(book_name, book_author,totalstar_rate,total_hit,intro,genre,carousel_img,main_img,
+										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date)
+	VALUES(#{book_name}, #{book_author},0,0, #{intro}, #{genre}, #{carousel_img}, #{main_img},
+					now(),now(),0,0,"N",0,#{daily_date})
+	</insert> 
+	
+
+</mapper>

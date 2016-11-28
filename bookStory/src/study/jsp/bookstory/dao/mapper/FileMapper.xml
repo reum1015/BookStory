@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!-- Member 테이블에 대한 CRUD 기능을 구현하기 위한 Mapper -->
+<mapper namespace="FileMapper">
+	
+	<!-- Beans 클래스의 객체이름(id)과 클래스 이름(type)를 명시한다. -->
+	<resultMap type="study.jsp.bookstory.dao.mapper.File" id="file">
+	<!-- 빈즈의 멤버 변수(property) 이름과 대상테이블의 컬럼(column)을 연결한다-->
+		<result property="id" column="id"/>
+		<result property="originName" column="origin_name"/>
+		<result property="fileDir" column="file_dir"/>
+		<result property="fileName" column="file_name"/>
+		<result property="contentType" column="content_type"/>
+		<result property="fileSize" column="file_size"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="editDate" column="edit_date"/>
+		<result property="episode_id" column="episode_id"/>
+		<result property="book_id" column="book_id"/>
+	</resultMap>
+
+	<insert id="insertBookFile" parameterType="study.jsp.mysite.model.BbsFile"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bbs_file(
+			origin_name,file_dir,file_name,content_type,file_size,
+			reg_date,edit_date,book_id
+		)VALUES(
+			#{originName},#{fileDir},#{fileName},
+			#{contentType},#{fileSize},now(),now(),
+			#{book_id}
+		)
+		
+	</insert>
+
+
+
+
+
+
+
+
+
+<!-- 
+	<insert id="insertFile" parameterType="study.jsp.mysite.model.BbsFile"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bbs_file(
+			origin_name,file_dir,file_name,content_type,file_size,
+			reg_date,edit_date,bbs_document_id
+		)VALUES(
+			#{originName},#{fileDir},#{fileName},
+			#{contentType},#{fileSize},now(),now(),
+			#{bbsDocumentId}
+		)
+		
+	</insert>
+	
+	하나의 게시물에 속한 파일목록을 조회한다
+	<select id="selectFileList" parameterType="study.jsp.mysite.model.BbsDocument"
+		resultMap="bbs_file">
+		
+		SELECT id,origin_name,file_dir,file_name,content_type,
+				file_size,reg_date,edit_date,bbs_document_id
+		FROM bbs_file
+		WHERE bbs_document_id=#{bbsDocumentId}
+	</select>
+	
+ 게시글에 속한 파일 전체 삭제 하기 
+	<delete id="deleteFileAll" parameterType="study.jsp.mysite.model.BbsDocument">
+		DELETE FROM bbs_file WHERE bbs_document_id=#{bbsDocumentId}
+	</delete>
+	
+	DB저장된 정보 선행 삭제 후 물리적 파일 삭제  
+		실제 저장되어 있는 파일을 삭제하기 위해 파일의 
+		경로를 조회하는 SQL문	
+		
+	하나의 파일을 조회한다. 
+	<select id="selectFile" parameterType="study.jsp.mysite.model.BbsDocument" resultMap="bbs_file">
+		SELECT file_dir,file_name FROM bbs_file WHERE id=#{id}
+	</select>	
+	
+ 하나의 파일을 삭제한다 
+	<delete id="deleteFile" parameterType="study.jsp.mysite.model.BbsDocument">
+		DELETE FROM bbs_file WHERE id=#{id}
+	</delete>
+		
+		
+
+
+	
+	<insert id="studentInsert" parameterType="study.jsp.myschool.model.Student"
+		useGeneratedKeys="true" keyProperty="studno">
+		INSERT INTO student(name, grade, userid, idnum, birthdate, tel, height, weight, deptno, profno)
+		VALUES(#{name}, #{grade}, #{userid}, #{idnum}, #{birthdate},#{tel}, #{height}, #{weight}, #{deptno},#{profno})
+	</insert>
+	
+		<update id="studentUpdate" parameterType="study.jsp.myschool.model.Student">
+		UPDATE student SET
+			name=#{name}, grade=#{grade}, userid=#{userid}, idnum=#{idnum}, birthdate=#{birthdate},
+			tel=#{tel}, weight=#{weight}, height=#{height}, deptno=#{deptno}, profno=#{profno}
+			WHERE studno=#{studno}
+	</update>
+	
+		<delete id="studentDelete" parameterType="study.jsp.myschool.model.Student">
+		DELETE FROM student
+		WHERE studno=#{studno}
+	</delete>
+	
+		<select id="studentSelectOne" parameterType="study.jsp.myschool.model.Student"
+		resultMap="student">
+		SELECT * FROM student
+		WHERE studno=#{studno}
+	</select>
+	
+	<select id="studentSelectAll" resultMap="student">
+		SELECT * FROM student
+	</select>
+	 -->
+	
+</mapper>

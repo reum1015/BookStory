@@ -30,6 +30,8 @@
 		<!-- bootstrap-tabs-x  -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.css"/>
 		
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		
 		<!-- 반응형 웹을 지원하지 않을 경우 -->
 		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
 		

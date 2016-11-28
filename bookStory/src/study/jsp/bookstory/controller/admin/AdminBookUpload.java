@@ -9,12 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import study.jsp.helper.BaseController;
 
-@WebServlet("/admin/book_new_upload.do")
+@WebServlet("/admin/novel_upload.do")
 public class AdminBookUpload extends BaseController{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6585786554545935433L;
 
 	@Override

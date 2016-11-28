@@ -19,7 +19,7 @@
 	
 
 	<mappers>
-	
+		<mapper resource="study/jsp/bookstory/dao/mapper/BookMapper.xml"/>
 	
 	
 	</mappers>
