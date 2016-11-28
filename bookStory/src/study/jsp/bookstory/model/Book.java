@@ -3,19 +3,20 @@ package study.jsp.bookstory.model;
 public class Book {
 	
 	private int id;							// 책번호
-	private String book_name;			// 책이름
-	private String book_auther;		// 작가이름
-	private String daily_date;			// 작품의 요일별 데이터
-	private double totalstar_rate;		// 합별점
+	private String book_name;				// 책이름
+	private String book_auther;				// 작가이름
+	private String daily_date;				// 작품의 요일별 데이터
+	private double totalstar_rate;			// 합별점
 	private int total_hit;					// 합조회수
 	private String intro;					// 책소개글
-	private String genre;				// 장르
-	private String carousel_img;		// 캐러셀이미지
-	private String main_img;			// 메인이미지
-	private String reg_date;			// 등록일자
-	private String edit_date;			// 변경일자
+	private String genre;					// 장르
+	private String carousel_img;			// 캐러셀이미지
+	private String main_img;				// 메인이미지
+	private String reg_date;				// 등록일자
+	private String edit_date;				// 변경일자
 	private int total_point;				// 총가격
-	private int rent_point;				// 총대여가격
+	private int rent_point;					// 총대여가격
+	
 	
 	public int getId() {
 		return id;

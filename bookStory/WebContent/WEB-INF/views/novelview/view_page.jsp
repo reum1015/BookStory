@@ -54,10 +54,6 @@
 <!-- main css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/novelview/novel_view.css"/>
 
-
-
-
-
 </head>
 
 <body>

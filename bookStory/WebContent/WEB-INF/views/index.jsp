@@ -4,7 +4,11 @@
 <html lang='ko'>
 <head>
 	
+	    
 	    <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+	    
+	    
+	    
 	    <style type="text/css">
 
 	    </style>

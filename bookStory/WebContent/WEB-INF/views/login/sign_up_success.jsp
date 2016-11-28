@@ -47,8 +47,7 @@
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- main css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/login_main.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
 
 
 

@@ -168,12 +168,9 @@
     		
 	    	<!-- 어드민 컨텐트 영역 -->
 			<div class="col-md-10 admin_content">
-	    		<h1 class="page-header" id="upload_title">Episode Upload
-			</h1>
+	    		
 			
-				<h1 class="page-header" id="upload_title">작품업로드
-
-			</h1>
+				<h1 class="page-header" id="upload_title">작품업로드</h1>
 			
 			
 			<!-- 신규작품 Article Upload 폼 시작 -->
