@@ -1,4 +1,8 @@
-			<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page trimDirectiveWhitespaces="true" %>
+
+<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
 			- ANSI(euc-kr), UTF-8 -->
 		<meta charset="utf-8"/>
 		<!-- IE의 호환성 보기 모드 금지 -->
@@ -8,20 +12,23 @@
 		maximum-scale=1.0,user-scalable=no">
 		
 		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="/bookStory/assets/icon/book01.png"/>
+		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
 		<link rel="apple-touch-icon-precomposed" 
-			  href="assets/icon/apple-touch-icon-144-precomposed.png"/>
+			  href="${pageContext.request.contextPath}/assets/icon/apple-touch-icon-144-precomposed.png"/>
 			  
 		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="/bookStory/assets/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
 		
 		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="/bookStory/assets/css/nanumfont.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
 		
 		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="/bookStory/assets/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
 		
-		<link rel="stylesheet" type="text/css" href="/bookStory/assets/css/navbarfont.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
+		
+		<!-- bootstrap-tabs-x  -->
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.css"/>
 		
 		<!-- 반응형 웹을 지원하지 않을 경우 -->
 		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
@@ -37,9 +44,3 @@
 	    <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
 	    <script type="text/javascript" src="assets/js/ie10.js"></script>
 	    <![endif]-->
-	    
-	    <style type="text/css">
-			
-	    </style>
-		
-		<script src="http://code.jquery.com/jquery-latest.js"></script>

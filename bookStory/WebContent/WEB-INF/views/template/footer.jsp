@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page trimDirectiveWhitespaces="true" %>
+
 	<footer class="page-footer text-center" id="main_footer">
 		<div class="container footer_container">
 			<p class="text-center">
@@ -8,12 +12,13 @@
 
 			<address>
 				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="/bookStory/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
+					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
 			</address>
 		</div>
 	</footer>
 
 	
 	<!-- Javascript -->
-	    <script src="/bookStory/assets/js/jquery.min.js"></script>
-	    <script src="/bookStory/assets/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.js"></script>
+	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>

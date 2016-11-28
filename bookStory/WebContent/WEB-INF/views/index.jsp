@@ -3,69 +3,10 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
-	<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
-			- ANSI(euc-kr), UTF-8 -->
-		<meta charset="utf-8"/>
-		<!-- IE의 호환성 보기 모드 금지 -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- 스마트 장치에서의 해상도 균일화 처리 -->
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
-		maximum-scale=1.0,user-scalable=no">
-		
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
-		<link rel="apple-touch-icon-precomposed" 
-			  href="${pageContext.request.contextPath}/assets/icon/apple-touch-icon-144-precomposed.png"/>
-			  
-		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
-		
-		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
-		
-		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
-		
-		<!-- bootstrap-tabs-x  -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.css"/>
-		
-		<!-- 반응형 웹을 지원하지 않을 경우 -->
-		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
-		
-		<!-- IE8 이하 버전 지원 -->
-	    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="assets/js/html5shiv.js"></script>
-	    <script type="text/javascript" src="assets/js/respond.min.js"></script>
-	    <![endif]-->
 	
-	    <!-- IE10 반응형 웹 버그 보완 -->
-	    <!--[if gt IE 9]>
-	    <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-	    <script type="text/javascript" src="assets/js/ie10.js"></script>
-	    <![endif]-->
-	    
+	    <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 	    <style type="text/css">
-	    .ui-tabs .ui-tabs-nav { list-style: none; position: relative; padding: 0; margin: 0; }
-		.ui-tabs .ui-tabs-nav li { position: relative; float: left; margin: 0 3px -2px 0; padding: 0; }
-		.ui-tabs .ui-tabs-nav li a { display: block; padding: 10px 20px; background: #f0f0f0; border: 2px #cccccc solid; border-bottom-color: #cccccc; outline: none; border-radius: 4px 4px 0px 0px; color: rgb(85, 85, 85); text-decoration: none; }
-		.ui-tabs .ui-tabs-nav li a.active { display: block; padding: 10px 20px; background: #ffffff; border: 2px #cccccc solid; border-bottom-color: #ffffff; outline: none; border-radius: 4px 4px 0px 0px; color: #000000; }
-		.ui-tabs .ui-tabs-nav li.ui-tabs-selected a { padding: 10px 20px 12px 20px; background: purple; border-bottom-style: none; border-radius: 0px 0px 0px 0px; }
-		.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: default; }
-		.ui-tabs .ui-tabs-nav li a, .ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { cursor: pointer; }
-		.ui-tabs .ui-tabs-panel { display: block; clear: both; border: 2px #cccccc solid; padding: 10px; border-radius: 0px 4px 4px 4px; }
-		.ui-tabs .ui-tabs-hide  { display: none; }
-		
-		.three ul.nav li a.primary-text {color: #008400;}
-		.three ul.nav li a.muted-text {color: #666666;}
-		.three ul.nav li a:hover {color: #222222;}
-		.three .nav-tabs > li { border-radius: 0}
-		.three .nav-tabs > li.active > a { border-top: 2px solid #008400;}
 
-		.nav-tabs > li > a { margin-right: 2px; line-height: 1.42857; border: 1px solid transparent; border-radius: 0px; }
-	    
-		
 	    </style>
 		
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
@@ -133,8 +74,6 @@
       						<ul class="nav navbar-nav">
       						
       						
-      						
-      							<!-- 주석용 깃허브 -->
 						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
 						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
 						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
@@ -197,19 +136,19 @@
 			    <div class="item active">
 			      <a href="#"><img src="${pageContext.request.contextPath}/assets/imgs/carousel/01.png" alt="..."></a>
 			      <div class="carousel-caption">
-			        	<h4>내용입력</h4>
+			        	<h2>여기에 내용이 출력 됩니다!!!!!</h2>
 			      </div>
 			    </div>
 			    <div class="item">
-			      <a href="#"><img src="${pageContext.request.contextPath}/assets/imgs/carousel/02.jpg" alt="..."></a>
+			      <a href="#"><img src="${pageContext.request.contextPath}/assets/imgs/carousel/02.png" alt="..."></a>
 			      <div class="carousel-caption">
-			        	<h4>내용입력</h4>
+			        	<h2>여기에 내용이 출력 됩니다!!!!!</h2>
 			      </div>
 			    </div>
 			       <div class="item">
 			      <a href="#"><img src="${pageContext.request.contextPath}/assets/imgs/carousel/03.png" alt="..."></a>
 			      <div class="carousel-caption">
-			        	<h4>내용입력</h4>
+			        	<h2>여기에 내용이 출력 됩니다!!!!!</h2>
 			      </div>
 			    </div>
 			  </div>
@@ -707,26 +646,7 @@
 			
 			<!-- footer include -->
 		
-			<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
-			<p class="text-center">
-			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
-			</h5>
-
-			<address>
-				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
-			</address>
-		</div>
-	</footer>
-
-	
-	<!-- Javascript -->
-		<script src="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 	</body>
 </html>
