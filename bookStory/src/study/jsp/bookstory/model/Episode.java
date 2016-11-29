@@ -31,7 +31,7 @@ public class Episode {
 	public double getStar_rate() {
 		return star_rate;
 	}
-	public void setStar_rate(double star_rate) {
+	public void setStar_rate(double star_rate	) {
 		this.star_rate = star_rate;
 	}
 	public int getStar_count() {
