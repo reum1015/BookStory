@@ -101,9 +101,4 @@ public class Episode {
 				+ reg_date + ", edit_date=" + edit_date + ", auther_comment=" + auther_comment + ", episode_buy="
 				+ episode_buy + ", episode_rent=" + episode_rent + ", book_id=" + book_id + "]";
 	}
-	
-	
-	
-	
-	
 }
