@@ -15,11 +15,11 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
-import study.jsp.bookstory.model.File;
+import study.jsp.bookstory.model.ImageFile;
 import study.jsp.bookstory.service.BookService;
-import study.jsp.bookstory.service.FileService;
+import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
-import study.jsp.bookstory.service.impl.FileServiceImpl;
+import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.FileInfo;
 import study.jsp.helper.RegexHelper;
@@ -38,7 +38,7 @@ public class AdminBookUpload_Ok extends BaseController{
 	UploadHelper upload;
 	BookService bookService;
 	RegexHelper regex;
-	FileService fileService;
+	ImageFileService imageFileService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,7 +51,7 @@ public class AdminBookUpload_Ok extends BaseController{
 		upload = UploadHelper.getInstance();
 		bookService = new BookServiceImpl(sqlSession, logger);
 		regex = RegexHelper.getInstance();
-		fileService = new FileServiceImpl(sqlSession, logger);
+		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -81,11 +81,11 @@ public class AdminBookUpload_Ok extends BaseController{
 		String genre = paramMap.get("genre");
 
 		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
-		logger.debug("book_name  ------> " + book_name);
+		logger.debug("book_name  -------> " + book_name);
 		logger.debug("book_author  -----> " + book_author);
-		logger.debug("daily_date  -------> " + daily_date);
+		logger.debug("daily_date  ------> " + daily_date);
 		logger.debug("intro  -----------> " + intro);
-		logger.debug("genre  ----------> " + genre);
+		logger.debug("genre  -----------> " + genre);
 
 		
 		/** (5) 입력값의 유효성 검사 */
@@ -104,48 +104,15 @@ public class AdminBookUpload_Ok extends BaseController{
 			web.redirect(null, "시놉시스를 입력하세요");
 			return null;
 		}
-
-		/** (6) 업로드 된 파일 정보 추출(첨부 파일 목록 처리) */
-		List<FileInfo> fileList = upload.getFileList();
 		
-		//업로드 된 프로필 사진 경로가 저장될 변수 
-		String carousel_img = null;
-		String main_img = null;
 		
-		//업로드 된 파일이 존재할 경우만 변수값을 할당한다.
-		if(fileList.size() > 0){
-			for(int i = 0; i <fileList.size(); i++){
-				//업로드 된 정보 하나 추출하여 데이터베이스에 저장하기위한 형태로 가공해야 한다.
-				FileInfo info = fileList.get(i);
-				
-				//DB에 저장하기 위한 항목 생성
-				File file = new File();
-				
-				//몇번 게시물에 속한 파일인지 지정한다.
-			
-				
-			}
-			
-				FileInfo info = fileList.get(0);
-				carousel_img = info.getFileDir() + "/" + info.getFileName();
-				
-				FileInfo info1 = fileList.get(1);
-				main_img = info1.getFileDir() + "/" + info.getFileName();
-			
-		}
-		
-		logger.debug("carousel_img  ----> " + carousel_img);
-		logger.debug("main_img  ----> " + main_img);
-		
-		/** (7) 전달받은 파라미터를 Beans객체에 담는다 */
+		//입력받은 파라미터를 Beans로 묶기
 		Book book = new Book();
-		book.setBook_auther(book_author);
+		book.setBook_author(book_author);
 		book.setBook_name(book_name);
-		book.setCarousel_img(carousel_img);
 		book.setDaily_date(daily_date);
 		book.setGenre(genre);
 		book.setIntro(intro);
-		book.setMain_img(main_img);
 		
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		try{
@@ -157,6 +124,43 @@ public class AdminBookUpload_Ok extends BaseController{
 			return null;
 		}
 		
+		
+	
+		/** (6) 업로드 된 파일 정보 추출(첨부 파일 목록 처리) */
+		List<FileInfo> fileList = upload.getFileList();
+		
+		//업로드 된 프로필 사진 경로가 저장될 변수 
+		
+		//업로드 된 파일이 존재할 경우만 변수값을 할당한다.
+		try{
+			for(int i = 0; i <fileList.size(); i++){
+				//업로드 된 정보 하나 추출하여 데이터베이스에 저장하기위한 형태로 가공해야 한다.
+				FileInfo info = fileList.get(i);
+				
+				//DB에 저장하기 위한 항목 생성
+				ImageFile file = new ImageFile();
+				
+				//몇번 Novel에 속한 파일인지 지정한다.
+				file.setBook_id(book.getId());
+				
+				// 데이터 복사
+				file.setOrigin_name(info.getOrginName());
+				file.setFile_dir(info.getFileDir());
+				file.setFile_name(info.getFileName());
+				file.setContent_type(info.getContentType());
+				file.setFile_size(info.getFileSize());
+				
+				//저장처리
+				imageFileService.insertBookFile(file);
+			}
+			
+		}catch (Exception e) {
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		}finally{
+			sqlSession.close();
+		}
+				
 		/** (9) 업로드가 완료되었으면 어드민 메인페이지로 이동 */
 		sqlSession.close();
 		web.redirect(web.getRootPath() + "/admin/admin_main.do", "업로드가 완성되었습니다.");

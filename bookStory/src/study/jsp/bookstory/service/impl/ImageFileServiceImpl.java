@@ -3,10 +3,10 @@ package study.jsp.bookstory.service.impl;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
-import study.jsp.bookstory.model.File;
-import study.jsp.bookstory.service.FileService;
+import study.jsp.bookstory.model.ImageFile;
+import study.jsp.bookstory.service.ImageFileService;
 
-public class FileServiceImpl implements FileService{
+public class ImageFileServiceImpl implements ImageFileService{
 
 	/** 처리 결과를 위한 Log4J객체 생성 */
 	Logger logger;
@@ -15,7 +15,7 @@ public class FileServiceImpl implements FileService{
 	SqlSession sqlSession;
 	
 	/** 생성자를 통한 객체 생성 */
-	public FileServiceImpl(SqlSession sqlSession, Logger logger) {
+	public ImageFileServiceImpl(SqlSession sqlSession, Logger logger) {
 		this.sqlSession = sqlSession;
 		this.logger = logger;
 	}
@@ -26,10 +26,10 @@ public class FileServiceImpl implements FileService{
 	 * 캐러셀, 메인 각각 호출
 	 */
 	@Override
-	public void insertBookFile(File file) throws Exception {
+	public void insertBookFile(ImageFile file) throws Exception {
 		// TODO Auto-generated method stub
 		try{
-			int result = sqlSession.insert("FileMapper.insertBookFile",file);
+			int result = sqlSession.insert("ImamgeFileMapper.insertBookFile",file);
 			if(result == 0){
 				throw new NullPointerException();
 			}
