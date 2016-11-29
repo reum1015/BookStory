@@ -140,10 +140,10 @@ public class UploadHelper {
 				/** 파일 형식의 데이터인 경우 --> fileList에 정보 분류 */
 				
 				/** 1) 파일의 정보를 추출한다 */
-				String fieldName = f.getFieldName(); 		// <input type='file' />의 name 속성
-				String orginName = f.getName(); 			// 파일의 원본 이름
-				String contentType = f.getContentType();	// 파일 형식
-				long fileSize = f.getSize(); 				// 파일 사이즈
+				String fieldName = f.getFieldName(); 				// <input type='file' />의 name 속성
+				String orginName = f.getName(); 						// 파일의 원본 이름
+				String contentType = f.getContentType();		// 파일 형식
+				long fileSize = f.getSize(); 									// 파일 사이즈
 				
 				
 				// 파일 사이즈가 없다면 조건으로 돌아간다.

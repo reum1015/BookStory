@@ -2,19 +2,17 @@ package study.jsp.bookstory.model;
 
 public class ImageFile {
 
-	private int id;							// 파일번호
+	private int id;											// 파일번호
 	private String origin_name;				// 파일이름원본
-	private String file_dir;				// 업로드 된 폴더 경로
-	private String file_name;				// 저장된 파일 이름
-	private String content_type;			// 파일형식
-	private long file_size;					// 파일크기
-	private String reg_date;				// 등록일자
-	private String edit_date;				// 변경일자
-	private int episode_id;					// 에피소드 아이디
-	private int book_id;					// 작품 아이디
-	private String image_carousel;			// 작품 캐러셀
-	private String image_bookmain;			// 작품 메인
-	private String image_episode;			// 작품 에피소드
+	private String file_dir;							// 업로드 된 폴더 경로
+	private String file_name;						// 저장된 파일 이름
+	private String content_type;				// 파일형식
+	private long file_size;							// 파일크기
+	private String reg_date;						// 등록일자
+	private String edit_date;						// 변경일자
+	private String image_type;					// <input type='file' />의 name 속성
+	private int episode_id;							// 에피소드 아이디
+	private int book_id;								// 작품 아이디
 	public int getId() {
 		return id;
 	}
@@ -63,6 +61,12 @@ public class ImageFile {
 	public void setEdit_date(String edit_date) {
 		this.edit_date = edit_date;
 	}
+	public String getImage_type() {
+		return image_type;
+	}
+	public void setImage_type(String image_type) {
+		this.image_type = image_type;
+	}
 	public int getEpisode_id() {
 		return episode_id;
 	}
@@ -75,39 +79,12 @@ public class ImageFile {
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
-	public String getImage_carousel() {
-		return image_carousel;
-	}
-	public void setImage_carousel(String image_carousel) {
-		this.image_carousel = image_carousel;
-	}
-	public String getImage_bookmain() {
-		return image_bookmain;
-	}
-	public void setImage_bookmain(String image_bookmain) {
-		this.image_bookmain = image_bookmain;
-	}
-	public String getImage_episode() {
-		return image_episode;
-	}
-	public void setImage_episode(String image_episode) {
-		this.image_episode = image_episode;
-	}
 	@Override
 	public String toString() {
 		return "ImageFile [id=" + id + ", origin_name=" + origin_name + ", file_dir=" + file_dir + ", file_name="
 				+ file_name + ", content_type=" + content_type + ", file_size=" + file_size + ", reg_date=" + reg_date
-				+ ", edit_date=" + edit_date + ", episode_id=" + episode_id + ", book_id=" + book_id
-				+ ", image_carousel=" + image_carousel + ", image_bookmain=" + image_bookmain + ", image_episode="
-				+ image_episode + "]";
+				+ ", edit_date=" + edit_date + ", image_type=" + image_type + ", episode_id=" + episode_id
+				+ ", book_id=" + book_id + "]";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
 }

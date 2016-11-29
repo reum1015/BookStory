@@ -18,9 +18,7 @@
 		<result property="file_size" column="file_size"/>
 		<result property="reg_date" column="reg_date"/>
 		<result property="edit_date" column="edit_date"/>
-		<result property="image_carousel" column="image_carousel"/>
-		<result property="image_bookmain" column="image_bookmain"/>
-		<result property="image_episode" column="image_episode"/>
+		<result property="image_type" column="image_type"/>
 		<result property="episode_id" column="episode_id"/>
 		<result property="book_id" column="book_id"/>
 		
@@ -30,14 +28,12 @@
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO imagefile(
 			origin_name,file_dir,file_name,content_type,file_size,
-			reg_date,edit_date,image_carousel,image_bookmain,book_id
+			reg_date,edit_date,book_id,image_type
 		)VALUES(
 			#{origin_name},#{file_dir},#{file_name},
 			#{content_type},#{file_size},now(),now(),
-			#{image_carousel},#{image_bookmain},
-			#{book_id}
+			#{book_id},#{image_type}
 		)
-		
 	</insert>
 
 

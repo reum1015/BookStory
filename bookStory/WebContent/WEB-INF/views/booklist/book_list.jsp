@@ -191,7 +191,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-12 block_12_1">
 				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
+					src="${pageContext.request.contextPath}/assets/imgs/img/booklist-01.jpg"
 					alt="에피소드_메인그림" />
 				<div class="col-xs-5">
 					<div class="episode_size">
@@ -211,7 +211,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-12 block_12_2">
 				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
+					src="${pageContext.request.contextPath}/assets/imgs/img/booklist-02.jpg"
 					alt="에피소드_메인그림" />
 				<div class="col-xs-5">
 					<div class="episode_size">
