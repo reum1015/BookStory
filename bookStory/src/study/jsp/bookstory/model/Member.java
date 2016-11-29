@@ -15,6 +15,8 @@ public class Member {
 	private String reg_date;		// 가입일자
 	private String edit_date;		// 변경일자
 	
+	
+	// fig
 	public int getId() {
 		return id;
 	}

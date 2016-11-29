@@ -8,14 +8,12 @@ public class Episode {
 	private int star_count;					// 별점찍은 횟수
 	private int hit;						// 조회수
 	private String content;					// 내용
-	private String main_img;				// 메인이미지
 	private String reg_date;				// 등록일자
 	private String edit_date;				// 변경일자
 	private String auther_comment;			// 작가의 말
 	private int episode_buy;				// 화구매 가격
 	private int episode_rent;				// 화랜트 가격
 	private int book_id;					// 책 번호
-	
 	public int getId() {
 		return id;
 	}
@@ -51,12 +49,6 @@ public class Episode {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getMain_img() {
-		return main_img;
-	}
-	public void setMain_img(String main_img) {
-		this.main_img = main_img;
 	}
 	public String getReg_date() {
 		return reg_date;
@@ -97,12 +89,10 @@ public class Episode {
 	@Override
 	public String toString() {
 		return "Episode [id=" + id + ", episode_name=" + episode_name + ", star_rate=" + star_rate + ", star_count="
-				+ star_count + ", hit=" + hit + ", content=" + content + ", main_img=" + main_img + ", reg_date="
-				+ reg_date + ", edit_date=" + edit_date + ", auther_comment=" + auther_comment + ", episode_buy="
-				+ episode_buy + ", episode_rent=" + episode_rent + ", book_id=" + book_id + "]";
+				+ star_count + ", hit=" + hit + ", content=" + content + ", reg_date=" + reg_date + ", edit_date="
+				+ edit_date + ", auther_comment=" + auther_comment + ", episode_buy=" + episode_buy + ", episode_rent="
+				+ episode_rent + ", book_id=" + book_id + "]";
 	}
-	
-	
 	
 	
 	

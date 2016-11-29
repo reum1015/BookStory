@@ -10,14 +10,10 @@ public class Book {
 	private int total_hit;							// 합조회수
 	private String intro;							// 책소개글
 	private String genre;						// 장르
-	private String carousel_img;			// 캐러셀이미지
-	private String main_img;				// 메인이미지
 	private String reg_date;					// 등록일자
 	private String edit_date;					// 변경일자
 	private int total_point;					// 총가격
 	private int rent_point;						// 총대여가격
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -30,11 +26,11 @@ public class Book {
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
-	public String getBook_auther() {
+	public String getBook_author() {
 		return book_author;
 	}
-	public void setBook_auther(String book_auther) {
-		this.book_author = book_auther;
+	public void setBook_author(String book_author) {
+		this.book_author = book_author;
 	}
 	public String getDaily_date() {
 		return daily_date;
@@ -66,18 +62,6 @@ public class Book {
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}
-	public String getCarousel_img() {
-		return carousel_img;
-	}
-	public void setCarousel_img(String carousel_img) {
-		this.carousel_img = carousel_img;
-	}
-	public String getMain_img() {
-		return main_img;
-	}
-	public void setMain_img(String main_img) {
-		this.main_img = main_img;
-	}
 	public String getReg_date() {
 		return reg_date;
 	}
@@ -102,14 +86,14 @@ public class Book {
 	public void setRent_point(int rent_point) {
 		this.rent_point = rent_point;
 	}
-	
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", book_name=" + book_name + ", book_auther=" + book_author + ", daily_date="
+		return "Book [id=" + id + ", book_name=" + book_name + ", book_author=" + book_author + ", daily_date="
 				+ daily_date + ", totalstar_rate=" + totalstar_rate + ", total_hit=" + total_hit + ", intro=" + intro
-				+ ", genre=" + genre + ", carousel_img=" + carousel_img + ", main_img=" + main_img + ", reg_date="
-				+ reg_date + ", edit_date=" + edit_date + ", total_point=" + total_point + ", rent_point=" + rent_point
-				+ "]";
+				+ ", genre=" + genre + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", total_point="
+				+ total_point + ", rent_point=" + rent_point + "]";
 	}
+	
+	
 	
 }
