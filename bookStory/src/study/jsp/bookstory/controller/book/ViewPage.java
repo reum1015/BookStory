@@ -18,6 +18,7 @@ public class ViewPage extends BaseController{
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String view = "/novelview/view_page";
 		
+        
 		return view;
 	}
 
