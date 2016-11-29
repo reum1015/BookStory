@@ -28,7 +28,7 @@
 
 	<insert id="insertBookFile" parameterType="study.jsp.bookstory.model.ImageFile"
 		useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO bbs_file(
+		INSERT INTO imagefile(
 			origin_name,file_dir,file_name,content_type,file_size,
 			reg_date,edit_date,image_carousel,image_bookmain,book_id
 		)VALUES(

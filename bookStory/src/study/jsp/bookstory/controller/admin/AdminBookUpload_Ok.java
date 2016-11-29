@@ -150,6 +150,8 @@ public class AdminBookUpload_Ok extends BaseController{
 				file.setContent_type(info.getContentType());
 				file.setFile_size(info.getFileSize());
 				
+				
+				
 				//저장처리
 				imageFileService.insertBookFile(file);
 			}

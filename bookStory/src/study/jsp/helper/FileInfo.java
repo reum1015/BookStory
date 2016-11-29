@@ -5,14 +5,14 @@ package study.jsp.helper;
  * - 이 클래스의 객체가 업로드 된 파일의 수 만큼 생성되어 List 형태로 보관된다.
  */
 public class FileInfo {
-	private String fieldName; 	 	//<input type="file">의 name속성
-	private String orginName; 		// 원본 파일 이름
+	private String fieldName; 	 			// <input type="file">의 name속성
+	private String orginName; 				// 원본 파일 이름
 	private String fileDir; 				// 파일이 저장되어 있는 서버상의 경로
-	private String fileName; 			// 서버상의 파일 이름
-	private String contentType; 	// 파일의 형식
-	private long fileSize; 				// 파일의 용량
-	private int book_id;					//책 번호
-	private int episode_id;				//에피소드 번호
+	private String fileName; 				// 서버상의 파일 이름
+	private String contentType; 			// 파일의 형식
+	private long fileSize; 					// 파일의 용량
+	private int book_id;					// 작품 번호
+	private int episode_id;					// 에피소드 번호
 	
 	
 	public String getFieldName() {
