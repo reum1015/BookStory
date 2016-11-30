@@ -15,6 +15,7 @@
 	<!-- 메인 헤더 -->
 	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>	
 	
+	
 
 	<!-- 메인 화면 시작 -->
 
