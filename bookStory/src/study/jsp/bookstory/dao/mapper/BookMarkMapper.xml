@@ -16,13 +16,20 @@
 	
 	</resultMap>
 
-
-	<insert id="insertBookMark" parameterType="study.jsp.bookstory.model.BookMark" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertAddBookMark" parameterType="study.jsp.bookstory.model.BookMark" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO bookmark (
 	   member_id, episode_id
 	) VALUES (
 	   #{member_id}, #{episode_id} 
 	   )
 	</insert> 
+	
+	<delete id="deleteRemoveBookMark" parameterType="study.jsp.bookstory.model.BookMark">
+         DELETE FROM bookmark WHERE id=#{id};
+	</delete>
+	
+	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark">
+	  SELECT id, member_id, episode_id FROM bookmark WHERE episode_id=#{episode_id} ORDER BY id DESC
+	</select>
 	
 </mapper>

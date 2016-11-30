@@ -18,7 +18,7 @@
 	</resultMap>
 
 
-	<insert id="insertFavorite" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertAddEpisode" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO favorite (
 	 member_id, book_id, gender, birthdate
 										)
@@ -26,6 +26,12 @@
 	 #{member_id}, #{book_id}, gender, birthdate
 	 )
 	</insert> 
+	
+	
+	<delete id="deleteRemoveEpisode" parameterType="study.jsp.bookstory.model.Favorite">
+	 
+	 DELETE FROM favorite WHERE id=#{id};	
+	</delete>
 	
 
 </mapper>

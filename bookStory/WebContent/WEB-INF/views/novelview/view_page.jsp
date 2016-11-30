@@ -48,16 +48,12 @@
 			<button type="button" class="nextpage col-lg-1 btn-default">&gt;</button>
 				</div>
 				
-				
-				
-				
 				<div id="title_bookmark" class="titlebar3 col-lg-1 col-sm-1">
-					<input type="checkbox" id="bmk" class="bmk">
-					<label for="bmk" title="책갈피 추가" class="icon_bookmark2 " id="bookmarkIcon">책갈피</label>
+					<a href="#">
+					<span class="icon_bookmark2">책갈피</span>					
+				</a>
+				
 				</div>
-				
-				
-				
 				<div id="title_bookmark" class="titlebar4 col-lg-2 col-sm-2">
 					<a>보기설정</a>
 				</div>				
