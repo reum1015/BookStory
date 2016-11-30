@@ -48,5 +48,27 @@ public class BookServiceImpl implements BookService{
 		}
 		
 	}
+	/**
+	 *  같은 이름의 작품이 있는지 검사
+	 * @param book
+	 * @throws Exception
+	 */
+	@Override
+	public int countEqualBookName(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("BookMapper.countEqualBookName", book);
+			if(result > 0){
+				throw new Exception();
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("같은 이름의 작품이 존재 합니다.");
+		}
+		return result;
+	}
 
 }

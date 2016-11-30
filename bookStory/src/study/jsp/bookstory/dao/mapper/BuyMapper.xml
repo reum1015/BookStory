@@ -41,13 +41,7 @@
 	UPDATE member SET point = #{point} - buy_point 
 	WHERE member_id = #{member_id} and #{point} > buy_point
 	</update>
-	
-	<!-- 회원의 allbuy_Point 수정 -->
-	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
-	UPDATE member SET point = #{point} - allbuy_point 
-	WHERE member_id = #{member_id} and #{point} > allbuy_point
-	</update>
-	
+
 	<!-- 구매 내역 조회 -->
 	<select id="selectBuyList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">
 	SELECT id, buy_day , allbuy_day FROM buy WHERE member_id = #{member_id} ORDER BY id DESC

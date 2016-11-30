@@ -11,5 +11,12 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public void insertBook(Book book)throws Exception;
+	
+	/**
+	 *  같은 이름의 작품이 있는지 검사
+	 * @param book
+	 * @throws Exception
+	 */
+	public int countEqualBookName(Book book)throws Exception;
 
 }

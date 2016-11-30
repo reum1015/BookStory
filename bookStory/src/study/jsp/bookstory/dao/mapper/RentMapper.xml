@@ -43,12 +43,6 @@
 	WHERE member_id = #{member_id} and #{point} > rent_point
 	</update>
 	
-	<!-- 회원의 allrent_Point 수정 -->
-	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
-	UPDATE member SET point = #{point} - allrent_point 
-	WHERE member_id = #{member_id} and #{point} > allrent_point
-	</update>
-	
 	<!-- 대여 내역 조회 -->
 	<select id="selectRentList" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
 	SELECT id, rent_day , allrent_day FROM rent WHERE member_id = #{member_id} ORDER BY id DESC

@@ -90,16 +90,31 @@ public class AdminBookUpload_Ok extends BaseController{
 
 		
 		/** (5) 입력값의 유효성 검사 */
-		if(!regex.isValue(book_name)){
-			sqlSession.close();
-			web.redirect(null, "책 제목을 입력하세요");
-			return null;
-		}
+		
 		if(!regex.isValue(book_author)){
 			sqlSession.close();
 			web.redirect(null, "작가이름을 입력하세요");
 			return null;
 		}
+		
+		if(!regex.isValue(genre)){
+			sqlSession.close();
+			web.redirect(null, "장르를 선택해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(daily_date)){
+			sqlSession.close();
+			web.redirect(null, "요일을 선택해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(book_name)){
+			sqlSession.close();
+			web.redirect(null, "작품 제목을 입력해 주세요");
+			return null;
+		}
+		
 		if(!regex.isValue(intro)){
 			sqlSession.close();
 			web.redirect(null, "시놉시스를 입력하세요");
@@ -115,9 +130,26 @@ public class AdminBookUpload_Ok extends BaseController{
 		book.setGenre(genre);
 		book.setIntro(intro);
 		
-		/** (8) Service를 통한 데이터베이스 저장 처리 */
+		
+		//작품 제목의 공백처리
+		String temp_bookName = book.getBook_name();
+		temp_bookName.trim();
+		String resultBookName = temp_bookName.replaceAll(" ", "");
+		
+		//공백이 제거된 작품제목 
+		Book book_title = new Book();
+		book_title.setBook_name(resultBookName);
+		
+		
+		/** (8) Service를 통한 데이터베이스 저장 처리 */		
 		try{
+			
+			//같은 작품의 제목이 있는지 검사
+			bookService.countEqualBookName(book_title);
+			
+			//없다면 작품 등록
 			bookService.insertBook(book);
+		
 		}catch (Exception e) {
 			// TODO: handle exception
 			sqlSession.close();
@@ -125,8 +157,6 @@ public class AdminBookUpload_Ok extends BaseController{
 			return null;
 		}
 		
-		
-	
 		/** (6) 업로드 된 파일 정보 추출(첨부 파일 목록 처리) */
 		List<FileInfo> fileList = upload.getFileList();
 		
@@ -141,7 +171,7 @@ public class AdminBookUpload_Ok extends BaseController{
 				//DB에 저장하기 위한 항목 생성
 				ImageFile file = new ImageFile();
 				
-				//몇번 Novel에 속한 파일인지 지정한다.
+				//몇번 작품에 속한 파일인지 지정한다.
 				file.setBook_id(book.getId());
 				
 				// 데이터 복사

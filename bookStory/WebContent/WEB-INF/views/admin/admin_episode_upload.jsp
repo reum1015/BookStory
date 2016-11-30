@@ -71,6 +71,7 @@
 	    	</form>
 	    	
 	    	
+	    	
 
 
 			<!-- 기존 Article Upload 폼 시작 -->
@@ -124,7 +125,7 @@
 				
 				
 				<div class="form-group">
-					<label class="col-xs-2 control-label" for="content">작품 내용</label>
+					<label class="col-xs-2 control-label" for="content">에피소드 내용</label>
 					<div class="col-xs-10">
 						<textarea class="form-control" rows="15" id="content" name="content"></textarea>
 					</div>

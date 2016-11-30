@@ -9,6 +9,57 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/admin.css"/>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/adminCommon.css"/>
 		
+		
+		<script type="text/javascript">
+		$(function() {
+			//캐러셀 이미지 Jpg or png만 등록 가능
+			$("#carousel").change(
+				    function(){
+				     val = $(this).val().split("\\");
+				     f_name = val[val.length-1]; //마지막 화일명
+				     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
+
+				     if(s_name.toLowerCase() == '.jpg' || s_name.toLowerCase() == '.png'){//허용 확장자 비교
+				      $("#carousel_file").html(f_name);
+				     }else{
+				      alert("jpg 이나 png 파일만 가능 합니다.");
+				      document.getElementById("carousel").value = "";
+				      return false;
+				     }
+			 });
+			
+			//메인 이미지 Jpg or png만 등록 가능
+			$("#main").change(
+				    function(){
+				     val = $(this).val().split("\\");
+				     f_name = val[val.length-1]; //마지막 화일명
+				     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
+
+				     if(s_name.toLowerCase() == '.jpg' || s_name.toLowerCase() == '.png'){//허용 확장자 비교
+				      $("#carousel_file").html(f_name);
+				     }else{
+				      alert("jpg 이나 png 파일만 가능 합니다.");
+				      document.getElementById("main").value = "";
+				      return false;
+				     }
+			 });
+		
+			//작품 등록시 이미지(캐러셀,메인) 유효성 검사
+			$("#novel_upload").submit(function() {
+				var carousel_value = document.getElementById('carousel').value
+				var main_value = document.getElementById('main').value
+				
+				if(carousel_value == null || carousel_value==""){
+					alert("캐러셀 이미지를 등록해 주세요");
+					return false;
+				}
+				if(main_value == null || main_value ==""){
+					alert("메인 이미지를 등록해 주세요");
+					return false;
+				}
+			});
+		})
+		</script>
 	</head>
 	<body>
 
@@ -62,6 +113,7 @@
 						<label for="genre" class="control-label col-xs-2">장르선택</label>
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="genre" name="genre" >
+								<option value="">-----장르 선택-----</option>
 								<option value="romance">로맨스</option>
 								<option value="fantasy">SF&amp;판타지</option>
 								<option value="heroism">무협</option>
@@ -73,6 +125,7 @@
 						<label for="dayby" class="control-label col-xs-2">요일선택</label>
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="daily_date" name="daily_date">
+								<option value="">-----요일 선택-----</option>
 								<option value="MON">월요일</option>
 								<option value="THE">화요일</option>
 								<option value="WEN">수요일</option>
@@ -105,14 +158,14 @@
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="carousel" multiple/>
+					<input type="file" class="form-control" name="carousel" id="carousel" multiple/>
 				</div>
 			</div>
 			<!-- 파일 업로드 -->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="main" multiple/>
+					<input type="file" class="form-control" name="main" id="main" multiple/>
 				</div>
 			</div>
 			

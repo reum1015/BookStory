@@ -35,10 +35,19 @@
 										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date)
 	VALUES(#{book_name}, #{book_author},0,0, #{intro}, #{genre},
 					now(),now(),0,0,"N",0,#{daily_date})
-	</insert> 
+	</insert>
+	
+	<!-- 같은 이름의 작품이 있는지 검사 
+			파라미터와 DB의 book_name 칼럼의 공백 제거 -->
+	<select id="countEqualBookName" parameterType="study.jsp.bookstory.model.Book" resultType="int">
+	select count(book_name) from book where replace(book_name,' ','')= #{book_name} 
+	</select>
 	
 	
 	<!-- 작품 검색 -->
+	
+	
+	
 	
 
 </mapper>
