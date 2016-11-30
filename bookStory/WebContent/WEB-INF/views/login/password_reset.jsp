@@ -7,7 +7,7 @@
     	<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 		
 		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
 			
 </head>
 <body>
