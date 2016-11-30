@@ -45,9 +45,65 @@
 					거래는 그에게 잔혹한 대가를 요구한다. 부조리한 운명에 거스르기 위한 공손천기의 필사적인 저항. 지금 죽은 자들의 왕,
 					사자왕(死者王)이 무림에 강림한다!</p>
 			</div>
-			<a href="${pageContext.request.contextPath}/novelview/view_page.do" class="btn btn-primary">첫회 보기 </a> <a href="#"
-				class="btn btn-default pull-right">전체 대여 </a> <a href="#"
-				class="btn btn-default pull-right">전체 구입 </a>
+			<a href="${pageContext.request.contextPath}/novelview/view_page.do"
+				class="btn btn-primary">첫회 보기 </a>
+			<!-- 책 전체 대여 -->
+			<button class="btn btn-default pull-right"
+				data-target="#book_all_rent" data-toggle="modal">전체 대여</button>
+			<!-- 전체 대여 모달 -->
+			<div class="modal fade" id="book_all_rent">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<!-- header -->
+						<div class="modal-header">
+							<!-- 닫기(x) 버튼 -->
+							<button type="button" class="close" data-dismiss="modal">×</button>
+							<!-- header title -->
+							<h4 class="modal-title">책 전체 대여</h4>
+						</div>
+						<!-- body -->
+						<div class="modal-body">모든 에피소드를 대여 하시겠습니까?</div>
+						<!-- Footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">확인</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 전체 대여 모달 끝 -->
+
+			<!-- 책 전체 구입 -->
+			<button class="btn btn-default pull-right"
+				data-target="#book_all_buy" data-toggle="modal">전체 구입</button>
+			<br />
+			<!-- 전체 구입 모달 -->
+			<div class="modal fade" id="book_all_buy">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<!-- header -->
+						<div class="modal-header">
+							<!-- 닫기(x) 버튼 -->
+							<button type="button" class="close" data-dismiss="modal">×</button>
+							<!-- header title -->
+							<h4 class="modal-title">책 전체 구입</h4>
+						</div>
+						<!-- body -->
+						<div class="modal-body">모든 에피소드를 구입 하시겠습니까?</div>
+						<!-- Footer -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">확인</button>
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 전체 구입 모달 끝 -->
+
 		</div>
 		<div class="col-xs-12 col-sm-12 block_12">
 			<div class="col-xs-6 col-sm-6 pull-left">
@@ -56,8 +112,62 @@
 				</h3>
 			</div>
 			<div class="col-xs-6 col-sm-6 btn_h3">
-				<button class="btn btn-default pull-right">대여</button>
-				<button class="btn btn-default pull-right">구입</button>
+				<!-- 에피소드 대여 -->
+				<button data-target="#book_rent" data-toggle="modal"
+					class="btn btn-default pull-right">대여</button>
+				<!-- 에피소드 대여 모달 -->
+				<div class="modal fade" id="book_rent">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<!-- header -->
+							<div class="modal-header">
+								<!-- 닫기(x) 버튼 -->
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<!-- header title -->
+								<h4 class="modal-title">에피소드 대여</h4>
+							</div>
+							<!-- body -->
+							<div class="modal-body">N개의 에피소드를 대여 하시겠습니까?</div>
+							<!-- Footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">확인</button>
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">취소</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 에피소드 대여 모달 끝-->
+
+				<!--  에피소드 구입 -->
+				<button data-target="#book_buy" data-toggle="modal"
+					class="btn btn-default pull-right">구입</button>
+				<!-- 에피소드 구입 모달 -->
+				<div class="modal fade" id="book_buy">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<!-- header -->
+							<div class="modal-header">
+								<!-- 닫기(x) 버튼 -->
+								<button type="button" class="close" data-dismiss="modal">×</button>
+								<!-- header title -->
+								<h4 class="modal-title">에피소드 구입</h4>
+							</div>
+							<!-- body -->
+							<div class="modal-body">N개의 에피소드를 구입 하시겠습니까?</div>
+							<!-- Footer -->
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">확인</button>
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">취소</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 에피소드 구입 모달 끝-->
+
 				<button class="btn btn-default pull-right">전체선택/해제</button>
 			</div>
 			<div class="col-xs-12 col-sm-12 block_12_1">
@@ -275,7 +385,7 @@
 					class="glyphicon glyphicon-chevron-right"></span></a></li>
 		</ul>
 	</div>
-	
+
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>

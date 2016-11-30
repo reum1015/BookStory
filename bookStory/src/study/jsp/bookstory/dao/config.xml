@@ -26,6 +26,8 @@
 		<mapper resource="study/jsp/bookstory/dao/mapper/FavoriteMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/ImageFileMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/MemberMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/BuyMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/RentMapper.xml"/>
 	</mappers>
 
 	
