@@ -21,9 +21,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void selectUserIdCount(Member member) throws Exception {
+	public int selectUserIdCount(Member member) throws Exception {
+		
+		int result = 0;
 		try{
-			int result = sqlSession.selectOne("MemberMapper.selectUserIdCount", member);
+			result = sqlSession.selectOne("MemberMapper.selectUserIdCount", member);
 			
 			// 중복된 데이터가 존재한다면?
 			if(result>0){
@@ -36,6 +38,7 @@ public class MemberServiceImpl implements MemberService {
 			throw new Exception("아이디 중복검사에 실패했습니다.");
 		}
 		
+		return result;
 	}
 
 	@Override

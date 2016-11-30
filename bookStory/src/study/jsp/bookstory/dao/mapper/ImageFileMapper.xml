@@ -35,6 +35,18 @@
 			#{book_id},#{image_type}
 		)
 	</insert>
+	
+	<insert id="insertEpisodeFile" parameterType="study.jsp.bookstory.model.ImageFile"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO imagefile(
+			origin_name,file_dir,file_name,content_type,file_size,
+			reg_date,edit_date,book_id,image_type
+		)VALUES(
+			#{origin_name},#{file_dir},#{file_name},
+			#{content_type},#{file_size},now(),now(),
+			#{book_id},#{image_type}
+		)
+	</insert>
 
 
 

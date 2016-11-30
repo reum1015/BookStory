@@ -235,17 +235,25 @@ public class SignUpSuccess extends BaseController {
 		member.setPoint(point);
 		member.setMember_level(member_level);
 		
+		System.out.println("1111111**************************************");
+		
 		
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		try{
-			memberService.insertMember(member);
+			
+			
+			
+				
+			
+			
+				memberService.insertMember(member);
 		}catch(Exception e){
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
 			// 예외가 발생한 경우이므로, 더이상 진행하지 않는다.
 			return null;
 		}
-		
+		System.out.println("22222222**************************************");
 		/** (9) 가입이 완료되었으므로 메인페이지로 이동 */
 		sqlSession.close();
 		web.redirect(web.getRootPath() + "/index.do", "회원가입이 완료되었습니다. 보너스 1000포인트 지급되었습니다.");

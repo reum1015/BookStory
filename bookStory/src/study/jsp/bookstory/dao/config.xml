@@ -19,8 +19,13 @@
 	
 
 	<mappers>
+		<mapper resource="study/jsp/bookstory/dao/mapper/ArticleMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/BookMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/BookMarkMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/EpisodeMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/FavoriteMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/ImageFileMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/MemberMapper.xml"/>
 	</mappers>
 
 	

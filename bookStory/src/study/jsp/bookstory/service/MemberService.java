@@ -8,7 +8,7 @@ public interface MemberService {
 	 * @param member - 아이디
 	 * @throws Exception - 중복된 데이터인 경우 예외 발생함
 	 */
-	public void selectUserIdCount(Member member)throws Exception;
+	public int selectUserIdCount(Member member)throws Exception;
 	
 	/**
 	 * 이메일 중복검사

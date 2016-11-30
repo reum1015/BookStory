@@ -49,9 +49,9 @@ public class AdminBookUpload_Ok extends BaseController{
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		upload = UploadHelper.getInstance();
-		bookService = new BookServiceImpl(sqlSession, logger);
 		regex = RegexHelper.getInstance();
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
+		bookService = new BookServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사*/
 		

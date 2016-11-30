@@ -22,7 +22,7 @@ public class ImageFileServiceImpl implements ImageFileService{
 	
 	
 	/**
-	 * 북 이미지 한개저장
+	 * 작품 이미지 한개저장
 	 * 캐러셀, 메인 각각 호출
 	 */
 	@Override
@@ -43,6 +43,31 @@ public class ImageFileServiceImpl implements ImageFileService{
 		}finally{
 			sqlSession.commit();
 		}
+	}
+
+	/**
+	 * 에피소드 이미지 저장
+	 * 에피소드 메인
+	 */
+	@Override
+	public void insertEpisodeFile(ImageFile file) throws Exception {
+		// TODO Auto-generated method stub
+				try{
+					int result = sqlSession.insert("ImamgeFileMapper.insertEpisodeFile",file);
+					if(result == 0){
+						throw new NullPointerException();
+					}
+				}catch (NullPointerException e) {
+					sqlSession.rollback();
+					throw new Exception("저장된 파일 정보가 없습니다.");
+				}catch (Exception e) {
+					sqlSession.rollback();
+					logger.error(e.getLocalizedMessage());
+					throw new Exception("파일정보 등록에 실패 했습니다.");
+				}finally{
+					sqlSession.commit();
+				}
+		
 	}
 
 }
