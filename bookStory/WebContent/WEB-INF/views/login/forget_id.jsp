@@ -4,7 +4,7 @@
 <html lang='ko'>
 <head>
 
-		<jsp:include page="${pageContext.request.contextPath}/template/common.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 		
 <!-- main css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
@@ -15,7 +15,7 @@
 <body>
 
 	<!-- 메인 헤더 -->
-	<jsp:include page="${pageContext.request.contextPath}/template/headerNavi.jsp"/>	
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>	
 
 
 	<!-- 메인 화면 시작 -->
@@ -50,6 +50,6 @@
 	<hr />
 
 <!-- footer -->
-	<jsp:include page="${pageContext.request.contextPath}/template/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>
