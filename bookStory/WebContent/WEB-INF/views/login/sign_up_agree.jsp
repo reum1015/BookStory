@@ -3,17 +3,29 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
-			
 			<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 			
 		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
+		
+		
+		<script type="text/javascript">
+		$(function() {
+			$("#chk_all").change(function() {
+				var is_check = $(this).is(":checked");
+			
+				$(".input_check").prop("checked", is_check);
+				
+			});
+		});
+		
+		</script>
+		
 </head>
 <body>
 
 	<!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>	
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>	
 
 	<!-- 메인 화면 시작 -->
 	<div class="container mid">

@@ -4,7 +4,7 @@
 <html lang='ko'>
 <head>
 
-		<jsp:include page="${pageContext.request.contextPath}/template/head.jsp"></jsp:include>
+		<jsp:include page="${pageContext.request.contextPath}/template/head.jsp"/>
 		
 <!-- main css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
