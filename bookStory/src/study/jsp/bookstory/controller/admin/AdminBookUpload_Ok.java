@@ -79,6 +79,7 @@ public class AdminBookUpload_Ok extends BaseController{
 		String daily_date = paramMap.get("daily_date");
 		String intro = paramMap.get("intro");
 		String genre = paramMap.get("genre");
+	
 
 		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
 		logger.debug("book_name  -------> " + book_name);
@@ -149,6 +150,9 @@ public class AdminBookUpload_Ok extends BaseController{
 				file.setFile_name(info.getFileName());
 				file.setContent_type(info.getContentType());
 				file.setFile_size(info.getFileSize());
+				file.setImage_type(info.getFieldName());
+				
+				
 				
 				//저장처리
 				imageFileService.insertBookFile(file);

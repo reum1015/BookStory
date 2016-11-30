@@ -186,14 +186,14 @@
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="carousel_img" multiple/>
+					<input type="file" class="form-control" name="carousel" multiple/>
 				</div>
 			</div>
 			<!-- 파일 업로드 -->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="main_img" multiple/>
+					<input type="file" class="form-control" name="main" multiple/>
 				</div>
 			</div>
 			
