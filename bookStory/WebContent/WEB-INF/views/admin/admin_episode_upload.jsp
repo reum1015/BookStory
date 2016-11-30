@@ -160,6 +160,17 @@
 					</div>
 				</div>
 				
+				
+				<!-- 회차 제목 -->
+				<div class="form-group">
+					<label class="control-label col-xs-2" for="user_title">회차 제목 </label>
+					<div class="col-xs-10">
+						<input type="text" class="form-control" placeholder="작가명 혹은 작품명" />					
+			
+						
+					</div>
+				</div>
+				
 							
 				<!--  장르 & 요일 선택 -->
 				<div class="form-group">
