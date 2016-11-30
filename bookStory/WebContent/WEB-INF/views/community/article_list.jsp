@@ -3,30 +3,8 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
-			<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
-			- ANSI(euc-kr), UTF-8 -->
-		<meta charset="utf-8"/>
-		<!-- IE의 호환성 보기 모드 금지 -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- 스마트 장치에서의 해상도 균일화 처리 -->
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
-		maximum-scale=1.0,user-scalable=no">
 		
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
-		<link rel="apple-touch-icon-precomposed" 
-			  href="assets/icon/apple-touch-icon-144-precomposed.png"/>
-			  
-		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
-		
-		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
-		
-		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
+	<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 		
 		<!-- 반응형 웹을 지원하지 않을 경우 -->
 		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
@@ -261,24 +239,7 @@
 	</div>
 	
 <!-- footer -->
-	<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
-			<p class="text-center">
-			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
-			</h5>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
-			<address>
-				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
-			</address>
-		</div>
-	</footer>
-
-	
-	<!-- Javascript -->
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
 </body>
 </html>
