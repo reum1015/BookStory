@@ -4,7 +4,7 @@ public class Member {
 	
 	private int id;						// 회원번호
 	private String nick_name;		// 닉네임
-	private String birth_date;		// 생일
+	private String birthdate;		// 생일
 	private String name;				// 이름
 	private String user_id; 			// 아이디
 	private String user_pw;			// 패스워드
@@ -14,9 +14,7 @@ public class Member {
 	private int point;					// 포인트
 	private String reg_date;		// 가입일자
 	private String edit_date;		// 변경일자
-	
-	
-	// fig
+	private String member_level;
 	public int getId() {
 		return id;
 	}
@@ -29,11 +27,11 @@ public class Member {
 	public void setNick_name(String nick_name) {
 		this.nick_name = nick_name;
 	}
-	public String getBirth_date() {
-		return birth_date;
+	public String getBirthdate() {
+		return birthdate;
 	}
-	public void setBirth_date(String birth_date) {
-		this.birth_date = birth_date;
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
 	}
 	public String getName() {
 		return name;
@@ -89,12 +87,20 @@ public class Member {
 	public void setEdit_date(String edit_date) {
 		this.edit_date = edit_date;
 	}
-	
+	public String getMember_level() {
+		return member_level;
+	}
+	public void setMember_level(String member_level) {
+		this.member_level = member_level;
+	}
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", nick_name=" + nick_name + ", birth_date=" + birth_date + ", name=" + name
+		return "Member [id=" + id + ", nick_name=" + nick_name + ", birthdate=" + birthdate + ", name=" + name
 				+ ", user_id=" + user_id + ", user_pw=" + user_pw + ", email=" + email + ", gender=" + gender + ", tel="
-				+ tel + ", point=" + point + ", reg_date=" + reg_date + ", edit_date=" + edit_date + "]";
+				+ tel + ", point=" + point + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", member_level="
+				+ member_level + "]";
 	}
 
+	
+	
 }

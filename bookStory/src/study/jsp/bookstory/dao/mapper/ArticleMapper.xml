@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 XML의 구조대로 구현될 클래스의 이름 => Impl클래스를 대체한다. -->
+<mapper namespace="ArticleMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.Article" id="article">
+	    <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+        <result property="id" column="id"/>
+        <result property="category" column="category"/>
+        <result property="subject" column="subject"/>
+        <result property="content" column="content"/>
+        <result property="hit" column="hit"/>
+        <result property="reg_date" column="reg_date"/>
+        <result property="edit_date" column="edit_date"/>
+        <result property="ip_address" column="ip_address"/>
+        <result property="reported" column="reported"/>
+        <result property="member_id" column="member_id"/>
+        
+	</resultMap>
+	
+	<!-- 게시글 정보 저장하기 -->
+	<insert id="insertArticle" parameterType="study.jsp.bookstory.model.Article" useGeneratedKeys="true" keyProperty="id">
+	  INSERT INTO article (
+	    category, subject, content, hit, reg_date, edit_date, ip_address,
+	    member_id
+	  ) VALUES (
+	    #{category}, #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}
+	     
+	  )
+	</insert>
+	
+	<!-- 게시물 하나에 대한 정보를 조회한다. -->
+	<select id="selectArticle" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
+	  SELECT id, category, subject, content, hit,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
+	         ip_address, member_id
+	  FROM   article
+	  WHERE  category=#{category} AND id=#{id}
+	</select>
+	
+	<!-- 이전 글 정보를 조회한다. -->
+	<select id="selectPrevArticle" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
+	  SELECT id, category, subject, content, hit,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
+	         ip_address, member_id
+	  FROM   article
+	  WHERE  category=#{category} AND id &lt; #{id}
+	  ORDER BY id DESC
+	  LIMIT  0, 1
+	</select>
+	
+	<!-- 다음 글 정보를 조회한다. -->
+	<select id="selectNextArticle" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
+	  SELECT id, category, subject, content, hit,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
+	         ip_address, member_id
+	  FROM   article
+	  WHERE  category=#{category} AND id &gt; #{id}
+	  ORDER BY id ASC
+	  LIMIT  0, 1
+	</select>
+	
+	<!-- 조회수 1 증가 -->
+	<update id="updateArticleHit" parameterType="study.jsp.bookstory.model.Article">
+	  UPDATE article SET hit=hit+1 WHERE category=#{category} AND id=#{id}
+	</update>
+	
+	<!-- 게시물 목록을 조회한다. -->
+	<select id="selectArticleList" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
+	  SELECT id, category, subject, hit,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+	  <if test="gallery==true">
+	      ,( SELECT concat(file_dir, '/', file_name) FROM bbs_file
+	         WHERE article_id=article.id
+	               AND
+	               content_type LIKE ('image/%')
+	         ORDER BY id ASC LIMIT 0, 1      
+	        ) AS image_path
+	  </if>
+	  FROM   article
+	  <where>
+	    category=#{category}
+	    <if test="subject != null or content != null">
+	      AND (
+	          <if test="subject != null">
+	            subject LIKE concat('%', #{subject}, '%')
+	          </if>
+	          
+	          <if test="content != null">
+	            OR content LIKE concat('%', #{content}, '%')
+	          </if>
+	      )
+	    </if>
+	  </where>
+	  ORDER BY id DESC
+	  LIMIT #{limit_start}, #{list_count}
+	</select>
+	
+	<!-- 전체 게시물 수를 조회한다. -->
+	<select id="selectArticleCount" parameterType="study.jsp.bookstory.model.Article" resultType="int">
+	  SELECT COUNT(id) FROM article
+	  <where>
+	    category=#{category}
+	    <if test="subject != null or content != null">
+	      AND (
+	          <if test="subject != null">
+	            subject LIKE concat('%', #{subject}, '%')
+	          </if>
+	          <if test="content != null">
+	            OR content LIKE concat('%', #{content}, '%')
+	          </if>
+	      )
+	    </if>
+	  </where>
+	</select>
+	
+	<!-- 자신의 게시물인지 검사한다. -->
+	<select id="selectArticleCountByMemberId" parameterType="study.jsp.bookstory.model.Article" resultType="int">
+	  SELECT COUNT(id) FROM article WHERE category=#{category} AND id=#{id} AND member_id=#{member_id}
+	</select>
+	
+	<!-- 비밀번호를 검사한다. -->
+	<select id="selectArticleCountByPw" parameterType="study.jsp.bookstory.model.Article" resultType="int">
+	  SELECT COUNT(id) FROM article WHERE category=#{category} AND id=#{id}
+	</select>
+	
+	<!-- 게시글 삭제하기 -->
+	<delete id="deleteArticle" parameterType="study.jsp.bookstory.model.Article">
+	  DELETE FROM article WHERE id=#{id}
+	</delete>
+	
+	<!-- 게시글 정보 수정하기 -->
+	<update id="updateArticle" parameterType="study.jsp.bookstory.model.Article">
+	  UPDATE article SET category=#{category}, email=#{email}, subject=#{subject}, content=#{content}, ip_address=#{ip_address}, edit_date=now() WHERE id=#{id}
+	</update>
+	
+	<!-- 특정 회원과의 게시물 참조 해제하기 -->
+	<update id="updateArticleMemberOut" parameterType="study.jsp.bookstory.model.Article">
+	  UPDATE article SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id}
+	</update>
+	
+</mapper>

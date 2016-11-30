@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
-	<jsp:include page="${pageContext.request.contextPath}/template/common.jsp"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/template/head.jsp"></jsp:include>
 				
 <!-- main css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- 메인 헤더 -->
-	<jsp:include page="${pageContext.request.contextPath}/template/headerNavi.jsp"/>	
+	<jsp:include page="${pageContext.request.contextPath}/template/head_nav.jsp"/>	
 	
 
 

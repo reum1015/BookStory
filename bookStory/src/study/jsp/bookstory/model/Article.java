@@ -5,13 +5,13 @@ public class Article {
 	private int id;					// 게시글 번호
 	private String category;	// 카테고리(공지)
 	private String subject;		// 글제목
-	private String text;			// 글내용
+	private String content;			// 글내용
 	private int hit;				// 조회수
 	private String reg_date;	// 작성일자
 	private String edit_date;	// 수정일자
 	private String ip_address;	// 아이피 주소
 	private int reported;		// 신고상태 유무
-	
+	private int member_id;
 	public int getId() {
 		return id;
 	}
@@ -30,11 +30,11 @@ public class Article {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	public String getText() {
-		return text;
+	public String getContent() {
+		return content;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public int getHit() {
 		return hit;
@@ -66,12 +66,20 @@ public class Article {
 	public void setReported(int reported) {
 		this.reported = reported;
 	}
-	
+	public int getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
+	}
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", category=" + category + ", subject=" + subject + ", text=" + text + ", hit="
-				+ hit + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", ip_address=" + ip_address
-				+ ", reported=" + reported + "]";
+		return "Article [id=" + id + ", category=" + category + ", subject=" + subject + ", content=" + content
+				+ ", hit=" + hit + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", ip_address=" + ip_address
+				+ ", reported=" + reported + ", member_id=" + member_id + "]";
 	}
+	
+	
+	
 	
 }
