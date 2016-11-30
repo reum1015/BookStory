@@ -29,7 +29,6 @@
 	    member_id
 	  ) VALUES (
 	    #{category}, #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}
-	     
 	  )
 	</insert>
 	

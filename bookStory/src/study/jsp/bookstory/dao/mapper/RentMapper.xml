@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 XML의 구조대로 구현될 클래스의 이름 => Impl클래스를 대체한다. -->
+<mapper namespace="RentMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.Rent" id="rent">
+		<result property="id" column="id"/>
+		<result property="rent_day" column="rent_day"/>
+		<result property="rent_outday" column="rent_outday"/>
+		<result property="rent_point" column="rent_point"/>
+		<result property="allrent_point" column="allrent_point"/>
+		<result property="member_id" column="member_id"/>
+		<result property="episode_id" column="episode_id"/>
+	</resultMap>
+	
+	<!-- 에피소드 N개 RENT -->
+	<insert id="insertEpisodeItem" parameterType="study.jsp.bookstory.model.Rent"
+		useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO rent (
+		rent_day, rent_outday, rent_point, member_id, episode_id
+	) VALUES (
+	  #{rent_day}, #{rent_outday}, #{rent_point}, #{member_id}, #{episode_id} 
+	)
+	</insert>
+	
+	<!-- 에피소드 전체 RENT -->
+	<insert id="insertAllEpisode" parameterType="study.jsp.bookstory.model.Rent"
+		useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO rent (
+		rent_day, rent_outday, allrent_point, member_id, episode_id
+	) VALUES (
+	  #{rent_day}, #{rent_outday}, #{allrent_point}, #{member_id}, #{episode_id} 
+	)
+	</insert>
+	
+	<!-- 회원의 rent_Point 수정 -->
+	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
+	UPDATE member SET point = #{point} - rent_point 
+	WHERE member_id = #{member_id} and #{point} > rent_point
+	</update>
+	
+	<!-- 회원의 allrent_Point 수정 -->
+	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
+	UPDATE member SET point = #{point} - allrent_point 
+	WHERE member_id = #{member_id} and #{point} > allrent_point
+	</update>
+	
+	<!-- 대여 내역 조회 -->
+	<select id="selectRentList" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
+	SELECT id, rent_day , allrent_day FROM rent WHERE member_id = #{member_id} ORDER BY id DESC
+	</select>
+	
+</mapper>
