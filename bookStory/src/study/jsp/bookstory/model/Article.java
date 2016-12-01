@@ -12,6 +12,10 @@ public class Article {
 	private String ip_address;	// 아이피 주소
 	private int reported;		// 신고상태 유무
 	private int member_id;
+	
+	// 페이지 구현을 위해서 추가된 값
+	private int limit_start;
+	private int list_count;
 	public int getId() {
 		return id;
 	}
@@ -72,12 +76,26 @@ public class Article {
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
+	public int getLimit_start() {
+		return limit_start;
+	}
+	public void setLimit_start(int limit_start) {
+		this.limit_start = limit_start;
+	}
+	public int getList_count() {
+		return list_count;
+	}
+	public void setList_count(int list_count) {
+		this.list_count = list_count;
+	}
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", category=" + category + ", subject=" + subject + ", content=" + content
 				+ ", hit=" + hit + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", ip_address=" + ip_address
-				+ ", reported=" + reported + ", member_id=" + member_id + "]";
+				+ ", reported=" + reported + ", member_id=" + member_id + ", limit_start=" + limit_start
+				+ ", list_count=" + list_count + "]";
 	}
+	
 	
 	
 	

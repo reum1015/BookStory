@@ -56,15 +56,17 @@
 							</div>
 							
 					<div  id="idDiv" class="join_row">
-                        <input type="text" id="nick_name" name="nick_name" class="form-control-box" placeholder="닉네임" />
+                        <input type="text" id="nick_name" name="nick_name"
+							class="form-control-box" placeholder="닉네임" />
                            </div>
 							
 							<div  id="idDiv" class="join_row">
-                        <input type="password" id="user_pw" name="user_pw" class="form-control-box" placeholder="비밀번호" />
+                        <input type="password" id="user_pw" name="user_pw"
+							class="form-control-box" placeholder="비밀번호" />
                            </div>
                            
 							<div  id="idDiv" class="join_row">
-							<input type="password" id="user_pw_re" name="user_pw_re" class="form-control-box"
+							<input type="password" id="user_pw" name="user_pw_re" class="form-control-box"
 							placeholder="비밀번호 재확인" /> </div>
 					</div>
 
@@ -77,7 +79,7 @@
 						<div  id="idDiv" class="join_row">
 						
 					
-							<div class="btn-group btn-group-justified" role="group">
+							<div class="btn-group btn-group-justified" role="group" aria-label="${pageContext.request.contextPath}.">
 							  <div class="btn-group" role="group">
 							  <label class="btn btn-default gender">
 							  <input type="radio" name="gender" value="M" /><span>남자</span></label>							  
@@ -98,19 +100,21 @@
 					</div>
 					
 					<div class="form-group">
-					  <div  id="idDiv" class="join_row">
+							<div  id="idDiv" class="join_row">
 						<input type="email" id="email" name="email" class="form-control-box"
 							placeholder="이메일" />
-					  </div>
-					  <div  id="idDiv" class="join_row">
-						<input type="tel" id="tel" name="tel" class="form-control-box" placeholder="휴대전화번호" />
-				      </div>
+							</div>
+									<div  id="idDiv" class="join_row">
+							<input type="tel" id="tel" name="tel" class="form-control-box" placeholder="휴대전화번호" />
+							</div>
 					</div>
 					
-	                <div class="form-group">
-					  <button type="submit" class="btn btn-warning col-xs-6">가입하기</button>
-                      <button type="reset" class="btn btn-danger col-xs-6">다시작성</button>
-					</div>
+	                 <div class="form-group">
+                        <div>
+                           <button type="submit" class="btn btn-warning col-md-6">가입하기</button>
+                           <button type="reset" class="btn btn-danger col-md-6">다시작성</button>
+                        </div>
+                     </div>
 					
 				</form>
 			</fieldset>

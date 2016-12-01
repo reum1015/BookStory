@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
@@ -48,111 +50,125 @@
 					<th class="text-center">글번호</th>
 					<th class="text-center">제목</th>
 					<th class="text-center">작성자</th>
-					<th class="text-center">작성일</th>
 					<th class="text-center">조회수</th>
-				</tr>
-				<tr>
-					<th class="text-center">공지</th>
-					<th class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></th>
-					<th class="text-center">작성자</th>
 					<th class="text-center">작성일</th>
-					<th class="text-center">413</th>
-				</tr>
-				<tr>
-					<th class="text-center">공지</th>
-					<th class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></th>
-					<th class="text-center">작성자</th>
-					<th class="text-center">작성일</th>
-					<th class="text-center">5434</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td class="text-center">8</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">13</td>
-				</tr>
-				<tr>
-					<td class="text-center">7</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">312</td>
-				</tr>
-				<tr>
-					<td class="text-center">6</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">43</td>
-				</tr>
-				<tr>
-					<td class="text-center">5</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">39</td>
-				</tr>
-				<tr>
-					<td class="text-center">4</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">908</td>
-				</tr>
-				<tr>
-					<td class="text-center">3</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">908</td>
-				</tr>
-				<tr>
-					<td class="text-center">2</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">908</td>
-				</tr>
-				<tr>
-					<td class="text-center">1</td>
-					<td class="text-center"><a href="${pageContext.request.contextPath}/community/article_read.do">제목제목제목제목제목제목제목제목제목</a></td>
-					<td class="text-center">작성자</td>
-					<td class="text-center">작성일</td>
-					<td class="text-center">908</td>
-				</tr>
+				<c:choose>
+          <c:when test="${fn:length(articleList) > 0}">
+            <c:forEach var="article" items="${articleList}">
+              <tr>
+                <td class="text-center">${article.id}</td>
+                <td>
+                  <c:url var="readUrl" value="/community/article_read.do">
+                    <c:param name="article_id" value="${article.id}"/>
+                  </c:url>
+                  <a href="${readUrl}">${article.subject}</a>
+                </td>
+                <td class="text-center">${article.member_id}</td>
+                <td class="text-center">${article.hit}</td>
+                <td class="text-center">${article.reg_date}</td>
+              </tr>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <tr>
+              <td colspan="5" class="text-center" style="line-height: 100px">조회된 글이 없습니다.</td>
+            </tr>
+          </c:otherwise>
+        </c:choose>
 			</tbody>
 		</table>
-			<p class="navbar-right">
-				<a href="./article_write.do"><button type="submit" class="btn btn-default">글쓰기</button></a>
-			</p>
-		<div class="jb-center">
-           <ul class="pagination">
-              <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-            </ul>
-          </div>
-          <div class="navbar">
-          <form class="navbar-form navbar-right" role="search">
-          	<select class="form-control">
-          		<option>전체</option>
-          		<option>제목</option>
-          		<option>글번호</option>
-          		<option>작성자</option>
-          	</select>
-			<div class="form-group">
-		  		<input type="text" class="form-control" placeholder="게시글 검색">
-			</div>
-			<button type="submit" class="btn btn-default">검색</button>
-	      </form>
-	      </div>
+			<!-- 검색폼 + 글 쓰기 버튼 시작 -->
+<div class="clearfix">
+  <!-- 검색 폼 -->
+  <div class="pull-left">
+    <form method="get" action="${pageContext.request.contextPath}/community/article_list.do" style="width: 200px">
+      
+      <div class="input-group">
+        <input type="text" name="keyword" class="form-control" placeholder="제목,내용 검색" value="${keyword}"/>
+        <span class="input-group-btn">
+          <button class="btn btn-warning" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+  <!-- 글 쓰기 버튼 -->
+  <div class="pull-right">
+    <a href="${pageContext.request.contextPath}/community/article_write.do?category=${category}" class="btn btn-warning"><i class="glyphicon glyphicon-pencil"></i> 글쓰기</a>
+  </div>
+</div>
+<!-- // 검색폼 + 글 쓰기 버튼 끝 -->
+
+<!-- 페이지 번호 시작 -->
+<nav class="text-center">
+  <ul class="pagination">
+    <!-- 이전 그룹으로 이동 -->
+    <c:choose>
+      <c:when test="${pageHelper.prevPage > 0}">
+        <!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
+        <!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
+        <c:url var="prevUrl" value="/community/article_list.do">
+
+          <c:param name="keyword" value="${keyword}"></c:param>
+          <c:param name="page" value="${pageHelper.prevPage}"></c:param>
+        </c:url>
+        
+        <li><a href="${prevUrl}">&laquo;</a></li>
+      </c:when>
+      
+      <c:otherwise>
+        <!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+        <li class="disabled"><a href="#">&laquo;</a></li>
+      </c:otherwise>
+    </c:choose>
+    
+    <!-- 페이지 번호 -->
+    <!-- 현재 그룹의 시작페이지~끝페이지 사이를 1씩 증가하면서 반복 -->
+    <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
+      <!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
+      <c:url var="pageUrl" value="/community/article_list.do">
+
+          <c:param name="keyword" value="${keyword}"></c:param>
+          <c:param name="page" value="${i}"></c:param>
+      </c:url>
+      
+      <!-- 반복중의 페이지 번호와 현재 위치한 페이지 번호가 같은 경우에 대한 분기 -->
+      <c:choose>
+        <c:when test="${pageHelper.page == i}">
+          <li class="active"><a href="#">${i}</a></li>
+        </c:when>
+        <c:otherwise>
+          <li><a href="${pageUrl}">${i}</a></li>
+        </c:otherwise>
+      </c:choose>
+    </c:forEach>
+    
+    <!-- 다음 그룹으로 이동 -->
+    <c:choose>
+      <c:when test="${pageHelper.nextPage > 0}">
+        <!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
+        <!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
+        <c:url var="nextUrl" value="/community/article_list.do">
+
+          <c:param name="keyword" value="${keyword}"></c:param>
+          <c:param name="page" value="${pageHelper.nextPage}"></c:param>
+        </c:url>
+        
+        <li><a href="${nextUrl}">&raquo;</a></li>
+      </c:when>
+      
+      <c:otherwise>
+        <!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+        <li class="disabled"><a href="#">&raquo;</a></li>
+      </c:otherwise>
+    </c:choose>
+  </ul>
+</nav>
+<!-- // 페이지 번호 끝 -->
 	</div>
 	
 <!-- footer -->

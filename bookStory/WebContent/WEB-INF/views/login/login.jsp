@@ -19,22 +19,22 @@
 	
 		<div class="container mid">
 			<div class="container login_form">
-				<form role="form">
+				<form role="form" method="post" action="${pageContext.request.contextPath}/login/login_ok.do">
 					<fieldset>
 						<legend>로그인</legend>
 
 						<div class="form-groups">
 							<label for="user_id">아이디</label> 
-							<input type="text" id="user_id" 	class="form-control" placeholder="아이디" />
+							<input type="text" id="user_id" name="user_id" class="form-control" placeholder="아이디" />
 						</div>
 
 						<div class="form-groups">
 							<label for="user_pw">비밀번호</label> <input type="password"
-								id="user_pw" class="form-control" placeholder="비밀번호" />
+								id="user_pw" name="user_pw" class="form-control" placeholder="비밀번호" />
 						</div>
 						
 						<div class="btn_login">
-						<button type="button" class=" btn-success btn-lg btn-block">로그인
+						<button type="submit" class=" btn-warning btn-lg btn-block">로그인
 						</button>
 						</div>
 						<br>

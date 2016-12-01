@@ -28,7 +28,8 @@
 	    category, subject, content, hit, reg_date, edit_date, ip_address,
 	    member_id
 	  ) VALUES (
-	    #{category}, #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}
+	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}
+	     
 	  )
 	</insert>
 	
@@ -39,7 +40,7 @@
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
 	         ip_address, member_id
 	  FROM   article
-	  WHERE  category=#{category} AND id=#{id}
+	  WHERE  id=#{id}
 	</select>
 	
 	<!-- 이전 글 정보를 조회한다. -->
@@ -49,7 +50,7 @@
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
 	         ip_address, member_id
 	  FROM   article
-	  WHERE  category=#{category} AND id &lt; #{id}
+	  WHERE  id &lt; #{id}
 	  ORDER BY id DESC
 	  LIMIT  0, 1
 	</select>
@@ -61,31 +62,24 @@
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
 	         ip_address, member_id
 	  FROM   article
-	  WHERE  category=#{category} AND id &gt; #{id}
+	  WHERE  id &gt; #{id}
 	  ORDER BY id ASC
 	  LIMIT  0, 1
 	</select>
 	
 	<!-- 조회수 1 증가 -->
 	<update id="updateArticleHit" parameterType="study.jsp.bookstory.model.Article">
-	  UPDATE article SET hit=hit+1 WHERE category=#{category} AND id=#{id}
+	  UPDATE article SET hit=hit+1 WHERE id=#{id}
 	</update>
 	
 	<!-- 게시물 목록을 조회한다. -->
 	<select id="selectArticleList" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
 	  SELECT id, category, subject, hit,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
-	  <if test="gallery==true">
-	      ,( SELECT concat(file_dir, '/', file_name) FROM bbs_file
-	         WHERE article_id=article.id
-	               AND
-	               content_type LIKE ('image/%')
-	         ORDER BY id ASC LIMIT 0, 1      
-	        ) AS image_path
-	  </if>
+	  
 	  FROM   article
 	  <where>
-	    category=#{category}
+	  
 	    <if test="subject != null or content != null">
 	      AND (
 	          <if test="subject != null">
@@ -106,7 +100,7 @@
 	<select id="selectArticleCount" parameterType="study.jsp.bookstory.model.Article" resultType="int">
 	  SELECT COUNT(id) FROM article
 	  <where>
-	    category=#{category}
+	    
 	    <if test="subject != null or content != null">
 	      AND (
 	          <if test="subject != null">

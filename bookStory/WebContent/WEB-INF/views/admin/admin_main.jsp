@@ -3,46 +3,7 @@
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-					<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
-			- ANSI(euc-kr), UTF-8 -->
-		<meta charset="utf-8"/>
-		<!-- IE의 호환성 보기 모드 금지 -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- 스마트 장치에서의 해상도 균일화 처리 -->
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
-		maximum-scale=1.0,user-scalable=no">
-		
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
-		<link rel="apple-touch-icon-precomposed" 
-			  href="assets/icon/apple-touch-icon-144-precomposed.png"/>
-			  
-		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
-		
-		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
-		
-		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
-		
-		<!-- 반응형 웹을 지원하지 않을 경우 -->
-		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
-		
-		<!-- IE8 이하 버전 지원 -->
-	    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="assets/js/html5shiv.js"></script>
-	    <script type="text/javascript" src="assets/js/respond.min.js"></script>
-	    <![endif]-->
-	
-	    <!-- IE10 반응형 웹 버그 보완 -->
-	    <!--[if gt IE 9]>
-	    <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-	    <script type="text/javascript" src="assets/js/ie10.js"></script>
-	    <![endif]-->
-	    
+		<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 	    <style type="text/css">
 			
 	    </style>
@@ -175,16 +136,18 @@
 	    			<li class="search_list"><a href="#upload_sub" data-toggle="collapse" data-parent="#admin_main_menu" id="accordion1">
 	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a>
 	    				<ul id="upload_sub" class="collapse">
-	    					<li>공지사항 업로드</li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/notice_upload.do">공지 사항 업로드</a></li>
 	    					<li><a href="${pageContext.request.contextPath}/admin/novel_upload.do">신규 작품 업로드</a></li>
 	    					<li><a href="${pageContext.request.contextPath}/admin/episode_upload.do">에피소드 업로드</a></li>
 	    				</ul>
 	    			</li>	
 					
-	    			<li class="search_list"><a href="#"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
-	    			<li class="search_list"><a href="#"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/article_manage.do">
+	    			<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/comment_manage.do">
+	    			<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
 	    		</ul>
-    	</div>
+    		</div>
     	<!-- //어드민 슬라이드 메뉴 영역 -->
     		
 	    	<!-- 어드민 컨텐트 영역 -->
@@ -204,25 +167,11 @@
 	<!-- 메인 화면 끝 -->
 	
 	<!-- footer -->
-		<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
-			<p class="text-center">
-			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
-			</h5>
-
-			<address>
-				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
-			</address>
-		</div>
-	</footer>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 	
 	<!-- Javascript -->
-	 <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	 <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+
 	<script src="${pageContext.request.contextPath}/assets/js/admin/jquery.dataTables.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/admin/dataTables.bootstrap.min.js"></script>
 

@@ -3,54 +3,8 @@
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-			<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
-			- ANSI(euc-kr), UTF-8 -->
-		<meta charset="utf-8"/>
-		<!-- IE의 호환성 보기 모드 금지 -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- 스마트 장치에서의 해상도 균일화 처리 -->
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
-		maximum-scale=1.0,user-scalable=no">
 		
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
-		<link rel="apple-touch-icon-precomposed" 
-			  href="assets/icon/apple-touch-icon-144-precomposed.png"/>
-			  
-		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
-		
-		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
-		
-		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
-		
-		<!-- 반응형 웹을 지원하지 않을 경우 -->
-		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
-		
-		<!-- IE8 이하 버전 지원 -->
-	    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="assets/js/html5shiv.js"></script>
-	    <script type="text/javascript" src="assets/js/respond.min.js"></script>
-	    <![endif]-->
-	
-	    <!-- IE10 반응형 웹 버그 보완 -->
-	    <!--[if gt IE 9]>
-	    <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-	    <script type="text/javascript" src="assets/js/ie10.js"></script>
-	    <![endif]-->
-	    
-	    <style type="text/css">
-			
-	    </style>
-		
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script type="text/javascript">
-
-		</script>
+		<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 		<!-- admin css -->
 		
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/admin.css"/>
@@ -73,6 +27,9 @@
 		        }
 		    });
 		    $("[data-toggle=tooltip]").tooltip();
+		    
+		    
+		    
 		    
 		    $('#example').DataTable();
 		    
@@ -183,7 +140,7 @@
 
 
 	
-						<nav class="navbar navbar-default main_navi main_navi_sub">
+						<nav class="navbar navbar-default main_navi main_navi_sub visible-xs">
   							<div class="container main_navi_sub_list">
     							<div class="" id="myNavbar_sub">
 		      						<ul class="nav navbar-nav">
@@ -199,73 +156,131 @@
 <!-- 메인 화면 시작 -->
 
 
-	<div class="container main_container">
-			<div class="articlemanage_container">
+	<div class="container-fluid admin_main_container hidden-xs">
+		<div class="row admin_main_row">
+			<!-- 어드민 슬라이드 메뉴 영역 -->
+			<div class="col-md-2 amdin_main_slider">
+	    		<ul class="nav main_slider_nav" id="admin_main_menu">
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do"><span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a></li>
+	    			<li class="search_list"><a href="#upload_sub" data-toggle="collapse" data-parent="#admin_main_menu" id="accordion1">
+	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a>
+	    				<ul id="upload_sub" class="collapse">
+	    					<li><a href="${pageContext.request.contextPath}/admin/notice_upload.do">공지 사항 업로드</a></li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/novel_upload.do">신규 작품 업로드</a></li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/episode_upload.do">에피소드 업로드</a></li>
+	    				</ul>
+	    			</li>	
+					
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/article_manage.do"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/comment_manage.do"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
+	    		</ul>
+    		</div>
+    	<!-- //어드민 슬라이드 메뉴 영역 -->
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- 어드민 컨텐트 영역 -->
+			<div class="col-md-10 admin_content">
 				<h1 class="page-header">게시글 관리</h1>
-						<table id="example" class="table table-hover table-bordered table-responsive user_info_table" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>글번호</th>
-                <th>이름</th>
-                <th>닉네임</th>
-                <th>생년월일</th>
-                <th>이메일</th>
-                <th>가입일</th>
-                <th>포인트</th>
-                <th>강제 탈퇴</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>장국영</td>
-                <td>지존무상</td>
-                 <td>1960-06-15</td>
-                 <td>jang@gmail.com</td>
-                 <td>2015-05-10</td>
-               <td>5000</td>
-                <td><button class="btn btn-danger btn-xs"data-toggle="modal" data-target="#myModal">강제 탈퇴</button></td>
-            </tr> 
- 
-                                     
-        </tbody>
-    </table>
-			
+				<ul class="list-group">
+					
+					<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 admin_article_name">홍금보</div>
+								<div class="col-xs-3 admin_article_id">화소도(dwis*****)</div>
+								<div class="col-xs-5 admin_article_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<div class="col-xs-2 admin_article_date">2016-04-15 11:46 </div>
+							</div>	
+							<div class="row">	
+									<div class="admin_article_title"><a href="#">게시판 제목 링크입니다.</a></div>
+							</div>
+						</li>
+						
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 admin_article_name">홍금보</div>
+								<div class="col-xs-3 admin_article_id">화소도(dwis*****)</div>
+								<div class="col-xs-5 admin_article_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<div class="col-xs-2 admin_article_date">2016-04-15 11:46 </div>
+							</div>	
+							<div class="row">	
+									<div class="admin_article_title"><a href="#">게시판 제목 링크입니다.</a></div>
+							</div>
+						</li>
+						
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 admin_article_name">홍금보</div>
+								<div class="col-xs-3 admin_article_id">화소도(dwis*****)</div>
+								<div class="col-xs-5 admin_article_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<div class="col-xs-2 admin_article_date">2016-04-15 11:46 </div>
+							</div>	
+							<div class="row">	
+									<div class="admin_article_title"><a href="#">게시판 제목 링크입니다.</a></div>
+							</div>
+						</li>
+						
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 admin_article_name">홍금보</div>
+								<div class="col-xs-3 admin_article_id">화소도(dwis*****)</div>
+								<div class="col-xs-5 admin_article_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<div class="col-xs-2 admin_article_date">2016-04-15 11:46 </div>
+							</div>	
+							<div class="row">	
+									<div class="admin_article_title"><a href="#">게시판 제목 링크입니다.</a></div>
+							</div>
+						</li>
+						
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 admin_article_name">홍금보</div>
+								<div class="col-xs-3 admin_article_id">화소도(dwis*****)</div>
+								<div class="col-xs-5 admin_article_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<div class="col-xs-2 admin_article_date">2016-04-15 11:46 </div>
+							</div>	
+							<div class="row">	
+									<div class="admin_article_title"><a href="#">게시판 제목 링크입니다.</a></div>
+							</div>
+						</li>
+						
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col-xs-2 admin_article_name">홍금보</div>
+								<div class="col-xs-3 admin_article_id">화소도(dwis*****)</div>
+								<div class="col-xs-5 admin_article_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<div class="col-xs-2 admin_article_date">2016-04-15 11:46 </div>
+							</div>	
+							<div class="row">	
+									<div class="admin_article_title"><a href="#">게시판 제목 링크입니다.</a></div>
+							</div>
+						</li>
+						
 		
-		
-		
-		
-		
-		
-		
-		
-		
-	
+				</ul><!-- end list-group -->
 				<div class="page-nation text-center">
 							<div class=" reply_damin_pagenation">
                                         <ul class="pagination pagination-large">
-	                                        <li class="disabled"><span>«</span></li>
+	                                        <li class="disabled"><span></span></li>
 	                                        <li class="active"><span>1</span></li>
 	                                        <li><a href="#">2</a></li>
 	                                        <li><a href="#">3</a></li>
 	                                        <li><a href="#">4</a></li>
-	                                        <li><a href="#">6</a></li>
-	                                        <li><a href="#">7</a></li>
-	                                        <li><a href="#">8</a></li>
-	                                        <li><a href="#">9</a></li>
-	                                        <li class="disabled"><span>${pageContext.request.contextPath}.</span></li><li>
-	                                        <li><a rel="next" href="#">Next</a></li>
+	                                       <li class="disabled"><span>></span></li>
                 
                                      </ul>
                                  </div>
                             </div>
 				
-			
-		</div><!--end articlemanager_container -->
-	</div>	<!--end container main_container -->
+			</div><!-- //어드민 컨텐트 영역 -->
+		</div><!--end admin_userInfo_container -->	
 
-	
+	</div>
 	
 	
 	
@@ -327,25 +342,7 @@
     </div>			
 	
 	<!-- footer -->
-	<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
-			<p class="text-center">
-			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
-			</h5>
-
-			<address>
-				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
-			</address>
-		</div>
-	</footer>
-
-	
-	<!-- Javascript -->
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 	
 
 	

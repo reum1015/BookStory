@@ -37,14 +37,16 @@
 	    			<li class="search_list"><a href="#upload_sub" data-toggle="collapse" data-parent="#admin_main_menu" id="accordion1">
 	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>업로드</a>
 	    				<ul id="upload_sub" class="collapse">
-	    					<li>공지사항 업로드</li>
+	    					<li><a href="${pageContext.request.contextPath}/admin/notice_upload.do">공지 사항 업로드</a></li>
 	    					<li><a href="${pageContext.request.contextPath}/admin/novel_upload.do">신규 작품 업로드</a></li>
 	    					<li><a href="${pageContext.request.contextPath}/admin/episode_upload.do">에피소드 업로드</a></li>
 	    				</ul>
 	    			</li>	
 					
-	    			<li class="search_list"><a href="#"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
-	    			<li class="search_list"><a href="#"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/article_manage.do">
+	    			<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/comment_manage.do">
+	    			<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
 	    		</ul>
     	</div>
     	<!-- //어드민 슬라이드 메뉴 영역 -->

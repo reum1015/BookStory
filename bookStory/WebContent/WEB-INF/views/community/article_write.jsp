@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang='ko'>
 <head>
 
@@ -33,6 +34,9 @@
 	href="${pageContext.request.contextPath}/assets/css/naviStateColor/articleCommon.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/article/articleWrite.css" />
+	
+	<!-- CKEditor -->
+	<script src="http://cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 
 
 </head>
@@ -46,31 +50,44 @@
 					alt="자유게시판" class="img-rounded left-block">
 			</div>
 			<section>
-				<form role="form">
-					<div class="form-group Article1">
-						<label for="ArticleName"
-							class="col-xs-2 col-sm-2 control-label text-center">제목</label>
-						<div class="col-xs-10 col-sm-10">
-							<input class="form-control" id="ArticleName" />
-						</div>
-					</div>
-					<div class="form-group Article3">
-						<div class="col-xs-2 col-sm-2 text-center">
-							<label for="ArticleName" class="control-label">내용</label>
-						</div>
-						<div class="col-xs-10 col-sm-10 pull-right">
-							<textarea class="form-control" id="ArticleName" rows="10"></textarea>
-						</div>
-					</div>
-					<div class="col-xs-2 col-sm-2 Article1">
-						<a href="./article_list.do"><button type="button"
-								class="btn btn-default btn-sm pull-right">목록</button></a>
-					</div>
-					<div class="col-xs-10 col-sm-10 Article1">
-						<a href="#"><button class="btn btn-default btn-sm pull-right">취소</button></a>
-						<a href="#"><button class="btn btn-primary btn-sm pull-right">등록</button></a>
-					</div>
-				</form>
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/community/article_write_ok.do">
+  
+    <!-- 게시판 카테고리에 대한 상태유지 -->
+    <input type="hidden" name="category" value="${category}"/>
+    <!-- 작성자, 비밀번호 이메일은 로그인하지 않은 경우만 입력한다. -->
+    <c:choose>
+    <c:when test="${loginInfo == null}">
+      <!-- 작성자 -->
+      <div class="form-group">
+        <h1>로그인 후 이용 가능합니다.</h1>
+      </div>
+    </c:when>
+    <c:otherwise>
+    
+    <!-- 제목 -->
+    <div class="form-group">
+      <label for="subject" class="col-sm-2 control-albel">제목</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="subject" name="subject"/>
+      </div>
+    </div>
+    <!-- 내용 -->
+    <div class="form-group">
+      <label for="content" class="col-sm-2 control-albel">내용</label>
+      <div class="col-sm-10">
+        <textarea id="content" name="content" class="ckeditor"></textarea>
+      </div>
+    </div>
+    <!-- 버튼들 -->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary">저장하기</button>
+        <button type="button" class="btn btn-danger" onclick="history.back();">작성취소</button>
+      </div>
+    </div>
+    </c:otherwise>
+    </c:choose>
+  </form>
 			</section>
 		</div>
 	</div>

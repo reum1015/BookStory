@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
-<html lang='ko'>
+<html>
 <head>
 
 	<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
@@ -41,58 +42,72 @@
 	<div class="container main_container">
 		<div class="Article_size">
 			<div class="left-block">
-				<img src="../assets/imgs/article/FreeArticle1.png" alt="자유게시판"
+				<img src="${pageContext.request.contextPath}/assets/imgs/article/FreeArticle1.png" alt="자유게시판"
 					class="img-rounded left-block">
 			</div>
 			<section>
-				<table class="table">
-					<thead>
-						<tr>
-							<th colspan="2">글제목 : 글제목</th>
-						</tr>
-						<tr>
-							<th>작성자 : 작성자이름</th>
-							<th>작성일 : 2016-04-23</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="table-bordered view" colspan="2">
-								<div class="view_cont1">
-								"안녕하세요~"
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<button type="button" class="btn btn-default pull-right btn-sm">삭제</button>
-								<button type="button" class="btn btn-default pull-right btn-sm">수정</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="btn1">
-					<a href="${pageContext.request.contextPath}/community/article_list.do"><button type="submit"
-							class="btn btn-default btn-sm">목록</button></a>
-					<button type="submit" class="btn btn-danger pull-right btn-sm"
-						data-toggle="modal" data-target="#article_toadmin">신고</button>
-				</div>
-				<table class="table">
-					<tbody>
-						<tr class="row">
-							<th class="col-xs-3 col-sm-3"><span>다음글</span></th>
-							<td class="col-xs-5 col-sm-7"><a href="#">글제목</a></td>
-							<td class="col-xs-2 col-sm-1">글쓴이</td>
-							<td class="col-xs-2 col-sm-1">2016.10.03</td>
-						</tr>
-						<tr class="row">
-							<th class="col-xs-3 col-sm-3"><span>이전글</span></th>
-							<td class="col-xs-5 col-sm-7"><a href="#">글제목</a></td>
-							<td class="col-xs-2 col-sm-1">글쓴이</td>
-							<td class="col-xs-2 col-sm-1">2016.08.05</td>
-						</tr>
-					</tbody>
-				</table>
+  <!-- 제목, 작성자, 작성일시, 조회수 -->
+  <div class="alert alert-info">
+    <h3 style="margin: 0">
+      ${readArticle.subject}<br/>
+      <small>
+        작성자 : ${readArticle.member_id} / 조회수 : ${readArticle.hit} / 작성일시 : ${readArticle.reg_date}
+      </small>
+    </h3>
+  </div>
+    <!-- 내용 -->
+  <section style="padding: 0 10px 20px 10px">
+    ${readArticle.content}
+  </section>
+  <!-- 다음글/이전글 -->
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th class="success" style="width: 100px">다음글</th>
+        <td>
+          <c:choose>
+            <c:when test="${nextArticle != null}">
+              <c:url var="nextUrl" value="/community/article_read.do">
+                <c:param name="article_id" value="${nextArticle.id}"/>
+              </c:url>
+              <a href="${nextUrl}">${nextArticle.subject}</a>
+            </c:when>
+            <c:otherwise>
+                     다음글이 없습니다.
+            </c:otherwise>
+          </c:choose>
+        </td>
+      </tr>
+      <tr>
+        <th class="success" style="width: 100px">이전글</th>
+        <td>
+          <c:choose>
+            <c:when test="${prevArticle != null}">
+              <c:url var="prevUrl" value="/community/article_read.do">
+                <c:param name="article_id" value="${prevArticle.id}"/>
+              </c:url>
+              <a href="${prevUrl}">${prevArticle.subject}</a>
+            </c:when>
+            <c:otherwise>
+                     이전글이 없습니다.
+            </c:otherwise>
+          </c:choose>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- 버튼들 : category값에 대한 상태유지 필요함 -->
+  <div class="clearfix">
+    <div class="pull-right">
+      <a href="${pageContext.request.contextPath}/community/article_list.do?category=${category}" class="btn btn-info">목록보기</a>
+      <a href="${pageContext.request.contextPath}/community/article_write.do?category=${category}" class="btn btn-primary">글쓰기</a>
+      <!-- 수정, 삭제 대상을 지정하기 위해서 글 번호가 전달되어야 한다. -->
+      <a href="${pageContext.request.contextPath}/community/article_edit.do?category=${category}&article_id=${readArticle.id}" class="btn btn-warning">수정하기</a>
+      <a href="${pageContext.request.contextPath}/community/article_delete.do?category=${category}&article_id=${readArticle.id}" class="btn btn-danger">삭제하기</a>
+    </div>
+  </div>
+  
+  
 				<!-- 덧글 내용 -->
 				<div>
 					<h4>

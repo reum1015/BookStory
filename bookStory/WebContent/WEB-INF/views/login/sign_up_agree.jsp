@@ -130,7 +130,7 @@
 
 			<div class="btn_group">
 
-				<a  href="./sign_up.do" class="btn btn-success btn-lg col-md-6">동의</a>
+				<a  href="./sign_up.do" class="btn btn-warning btn-lg col-md-6">동의</a>
 
 				<a href="${pageContext.request.contextPath}/index.do" class="btn btn-default btn-lg col-md-6">비동의</a>
 
