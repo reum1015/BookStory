@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
-
+<!-- 깃허브 테스트 -->
 
 <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
