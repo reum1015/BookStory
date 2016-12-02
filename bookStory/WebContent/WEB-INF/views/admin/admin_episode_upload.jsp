@@ -8,7 +8,7 @@
 		<!-- admin css -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/admin.css"/>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/adminCommon.css"/>
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/adminCommon.css"/>
+	
 		
 		
 		<script src="${pageContext.request.contextPath}/assets/js/ckeditor/ckeditor.js"></script>
@@ -22,39 +22,14 @@
 	    <script src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/js/plugins/handlebars/handlebars-v4.0.5.js"></script>
 		
-		<script type="text/javascript">
-			$(function() {
-	
-				$("#search-form").ajaxForm(function(json) {
-					
-					$("#result_list").empty();
-					
-					//keyword 받아오기
-					var keyword = $("#keyword").val();
-					
-					// json은 API에서 표시하는 전체 데이터
-					if (json.rt != "OK") {
-						alert(json.rt);
-						return false;
-					}
-
-					// 템플릿 HTML을 로드한다.
-					var template = Handlebars.compile($("#List-item-templ").html());
-					// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-					var html = template(json);
-					// 결합된 결과를 덧글 목록에 추가한다.
-					$("#result_list").append(html);
-				});
-				
-				
-				$("#")
-				
-				
-			});
-			</script>
-
 		
 
+		
+	<style type="text/css">
+
+
+
+	</style>
 		
 	</head>
 	<body>
@@ -112,21 +87,25 @@
 	    	</form>
 	    	
 	    	
-	    	<ul id="result_list" class="list-group"></ul>
+	    	<div class="col-sm-offset-2" id="result">
+                  <ul class="mail-list" id="result_list">
+                   </ul>
+            </div>
 	    	
 	    	
 	    	<script type="text/x-handlebars-template" id="List-item-templ">
 				{{#item}}
-				<a class="list-group-item" href="#" id="search_list">
-					<input type="hidden" value="{{id}}">		
-		    		<h4 class="list-group-item-heading" id="book_name">{{book_name}}</h4>
-		    		<p class="list-group-item-text" id="book_author">
-		    			{{book_author}}
-		    		</p>
-					<p class="list-group-item-text" id="daily_date">
-		    			{{daily_date}}
-		    		</p>
-	    		</a>
+				 
+                       <li id="list_li">
+                          <a href="#">
+							<input type="hidden" id="{{id}}" value="{{id}}">
+                            <span class="mail-sender" id="{{book_name}}">{{book_name}}</span>
+                            <span class="mail-subject" id="{{book_author}}">{{book_author}}</span>
+                            <span class="mail-message-preview" id="{{daily_date}}">{{daily_date}}</span>
+                           </a>
+                       </li>
+                       
+                  
 	    		{{/item}}
 	    	</script>
 	    	
@@ -245,6 +224,53 @@
 		</div>
 	</footer>
 
+
+	<script type="text/javascript">
+			$(function() {
+	
+				$("#search-form").ajaxForm(function(json) {
+					
+					$("#result_list").empty();
+					
+					//keyword 받아오기
+					var keyword = $("#keyword").val();
+					
+					// json은 API에서 표시하는 전체 데이터
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+
+					// 템플릿 HTML을 로드한다.
+					var template = Handlebars.compile($("#List-item-templ").html());
+					// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+					var html = template(json);
+					// 결합된 결과를 덧글 목록에 추가한다.
+					$("#result_list").append(html);
+				});
+				
+				
+				$("#result_li").on('click',"#result_li",function(){
+					alert("msg");
+					
+					
+				});
+		        
+				
+				$("#list_li").find("a").on("click",function(e){
+					
+					alert("dsasksdaol");
+					
+				});
+			
+			
+			
+			
+			});
+				
+				
+			
+			</script>
 	
 	<!-- Javascript -->
 
