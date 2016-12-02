@@ -27,7 +27,7 @@
 	
 				$("#search-form").ajaxForm(function(json) {
 					
-					$("#result_list").empty();
+					$("#result").empty();
 					
 					//keyword 받아오기
 					var keyword = $("#keyword").val();
@@ -43,12 +43,11 @@
 					// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
 					var html = template(json);
 					// 결합된 결과를 덧글 목록에 추가한다.
-					$("#result_list").append(html);
+					$("#result").append(html);
 				});
 				
 				
 				$("#")
-				
 				
 			});
 			</script>
@@ -112,13 +111,13 @@
 	    	</form>
 	    	
 	    	
-	    	<ul id="result_list" class="list-group"></ul>
+	    	<div id="result"></div>
 	    	
 	    	
 	    	<script type="text/x-handlebars-template" id="List-item-templ">
 				{{#item}}
-				<a class="list-group-item" href="#" id="search_list">
-					<input type="hidden" value="{{id}}">		
+				
+				<a class="list-group-item" href="#" id="book_id">
 		    		<h4 class="list-group-item-heading" id="book_name">{{book_name}}</h4>
 		    		<p class="list-group-item-text" id="book_author">
 		    			{{book_author}}

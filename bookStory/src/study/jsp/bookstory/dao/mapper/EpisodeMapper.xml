@@ -26,7 +26,7 @@
 
 
 
-	<!-- 회차 등록 -->
+	<!-- 에피소드 등록 -->
 	<insert id="insertEpisode" parameterType="study.jsp.bookstory.model.Episode" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO episode(episode_name, star_rate, totalstar_rate, hit, content, reg_date, edit_date, author_comment,
 						episode_buy, episode_rent, book_id

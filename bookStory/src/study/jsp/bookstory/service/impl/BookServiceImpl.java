@@ -1,5 +1,7 @@
 package study.jsp.bookstory.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
@@ -69,6 +71,28 @@ public class BookServiceImpl implements BookService{
 			throw new Exception("같은 이름의 작품이 존재 합니다.");
 		}
 		return result;
+	}
+
+	@Override
+	public List<Book> searchBookItemList(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		
+		try{
+			bookList = sqlSession.selectList("BookMapper.searchBookItemList", book);
+			if(bookList == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			throw new Exception("검색 결과가 없습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품 검색에 실패 했습니다.");
+			
+		}
+	
+		return bookList;
 	}
 
 }

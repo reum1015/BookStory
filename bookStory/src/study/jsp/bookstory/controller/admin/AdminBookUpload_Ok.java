@@ -35,8 +35,8 @@ public class AdminBookUpload_Ok extends BaseController{
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
-	UploadHelper upload;
 	BookService bookService;
+	UploadHelper upload;
 	RegexHelper regex;
 	ImageFileService imageFileService;
 	

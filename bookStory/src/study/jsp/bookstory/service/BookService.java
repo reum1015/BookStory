@@ -1,5 +1,7 @@
 package study.jsp.bookstory.service;
 
+import java.util.List;
+
 import study.jsp.bookstory.model.Book;
 
 /** Novel 관련 기능을 제공하기 위한 Service계층 */
@@ -18,5 +20,14 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public int countEqualBookName(Book book)throws Exception;
+	
+	
+	/**
+	 * 작품 검색(관리자 에피소드 올리기)
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> searchBookItemList(Book book)throws Exception;
 
 }
