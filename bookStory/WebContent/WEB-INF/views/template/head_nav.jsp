@@ -24,7 +24,7 @@
       <ul class="nav navber-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px">
-            ${loginInfo.name}님 <span class="caret"></span>
+            ${loginInfo.nick_name}님 <span class="caret"></span>
           </a>
           <!-- 로그인한 경우 표시될 메뉴 -->
           <ul class="dropdown-menu">
