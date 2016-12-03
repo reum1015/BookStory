@@ -99,15 +99,7 @@
 					
  					<div class="media">
 				        <div class="media-left">
-				           		
-								<input type="text" id="page" value="{{imagePath}}">
-							<c:url var="downloadUrl" value="/download.do">
-                   				 <c:param name="file" value="${item.imagePath}"/>
-                    		 </c:url>
-							
-								
-				                <img src="${downloadUrl}" class="media-object" alt="Sample Image" style="width: 150px; height: 118px;">
-				          
+				                <img src="${pageContext.request.contextPath}/download.do?file={{imagePath}}" class="media-object"style="width: 150px; height: 118px;">
 				        </div>
 				        <div class="media-body result_book_info">
 				            <h4 class="media-heading" id="book_name">{{book_name}}</h4>
@@ -118,7 +110,7 @@
 				        </div>
 				    </div>
 				    </a>
-                 
+              
 	    		{{/item}}
 	    	</script>
 	    	
@@ -131,7 +123,7 @@
 				
 				<!-- 작품 번호 hidden -->
 
-				<div class="form-group">
+				<div class="form-group" style="display: none;">
 					<label class="control-label col-xs-2" for="book_id">작품 번호 </label>
 					<div class="col-xs-10">
 						<input class="form-control" type="text" name="book_id" id="book_id" value="" readonly="readonly">
@@ -278,7 +270,7 @@
 						var id = $(this).find("#id").val();
 						var genre = $(this).find("#genre").val();
 						
-						alert(bookName + ", " + bookAuthor + ", " + dailyDate + ", " + id + ", " + genre);
+						
 						
 						$("#form_book_title").attr("value",bookName);
 						$("#form_genre").attr("value",genre);
