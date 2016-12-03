@@ -197,8 +197,8 @@ public class AdminBookUpload_Ok extends BaseController{
 				
 		/** (9) 업로드가 완료되었으면 어드민 메인페이지로 이동 */
 		sqlSession.close();
-		web.redirect(web.getRootPath() + "/admin/admin_main.do", "업로드가 완성되었습니다.");
-		
+		web.redirect(web.getRootPath() + "/admin/novel_upload.do", "업로드가 완성되었습니다.");
+		//web.getRootPath() + "/admin/admin_main.do"
 		return null;
 	}
 

@@ -113,11 +113,11 @@
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="genre" name="genre" >
 								<option value="">-----장르 선택-----</option>
-								<option value="romance">로맨스</option>
-								<option value="fantasy">SF&amp;판타지</option>
-								<option value="heroism">무협</option>
-								<option value="mystery">미스테리</option>
-								<option value="fusion">퓨전</option>							
+								<option value="로맨스">로맨스</option>
+								<option value="SF&판타지">SF&amp;판타지</option>
+								<option value="무협">무협</option>
+								<option value="미스테리">미스테리</option>
+								<option value="퓨전">퓨전</option>							
 							</select>
 						</div>
 						

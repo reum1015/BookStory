@@ -24,6 +24,7 @@
 		<result property="rent_point" column="rent_point"/>
 		<result property="book_end" column="book_end"/>
 		<result property="total_favorite" column="total_favorite"/>
+		<result property="imagePath" column="imagePath"/>
 	</resultMap>
 
 
@@ -45,7 +46,10 @@
 	
 	<!-- 작품 검색(관리자 에피소드 업로드용) -->
 	<select id="searchBookItemList" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
-		SELECT id, book_name, book_author, daily_date FROM book
+		SELECT id, book_name, book_author, daily_date, genre,
+		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+			ORDER BY id ASC LIMIT 0, 1) as imagePath
+		FROM book
 		WHERE replace(book_name,' ','') like concat('%', #{book_name}, '%')
 		OR replace(book_author,' ','') like concat('%', #{book_name}, '%')
 	</select>

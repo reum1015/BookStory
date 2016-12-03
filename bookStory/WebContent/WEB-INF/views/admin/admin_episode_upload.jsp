@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
@@ -40,7 +42,7 @@
 
 					
 <!-- 메인 화면 시작 -->
-	<div class="container-fluid admin_main_container hidden-xs">
+	<div class="container-fluid admin_main_container">
 		<div class="row admin_main_row">
 			<!-- 어드민 슬라이드 메뉴 영역 -->
 			<div class="col-md-2 amdin_main_slider">
@@ -83,31 +85,43 @@
 	    	</form>
 	    	
 	    	
-	    	<div class="col-sm-offset-2" id="result">
-                  <ul class="mail-list" id="result_list">
-                   </ul>
+	    	<div class="col-sm-offset-2 media" id="search_resultBox">
+ 					
             </div>
 	    	
 	    	
 	    	<script type="text/x-handlebars-template" id="List-item-templ">
-				{{#item}}
-				 
-                       <li id="list_li">
-                          <a href="#">
-							<input type="hidden" id="{{id}}" value="{{id}}">
-                            <span class="mail-sender" id="{{book_name}}">{{book_name}}</span>
-                            <span class="mail-subject" id="{{book_author}}">{{book_author}}</span>
-                            <span class="mail-message-preview" id="{{daily_date}}">{{daily_date}}</span>
-                           </a>
-                       </li>
-                       
-                  
+
+          
+					{{#item}}
+				
+                  <a href="#">
+					
+ 					<div class="media">
+				        <div class="media-left">
+				           		
+								<input type="text" id="page" value="{{imagePath}}">
+							<c:url var="downloadUrl" value="/download.do">
+                   				 <c:param name="file" value="${item.imagePath}"/>
+                    		 </c:url>
+							
+								
+				                <img src="${downloadUrl}" class="media-object" alt="Sample Image" style="width: 150px; height: 118px;">
+				          
+				        </div>
+				        <div class="media-body result_book_info">
+				            <h4 class="media-heading" id="book_name">{{book_name}}</h4>
+				            <small><i id="book_author">{{book_author}}</i></small>
+							<input type="hidden" value="{{id}}" id="id">
+							<input type="hidden" value="{{daily_date}}" id="daily_date">
+							<input type="hidden" value="{{genre}}" id="genre">
+				        </div>
+				    </div>
+				    </a>
+                 
 	    		{{/item}}
 	    	</script>
 	    	
-	    	
-
-
 			<!-- 기존 episode Upload 폼 시작 -->
 			<form class="form-horizontal existing_upload" enctype="multipart/form-data" 
 						action="${pageContext.request.contextPath}/admin/episode_upload_ok.do" id="episode_upload" method="post">
@@ -115,14 +129,23 @@
 				
 				<legend>기존 작품</legend>
 				
+				<!-- 작품 번호 hidden -->
+
+				<div class="form-group">
+					<label class="control-label col-xs-2" for="book_id">작품 번호 </label>
+					<div class="col-xs-10">
+						<input class="form-control" type="text" name="book_id" id="book_id" value="" readonly="readonly">
+					</div>
+				</div>
+				
+				
+				
 				
 				<!-- 작품 제목 -->
 				<div class="form-group">
 					<label class="control-label col-xs-2" for="book_title">작품 제목 </label>
 					<div class="col-xs-10">
-												
-						
-						<input class="form-control" type="text" name="genre" id="genre" value="" readonly="readonly">
+						<input class="form-control" type="text" name="book_title" id="form_book_title" value="" readonly="readonly">
 					</div>
 				</div>
 				
@@ -130,14 +153,14 @@
 				<!--  장르 & 요일 선택 -->
 				<div class="form-group">
 
-						<label for="genre" class="control-label col-xs-2">장르</label>
+						<label for="form_genre" class="control-label col-xs-2">장르</label>
 						<div class="col-xs-4 ">							
-							<input class="form-control" type="text" name="genre" id="genre" value="" readonly="readonly">
+							<input class="form-control" type="text" name="genre" id="form_genre" value="" readonly="readonly">
 						</div>
 						
-						<label for="dayby" class="control-label col-xs-2">요일</label>
+						<label for="form_daily_date" class="control-label col-xs-2">요일</label>
 						<div class="col-xs-4 ">							
-							<input class="form-control" type="text" name="daily_date" id="daily_date" value="" readonly="readonly">	
+							<input class="form-control" type="text" name="daily_date" id="form_daily_date" value="" readonly="readonly">	
 						</div>						
 				</div>
 				
@@ -226,7 +249,7 @@
 	
 				$("#search-form").ajaxForm(function(json) {
 					
-					$("#result_list").empty();
+					$("#search_resultBox").empty();
 					
 					//keyword 받아오기
 					var keyword = $("#keyword").val();
@@ -242,24 +265,28 @@
 					// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
 					var html = template(json);
 					// 결합된 결과를 덧글 목록에 추가한다.
-					$("#result_list").append(html);
+					$("#search_resultBox").append(html);
+					
+					
+					
+					
+					$("div#search_resultBox a").click(function(e) {
+						
+						var bookName = $(this).find("h4").text();
+						var bookAuthor = $(this).find("i").text();
+						var dailyDate = $(this).find("#daily_date").val();
+						var id = $(this).find("#id").val();
+						var genre = $(this).find("#genre").val();
+						
+						alert(bookName + ", " + bookAuthor + ", " + dailyDate + ", " + id + ", " + genre);
+						
+						$("#form_book_title").attr("value",bookName);
+						$("#form_genre").attr("value",genre);
+						$("#form_daily_date").attr("value",dailyDate);
+						$("#book_id").attr("value",id);
+							
+					});				
 				});
-				
-				
-				$("#result_li").on('click',"#result_li",function(){
-					alert("msg");
-					
-					
-				});
-		        
-				
-				$("#list_li").find("a").on("click",function(e){
-					
-					alert("dsasksdaol");
-					
-				});
-			
-			
 			
 			
 			});

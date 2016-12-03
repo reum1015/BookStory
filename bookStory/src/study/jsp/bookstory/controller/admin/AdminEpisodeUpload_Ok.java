@@ -71,7 +71,8 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		String episode_title = paramMap.get("episode_name");
 		String content = paramMap.get("content");
 		String author_comment = paramMap.get("author_comment");
-
+		String book_id = paramMap.get("book_id");
+		
 		
 		
 		

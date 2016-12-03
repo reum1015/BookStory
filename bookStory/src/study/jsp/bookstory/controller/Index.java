@@ -1,4 +1,4 @@
-package study.jsp.bookstory.controller.index;
+package study.jsp.bookstory.controller;
 
 import java.io.IOException;
 

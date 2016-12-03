@@ -1,5 +1,7 @@
 package study.jsp.bookstory.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
@@ -68,6 +70,22 @@ public class ImageFileServiceImpl implements ImageFileService{
 					sqlSession.commit();
 				}
 		
+	}
+
+
+	@Override
+	public List<ImageFile> selectBookMainImage(ImageFile file) throws Exception {
+		// TODO Auto-generated method stub
+		List<ImageFile> result = null;
+		try{
+			result = sqlSession.selectList("ImamgeFileMapper.selectBookMainImage", file);
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("파일 정보 조회에 실패했습니다.");
+		}
+		
+		return result;
 	}
 
 }

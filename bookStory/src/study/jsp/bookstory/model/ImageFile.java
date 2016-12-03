@@ -13,6 +13,7 @@ public class ImageFile {
 	private String image_type;					// <input type='file' />의 name 속성
 	private int episode_id;							// 에피소드 아이디
 	private int book_id;								// 작품 아이디
+	
 	public int getId() {
 		return id;
 	}

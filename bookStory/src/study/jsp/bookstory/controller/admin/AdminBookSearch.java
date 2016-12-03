@@ -20,8 +20,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
 
@@ -34,6 +37,9 @@ public class AdminBookSearch extends BaseController {
 	SqlSession sqlSession;
 	WebHelper web;
 	BookService bookService;
+	ImageFileService imageFileService;
+	UploadHelper upload;
+
 	
 	
 	@Override
@@ -47,10 +53,16 @@ public class AdminBookSearch extends BaseController {
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		bookService = new BookServiceImpl(sqlSession, logger);
+		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
+		upload = UploadHelper.getInstance();
 		
 		/** (3) 검색어 받기 */
 		String keyword = web.getString("keyword");
 		
+		
+		if(keyword == null || keyword == ""){
+			web.printJsonRt("검색어를 입력해 주세요");
+		}
 		logger.debug("Keyword ---------> " + keyword);
 		
 			//검색어 공백 제거
@@ -73,9 +85,24 @@ public class AdminBookSearch extends BaseController {
 			sqlSession.close();
 		}
 		
+		//이미지 경로를 썸네일로 교체
+		if(list != null){
+			for(int i = 0; i < list.size(); i++){
+				Book bookItem  = list.get(i);
+				String imagePath = bookItem.getImagePath();
+				if(imagePath != null){
+					String thumbPath = upload.createThumbnail(imagePath, 150, 118, true);
+					bookItem.setImagePath(thumbPath);
+					logger.debug("thumbnail create ---------> " + bookItem.getImagePath());
+				}
+			}
+		}
+		
 		/** (6) 처리 결과를 JSON으로 출력하기 */
 		// --> import java.util.HashMap;
 		// --> import java.util.Map;
+		
+		request.setAttribute("bookitem", list);
 		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("rt", "OK");
