@@ -40,11 +40,11 @@
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO imagefile(
 			origin_name,file_dir,file_name,content_type,file_size,
-			reg_date,edit_date,book_id,image_type
+			reg_date,edit_date,episode_id,book_id,image_type
 		)VALUES(
 			#{origin_name},#{file_dir},#{file_name},
 			#{content_type},#{file_size},now(),now(),
-			#{book_id},#{image_type}
+			#{episode_id},#{book_id},#{image_type}
 		)
 	</insert>
 	

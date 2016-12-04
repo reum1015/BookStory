@@ -189,7 +189,8 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 				ImageFile file = new ImageFile();
 				
 				//몇번 작품에 속한 파일인지 지정한다.
-				file.setBook_id(episode.getId());
+				file.setEpisode_id(episode.getId());
+				file.setBook_id(book_id);
 				
 				// 데이터 복사
 				file.setOrigin_name(info.getOrginName());
@@ -201,7 +202,7 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 				
 				
 				//저장처리
-				imageFileService.insertBookFile(file);
+				imageFileService.insertEpisodeFile(file);
 			}
 			
 		}catch (Exception e) {
