@@ -90,9 +90,9 @@
             </div>
 	    	
 	    	
+	    	
+	    	
 	    	<script type="text/x-handlebars-template" id="List-item-templ">
-
-          
 					{{#item}}
 				
                   <a href="#">
@@ -189,7 +189,7 @@
 
 				
 				<div class="form-group">
-					<label class="col-xs-2 control-label" for="auther_comment">작가 코멘트</label>
+					<label class="col-xs-2 control-label" for="author_comment">작가 코멘트</label>
 					<div class="col-xs-10">
 						<textarea class="ckeditor form-control" rows="3" id="author_comment" name="author_comment"></textarea>
 					</div>

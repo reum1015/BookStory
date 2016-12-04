@@ -1,6 +1,7 @@
 package study.jsp.bookstory.service;
 
 
+import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.Episode;
 
 public interface EpisodeService {
@@ -11,5 +12,12 @@ public interface EpisodeService {
 	 * @throws Exception
 	 */
 	public void insertEpisode(Episode episode)throws Exception;
+	
+	/**
+	 *  같은 이름의 에피소드 제목이 있는지 검사
+	 * @param book
+	 * @throws Exception
+	 */
+	public int countEqualEpisodeName(Episode episode)throws Exception;
 
 }

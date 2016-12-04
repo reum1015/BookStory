@@ -33,7 +33,7 @@
 	</update>
 	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->
-	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="Report">
+	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
 	SELECT member_id, target_memberId, article_id, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
 	FROM report
 	</select>

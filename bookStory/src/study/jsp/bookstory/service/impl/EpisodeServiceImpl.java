@@ -50,4 +50,22 @@ public class EpisodeServiceImpl implements EpisodeService{
 		
 	}
 
+	@Override
+	public int countEqualEpisodeName(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+				int result = 0;
+				
+				try{
+					result = sqlSession.selectOne("EpisodeMapper.countEqualEpisodeName", episode);
+					if(result > 0){
+						throw new Exception();
+					}
+				}catch (Exception e) {
+					// TODO: handle exception
+					logger.error(e.getLocalizedMessage());
+					throw new Exception("같은 이름의 작품이 존재 합니다.");
+				}
+				return result;
+	}
+
 }

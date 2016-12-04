@@ -1,6 +1,7 @@
 package study.jsp.bookstory.controller.admin;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -13,10 +14,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Episode;
+import study.jsp.bookstory.model.ImageFile;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.FileInfo;
 import study.jsp.helper.RegexHelper;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
@@ -68,20 +73,139 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		//UploadHelper에서 텍스트 형식의 파라미터를 분류한 Map을 리턴 받아서 값을 추출한다.
 		Map<String, String> paramMap = upload.getParamMap();
 		
-		String episode_title = paramMap.get("episode_name");
+		String book_name = paramMap.get("book_title");
+		String genre = paramMap.get("genre");
+		String daily_date = paramMap.get("daily_date");
+		
+		String episode_name = paramMap.get("episode_name");
 		String content = paramMap.get("content");
 		String author_comment = paramMap.get("author_comment");
-		String book_id = paramMap.get("book_id");
+		String bookId = paramMap.get("book_id");
+		
+		int book_id = Integer.parseInt(bookId);
 		
 		
+		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
+		logger.debug("episode_title  -------> " + episode_name);
+		logger.debug("content  -----> " + content);
+		logger.debug("author_comment  ------> " + author_comment);
+		logger.debug("book_id  -----------> " + book_id);
+		
+		/** (5) 입력값의 유효성 검사 */
+		if(!regex.isValue(genre)){
+			sqlSession.close();
+			web.redirect(null, "장르를 선택해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(daily_date)){
+			sqlSession.close();
+			web.redirect(null, "요일을 선택해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(book_name)){
+			sqlSession.close();
+			web.redirect(null, "작품 제목을 입력해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(episode_name)){
+			sqlSession.close();
+			web.redirect(null, "에피소드 이름을 입력해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(content)){
+			sqlSession.close();
+			web.redirect(null, "내용을 입력해 주세요");
+			return null;
+		}
+		
+		if(!regex.isValue(author_comment)){
+			sqlSession.close();
+			web.redirect(null, "작가 코멘트를 입력해 주세요");
+			return null;
+		}
+		
+		//입력받은 파라미터를 Beans로 묶기
+		Episode episode = new Episode();
+		episode.setAuthor_comment(author_comment);
+		episode.setBook_id(book_id);
+		episode.setContent(content);
+		episode.setEpisode_name(episode_name);
+		
+		//에피소드 제목 공백 처리
+		//작품 제목의 공백처리
+		String temp_episodeName = episode.getEpisode_name();
+		temp_episodeName.trim();
+		String resultEpisodeName = temp_episodeName.replaceAll(" ", "");
+				
+		//공백이 제거된 작품제목 
+		Episode episode_title = new Episode();
+		episode_title.setEpisode_name(resultEpisodeName);
+		
+		/** (8) Service를 통한 데이터베이스 저장 처리 */
+		
+		try{
+			//같은 에피소드의 제목이 있는지 검사
+			episodeService.countEqualEpisodeName(episode_title);
+			
+			//없다면 에피소드 등록
+			episodeService.insertEpisode(episode);
+		}catch (Exception e) {
+			// TODO: handle exception
+			sqlSession.close();
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		}
+		
+		/** (6) 업로드 된 파일 정보 추출(첨부 파일 목록 처리) */
+		List<FileInfo> fileList = upload.getFileList();
+		
+		//업로드 된 프로필 사진 경로가 저장될 변수 
+		
+		//업로드 된 파일이 존재할 경우만 변수값을 할당한다.
+		try{
+			for(int i = 0; i <fileList.size(); i++){
+				//업로드 된 정보 하나 추출하여 데이터베이스에 저장하기위한 형태로 가공해야 한다.
+				FileInfo info = fileList.get(i);
+				
+				//DB에 저장하기 위한 항목 생성
+				ImageFile file = new ImageFile();
+				
+				//몇번 작품에 속한 파일인지 지정한다.
+				file.setBook_id(episode.getId());
+				
+				// 데이터 복사
+				file.setOrigin_name(info.getOrginName());
+				file.setFile_dir(info.getFileDir());
+				file.setFile_name(info.getFileName());
+				file.setContent_type(info.getContentType());
+				file.setFile_size(info.getFileSize());
+				file.setImage_type(info.getFieldName());
+				
+				
+				
+				//저장처리
+				imageFileService.insertBookFile(file);
+			}
+			
+		}catch (Exception e) {
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		}finally{
+			sqlSession.close();
+		}
 		
 		
-		// TODO Auto-generated method stub
-		String view="";
-		view="admin/admin_episode_upload";
+		/** (9) 업로드가 완료되었으면 어드민 메인페이지로 이동 */
+		sqlSession.close();
+		web.redirect(web.getRootPath() + "/admin/admin_main.do", "업로드가 완성되었습니다.");
+		//web.getRootPath() + "/admin/admin_main.do"
+		return null;
 		
 		
-		return view;
 	}
 
 }

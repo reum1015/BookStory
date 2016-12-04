@@ -33,6 +33,12 @@
 	VALUES(#{episode_name},0,0,0, #{content}, now(), now(), #{author_comment}, 200, 100, #{book_id})
 	</insert> 
 	
+	<!-- 같은 이름의 작품이 있는지 검사 
+			파라미터와 DB의 book_name 칼럼의 공백 제거 -->
+	<select id="countEqualEpisodeName" parameterType="study.jsp.bookstory.model.Episode" resultType="int">
+		select count(episode_name) from book where replace(episode_name,' ','')= #{episode_name} 
+	</select>
+	
 	
 	
 
