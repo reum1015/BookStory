@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 XML의 구조대로 구현될 클래스의 이름 => Impl클래스를 대체한다. -->
+<mapper namespace="ReportMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.Report" id="report">
+		<result property="id" column="id"/>											<!-- 신고 번호 -->
+		<result property="reg_date" column="reg_date"/>							<!-- 신고받은 날짜 -->
+		<result property="target_memberId" column="target_memberId"/>		<!-- 신고 당한 회원 id -->
+		<result property="blind" column="blind"/>									<!-- 블라인드 처리 N:아무처리 않함 Y:블라인드 처리 -->
+		<result property="member_id" column="member_id"/>					<!-- 회원번호 (외래키) -->
+		<result property="comment_id" column="comment_id"/>					<!-- 덧글 번호 (외래키) -->
+		<result property="article_id" column="article_id"/>							<!-- 게시글 번호 (외래키) -->
+	</resultMap>
+	
+	<!-- 신고된 게시글 등록 -->
+	<insert id="insertArticleReport" parameterType="study.jsp.bookstory.model.Report"
+		useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO report ( member_id, target_memberId, article_id, reg_date ) 
+	SELECT #{member_id}, #{member_id}, #{id}, now()
+	FROM article
+	WHERE id = #{id} and reported = 'N'
+	</insert>
+	
+	<!-- 신고된 게시글의  reported 데이터 변경 -->
+	<update id="updateReportedDate" parameterType="study.jsp.bookstory.model.Article">
+	UPDATE article SET reported = 'Y' 
+	WHERE member_id = #{member_id} and id = #{id};
+	</update>
+	
+	<!-- 신고한 게시글을 리스트로 출력한다. -->
+	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="Report">
+	SELECT member_id, target_memberId, article_id, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+	FROM report
+	</select>
+	
+	<!-- 삭제하는 순간 report테이블이 참조한 aticle_id = null값 적용 -->
+	<update id="updateReportArticleid" parameterType="study.jsp.bookstory.model.Report">
+	UPDATE report SET comment_id = null, article_id = null
+	WHERE member_id = #{member_id}
+	</update>
+	
+	<!-- 문제의 쿼리 -->
+	<!-- 신고된 게시글을 삭제한다. -->
+	<delete id="deleteReportArticle" parameterType="study.jsp.bookstory.model.Article">
+	DELETE FROM article 
+	WHERE id = #{id}
+	</delete>
+	
+</mapper>
