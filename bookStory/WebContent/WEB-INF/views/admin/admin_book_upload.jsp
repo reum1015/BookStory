@@ -58,6 +58,53 @@
 					return false;
 				}
 			});
+			
+			
+			 $("#carousel").change(function(){
+			        readURL(this);
+			        var carousel_value = document.getElementById('carousel').value
+			        if(carousel_value == null || carousel_value==""){
+			        	$('#carousel_img').css('display','none')
+						return false;
+					}
+			        
+			   });
+			 function readURL(input) {
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+			            
+			            reader.onload = function (e) {
+			            	$('#carousel_img').css('display','block')
+			                $('#carousel_img').attr('src', e.target.result);
+			            }
+			            
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+			 
+			 $("#main").change(function(){
+			        readURL_main(this);
+			        var carousel_value = document.getElementById('main').value
+			        if(carousel_value == null || carousel_value==""){
+			        	$('#main_img').css('display','none')
+						return false;
+					}
+			        
+			   });
+			 function readURL_main(input) {
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+			            
+			            reader.onload = function (e) {
+			            	$('#main_img').css('display','block')
+			                $('#main_img').attr('src', e.target.result);
+			            }
+			            
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+			
+			
 		})
 		</script>
 	</head>
@@ -158,6 +205,7 @@
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
 					<input type="file" class="form-control" name="carousel" id="carousel" multiple/>
+					<img id="carousel_img" src="#" alt="your image" style="width: 100%; display: none;"/>
 				</div>
 			</div>
 			<!-- 파일 업로드 -->
@@ -165,6 +213,7 @@
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
 				<div class="col-xs-10">
 					<input type="file" class="form-control" name="main" id="main" multiple/>
+					<img id="main_img" src="#" alt="your image" style="width: 320px; height: 220px; display: none;"/>
 				</div>
 			</div>
 			

@@ -19,6 +19,7 @@ import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.ImageFile;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
+import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.FileInfo;
@@ -50,6 +51,7 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		upload = UploadHelper.getInstance();
 		regex = RegexHelper.getInstance();
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
+		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		
 		
 		/** (3) 로그인 여부 검사*/
@@ -82,14 +84,14 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		String author_comment = paramMap.get("author_comment");
 		String bookId = paramMap.get("book_id");
 		
-		int book_id = Integer.parseInt(bookId);
+		
 		
 		
 		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
 		logger.debug("episode_title  -------> " + episode_name);
 		logger.debug("content  -----> " + content);
 		logger.debug("author_comment  ------> " + author_comment);
-		logger.debug("book_id  -----------> " + book_id);
+		logger.debug("book_id  -----------> " + bookId);
 		
 		/** (5) 입력값의 유효성 검사 */
 		if(!regex.isValue(genre)){
@@ -127,13 +129,19 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 			web.redirect(null, "작가 코멘트를 입력해 주세요");
 			return null;
 		}
+		//에피소드 content 쌍따옴표 처리
+		//String tempContent = content.replace("\'", "\''").replace("\"", "\\\"");
+		
 		
 		//입력받은 파라미터를 Beans로 묶기
+		int book_id = Integer.parseInt(bookId);
+		
 		Episode episode = new Episode();
 		episode.setAuthor_comment(author_comment);
 		episode.setBook_id(book_id);
 		episode.setContent(content);
 		episode.setEpisode_name(episode_name);
+		
 		
 		//에피소드 제목 공백 처리
 		//작품 제목의 공백처리
@@ -147,12 +155,18 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		
+
 		try{
+			
+
 			//같은 에피소드의 제목이 있는지 검사
 			episodeService.countEqualEpisodeName(episode_title);
 			
+			
 			//없다면 에피소드 등록
 			episodeService.insertEpisode(episode);
+			
+
 		}catch (Exception e) {
 			// TODO: handle exception
 			sqlSession.close();
@@ -184,7 +198,6 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 				file.setContent_type(info.getContentType());
 				file.setFile_size(info.getFileSize());
 				file.setImage_type(info.getFieldName());
-				
 				
 				
 				//저장처리

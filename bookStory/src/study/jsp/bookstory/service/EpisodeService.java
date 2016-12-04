@@ -1,7 +1,6 @@
 package study.jsp.bookstory.service;
 
 
-import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.Episode;
 
 public interface EpisodeService {

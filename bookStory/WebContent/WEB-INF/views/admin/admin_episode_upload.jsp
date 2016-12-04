@@ -16,16 +16,22 @@
 		<script src="${pageContext.request.contextPath}/assets/js/ckeditor/ckeditor.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/typeahead.js/typeahead.bundle.min.js"></script>
-	    
+	    	    
 	   
-	   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.css"/>
+	   	
+		
+		
+		
+		
+		
+		
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.css"/>
 	    <script src="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 		<script src="${pageContext.request.contextPath}/assets/js/plugins/handlebars/handlebars-v4.0.5.js"></script>
 		
-		
-
+		<!-- imageUpload Css -->
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap-imageupload.min.css"/>
 		
 	<style type="text/css">
 
@@ -102,7 +108,7 @@
 				                <img src="${pageContext.request.contextPath}/download.do?file={{imagePath}}" class="media-object"style="width: 150px; height: 118px;">
 				        </div>
 				        <div class="media-body result_book_info">
-				            <h4 class="media-heading" id="book_name">{{book_name}}</h4>
+				            <h3 class="media-heading" id="book_name">{{book_name}}</h3>
 				            <small><i id="book_author">{{book_author}}</i></small>
 							<input type="hidden" value="{{id}}" id="id">
 							<input type="hidden" value="{{daily_date}}" id="daily_date">
@@ -115,7 +121,7 @@
 	    	</script>
 	    	
 			<!-- 기존 episode Upload 폼 시작 -->
-			<form class="form-horizontal existing_upload" enctype="multipart/form-data" 
+			<form class="form-horizontal" enctype="multipart/form-data" 
 						action="${pageContext.request.contextPath}/admin/episode_upload_ok.do" id="episode_upload" method="post">
 				<fieldset>
 				
@@ -179,8 +185,11 @@
 			<!-- 파일 업로드 -->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">에피소드(메인)</label>
+				
+				
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="episode" multiple/>
+					<input type="file" class="form-control" name="episode_img" id="episode_img" multiple/>
+					<img alt="" src="#" id="episode_imgBox" style="width: 200px; height: 200px; display: none;">
 				</div>
 			</div>
 				
@@ -238,6 +247,16 @@
 
 	<script type="text/javascript">
 			$(function() {
+				
+				 //업로드 유효성 검사(이미지)
+				 $("#episode_upload").submit(function() {
+						var episode_value = document.getElementById('episode_img').value
+
+						if(episode_value == null || episode_value ==""){
+							alert("이미지를 등록해 주세요");
+							return false;
+						}
+				});
 	
 				$("#search-form").ajaxForm(function(json) {
 					
@@ -261,10 +280,10 @@
 					
 					
 					
-					
+					//검색결과에 있는 값 ---> 폼으로 이동
 					$("div#search_resultBox a").click(function(e) {
 						
-						var bookName = $(this).find("h4").text();
+						var bookName = $(this).find("h3").text();
 						var bookAuthor = $(this).find("i").text();
 						var dailyDate = $(this).find("#daily_date").val();
 						var id = $(this).find("#id").val();
@@ -279,15 +298,41 @@
 							
 					});				
 				});
-			
-			
-			});
 				
 				
+				//이미지 미리 보기
+				 $("#episode_img").change(function(){
+				        readURL(this);
+				        var carousel_value = document.getElementById('episode_img').value
+				        if(carousel_value == null || carousel_value==""){
+				        	$('#episode_imgBox').css('display','none')
+							return false;
+				        }
+				    });
+				
+				 function readURL(input) {
+				        if (input.files && input.files[0]) {
+				            var reader = new FileReader();
+				            
+				            reader.onload = function (e) {
+				            	$('#episode_imgBox').css('display','block');
+				                $('#episode_imgBox').attr('src', e.target.result);
+				            }
+				            
+				            reader.readAsDataURL(input.files[0]);
+				        }
+				    }
 			
+				 
+				
+				 
+				
+				 
+			
+			})
 			</script>
 	
 	<!-- Javascript -->
-
+	<script src="${pageContext.request.contextPath}/assets/js/image-upload/bootstrap-imageupload.min.js"></script>
 	</body>
 </html>
