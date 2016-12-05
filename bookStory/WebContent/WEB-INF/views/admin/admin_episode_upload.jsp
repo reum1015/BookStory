@@ -188,7 +188,13 @@
 				
 				
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="episode_img" id="episode_img" multiple/>
+					<input type="file" class="form-control" name="episode" id="episode_img" multiple/>
+				</div>
+			</div>
+			
+			
+			<div class="form-group" id="img_box">
+				<div class="col-xs-offset-2 col-xs-10">
 					<img alt="" src="#" id="episode_imgBox" style="width: 200px; height: 200px; display: none;">
 				</div>
 			</div>
@@ -305,7 +311,7 @@
 				        readURL(this);
 				        var carousel_value = document.getElementById('episode_img').value
 				        if(carousel_value == null || carousel_value==""){
-				        	$('#episode_imgBox').css('display','none')
+				        	$('#img_box').css('display','none')
 							return false;
 				        }
 				    });
@@ -315,6 +321,7 @@
 				            var reader = new FileReader();
 				            
 				            reader.onload = function (e) {
+				            	$('#img_box').css('display','block');
 				            	$('#episode_imgBox').css('display','block');
 				                $('#episode_imgBox').attr('src', e.target.result);
 				            }
