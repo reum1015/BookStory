@@ -133,15 +133,35 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		//String tempContent = content.replace("\'", "\''").replace("\"", "\\\"");
 		
 		
-		//입력받은 파라미터를 Beans로 묶기
+		
+		//book_id int타입으로 변환
 		int book_id = Integer.parseInt(bookId);
 		
+		
+		
+		//입력받은 파라미터를 Beans로 묶기
 		Episode episode = new Episode();
 		episode.setAuthor_comment(author_comment);
 		episode.setBook_id(book_id);
 		episode.setContent(content);
 		episode.setEpisode_name(episode_name);
 		
+		//작품의 총 에피소드 수 구하기
+		//총에피소드 수가 0 이면 1 아니면 총에피소드수 + 1으로 셋팅
+		int resut = 0;
+		
+		try{
+			resut = episodeService.countTotalEpisodeByBookId(episode);
+			resut = resut + 1;
+			
+		}catch (Exception e) {
+			sqlSession.close();
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		}
+		
+			
+		episode.setEpisode_order(resut);
 		
 		//에피소드 제목 공백 처리
 		//작품 제목의 공백처리
@@ -149,6 +169,7 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		temp_episodeName.trim();
 		String resultEpisodeName = temp_episodeName.replaceAll(" ", "");
 				
+		
 		//공백이 제거된 작품제목 
 		Episode episode_title = new Episode();
 		episode_title.setEpisode_name(resultEpisodeName);
@@ -158,7 +179,6 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 
 		try{
 			
-
 			//같은 에피소드의 제목이 있는지 검사
 			episodeService.countEqualEpisodeName(episode_title);
 			

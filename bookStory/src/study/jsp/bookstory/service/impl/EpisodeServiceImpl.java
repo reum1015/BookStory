@@ -68,4 +68,20 @@ public class EpisodeServiceImpl implements EpisodeService{
 				return result;
 	}
 
+	@Override
+	public int countTotalEpisodeByBookId(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("EpisodeMapper.countTotalEpisodeByBookId", episode);
+
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 총 횟차 검색 에러");
+		}
+		return result;
+	}
+
 }

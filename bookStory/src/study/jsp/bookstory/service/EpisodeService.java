@@ -18,5 +18,14 @@ public interface EpisodeService {
 	 * @throws Exception
 	 */
 	public int countEqualEpisodeName(Episode episode)throws Exception;
+	
+	
+	/**
+	 * 그 작품 에피소드의 총 횟차 수
+	 * @param episode
+	 * @return
+	 * @throws Exception
+	 */
+	public int countTotalEpisodeByBookId(Episode episode)throws Exception;
 
 }

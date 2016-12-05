@@ -22,6 +22,7 @@
 		<result property="episode_buy" column="episode_buy"/>
 		<result property="episode_rent" column="episode_rent"/>
 		<result property="book_id" column="book_id"/>
+		<result property="episode_order" column="episode_order"/>
 		<result property="imagePath" column="imagePath"/>
 	</resultMap>
 
@@ -29,14 +30,19 @@
 
 	<!-- 에피소드 등록 -->
 	<insert id="insertEpisode" parameterType="study.jsp.bookstory.model.Episode" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO episode(episode_name, star_rate, star_count, hit, content, reg_date, edit_date, author_comment, episode_buy, episode_rent, book_id)
-	VALUES(#{episode_name},0,0,0, #{content}, now(), now(), #{author_comment}, 200, 100, #{book_id})
+	INSERT INTO episode(episode_name, star_rate, star_count, hit, content, reg_date, edit_date, author_comment, episode_buy, episode_rent, book_id, episode_order)
+	VALUES(#{episode_name},0,0,0, #{content}, now(), now(), #{author_comment}, 200, 100, #{book_id}, #{episode_order})
 	</insert> 
 	
 	<!-- 같은 이름의 작품이 있는지 검사 
 			파라미터와 DB의 book_name 칼럼의 공백 제거 -->
 	<select id="countEqualEpisodeName" parameterType="study.jsp.bookstory.model.Episode" resultType="int">
 		select count(episode_name) from episode where replace(episode_name,' ','')= #{episode_name}
+	</select>
+	
+	<!-- 그 작품 에피소드의 총 작품 수 -->
+	<select id="countTotalEpisodeByBookId" parameterType="study.jsp.bookstory.model.Episode" resultType="int">
+		SELECT COUNT(id) FROM episode where book_id=#{book_id}
 	</select>
 	
 	

@@ -5,6 +5,14 @@
 <head>	
 	<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 	    		
+	    		
+	<!-- StarRating -->    		
+	<link href="${pageContext.request.contextPath}/assets/css/star-rating/star-rating.css" media="all" rel="stylesheet" type="text/css" />    		
+	    		
+	<!-- optionally if you need to use a theme, then include the theme CSS file as mentioned below -->
+	<link href="${pageContext.request.contextPath}/assets/css/star-rating/theme.css" media="all" rel="stylesheet" type="text/css" />
+	
+	
 	<script type="text/javascript">
 	function open1() {
 	    window.open('01-open.jsp');
@@ -122,7 +130,7 @@
 			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">1394명</a></div>
 			
 			<div class="grade_insert col-lg-3 col-sm-3">
-			<button type="button" class="but_grade" onclick="open1(); return false; ">별점주기</button></div>
+			<a type="button" class="btn btn-default" href="${pageContext.request.contextPath}/novelview/addstarRating.do" id="star_rate">별점주기</a></div>
 			
 			</div>
 			<!-- //별점주기 -->	
@@ -208,6 +216,7 @@
 			
 			<!-- // 댓글 부분  끝 -->
 			
+			<input id="input-id" type="text" class="rating" data-size="lg" >
 		</div>
 	
 
@@ -218,6 +227,25 @@
 
 	<!-- footer -->
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+	<!-- important mandatory libraries -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/css/star-rating/star-rating.js" type="text/javascript"></script>
+	
+	<!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
+	<script src="${pageContext.request.contextPath}/assets/css/star-rating/theme.js"></script>
+	
+	<script type="text/javascript">
+	
+	
+	// initialize with defaults
+	$("#input-id").rating();
+
+	// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
+	$("#input-id").rating({'size':'lg'});
+	
+	
+	</script>
 	
 </body>
 </html>

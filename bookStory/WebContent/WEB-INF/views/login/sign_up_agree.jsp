@@ -11,12 +11,16 @@
 		
 		<script type="text/javascript">
 		$(function() {
-			$("#chk_all").change(function() {
-				var is_check = $(this).is(":checked");
 			
+			
+			var is_check
+			$("#chk_all").change(function() {
+				is_check = $(this).is(":checked");
 				$(".input_check").prop("checked", is_check);
 				
 			});
+			
+
 		});
 		
 		</script>
@@ -130,7 +134,7 @@
 
 			<div class="btn_group">
 
-				<a  href="./sign_up.do" class="btn btn-warning btn-lg col-md-6">동의</a>
+				<a  href="./sign_up.do" class="btn btn-warning btn-lg col-md-6" id="agree_check">동의</a>
 
 				<a href="${pageContext.request.contextPath}/index.do" class="btn btn-default btn-lg col-md-6">비동의</a>
 
