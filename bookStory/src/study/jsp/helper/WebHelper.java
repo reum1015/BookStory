@@ -168,6 +168,26 @@ public class WebHelper {
 
 		return result;
 	}
+	
+	public double getDouble(String fieldName, double defaultValue) {
+		// 리턴을 위한 값을 두 번째 파라미터(기본값)로 설정해 둔다.
+		double result = defaultValue;
+		// getString()메서드를 통해서 파라미터를 문자열 형태로 받는다.
+		// 파라미터가 존재하지 않는다면 두 번째로 전달한 값이 리턴된다.
+		String param = this.getString(fieldName, null);
+
+		// 파라미터로 전달된 값을 숫자로 형변환 한다.
+		try {
+			if(param != null){
+			}
+		} catch (NumberFormatException e) {
+			// 형변환에 실패할 경우 catch블록으로 제어가 이동하고,result값은 미리 설정해 둔
+			// defaultValue인 상태를 유지한다.
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 
 	/**
 	 * 배열 형태의 파라미터를 리턴한다. 체크박스 전용 기능
@@ -198,6 +218,10 @@ public class WebHelper {
 
 	public int getInt(String fieldName) {
 		return this.getInt(fieldName, 0);
+	}
+	
+	public double getDouble(String fieldName) {
+		return this.getDouble(fieldName, 0);
 	}
 
 	public String[] getStringArray(String fieldName) {

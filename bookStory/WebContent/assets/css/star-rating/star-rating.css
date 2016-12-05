@@ -48,7 +48,7 @@
     left: 0;
     top: 0;
     margin: auto;
-    color: #fde16d;
+    color: #ff0000;
     white-space: nowrap;
     overflow: hidden;
     -webkit-text-stroke: 1px #777;
@@ -91,7 +91,7 @@
 }
 
 .rating-lg {
-    font-size: 3.91em;
+    font-size: 3.73em;
 }
 
 .rating-md {

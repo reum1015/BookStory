@@ -87,7 +87,7 @@ public class ArticleList extends BaseController {
 		request.setAttribute("pageHelper", pageHelper);
 		
 		
-		return "/community/article_list";
+		return "community/article_list";
 	}
 	
 

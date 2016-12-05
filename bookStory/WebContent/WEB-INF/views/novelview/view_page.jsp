@@ -22,6 +22,20 @@
 <!-- main css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/novelview/novel_view.css"/>
 
+<!-- 메뉴바 고정 CSS -->
+<style type="text/css">
+
+.barFixed{
+	position: fixed;
+	top: 0;
+}
+
+.titlebar2Width{
+	width: 45% !important;
+}
+
+
+</style>
 </head>
 <body>
 
@@ -130,7 +144,7 @@
 			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">1394명</a></div>
 			
 			<div class="grade_insert col-lg-3 col-sm-3">
-			<a type="button" class="btn btn-default" href="${pageContext.request.contextPath}/novelview/addstarRating.do" id="star_rate">별점주기</a></div>
+			<a type="button" class="btn btn-default"  id="star_rate" data-toggle="modal" data-target="#myModal">별점주기</a></div>
 			
 			</div>
 			<!-- //별점주기 -->	
@@ -216,13 +230,39 @@
 			
 			<!-- // 댓글 부분  끝 -->
 			
-			<input id="input-id" type="text" class="rating" data-size="lg" >
 		</div>
 	
 
 
 	<!-- 메인 화면 끝 -->
-
+	
+	
+	
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">별점 주기</h4>
+        </div>
+         <form action="${pageContext.request.contextPath}/book/addStar.do" method="post">
+        <div class="modal-body">
+         
+		    <label for="input-id" class="control-label">이 작품에 별점을 주세요</label>
+		    <input id="input-id" type="text" class="rating" data-size="lg" name="star_rate">
+        </div>
+        <div class="modal-footer">
+         <button class="btn btn-warning btn-block" type="submit" >별점주기</button>
+        
+        </div>
+           </form>
+      </div>
+      
+    </div>
+  </div>
 
 
 	<!-- footer -->
@@ -236,13 +276,45 @@
 	<script src="${pageContext.request.contextPath}/assets/css/star-rating/theme.js"></script>
 	
 	<script type="text/javascript">
-	
-	
-	// initialize with defaults
-	$("#input-id").rating();
+	$(function() {
+		//모달 캐시 데이터 삭제
+		//모든 모달이 완전히 닫힌 직후 호출됨
+		$('.modal').on('hidden.bs.modal', function(e){
+			//모달창 내의 내용을 강제로 지움.
+			$(this).removeData('bs.modal');
+		});
+		
 
-	// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
-	$("#input-id").rating({'size':'lg'});
+		
+		
+		
+		
+		// 별점
+		// initialize with defaults
+		$("#input-id").rating();
+
+		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
+		$("#input-id").rating({'size':'lg'});
+		
+		
+		
+		//메뉴바 고정 스크립트
+		var barOffset = $("#titlebar_header").offset();
+		$(window).scroll(function() {
+			if($(document).scrollTop() > barOffset.top){
+				$("#titlebar_header").addClass("barFixed");
+				$("#title_list").addClass("titlebar2Width");
+		
+			}else{
+				$("#titlebar_header").removeClass("barFixed");
+				$("#title_list").removeClass("titlebar2Width");
+			}
+		});
+		
+	})
+	
+
+	
 	
 	
 	</script>

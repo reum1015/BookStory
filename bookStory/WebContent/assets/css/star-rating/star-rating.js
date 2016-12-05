@@ -34,8 +34,8 @@
         handler, Rating;
     NAMESPACE = '.rating';
     DEFAULT_MIN = 0;
-    DEFAULT_MAX = 5;
-    DEFAULT_STEP = 0.5;
+    DEFAULT_MAX = 10;
+    DEFAULT_STEP = 1;
     isEmpty = function (value, trim) {
         return value === null || value === undefined || value.length === 0 || (trim && $.trim(value) === '');
     };
@@ -520,16 +520,16 @@
         showClear: true,
         showCaption: true,
         starCaptionClasses: {
-            0.5: 'label label-danger',
             1: 'label label-danger',
-            1.5: 'label label-warning',
-            2: 'label label-warning',
-            2.5: 'label label-info',
-            3: 'label label-info',
-            3.5: 'label label-primary',
-            4: 'label label-primary',
-            4.5: 'label label-success',
-            5: 'label label-success'
+            2: 'label label-danger',
+            3: 'label label-warning',
+            4: 'label label-warning',
+            5: 'label label-info',
+            6: 'label label-info',
+            7: 'label label-primary',
+            8: 'label label-primary',
+            9: 'label label-success',
+            10: 'label label-success'
         },
         clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
         clearButtonBaseClass: 'clear-rating',
@@ -547,16 +547,16 @@
     $.fn.ratingLocales.en = {
         defaultCaption: '{rating} Stars',
         starCaptions: {
-            0.5: 'Half Star',
             1: 'One Star',
-            1.5: 'One & Half Star',
-            2: 'Two Stars',
-            2.5: 'Two & Half Stars',
-            3: 'Three Stars',
-            3.5: 'Three & Half Stars',
+            2: 'Two Star',
+            3: 'Three Star',
             4: 'Four Stars',
-            4.5: 'Four & Half Stars',
-            5: 'Five Stars'
+            5: 'Five Stars',
+            6: 'Six Stars',
+            7: 'Seven Stars',
+            8: 'Eight Stars',
+            9: 'Nine Stars',
+            10: 'Ten Stars'
         },
         clearButtonTitle: 'Clear',
         clearCaption: 'Not Rated'

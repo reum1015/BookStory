@@ -2,19 +2,19 @@ package study.jsp.bookstory.model;
 
 public class Episode {
 	
-	private int id;							// 화번호
+	private int id;											// 화번호
 	private String episode_name;			// 화제목
-	private int episode_order;				// 화 회차
-	private double star_rate;				// 별점
-	private int star_count;					// 별점찍은 횟수
-	private int hit;						// 조회수
-	private String content;					// 내용
-	private String reg_date;				// 등록일자
-	private String edit_date;				// 변경일자
-	private String author_comment;			// 작가의 말
-	private int episode_buy;				// 화구매 가격
-	private int episode_rent;				// 화랜트 가격
-	private int book_id;					// 책 번호
+	private int episode_order;					// 화 회차
+	private double star_rate;					// 별점
+	private int star_count;							// 별점찍은 횟수
+	private int hit;										// 조회수
+	private String content;						// 내용
+	private String reg_date;						// 등록일자
+	private String edit_date;						// 변경일자
+	private String author_comment;		// 작가의 말
+	private int episode_buy;						// 화구매 가격
+	private int episode_rent;					// 화랜트 가격
+	private int book_id;								// 책 번호
 	
 	
 	//이미지 구현을 위해서 추가된 값

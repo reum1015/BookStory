@@ -8,16 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import study.jsp.helper.BaseController;
+import study.jsp.helper.WebHelper;
 
 @WebServlet("/novelview/view_page.do")
 public class ViewPage extends BaseController{
 
 	private static final long serialVersionUID = 113920651746454564L;
-
+	WebHelper web;
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String view = "/novelview/view_page";
+        String view = "novelview/view_page";
 		
+
+        
         
 		return view;
 	}
