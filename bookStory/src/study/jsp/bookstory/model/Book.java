@@ -6,7 +6,6 @@ public class Book {
 	private String book_name;				// 책이름
 	private String book_author;			// 작가이름
 	private String daily_date;				// 작품의 요일별 데이터
-	private double totalstar_rate;		// 합별점
 	private int total_hit;							// 합조회수
 	private String intro;							// 책소개글
 	private String genre;						// 장르
@@ -48,14 +47,6 @@ public class Book {
 
 	public void setDaily_date(String daily_date) {
 		this.daily_date = daily_date;
-	}
-
-	public double getTotalstar_rate() {
-		return totalstar_rate;
-	}
-
-	public void setTotalstar_rate(double totalstar_rate) {
-		this.totalstar_rate = totalstar_rate;
 	}
 
 	public int getTotal_hit() {
@@ -125,10 +116,11 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", book_name=" + book_name + ", book_author=" + book_author + ", daily_date="
-				+ daily_date + ", totalstar_rate=" + totalstar_rate + ", total_hit=" + total_hit + ", intro=" + intro
-				+ ", genre=" + genre + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", total_point="
-				+ total_point + ", rent_point=" + rent_point + ", imagePath=" + imagePath + "]";
+				+ daily_date + ", total_hit=" + total_hit + ", intro=" + intro + ", genre=" + genre + ", reg_date="
+				+ reg_date + ", edit_date=" + edit_date + ", total_point=" + total_point + ", rent_point=" + rent_point
+				+ ", imagePath=" + imagePath + "]";
 	}
+
 	
 	
 	

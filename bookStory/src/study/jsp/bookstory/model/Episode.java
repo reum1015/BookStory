@@ -5,8 +5,6 @@ public class Episode {
 	private int id;											// 화번호
 	private String episode_name;			// 화제목
 	private int episode_order;					// 화 회차
-	private double star_rate;					// 별점
-	private int star_count;							// 별점찍은 횟수
 	private int hit;										// 조회수
 	private String content;						// 내용
 	private String reg_date;						// 등록일자
@@ -48,26 +46,6 @@ public class Episode {
 
 	public void setEpisode_order(int episode_order) {
 		this.episode_order = episode_order;
-	}
-
-
-	public double getStar_rate() {
-		return star_rate;
-	}
-
-
-	public void setStar_rate(double star_rate) {
-		this.star_rate = star_rate;
-	}
-
-
-	public int getStar_count() {
-		return star_count;
-	}
-
-
-	public void setStar_count(int star_count) {
-		this.star_count = star_count;
 	}
 
 
@@ -163,12 +141,13 @@ public class Episode {
 
 	@Override
 	public String toString() {
-		return "Episode [id=" + id + ", episode_name=" + episode_name + ", episode_order=" + episode_order
-				+ ", star_rate=" + star_rate + ", star_count=" + star_count + ", hit=" + hit + ", content=" + content
-				+ ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", author_comment=" + author_comment
-				+ ", episode_buy=" + episode_buy + ", episode_rent=" + episode_rent + ", book_id=" + book_id
-				+ ", imagePath=" + imagePath + "]";
+		return "Episode [id=" + id + ", episode_name=" + episode_name + ", episode_order=" + episode_order + ", hit="
+				+ hit + ", content=" + content + ", reg_date=" + reg_date + ", edit_date=" + edit_date
+				+ ", author_comment=" + author_comment + ", episode_buy=" + episode_buy + ", episode_rent="
+				+ episode_rent + ", book_id=" + book_id + ", imagePath=" + imagePath + "]";
 	}
+
+
 
 	
 	

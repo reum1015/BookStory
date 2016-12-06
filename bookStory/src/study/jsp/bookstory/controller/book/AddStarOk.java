@@ -21,7 +21,7 @@ import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
 @WebServlet("/book/addStar.do")
-public class StarAddOk extends BaseController{
+public class AddStarOk extends BaseController{
 
 	private static final long serialVersionUID = -5686895178885874355L;
 

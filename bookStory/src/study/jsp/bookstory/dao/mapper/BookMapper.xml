@@ -14,7 +14,6 @@
 		<result property="book_name" column="book_name"/>
 		<result property="book_author" column="book_author"/>
 		<result property="daily_date" column="daily_date"/>
-		<result property="totalstar_rate" column="totalstar_rate"/>
 		<result property="total_hit" column="total_hit"/>
 		<result property="intro" column="intro"/>
 		<result property="genre" column="genre"/>
@@ -31,9 +30,9 @@
 
 	<!-- 작품 등록 -->
 	<insert id="insertBook" parameterType="study.jsp.bookstory.model.Book" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO book(book_name, book_author,totalstar_rate,total_hit,intro,genre,
+	INSERT INTO book(book_name, book_author,total_hit,intro,genre,
 										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date)
-	VALUES(#{book_name}, #{book_author},0,0, #{intro}, #{genre},
+	VALUES(#{book_name}, #{book_author},0, #{intro}, #{genre},
 					now(),now(),0,0,"N",0,#{daily_date})
 	</insert>
 	
