@@ -48,18 +48,18 @@
 	<!-- 메인 화면 시작 -->
 	
 		<div class="container">
-			<div class="container view">
+			<div class="container_view">
 				<div class="section_area_viewer">
-				
+				<div class="row empty_box"></div>
 				<!-- title bar -->
-				<div id="titlebar_header" class="row" >
+				<div class="row view_header">
 				
-                <div id="title_title" class="titlebar col-lg-2 col-sm-2">
-					<a href="#">소설제목</a>
+                <div id="" class="col-sm-2 novel_title">
+					<h4><a href="#">소설제목</a></h4>
 				</div>
 				
 				
-				<div id="title_list" class="titlebar2 col-lg-7 col-sm-6">
+				<div id="" class="col-sm-7 episode_list">
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
@@ -73,13 +73,13 @@
 				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
 				
-				<div id="title_bookmark" class="titlebar3 col-lg-1 col-sm-1">
+				<div id="" class="col-sm-1 episode_bookmark">
 					<a href="#">
 					<span class="icon_bookmark2">책갈피</span>					
 				</a>
 				
 				</div>
-				<div id="title_bookmark" class="titlebar4 col-lg-2 col-sm-2">
+				<div id="" class="col-sm-2 view_set">
 					<a>보기설정</a>
 				</div>				
 				
@@ -181,7 +181,7 @@
 	
 				 -->
 				 
-				 		</div>				
+		</div>				
 			</div>	
 			<!-- 댓글 부분  -->	 
 			
