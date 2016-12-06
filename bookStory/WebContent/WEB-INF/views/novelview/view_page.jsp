@@ -44,12 +44,12 @@
    
 	<!-- 메인 화면 시작 -->
 	
-		<div id="container">
+		<div class="container">
 			<div class="container view">
 				<div class="section_area_viewer">
 				
 				<!-- title bar -->
-				<div id="titlebar_header" class="row col-lg-12" >
+				<div id="titlebar_header" class="row" >
 				
                 <div id="title_title" class="titlebar col-lg-2 col-sm-2">
 					<a href="#">소설제목</a>
@@ -58,16 +58,16 @@
 				
 				<div id="title_list" class="titlebar2 col-lg-7 col-sm-6">
 			
-			<button type="button" class="prevpage col-lg-1 btn-default">&lt;</button>
-				   <div>
-				  <select name="novellist" class="novellist col-lg-10 btn-default">
+				<button type="button" class="prevpage btn-default">&lt;</button>
+				
+				  <select name="novellist" class="novellist selectpicker">
 				  <option>제 201화. 이름 없는</option>
 				   <option value="title1">소설제목1</option>  
 				   <option value="title2">소설제목2</option>
 				   <option value="title3">소설제목3</option>
-			</select>
-				 </div>
-			<button type="button" class="nextpage col-lg-1 btn-default">&gt;</button>
+					</select>
+
+				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
 				
 				<div id="title_bookmark" class="titlebar3 col-lg-1 col-sm-1">
