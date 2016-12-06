@@ -1,6 +1,8 @@
 package study.jsp.bookstory.controller.book;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Member;
@@ -60,7 +64,7 @@ public class AddStarOk extends BaseController{
 		String tempStar = web.getString("star_rate");
 		
 		//점수 정수형으로 변환
-		int star_rate = Integer.parseInt(tempStar);
+		double star_rate = Double.parseDouble(tempStar);
 		
 		logger.debug("star_rate ----------------->" + star_rate);
 		
@@ -71,22 +75,71 @@ public class AddStarOk extends BaseController{
 			return null;
 		}
 		
-		//에피소드 Id 받기
-		int episode_id = web.getInt("id");
 		
 		
-		//파라미터를 Beans로 묶기
-		StarMark starMark = new StarMark();
-	
+		int member_id = 1;
 		//회원일련번호를 Beans에 추가
 		Member loginInfo = (Member) web.getSession("loginInfo");
-		if(loginInfo != null){
-			
+			if(loginInfo != null){
+			member_id = loginInfo.getId();	
+		}
+		if(member_id == 0){
+			sqlSession.close();
+			web.printJsonRt("회원 번호가 없습니다.");
+			return null;
 		}
 		
 		
+		//파라미터 받기
+		int episode_id = web.getInt("id");	//에피소드 Id 받기
+		int book_id = web.getInt("book_id");	//작품 Id 받기
 		
 		
+		/* 파라미터를 Beans로 묶기 */
+		StarMark starMark = new StarMark();
+		
+		starMark.setBook_id(book_id);
+		starMark.setEpisode_id(episode_id);
+		starMark.setMember_id(member_id);
+		starMark.setStarpoint(star_rate);
+		
+		/* 별점 등록 처리(테이블에 Insert) */
+		
+		double starAvgEpisode = 0;	//에피소드 평균 별점
+		int star_count = 0;			//에피소드 별점 준 총 회원수
+		
+		
+		try{
+			starMarkService.insertAddStar(starMark);
+			
+			//에피소드 별점 준 총 회원수
+			star_count = starMarkService.selectStarCountEpisode(starMark);
+			
+			//에피소드 평균 별점
+			starAvgEpisode = starMarkService.selectStarAvgEpisode(starMark);
+		}catch (Exception e) {
+			web.printJsonRt(e.getLocalizedMessage());
+			return null;
+		}finally {
+			sqlSession.close();
+		}
+		
+		StarMark star = new StarMark();
+		star.setEpisode_id(episode_id);
+		
+		
+		/** (6) 처리 결과를 JSON으로 출력하기 */
+		// --> import java.util.HashMap;
+		// --> import java.util.Map;
+		
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("rt", "OK");
+		data.put("starCount", star_count);
+		data.put("starAvgEpisode", starAvgEpisode);
+		
+		// --> import com.fasterxml.jackson.databind.ObjectMapper;
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValue(response.getWriter(), data);
 		
 		
 		

@@ -13,6 +13,9 @@
 	<link href="${pageContext.request.contextPath}/assets/css/star-rating/theme.css" media="all" rel="stylesheet" type="text/css" />
 	
 	
+	<link href="${pageContext.request.contextPath}/assets/css/selectbox/css/bootstrap-select.css" media="all" rel="stylesheet" type="text/css" />
+	
+	
 	<script type="text/javascript">
 	function open1() {
 	    window.open('01-open.jsp');
@@ -60,7 +63,7 @@
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
-				  <select name="novellist" class="novellist selectpicker">
+				  <select name="novellist" class="novellist selectpicker" data-style="btn-warning">
 				  <option>제 201화. 이름 없는</option>
 				   <option value="title1">소설제목1</option>  
 				   <option value="title2">소설제목2</option>
@@ -240,7 +243,7 @@
 	
 <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
     
       <!-- Modal content-->
       <div class="modal-content">
@@ -252,7 +255,7 @@
         <div class="modal-body">
          
 		    <label for="input-id" class="control-label">이 작품에 별점을 주세요</label>
-		    <input id="input-id" type="text" class="rating" data-size="lg" name="star_rate">
+		    <input id="input-id" type="text" class="rating" data-size="xs" name="star_rate">
         </div>
         <div class="modal-footer">
          <button class="btn btn-warning btn-block" type="submit" >별점주기</button>
@@ -267,6 +270,9 @@
 
 	<!-- footer -->
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
+
+	<script src="${pageContext.request.contextPath}/assets/css/selectbox/js/bootstrap-select.js" type="text/javascript"></script>
 
 	<!-- important mandatory libraries -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
@@ -294,7 +300,7 @@
 		$("#input-id").rating();
 
 		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
-		$("#input-id").rating({'size':'lg'});
+		$("#input-id").rating({'size':'xs'});
 		
 		
 		

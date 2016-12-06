@@ -45,4 +45,59 @@ public class StarMarkServiceImpl implements StarMarkService{
 		}
 	}
 
+	@Override
+	public double selectStarAvgEpisode(StarMark star) throws Exception {
+		// TODO Auto-generated method stub
+		double result = 0;
+		
+		try{
+			result = sqlSession.selectOne("StarMarkMapper.selectStarAvgEpisode", star);
+			if(result == 0){
+				return 0;
+			}
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 별점 평균 조회에 실패 했습니다.");
+		}
+		
+	
+		return result;
+		
+		
+	}
+
+	@Override
+	public int selectStarCountEpisode(StarMark star) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("StarMarkMapper.selectStarCountEpisode", star);
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 별점 등록 총 회원수 조회에 실패 했습니다.");
+		}
+		
+		
+		return result;
+	}
+
+	@Override
+	public double selectStarAvgBook(StarMark star) throws Exception {
+		// TODO Auto-generated method stub
+				double result = 0;
+				
+				try{
+					result = sqlSession.selectOne("StarMarkMapper.selectStarAvgBook", star);
+					
+				}catch (Exception e) {
+					logger.error(e.getLocalizedMessage());
+					throw new Exception("작품 평균 별점 조회에 실패 했습니다.");
+				}
+				
+			
+				return result;
+	}
+
 }

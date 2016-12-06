@@ -85,7 +85,6 @@ public class LoginOk extends BaseController {
 		sqlSession.close();
 		web.redirect(web.getRootPath() + "/index.do", "어서오세요. 북스토리입니다.");
 		
-		
 		return null;
 	}
 

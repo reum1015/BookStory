@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!-- Member 테이블에 대한 CRUD 기능을 구현하기 위한 Mapper -->
+<mapper namespace="StarMarkMapper">
+	
+	<!-- Beans 클래스의 객체이름(id)과 클래스 이름(type)를 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.StarMark" id="starMark">
+	<!-- 빈즈의 멤버 변수(property) 이름과 대상테이블의 컬럼(column)을 연결한다-->
+		<result property="id" column="id"/>
+		<result property="member_id" column="member_id"/>
+		<result property="episode_id" column="episode_id"/>
+		<result property="book_id" column="episode_id"/>
+		<result property="starpoint" column="starpoint"/>
+		
+		<result property="episode_star_avg" column="episode_star_avg"/>
+		<result property="book_star_avg" column="book_star_avg"/>
+		<result property="star_count" column="star_count"/>
+	</resultMap>
+
+
+
+	<!-- 별점 등록 -->
+	<insert id="insertAddStar" parameterType="study.jsp.bookstory.model.StarMark" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO starmark (member_id, episode_id,book_id,starpoint)
+	VALUES #{member_id}, #{episode_id},#{book_id},#{starpoint}
+	</insert>
+	
+	
+	<!-- 에피소드별 별점 평균 -->
+	<select id="selectStarAvgEpisode" parameterType="study.jsp.bookstory.model.StarMark" resultType="double">
+	SELECT truncate(avg(starpoint),2) AS episode_star_avg FROM starmark where episode_id = #{episode_id}
+	</select>
+	
+	<!-- 에피소드 별점 등록 회원 수 -->
+	<select id="selectStarCountEpisode" parameterType="study.jsp.bookstory.model.StarMark" resultType="int">
+	SELECT count(id) FROM starmark AS star_count where episode_id = #{episode_id}
+	</select>
+	
+	<select id="selectStarAvgBook" parameterType="study.jsp.bookstory.model.StarMark" resultType="double">
+	SELECT truncate(avg(starpoint),2) AS episode_star_avg FROM starmark where book_id = #{book_id}
+	</select>
+	
+
+
+	
+	
+	
+
+</mapper>

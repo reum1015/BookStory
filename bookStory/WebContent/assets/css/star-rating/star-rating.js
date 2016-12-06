@@ -513,7 +513,7 @@
         filledStar: '<i class="glyphicon glyphicon-star"></i>',
         emptyStar: '<i class="glyphicon glyphicon-star-empty"></i>',
         containerClass: '',
-        size: 'md',
+        size: 'lg',
         animate: true,
         displayOnly: false,
         rtl: false,
@@ -522,14 +522,14 @@
         starCaptionClasses: {
             1: 'label label-danger',
             2: 'label label-danger',
-            3: 'label label-warning',
-            4: 'label label-warning',
-            5: 'label label-info',
-            6: 'label label-info',
-            7: 'label label-primary',
-            8: 'label label-primary',
-            9: 'label label-success',
-            10: 'label label-success'
+            3: 'label label-danger',
+            4: 'label label-danger',
+            5: 'label label-danger',
+            6: 'label label-danger',
+            7: 'label label-danger',
+            8: 'label label-danger',
+            9: 'label label-danger',
+            10: 'label label-danger'
         },
         clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
         clearButtonBaseClass: 'clear-rating',
@@ -547,19 +547,19 @@
     $.fn.ratingLocales.en = {
         defaultCaption: '{rating} Stars',
         starCaptions: {
-            1: 'One Star',
-            2: 'Two Star',
-            3: 'Three Star',
-            4: 'Four Stars',
-            5: 'Five Stars',
-            6: 'Six Stars',
-            7: 'Seven Stars',
-            8: 'Eight Stars',
-            9: 'Nine Stars',
-            10: 'Ten Stars'
+            1: '1point',
+            2: '2point',
+            3: '3point',
+            4: '4point',
+            5: '5point',
+            6: '6point',
+            7: '7point',
+            8: '8point',
+            9: '9point',
+            10: '10point'
         },
         clearButtonTitle: 'Clear',
-        clearCaption: 'Not Rated'
+        clearCaption: '0 point'
     };
 
     $.fn.rating.Constructor = Rating;
