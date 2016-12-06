@@ -29,7 +29,14 @@
 	</delete>
 	
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark">
-	  SELECT id, member_id, episode_id FROM bookmark WHERE episode_id=#{episode_id} ORDER BY id DESC
+	select e.episode_order, e.episode_name, (SELECT concat(file_dir, '/', file_name) 
+FROM imagefile WHERE episode_id=(select b.episode_id from bookmark b where member_id = 1) AND content_type LIKE ('image/%') AND image_type='episode'
+			ORDER BY id ASC LIMIT 0, 1) as imagePath from episode e
+where id = (select b.episode_id from bookmark b where member_id = 1);
 	</select>
+	
+	
+	
+
 	
 </mapper>
