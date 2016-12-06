@@ -144,9 +144,22 @@ a:HOVER {
 	border-bottom: 1px solid #e7e7e7;
 }
 
+.star_row{
+	border-bottom: 1px solid #dadbdc;
+	border-top: 1px solid #dadbdc;
+	width: 100%;
+	margin: auto;
+	height: 50px;
+	
+}
 
-
-
+/* 소설 제목*/
+.novel_title_header{
+	width: 75%;
+	margin: auto;
+	padding-top: 25px;
+	
+}
 
 
 
@@ -270,7 +283,7 @@ font-size: 18px;
  /** 여기부터 밑에 부분 */
 
 .viewer_footer {
-height: 200px;
+
 }
 
 
@@ -309,8 +322,8 @@ border-bottom: solid 1px #ebebeb;
 
 /** 작가의 말 */
 .author_comment {
-   width: 500px;
-    padding-top: 10px;
+   width: 50%;
+    padding: 10px 0px;
     margin: 0 auto;
     font-size: 15px;
     line-height: 26px;
@@ -334,7 +347,7 @@ border-bottom: solid 1px #ebebeb;
 
 /** 댓글 */
 .comment_view {	
-	width: 80%;
+	width: 90%;
 	height: 100%;
 	font-size: 25px;
 	margin-top: 30px;

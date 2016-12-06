@@ -31,12 +31,13 @@
 .barFixed{
 	position: fixed;
 	top: 0;
+	width: 1026px !important;
+
 }
 
 .titlebar2Width{
 	width: 45% !important;
 }
-
 
 </style>
 </head>
@@ -52,7 +53,7 @@
 				<div class="section_area_viewer">
 				<div class="row empty_box"></div>
 				<!-- title bar -->
-				<div class="row view_header">
+				<div class="row view_header" id="titlebar_header">
 				
                 <div id="" class="col-sm-2 novel_title">
 					<h4><a href="#">소설제목</a></h4>
@@ -63,7 +64,7 @@
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
-				  <select name="novellist" class="novellist selectpicker" data-style="btn-warning">
+				  <select name="novellist" class="novellist selectpicker">
 				  <option>제 201화. 이름 없는</option>
 				   <option value="title1">소설제목1</option>  
 				   <option value="title2">소설제목2</option>
@@ -88,12 +89,19 @@
 				
 				<!-- view content -->
 				<div class="viewer_container">
+				
+				<div class="page-header novel_title_header">
+			    <h1>18.어렵네 제목</h1>      
+			    <span class="date">2016.10.18</span>
+			  	</div>
+			  	
+			  	<!-- 
 				<div class="detail_view_header">
 				<h2>18.어렵네 제목
 				</h2>
 				<span class="date">2016.10.18</span>
 				</div>
-				
+				 -->
 				
 				<div class="detail_view_content">
 				<p>무엇을 바라고 좋아했던 게 아니다. 
@@ -138,7 +146,8 @@
 			<div class="viewer_footer">
 			
 			<!-- 별점주기 -->
-			<div id="grade_bar" class="col-lg-12 col-sm-12">
+			<div class="row star_row">
+		
 			<div class="star_grade col-lg-3 col-lg-offset-3 col-sm-3 col-sm-offset-3">
 			<label for="str" title="별점" class="icon_stargrade"  id="stargradeIcon">별점</label>
 			</div>
@@ -149,6 +158,7 @@
 			<div class="grade_insert col-lg-3 col-sm-3">
 			<a type="button" class="btn btn-default"  id="star_rate" data-toggle="modal" data-target="#myModal">별점주기</a></div>
 			
+		
 			</div>
 			<!-- //별점주기 -->	
 				
@@ -309,14 +319,15 @@
 		$(window).scroll(function() {
 			if($(document).scrollTop() > barOffset.top){
 				$("#titlebar_header").addClass("barFixed");
-				$("#title_list").addClass("titlebar2Width");
+
 		
 			}else{
 				$("#titlebar_header").removeClass("barFixed");
-				$("#title_list").removeClass("titlebar2Width");
+
 			}
 		});
-		
+
+	
 	})
 	
 
