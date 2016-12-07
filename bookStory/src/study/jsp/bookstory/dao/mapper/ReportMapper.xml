@@ -10,8 +10,9 @@
 	<resultMap type="study.jsp.bookstory.model.Report" id="report">
 		<result property="id" column="id"/>											<!-- 신고 번호 -->
 		<result property="reg_date" column="reg_date"/>							<!-- 신고받은 날짜 -->
-		<result property="target_memberId" column="target_memberId"/>		<!-- 신고 당한 회원 id -->
 		<result property="blind" column="blind"/>									<!-- 블라인드 처리 N:아무처리 않함 Y:블라인드 처리 -->
+		<result property="target_member_id" column="target_member_id"/>	<!-- 신고 당한 회원 id -->
+		<result property="report_content" column="report_content"/>			<!-- 신고내용 -->
 		<result property="member_id" column="member_id"/>					<!-- 회원번호 (외래키) -->
 		<result property="comment_id" column="comment_id"/>					<!-- 덧글 번호 (외래키) -->
 		<result property="article_id" column="article_id"/>							<!-- 게시글 번호 (외래키) -->

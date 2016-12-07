@@ -98,6 +98,9 @@
   </table>
   <!-- 버튼들 : category값에 대한 상태유지 필요함 -->
   <div class="clearfix">
+  	<div class="pull-left" >
+  		<a href="${pageContext.request.contextPath}/community/article_report.do" class="btn btn-danger">게시글 신고</a>
+  	</div>
     <div class="pull-right">
       <a href="${pageContext.request.contextPath}/community/article_list.do?category=${category}" class="btn btn-info">목록보기</a>
       <a href="${pageContext.request.contextPath}/community/article_write.do?category=${category}" class="btn btn-primary">글쓰기</a>
@@ -107,44 +110,7 @@
     </div>
   </div>
   
-  
 				<br/>
-
-		<!-- 게시글 신고 모달 -->
-		<div class="modal fade" id="article_toadmin" tabindex="-1"
-			role="dialog" aria-labelledby="edit" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						</button>
-						<h4 class="modal-title custom_align" id="Heading">게시글 신고</h4>
-					</div>
-					<div class="modal-body">
-
-						<div class="alert alert-danger">
-							<span class="glyphicon glyphicon-warning-sign"></span> 이 게시글을
-							신고하시겠습니까?
-						</div>
-
-					</div>
-					<div class="modal-footer ">
-						<button type="button" class="btn btn-success">
-							<span class="glyphicon glyphicon-ok-sign"></span> Yes
-						</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> No
-						</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-
-
 
 		<!--덧글 신고 모달 -->
 		<div class="modal fade" id="reply_toadmin" tabindex="-1" role="dialog"
