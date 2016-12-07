@@ -19,16 +19,15 @@
         <result property="ip_address" column="ip_address"/>
         <result property="reported" column="reported"/>
         <result property="member_id" column="member_id"/>
-        
 	</resultMap>
 	
 	<!-- 게시글 정보 저장하기 -->
 	<insert id="insertArticle" parameterType="study.jsp.bookstory.model.Article" useGeneratedKeys="true" keyProperty="id">
 	  INSERT INTO article (
 	    category, subject, content, hit, reg_date, edit_date, ip_address,
-	    member_id
+	    member_id, reported
 	  ) VALUES (
-	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}
+	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}, "N"
 	     
 	  )
 	</insert>

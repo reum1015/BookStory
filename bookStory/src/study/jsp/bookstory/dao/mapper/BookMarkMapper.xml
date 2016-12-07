@@ -14,6 +14,8 @@
 		<result property="member_id" column="member_id"/>
 		<result property="episode_id" column="episode_id"/>
 		<result property="imagePath" column="image_path"/>
+		<result property="episode_order" column="episode_order"/>
+		<result property="episode_name" column="episode_name"/>
 	
 	</resultMap>
 
@@ -30,7 +32,14 @@
 	</delete>
 	
 	
-	<!-- 북마크 목록을 조회한다. -->
+	<!-- 전체 게시물 수를 조회한다. 페이지 구현 위해서 -->
+	<select id="selectBookMarkCount" parameterType="study.jsp.bookstory.model.BookMark" resultType="int">
+	SELECT COUNT(id) FROM bookmark WHERE member_id =#{member_id}
+	
+	</select>
+	
+	
+		<!-- 북마크 목록을 조회한다. -->
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark" resultMap="bookmark">
 	SELECT e.episode_order, e.episode_name, (SELECT concat(file_dir, '/', file_name) 
     FROM imagefile WHERE episode_id=(SELECT b.episode_id FROM bookmark b WHERE member_id =#{member_id}) AND content_type LIKE ('image/%') AND image_type='episode'
@@ -40,14 +49,6 @@
        ORDER BY id DESC
        LIMIT #{limitStart}, #{listCount}       
 	</select>
-	
-	<!-- 전체 게시물 수를 조회한다. 페이지 구현 위해서 -->
-	<select id="selectBookMarkCount" parameterType="study.jsp.bookstory.model.BookMark" resultType="int">
-	SELECT COUNT(id) FROM bookmark 
-	
-	
-	</select>
-	
 
 	
 </mapper>

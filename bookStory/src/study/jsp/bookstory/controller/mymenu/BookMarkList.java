@@ -56,10 +56,12 @@ public class BookMarkList extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		bookmarkService = new BookMarkServiceImpl(sqlSession, logger);		
 		pageHelper = PageHelper.getInstance();
+		upload = UploadHelper.getInstance();
+		
 		
 		Member member = (Member)web.getSession("loginInfo");
 		
-		int member_id = member.getId();
+		int member_id = 1;
 		
 		/** (3) 조회할 정보에 대한 Beans 생성 */
 		BookMark bookmark = new BookMark();
@@ -93,11 +95,14 @@ public class BookMarkList extends BaseController {
 			sqlSession.close();
 		}
 		
+		System.out.println("************************************");
+		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체
-		if (bookmark.isGallery() && bookmarkList !=null) {
+		if (bookmarkList !=null) {
 			for ( int i = 0; i < bookmarkList.size(); i++) {
 				BookMark item = bookmarkList.get(i);
 				String imagePath = item.getImagePath();
+				
 				if (imagePath != null) {
 					String thumbPath = upload.createThumbnail(imagePath, 150, 118, true);
 					// 글 목록 컬렉션 내의 Beans 객체가갖는 이미지경로를 썸네일로 변경한다.

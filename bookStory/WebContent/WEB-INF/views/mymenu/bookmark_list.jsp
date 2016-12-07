@@ -57,12 +57,12 @@
 	  <div class="row">
 	  
 	  <!-- 북마크 리스트 뿌려지는 곳 --> 	  		
-	
+
 	<div class="media col-md-8 col-sm-12">
 		<!-- 조회된 글이 있는 경우 시작 -->
 		<c:choose>
-			<c:when test="${fn:length(bookmarkList) > 0}">
-				<c:forEach var="bookmark" items="${bookmarkList}">
+			<c:when test="${fn:length(bookmark_list) > 0}">
+				<c:forEach var="bookmark" items="${bookmark_list}">
 					<!-- 게시물 항목 하나 -->
 					<div class="media col-md-8 col-sm-12">
 						<div class="thumbnail">

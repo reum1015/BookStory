@@ -51,8 +51,9 @@
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
 					<a href="#"><img
-						src="${pageContext.request.contextPath}/assets/imgs/carousel/01.png"
-						alt="..."></a>
+						src="${pageContext.request.contextPath}/assets/imgs/carousel/naver_carousel.jpg"
+						alt="..."
+						style="width: 1159px; height: 367px;"></a>
 					<div class="carousel-caption">
 						<h2>여기에 내용이 출력 됩니다!!!!!</h2>
 					</div>
@@ -60,7 +61,8 @@
 				<div class="item">
 					<a href="#"><img
 						src="${pageContext.request.contextPath}/assets/imgs/carousel/02.png"
-						alt="..."></a>
+						alt="..."
+						style="width: 1159px; height: 367px;"></a>
 					<div class="carousel-caption">
 						<h2>여기에 내용이 출력 됩니다!!!!!</h2>
 					</div>
@@ -68,7 +70,8 @@
 				<div class="item">
 					<a href="#"><img
 						src="${pageContext.request.contextPath}/assets/imgs/carousel/03.png"
-						alt="..."></a>
+						alt="..."
+						style="width: 1159px; height: 367px;"></a>
 					<div class="carousel-caption">
 						<h2>여기에 내용이 출력 됩니다!!!!!</h2>
 					</div>
