@@ -61,6 +61,7 @@
 	<div class="media col-md-8 col-sm-12">
 		<!-- 조회된 글이 있는 경우 시작 -->
 		<c:choose>
+		//jj
 			<c:when test="${fn:length(bookmark_list) > 0}">
 				<c:forEach var="bookmark" items="${bookmark_list}">
 					<!-- 게시물 항목 하나 -->
