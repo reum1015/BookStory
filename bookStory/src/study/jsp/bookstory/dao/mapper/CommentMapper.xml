@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 XML의 구조대로 구현될 클래스의 이름 => Impl클래스를 대체한다. -->
+<mapper namespace="CommentMapper">
+
+    <!-- Beans 클래스의 객체이름(id)과 클래스이름(type)을 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.Comment" id="comment">
+	    <!-- Beans의 멤버변수(property)이름과 대상 테이블의 컬럼(column)을 연결한다. -->
+	    <result property="id" column="id"/>
+	    <result property="content" column="content"/>
+	    <result property="reg_date" column="reg_date"/>
+	    <result property="edit_date" column="edit_date"/>
+	    <result property="ip_address" column="ip_address"/>
+	    <result property="reported" column="reported"/>
+	    <result property="blind" column="blind"/>
+	    <result property="member_id" column="member_id"/>
+	    <result property="article_id" column="article_id"/>
+	</resultMap>
+	
+	<!-- 덧글 정보 저장하기 -->
+	<insert id="insertComment" parameterType="study.jsp.bookstory.model.Comment" useGeneratedKeys="true" keyProperty="id">
+	  INSERT INTO comment (
+	    content, reg_date, edit_date, ip_address, reported, blind, article_id, member_id
+	  ) VALUES (
+	    #{content}, now(), now(), #{ip_address}, 0, 0, #{article_id}, #{member_id}
+	  
+	  )
+	</insert>
+	
+	<!-- 덧글 하나에 대한 정보를 조회한다. -->
+	<select id="selectComment" parameterType="study.jsp.bookstory.model.Comment" resultMap="comment">
+	  SELECT id, content,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+	         ip_address, reported, blind, member_id, article_id
+	  FROM   comment
+	  WHERE  id=#{id}
+	</select>
+	
+	<!-- 하나의 게시물에 속한 모든 덧글 목록을 조회한다. -->
+	<select id="selectCommentList" parameterType="study.jsp.bookstory.model.Comment" resultMap="comment">
+	  SELECT id, content,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+	         ip_address, reported, blind, member_id, article_id
+	  FROM   comment
+	  WHERE  article_id=#{article_id}
+	  ORDER BY id ASC
+	</select>
+	
+	<!-- 전체 게시물 수를 조회한다. -->
+	<select id="selectCommentCount" parameterType="study.jsp.bookstory.model.Comment" resultType="int">
+	  SELECT COUNT(id) FROM comment WHERE id=#{id}
+	  
+	</select>
+	
+	<!-- 자신의 덧글인지 검사한다. -->
+	<select id="selectCommentCountByMemberId" parameterType="study.jsp.bookstory.model.Comment" resultType="int">
+	  SELECT COUNT(id) FROM comment WHERE id=#{id} AND member_id=#{member_id}
+	</select>
+	
+	<!-- 비밀번호를 검사한다. -->
+	<select id="selectCommentCountByPw" parameterType="study.jsp.bookstory.model.Comment" resultType="int">
+	  SELECT COUNT(id) FROM comment WHERE id=#{id}
+	</select>
+	
+	<!-- 덧글 삭제하기 -->
+	<delete id="deleteComment" parameterType="study.jsp.bookstory.model.Comment">
+	  DELETE FROM comment WHERE id=#{id}
+	</delete>
+	
+	<!-- 덧글 정보 수정하기 -->
+	<update id="updateComment" parameterType="study.jsp.bookstory.model.Comment">
+	  UPDATE comment SET content=#{content}, ip_address=#{ip_address}, edit_date=now() WHERE id=#{id}
+	</update>
+	
+	<!-- 특정 게시물에 속한 모든 덧글을 삭제한다. -->
+	<delete id="deleteCommentAll" parameterType="study.jsp.bookstory.model.Comment">
+	  DELETE FROM comment WHERE article_id=#{article_id}
+	</delete>
+	
+	<!-- 특정 회원과의 덧글 참조 해제하기 -->
+	<update id="updateCommentMemberOut" parameterType="study.jsp.bookstory.model.Comment">
+	  UPDATE comment SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id}
+	</update>
+</mapper>

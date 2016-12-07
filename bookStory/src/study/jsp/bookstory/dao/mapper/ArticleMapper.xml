@@ -26,9 +26,10 @@
 	<insert id="insertArticle" parameterType="study.jsp.bookstory.model.Article" useGeneratedKeys="true" keyProperty="id">
 	  INSERT INTO article (
 	    category, subject, content, hit, reg_date, edit_date, ip_address,
-	    member_id, reported
+	    member_id
 	  ) VALUES (
-	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}, 'N'
+	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}
+	     
 	  )
 	</insert>
 	
@@ -115,22 +116,22 @@
 	
 	<!-- 자신의 게시물인지 검사한다. -->
 	<select id="selectArticleCountByMemberId" parameterType="study.jsp.bookstory.model.Article" resultType="int">
-	  SELECT COUNT(id) FROM article WHERE category=#{category} AND id=#{id} AND member_id=#{member_id}
+	  SELECT COUNT(id) FROM article WHERE id=#{id} AND member_id=#{member_id}
 	</select>
 	
 	<!-- 비밀번호를 검사한다. -->
 	<select id="selectArticleCountByPw" parameterType="study.jsp.bookstory.model.Article" resultType="int">
-	  SELECT COUNT(id) FROM article WHERE category=#{category} AND id=#{id}
+	  SELECT COUNT(id) FROM article WHERE id=#{id}
 	</select>
 	
 	<!-- 게시글 삭제하기 -->
 	<delete id="deleteArticle" parameterType="study.jsp.bookstory.model.Article">
-	  DELETE FROM article WHERE id=#{id}
+	  DELETE FROM article WHERE id=#{id} AND member_id=#{member_id}
 	</delete>
 	
 	<!-- 게시글 정보 수정하기 -->
 	<update id="updateArticle" parameterType="study.jsp.bookstory.model.Article">
-	  UPDATE article SET category=#{category}, email=#{email}, subject=#{subject}, content=#{content}, ip_address=#{ip_address}, edit_date=now() WHERE id=#{id}
+	  UPDATE article SET subject=#{subject}, content=#{content}, ip_address=#{ip_address}, edit_date=now() WHERE id=#{id}
 	</update>
 	
 	<!-- 특정 회원과의 게시물 참조 해제하기 -->

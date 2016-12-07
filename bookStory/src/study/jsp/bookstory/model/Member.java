@@ -15,6 +15,7 @@ public class Member {
 	private String reg_date;		// 가입일자
 	private String edit_date;		// 변경일자
 	private String member_level;
+	private String new_user_pw;
 	public int getId() {
 		return id;
 	}
@@ -93,14 +94,22 @@ public class Member {
 	public void setMember_level(String member_level) {
 		this.member_level = member_level;
 	}
+	public String getNew_user_pw() {
+		return new_user_pw;
+	}
+	public void setNew_user_pw(String new_user_pw) {
+		this.new_user_pw = new_user_pw;
+	}
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", nick_name=" + nick_name + ", birthdate=" + birthdate + ", name=" + name
 				+ ", user_id=" + user_id + ", user_pw=" + user_pw + ", email=" + email + ", gender=" + gender + ", tel="
 				+ tel + ", point=" + point + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", member_level="
-				+ member_level + "]";
+				+ member_level + ", new_user_pw=" + new_user_pw + "]";
 	}
-
+	
+	
+	
 	
 	
 }

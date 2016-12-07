@@ -9,7 +9,8 @@ public class Comment {
 	private String ip_address;		// 아이피 주소
 	private int reported;			// 신고 상태 유무
 	private int blind;					// 블라인드 처리
-	
+	private int member_id;
+	private int article_id;
 	public int getId() {
 		return id;
 	}
@@ -52,11 +53,25 @@ public class Comment {
 	public void setBlind(int blind) {
 		this.blind = blind;
 	}
-	
+	public int getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
+	}
+	public int getArticle_id() {
+		return article_id;
+	}
+	public void setArticle_id(int article_id) {
+		this.article_id = article_id;
+	}
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", reg_date=" + reg_date + ", edit_date=" + edit_date
-				+ ", ip_address=" + ip_address + ", reported=" + reported + ", blind=" + blind + "]";
+				+ ", ip_address=" + ip_address + ", reported=" + reported + ", blind=" + blind + ", member_id="
+				+ member_id + ", article_id=" + article_id + "]";
 	}
+	
+	
 	
 }

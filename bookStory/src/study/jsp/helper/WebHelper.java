@@ -412,5 +412,45 @@ public class WebHelper {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 문자열에 포함된 HTML태그와 줄바꿈 문자를 HTML특수문자 형태로 변환
+	 * @param content
+	 * @return String
+	 */
+	public String convertHtmlTag(String content) {
+		// 변경 결과를 저장할 객체
+		StringBuilder builder = new StringBuilder();
+		
+		// 문자열에 포함된 한 글자
+		char chrBuff;
 
+		// 글자 수 만큼 반복한다.
+		for (int i = 0; i < content.length(); i++) {
+			// 한 글자를 추출
+			chrBuff = (char) content.charAt(i);
+
+			// 특수문자 형태에 부합할 경우 변환하여 builder에 추가
+			// 그렇지 않을 경우 원본 그대로 builder에 추가
+			switch (chrBuff) {
+			case '<':
+				builder.append("&lt;");
+				break;
+			case '>':
+				builder.append("&gt;");
+				break;
+			case '&':
+				builder.append("&amp;");
+				break;
+			case '\n':
+				builder.append("&lt;br/&gt;");
+				break;
+			default:
+				builder.append(chrBuff);
+			}
+		}
+		
+		// 조립된 결과를 문자열로 변환해서 리턴한다.
+		return builder.toString();
+	}
 }

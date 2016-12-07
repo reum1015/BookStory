@@ -77,9 +77,9 @@
 	
 	<!-- 회원정보를 변경한다. -->
 	<update id="updateMember" parameterType="study.jsp.bookstory.model.Member">
-	  UPDATE member SET nick_name=#{nickName}, birth_date=#{birthdate}, name=#{name}, email=#{email}, gender=#{gender}, tel=#{tel}, point=#{point}, edit_date=now()
-	  <if test="newUser_pw != null and newUser_pw != ''">
-	  ,user_pw=password(#{newUser_pw})
+	  UPDATE member SET nick_name=#{nick_name}, birthdate=#{birthdate}, name=#{name}, email=#{email}, gender=#{gender}, tel=#{tel}, edit_date=now()
+	  <if test="new_user_pw != null and new_user_pw != ''">
+	  ,user_pw=password(#{new_user_pw})
 	  </if>
 	  
 	  WHERE id=#{id}

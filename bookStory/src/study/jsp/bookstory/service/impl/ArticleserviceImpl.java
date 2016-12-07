@@ -180,7 +180,7 @@ public class ArticleserviceImpl implements ArticleService {
 			}
 		}catch(NullPointerException e){
 			sqlSession.rollback();
-			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+			throw new Exception("귀하의 게시물이 아닙니다.");
 		}catch(Exception e){
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
