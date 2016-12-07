@@ -61,7 +61,7 @@
 	<div class="media col-md-8 col-sm-12">
 		<!-- 조회된 글이 있는 경우 시작 -->
 		<c:choose>
-		//jj
+		
 			<c:when test="${fn:length(bookmark_list) > 0}">
 				<c:forEach var="bookmark" items="${bookmark_list}">
 					<!-- 게시물 항목 하나 -->
@@ -87,7 +87,7 @@
 							<!-- 회차 + 제목  -->
 							<div class="item">
 								<h4>${bookmark.episode_order}</h4>
-								<div>${document.episode_name}</div>								
+								<div>${bookmark.episode_name}</div>								
 							</div>
 						</div>
 					</div>
