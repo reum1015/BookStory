@@ -58,10 +58,19 @@ public class BookMarkList extends BaseController {
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
 		
+		/** (3) 비로그인 여부 검사 */
+		// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
+		if(web.getSession("loginInfo") ==null){
+			web.redirect(web.getRootPath() + "/login/login.do", " 로그인 후 이용하시기 바랍니다.");
+			return null;
+		}
+		
 		
 		Member member = (Member)web.getSession("loginInfo");
 		
-		int member_id = 1;
+		int member_id = member.getId(); 
+				
+				
 		
 		/** (3) 조회할 정보에 대한 Beans 생성 */
 		BookMark bookmark = new BookMark();
