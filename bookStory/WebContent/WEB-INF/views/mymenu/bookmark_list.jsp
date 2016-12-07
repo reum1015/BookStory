@@ -1,152 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-			<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
-			- ANSI(euc-kr), UTF-8 -->
-		<meta charset="utf-8"/>
-		<!-- IE의 호환성 보기 모드 금지 -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- 스마트 장치에서의 해상도 균일화 처리 -->
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
-		maximum-scale=1.0,user-scalable=no">
-		
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
-		<link rel="apple-touch-icon-precomposed" 
-			  href="${pageContext.request.contextPath}/assets/icon/apple-touch-icon-144-precomposed.png"/>
-			  
-		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
-		
-		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
-		
-		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
-		
-		<!-- 반응형 웹을 지원하지 않을 경우 -->
-		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
-		
-		<!-- IE8 이하 버전 지원 -->
-	    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="assets/js/html5shiv.js"></script>
-	    <script type="text/javascript" src="assets/js/respond.min.js"></script>
-	    <![endif]-->
-	
-	    <!-- IE10 반응형 웹 버그 보완 -->
-	    <!--[if gt IE 9]>
-	    <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-	    <script type="text/javascript" src="assets/js/ie10.js"></script>
-	    <![endif]-->
-	    
-	    <style type="text/css">
-			
-	    </style>
-		
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script type="text/javascript">
-
-		</script>
-		
+		<jsp:include page="/WEB-INF/views/template/head.jsp"/>
 	
 		<!-- 스타일 sheet -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/mymenuCommon.css" />
 	
+		
+	
 	</head>
 	<body>
 
-				<!-- 메인 헤더 -->
-		<header class="main_header clearfix page-header hidden-xs">
-			
-			<!-- 메인 wrapper div -->
-			<div class="container clearfix main_header_wrapperdiv">
-				
-				<!-- 메인 헤더 로그인 회원가입 화면-->
-				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-   					</ul>
-				
-				<!-- 메인 헤더 이미지 -->
-				<div class="container main_header_image">
-					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
-					</h1>
-					<p class="sr-only">북스토리 메인 헤더영역</p>
-				</div>
-				
-			</div>
-			<div id="top_mar"></div>
-			
-			
-					
-		</header>
-	
-		<!-- 네비게이션 바 (메뉴 영역) -->
-			<nav class="navbar navbar-default main_navi">
-  				<div class="container">
-    				<div class="navbar-header clearfix">   
-				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
-    			</div>
-    				<div class="container">
-    					<div class="collapse navbar-collapse" id="myNavbar">
-      						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
-						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
-						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do" class="main_navi_admin active">MyMenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do">administrator</a></li>
-       				    
-        						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        						<li><a href="#" class="visible-xs"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-       							<li>
-				        			<form class="navbar-form navbar-left pull-left search_form visible-xs" role="search">
-							        	<fieldset>
-							        	<div class="input-group form-group">
-							        		
-								        		<label class="sr-only" for="total_search">통합검색</label>
-								          		<input type="text" class="form-control" placeholder="통합검색" id="total_search">
-								        	
-								          		<span class="input-group-btn">
-								          			<button type="submit" class="btn btn-default">검색</button>
-												</span>		          	
-							          		
-							          	</div>
-							        	</fieldset>
-							      	</form>
-        
-        
-        						</li>
-     					</ul>
- 
-	    	  		<div class="main_login">
-						<form class="navbar-form navbar-left pull-right hidden-xs form-inline" role="search">
-				        	<fieldset>
-				        	<div class="input-group input-group-sm">
-				          		<input type="text" class="form-control" placeholder="통합검색">
-				        		<span class="input-group-btn"> <button type="submit" class="btn btn-default">검색</button></span>
-				        	</div>
-				        	</fieldset>
-				      	</form>
-					</div>
-      
-    </div>
-    </div>
-  </div>
-</nav>	
-
-
+			<!-- 메인 헤더 -->
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
 
 
 
@@ -173,62 +45,137 @@
     						 </table>
     					
     					
-    					
-    					
       				
     					</div>
     				</div>
  
 			</nav>
+		
+			
+		
 	<div class="container" id="content">
 	  <div class="row">
+	  
+	  <!-- 북마크 리스트 뿌려지는 곳 --> 	  		
+	
 	<div class="media col-md-8 col-sm-12">
-	 <ul id="list-group">
-	   <li>
-	     <a class="pull-left" href="#"><img class="media-object" alt="절대독보" src="${pageContext.request.contextPath}/assets/imgs/mymenu/j2.jpg" width="100" height="100"></a>
-	     <div class="content" style="width: 462px">
-	     <div class="btn-group pull-right">
-	       <button type="button" class="btn btn-link" onclick="confirm('책갈피를 삭제 하시겠습니까?')"><i class="glyphicon glyphicon-remove"></i></button>
-	     </div>
-	     <p class="media-body">
-	       <span class="media-heading">2화 데려가주세요.</span>
-	     </p>
-	     <p class="media-sub_heading">
-	       <span>절대독보</span>
-	     </p>
-	     <p class="league">
-	       <span class="author">일 륜</span>
-	     </p>
-	     </div>
-	   </li>
-	   <br/>
-	   <li>
-	     <a class="pull-left" href="#"><img class="media-object" alt="절대독보" src="${pageContext.request.contextPath}/assets/imgs/mymenu/j2.jpg" width="100" height="100"></a>
-	     <div class="content" style="width: 462px">
-	     <div class="btn-group pull-right">
-	       <button type="button" class="btn btn-link" onclick="confirm('책갈피를 삭제 하시겠습니까?')"><i class="glyphicon glyphicon-remove"></i></button>
-	     </div>
-	     <p class="media-body">
-	       <span class="media-heading">6화 무공구결을 해체시켰다고?</span>
-	     </p>
-	     <p class="media-sub_heading">
-	       <span>절대독보</span>
-	     </p>
-	     <p class="league">
-	       <span class="author">일 륜</span>
-	     </p>
-	     </div>
-	   </li>
-	 </ul>
-	 <div id="pagination" class="paginations"> 
-	 <ul class="pagination">
-	   <li class="disabled"><a href="#">&laquo;</a></li>
-	   <li class="active"><a href="#">1</a></li>
-	   <li><a href="#">&raquo;</a></li>
-	 </ul>
-	</div> 			
+		<!-- 조회된 글이 있는 경우 시작 -->
+		<c:choose>
+			<c:when test="${fn:length(bookmarkList) > 0}">
+				<c:forEach var="bookmark" items="${bookmarkList}">
+					<!-- 게시물 항목 하나 -->
+					<div class="media col-md-8 col-sm-12">
+						<div class="thumbnail">
+							<c:url var="readUrl" value="/mymenu/bookmark_list.do">
+								<c:param name="bookmark_id" value="${bookmark.id}" />
+							</c:url>
+							<!-- 링크 + 썸네일 -->
+							<a href="${readUrl}">
+								<c:choose>
+									<c:when test="${bookmark.imagePath != null}">
+										<c:url var="downloadUrl" value="/download.do">
+											<c:param name="file" value="${bookmark.imagePath}" />
+										</c:url>
+										<img src="${downloadUrl}" class="img-responsive"/>
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/assets/imgs/mymenu/no_image.jpg" class="img-responsive"/>
+									</c:otherwise>
+								</c:choose>
+							</a>
+							<!-- 회차 + 제목  -->
+							<div class="item">
+								<h4>${bookmark.episode_order}</h4>
+								<div>${document.episode_name}</div>								
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class="col-md-12">
+					<p class="text-center">조회되는 북마크가 없습니다.</p>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	
+	<!--// 글 목록 끝 -->
+	
+	
 	 
+	   <!-- 페이지 번호 시작 -->
+	 <div id="pagination" class="paginations">
+	 <ul class="pagination"> 	 
+	 
+	 <!-- 이전 그룹으로 이동 -->
+	 <c:choose>
+	  <c:when test="${pageHelper.prevPage > 0}">
+           <!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
+           <!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
+          <c:url var="prevUrl" value="/mymenu/bookmark_list.do">
+              <c:param name="member_id" value="${member_id}"></c:param>
+              <c:param name="page" value="${pageHelper.prevPage}"></c:param>
+          </c:url>	  
+          
+          <li><a href="${prevUrl}">&laquo;</a></li>	  
+	  </c:when>
+	  <c:otherwise>
+	     <!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+	     <li class='disabled'><a href="#">&laquo;</a></li> 
+	  </c:otherwise>	  
+	 </c:choose>
+	 
+	 <!--  페이지 번호 -->
+	   <!-- 현재 그룹의 시작 페이지 ~끝페이지 사이를 1씩 증가하면서 반복 -->	   
+	   <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
+	   
+	    <!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하 page_url에 저장 -->
+	    <c:url var="pageUrl" value="/mymenu/bookmark_list.do">
+              <c:param name="id" value="${id}"></c:param>
+              <c:param name="page" value="${i}"></c:param>
+	   </c:url>
+	   
+	   <!-- 반복중의 페이지 번호와 현재 위치한 페이지 번호가 같은 경우에 대한 분기 -->
+	   <c:choose>
+	     <c:when test="${pageHelper.page == i}">
+	        <li class='active'><a href="#">${i}</a></li>
+	     </c:when>
+	     <c:otherwise>
+	         <li><a href="${pageUrl}"></a></li>
+	     </c:otherwise>
+	   </c:choose>
+	   
+	   </c:forEach>
+	   
+	   <!--  다름 그룹으로 이동 -->
+	    <c:choose>
+	  <c:when test="${pageHelper.nextPage > 0}">
+           <!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
+           <!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
+          <c:url var="nextUrl" value="/mymenu/bookmark_list.do">
+              <c:param name="member_id" value="${member_id}"></c:param>
+              <c:param name="page" value="${pageHelper.nextPage}"></c:param>
+          </c:url>	  
+          
+          <li><a href="${nextUrl}">&raquo;</a></li>	  
+	  </c:when>
+	  
+	  <c:otherwise>
+	     <!-- 다음 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+	     <li class='disabled'><a href="#">&raquo;</a></li> 
+	  </c:otherwise>	  
+	 </c:choose>
+	   
+	   </ul>
 	 </div>
+	 			
+	</div>
+	 
+		 
+	 
+	 
+	 <!-- 북마크 리스트 뿌려지는 곳  끝-->
+	 
 			<!-------- 연령별 선호작  ---------->
 			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 text-center section_area list_rank box">
   						<h4 class="text-left">연령별 선호작품</h4>
@@ -311,33 +258,18 @@
 		
 							<!-- //tab-x end -->
 							
-					</div><!-- 연령별 선호작 끝 -->
+					</div>
+					<!-- 연령별 선호작 끝 -->
 	 </div>
 	
-
-	</div>
+</div>
+	
 			<!-- 메인 화면 끝 -->
 	
-		<!-- footer -->
-	<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
-			<p class="text-center">
-			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
-			</h5>
-
-			<address>
-				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
-			</address>
-		</div>
-	</footer>
-
 	
-	<!-- Javascript -->
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-
+	  <!-- footer -->
+		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
+		
+	
 	</body>
 </html>
