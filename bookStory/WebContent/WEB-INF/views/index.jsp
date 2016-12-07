@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
@@ -38,46 +40,53 @@
 	<div class="container main_container">
 
 		<!-- 캐러셀 시작 -->
-		<div id="carousel-example-generic" class="carousel slide"
-			data-ride="carousel">
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
-				<li data-target="#carousel-example-generic" data-slide-to="0"
-					class="active"></li>
-				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+				<c:forEach var="carousel" items="${carouselList}" varStatus="status">
+					<c:set var="cls" value="" />
+					<c:if test="${status.index == 0}">
+						<c:set var="cls" value="active" />
+					</c:if>
+				<li data-target="#carousel" data-slide-to="${status.index}" class="${cls}"></li>
+				</c:forEach>
 			</ol>
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
-				<div class="item active">
-					<a href="#"><img
-						src="${pageContext.request.contextPath}/assets/imgs/carousel/naver_carousel.jpg"
-						alt="..."
-						style="width: 1159px; height: 367px;"></a>
-					<div class="carousel-caption">
-						<h2>여기에 내용이 출력 됩니다!!!!!</h2>
-					</div>
+				<c:forEach var="carousel" items="${carouselList}"  varStatus="status">
+					<c:set var="cls" value="" />
+					<c:if test="${status.index == 0}">
+						<c:set var="cls" value="active" />
+					</c:if>
+			
+				<c:url var="image_url" value="/download.do">
+				<c:param name="file" value="${carousel.imagePath}" />
+				</c:url>
+			
+				<div class="item ${cls}">
+					<a href="${pageContext.request.contextPath}/booklist/book_list.do?book_id=${carousel.id}">
+						<c:choose>
+							<c:when test="${carousel.imagePath != null}">
+								<c:url var="downloadUrl" value="/download.do">
+									<c:param name="file" value="${carousel.imagePath}" />
+								</c:url>
+								<img src="${downloadUrl}" alt="${carousel.book_name}" style="width: 1159px; height: 367px;"/>
+							</c:when>
+							<c:otherwise>
+								<img src="${pageContext.request.contextPath}/assets/imgs/no_image.jpg" class="img-responsive"/>
+							</c:otherwise>
+						</c:choose>
+						<div class="carousel-caption">
+							<h3>${carousel.genre}</h3>
+							<h1>${carousel.book_name}</h1>
+							<h3>${carousel.book_author}</h3>
+						</div>
+					</a>
+					
 				</div>
-				<div class="item">
-					<a href="#"><img
-						src="${pageContext.request.contextPath}/assets/imgs/carousel/02.png"
-						alt="..."
-						style="width: 1159px; height: 367px;"></a>
-					<div class="carousel-caption">
-						<h2>여기에 내용이 출력 됩니다!!!!!</h2>
-					</div>
-				</div>
-				<div class="item">
-					<a href="#"><img
-						src="${pageContext.request.contextPath}/assets/imgs/carousel/03.png"
-						alt="..."
-						style="width: 1159px; height: 367px;"></a>
-					<div class="carousel-caption">
-						<h2>여기에 내용이 출력 됩니다!!!!!</h2>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 
+			</div>
 			<!-- Controls -->
 			<a class="left carousel-control" href="#carousel-example-generic"
 				role="button" data-slide="prev"> <span
@@ -88,6 +97,7 @@
 				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
+			
 		</div>
 		<!-- 캐러셀 끝 -->
 

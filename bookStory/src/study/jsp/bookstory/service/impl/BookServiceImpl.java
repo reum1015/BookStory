@@ -95,4 +95,32 @@ public class BookServiceImpl implements BookService{
 		return bookList;
 	}
 
+	
+	/**
+	 *  메인 캐러셀 3개 
+	 * @param book
+	 * @throws Exception
+	 */
+	@Override
+	public List<Book> selectMainCarouselByRandomThree() throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectMainCarouselByRandomThree");
+			if(bookList == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			throw new Exception("캐러셀이 조재 하지 않습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("메인 캐러셀 불러오기 실패했습니다.");
+			
+		}
+	
+		return bookList;
+	}
+
 }

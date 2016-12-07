@@ -22,6 +22,13 @@ public class BookList extends BaseController {
 		String view = "";
 		view = "/booklist/book_list";
 		
+		
+		
+		
+		
+		
+		
+		
 		return view;
 	}
 

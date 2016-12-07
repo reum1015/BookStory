@@ -39,12 +39,12 @@
 	</select>
 	
 	
-		<!-- 북마크 목록을 조회한다. -->
+	<!-- 북마크 목록을 조회한다. -->
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark" resultMap="bookmark">
 	SELECT e.episode_order, e.episode_name, (SELECT concat(file_dir, '/', file_name) 
-    FROM imagefile WHERE episode_id=(SELECT b.episode_id FROM bookmark b WHERE member_id =#{member_id}) AND content_type LIKE ('image/%') AND image_type='episode'
+    FROM imagefile WHERE episode_id=(SELECT b.episode_id FROM bookmark b WHERE b.member_id = e.member_id) AND content_type LIKE ('image/%') AND image_type='episode'
 			ORDER BY id ASC LIMIT 0, 1) AS imagePath FROM episode e
-       WHERE id = (select b.episode_id from bookmark b where member_id =#{member_id} )
+       WHERE e.id = (select b.episode_id from bookmark b where b.member_id = #{member_id} )
        
        ORDER BY id DESC
        LIMIT #{limitStart}, #{listCount}       

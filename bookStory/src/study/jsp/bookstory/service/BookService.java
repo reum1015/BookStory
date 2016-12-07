@@ -29,5 +29,13 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public List<Book> searchBookItemList(Book book)throws Exception;
+	
+	/**
+	 * 메인 캐러셀(랜덤3개)
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectMainCarouselByRandomThree()throws Exception;
 
 }

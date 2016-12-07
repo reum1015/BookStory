@@ -54,6 +54,14 @@
 	</select>
 	
 	
+	<!-- 메인 페이지 캐러셀(랜덤으로 3개의 작품 불러오기) -->
+	<select id="selectMainCarouselByRandomThree" resultMap="book">
+		SELECT id, book_name, book_author, daily_date, genre,
+		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='carousel'
+		ORDER BY id ASC LIMIT 0, 1) as imagePath
+		FROM book  order by rand() limit 3;
+	</select>
+	
 	
 
 </mapper>
