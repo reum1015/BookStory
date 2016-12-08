@@ -7,18 +7,20 @@
 <html lang='ko'>
 	<head>
 		<jsp:include page="/WEB-INF/views/template/head.jsp"/>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+	
 	
 		<!-- 스타일 sheet -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/mymenuCommon.css" />
-	
-		
+
+
 	
 	</head>
 	<body>
 
 			<!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+	
 
 
 
@@ -57,40 +59,41 @@
 	  <div class="row">
 	  
 	  <!-- 북마크 리스트 뿌려지는 곳 --> 	  		
-
-	<div class="media col-md-8 col-sm-12">
-		<!-- 조회된 글이 있는 경우 시작 -->
-		<c:choose>
+<div class="container_content col-md-8 col-sm-12" id="content">
+	<div class="media ">
+	 <ul id="list-group-content">
+		<!-- 조회된 북마크가 있는 경우 시작 -->
 		
-			<c:when test="${fn:length(bookmark_list) > 0}">
-				<c:forEach var="bookmark" items="${bookmark_list}">
-					<!-- 게시물 항목 하나 -->
-					<div class="media col-md-8 col-sm-12">
-						<div class="thumbnail">
-							<c:url var="readUrl" value="/mymenu/bookmark_list.do">
-								<c:param name="bookmark_id" value="${bookmark.id}" />
-							</c:url>
-							<!-- 링크 + 썸네일 -->
-							<a href="${readUrl}">
-								<c:choose>
-									<c:when test="${bookmark.imagePath != null}">
-										<c:url var="downloadUrl" value="/download.do">
-											<c:param name="file" value="${bookmark.imagePath}" />
-										</c:url>
-										<img src="${downloadUrl}" class="img-responsive"/>
-									</c:when>
-									<c:otherwise>
-										<img src="${pageContext.request.contextPath}/assets/imgs/mymenu/no_image.jpg" class="img-responsive"/>
-									</c:otherwise>
-								</c:choose>
-							</a>
-							<!-- 회차 + 제목  -->
-							<div class="item">
-								<h4>${bookmark.episode_order}</h4>
-								<div>${bookmark.episode_name}</div>								
-							</div>
-						</div>
-					</div>
+	<li id="list-content">	
+		<c:choose>		
+	<c:when test="${fn:length(bookmark_list) > 0}">
+	<c:forEach var="bookmark" items="${bookmark_list}">
+		<!-- 게시물 항목 하나 -->
+					
+	<c:url var="readUrl" value="/mymenu/bookmark_list.do">
+		<c:param name="bookmark_id" value="${episode.id}" />
+	 </c:url>
+		<!-- 링크 + 썸네일 -->
+		<a class="pull-left" href="${readUrl}">
+		<c:choose>
+				<c:when test="${bookmark.imagePath != null}">
+				<c:url var="downloadUrl" value="/download.do">
+			<c:param name="file" value="${bookmark.imagePath}" />
+			</c:url>
+			<img src="${downloadUrl}" class="img-responsive"/>
+			</c:when>
+				<c:otherwise>
+			<img src="${pageContext.request.contextPath}/assets/imgs/mymenu/no_image.jpg" width="100%" height="100px" />
+				</c:otherwise>
+		</c:choose>
+	</a>
+		<!-- 회차 + 제목  -->
+			<div class="episode-content">
+			<h4>${bookmark.episode_order}</h4>
+			<div>${bookmark.episode_name}</div>								
+			</div>
+					
+					
 				</c:forEach>
 			</c:when>
 			<c:otherwise>
@@ -99,14 +102,18 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
+		
+		</li>
+
 	
-	<!--// 글 목록 끝 -->
+	</ul>
+	 			
 	
+	<!-- 조회된 북마크가 있는 경우 시작 -->
 	
-	 
-	   <!-- 페이지 번호 시작 -->
+	 <!-- 페이지 번호 시작 -->
 	 <div id="pagination" class="paginations">
-	 <ul class="pagination"> 	 
+	   <ul class="pagination"> 	 
 	 
 	 <!-- 이전 그룹으로 이동 -->
 	 <c:choose>
@@ -169,12 +176,9 @@
 	   
 	   </ul>
 	 </div>
-	 			
-	</div>
 	 
-		 
-	 
-	 
+	 </div>
+	 </div>
 	 <!-- 북마크 리스트 뿌려지는 곳  끝-->
 	 
 			<!-------- 연령별 선호작  ---------->

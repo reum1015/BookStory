@@ -120,8 +120,7 @@
 
 	
 	<!-- Javascript -->
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	
 	<script src="${pageContext.request.contextPath}/assets/js/plugins/pickadate/picker.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/plugins/pickadate/picker.date.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/plugins/pickadate/translations/ko_KR.js"></script>

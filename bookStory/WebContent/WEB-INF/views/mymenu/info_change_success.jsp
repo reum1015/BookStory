@@ -72,8 +72,6 @@
 	  <!-- footer -->
 		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
 		
-	<!-- Javascript -->
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+
 </body>
 </html>

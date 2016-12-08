@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-		
-		<jsp:include page="/WEB-INF/views/template/head.jsp"/>		
+			<jsp:include page="/WEB-INF/views/template/head.jsp"/>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
 		
 		<!-- 스타일 sheet -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
@@ -15,7 +19,7 @@
 
 		
 	<!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+	
 
 
 
@@ -51,10 +55,16 @@
 			</nav>
 	<div class="container" id="content">
 	  <div class="row">
+	  
 	<div class="media col-md-8 col-sm-12">
 	 <ul id="list-group">
 	   <li>
-	     <a class="pull-left" href="#"><img class="media-object" alt="이계진입리로디드" src="${pageContext.request.contextPath}/assets/imgs/mymenu/re.jpg" width="100" height="100"></a>
+	     <a class="pull-left" href="#">
+	     <img class="media-object" alt="이계진입리로디드" 
+	     src="${pageContext.request.contextPath}/assets/imgs/mymenu/re.jpg" width="100" height="100">
+	     </a>
+	     
+	     
 	     <div class="content" style="width: 462px">
 	     <p class="media-body">
 	       <span class="media-heading">이계진입리로디드</span>
@@ -70,24 +80,7 @@
 	     </p>
 	     </div>
 	   </li>
-	   <br/>
-	   <li>
-	     <a class="pull-left" href="#"><img class="media-object" alt="이계진입리로디드" src="${pageContext.request.contextPath}/assets/imgs/mymenu/re.jpg" width="100" height="100"></a>
-	     <div class="content" style="width: 462px">
-	     <p class="media-body">
-	       <span class="media-heading">이계진입리로디드</span>
-	     </p>
-	     <div class="btn-group pull-right">
-	       <button type="button" class="btn btn-link" onclick="confirm('관심작품을 삭제 하시겠습니까?')"><i class="glyphicon glyphicon-remove"></i></button>
-	     </div>
-	     <p class="media-sub_heading">
-	       <span>제178화 결혼은 미친 짓이다(3)</span>
-	     </p>
-	     <p class="league">
-	       <span class="author">임경배</span><em class="line">  </em><span>2016.10.12.</span>
-	     </p>
-	     </div>
-	   </li>
+   
 	 </ul>
 	 <div id="pagination" class="paginations"> 
 	 <ul class="pagination">
@@ -182,7 +175,8 @@
 		
 							<!-- //tab-x end -->
 							
-					</div><!-- 연령별 선호작 끝 -->
+					</div>
+					<!-- 연령별 선호작 끝 -->
 	 </div>
 	
 
@@ -194,9 +188,7 @@
 	
 
 	
-	<!-- Javascript -->
-	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	
 
 	</body>
 </html>
