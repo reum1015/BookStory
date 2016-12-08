@@ -1,7 +1,8 @@
 			#nav {height: 50px;}
-			#content {height: 830px;}
+			
 			#main_list > li {list-style: none;}
 			.media {height: 100%;}
+			
 			.row .media .content {
 			  display: inline-block;
               vertical-align: middle;
@@ -10,7 +11,15 @@
               margin-top: 15px;
               margin-left: 10px;
             }
-            .navbar .container #myNavbar_sub #table {
+            
+           
+            
+         .main_navi_sub {
+         height: 5px;
+         font-size: 18px;
+         }
+            
+            .navbar .container #myNavbar_sub #table {           
               border-right:none; 
               border-top:none; 
               border-left:none; 
@@ -20,8 +29,8 @@
                text-align: center;
                border:none; 
             }
-            .paginations{padding-top: 10px;}
-			.pagination {display: block; text-align: center;}
+            .paginations { padding-top: 60px;}
+			#pagination {display: block; text-align: center;}
 			.pagination > li > a {float: none;}
 			
 			#content > .table-responsive > .table > tbody > tr > th {
@@ -50,10 +59,45 @@
 			  margin-right: 
 			}
 			
+			.container_content {
+		       margin-top: 20px;		
 			
+			   min-height: 800px;
+			}
 			
-			
-			
+			#list-group-content {
+			   margin-top: 10px;
+			   width: auto;
+			   height: 100px;;
+			   background-color: #fff;  
+			}
+		
+		.block_bookmark {
+		  padding-bottom: 50px;	     
+		}
+		  
+		.block_bookmark_list {
+		   
+		}  
+		.img-responsive {
+		 width: auto;		 
+		 height: auto;
+		}
+		  
+		.img-box {
+		margin: auto;
+		position: relative;
+		}
+		
+		   
+		  .episode-content {
+		     margin-left: 40px;
+		   margin-top: 30px;
+		     text-align: center;
+		     height: 130px; 
+		      border-top:solid 1px #CCC;
+	        border-bottom: solid 1px #CCC;		     
+		  }
 
 
 			

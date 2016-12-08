@@ -59,28 +59,29 @@
 	  <div class="row">
 	  
 	  <!-- 북마크 리스트 뿌려지는 곳 --> 	  		
-<div class="container_content col-md-8 col-sm-12" id="content">
-	<div class="media ">
-	 <ul id="list-group-content">
+<div class="block_bookmark container_content col-md-8" id="content">
+	
+	<div class="col-md-8 col-lg-12">
 		<!-- 조회된 북마크가 있는 경우 시작 -->
-		
-	<li id="list-content">	
+	
 		<c:choose>		
 	<c:when test="${fn:length(bookmark_list) > 0}">
 	<c:forEach var="bookmark" items="${bookmark_list}">
 		<!-- 게시물 항목 하나 -->
-					
+		
+<li>
 	<c:url var="readUrl" value="/mymenu/bookmark_list.do">
 		<c:param name="bookmark_id" value="${episode.id}" />
 	 </c:url>
+	
 		<!-- 링크 + 썸네일 -->
-		<a class="pull-left" href="${readUrl}">
+		<a class="col-xs-4" href="${readUrl}">
 		<c:choose>
 				<c:when test="${bookmark.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">
 			<c:param name="file" value="${bookmark.imagePath}" />
 			</c:url>
-			<img src="${downloadUrl}" class="img-responsive"/>
+			<img src="${downloadUrl}" class="img-responsive pull-left" />
 			</c:when>
 				<c:otherwise>
 			<img src="${pageContext.request.contextPath}/assets/imgs/mymenu/no_image.jpg" width="100%" height="100px" />
@@ -88,8 +89,8 @@
 		</c:choose>
 	</a>
 		<!-- 회차 + 제목  -->
-			<div class="episode-content">
-			<h4>${bookmark.episode_order}</h4>
+			<div class="episode-content col-md-8 col-lg-12">
+			<h4>제  ${bookmark.episode_order} 화 </h4>
 			<div>${bookmark.episode_name}</div>								
 			</div>
 					
@@ -102,11 +103,10 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-		
-		</li>
 
+</li>
+	</div>
 	
-	</ul>
 	 			
 	
 	<!-- 조회된 북마크가 있는 경우 시작 -->
@@ -177,12 +177,12 @@
 	   </ul>
 	 </div>
 	 
-	 </div>
+	 
 	 </div>
 	 <!-- 북마크 리스트 뿌려지는 곳  끝-->
 	 
 			<!-------- 연령별 선호작  ---------->
-			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 text-center section_area list_rank box">
+			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 col-md-4 text-center section_area list_rank box">
   						<h4 class="text-left">연령별 선호작품</h4>
 						<div class="btn-group btn-group-justified" role="group" aria-label="...">
 							  <div class="btn-group" role="group">
