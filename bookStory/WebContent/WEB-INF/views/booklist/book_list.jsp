@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page trimDirectiveWhitespaces="true"%>
 <!doctype html>
 <html>
@@ -19,9 +21,9 @@
 	<div class="container">
 		<div class="content">
 			<div class="col-xs-6 col-sm-6">
-				<h3>작품제목</h3>
+				<h3>${bookitem.book_name}</h3>
 				<p>
-					글&nbsp&nbsp&nbsp&nbsp<a href="#">작가이름</a>
+					글&nbsp&nbsp&nbsp&nbsp<a href="#">${bookitem.book_author}</a>
 				</p>
 			</div>
 			<div class="col-xs-6 col-sm-6 content6">
@@ -30,23 +32,25 @@
 			</div>
 		</div>
 		<div class="col-xs-12 col-sm-12 block_12">
-			<img class="col-xs-5 col-sm-5"
-				src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
+		<c:url var="downloadUrl" value="/download.do">
+			 <c:param name="file" value="${bookitem.imagePath}" />
+		</c:url>
+			<img class="col-xs-5 col-sm-5 img-response"
+				src="${downloadUrl}"
 				alt="그림">
 			<div class="col-xs-7 col-sm-7 pull-left">
-				<span class="grade_area"> <span class="stargrade"></span> <em>9.95</em>
+				<span class="grade_area"> <span class="stargrade"></span> <em>${bookitem.total_star}</em>
 				</span>
 				<p class="info_book">
-					<span>관심 <span class="">20,353</span>
-					</span> <span class="publish"> 월, 금 연재 </span> <span class="genre">
+					<span><span class="">관심 ${bookitem.total_favorite} 명</span>
+					
+					</span> <span class="publish">${bookitem.daily_date} 연재 </span> <span class="genre">
 						퓨전 </span>
 				</p>
-				<p class="dsc">‘마왕’과의 계약으로 운명을 볼 수 있는 눈을 갖게 된 소년, 공손천기. 그러나 그
-					거래는 그에게 잔혹한 대가를 요구한다. 부조리한 운명에 거스르기 위한 공손천기의 필사적인 저항. 지금 죽은 자들의 왕,
-					사자왕(死者王)이 무림에 강림한다!</p>
+				<p class="">${bookitem.intro}</p>
 			</div>
-			<a href="${pageContext.request.contextPath}/novelview/view_page.do"
-				class="btn btn-primary">첫회 보기 </a>
+			<a href="${downloadUrl}"
+				class="btn btn-warning">첫회 보기 </a>
 			<!-- 책 전체 대여 -->
 			<button class="btn btn-default pull-right"
 				data-target="#book_all_rent" data-toggle="modal">전체 대여</button>

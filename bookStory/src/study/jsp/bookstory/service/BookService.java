@@ -37,5 +37,12 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public List<Book> selectMainCarouselByRandomThree()throws Exception;
+	
+	/**
+	 * 한개의 작품 정보 가져오기
+	 * @return
+	 * @throws Exception
+	 */
+	public Book selectOneBookItem(Book book)throws Exception;
 
 }

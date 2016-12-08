@@ -79,19 +79,24 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		String genre = paramMap.get("genre");
 		String daily_date = paramMap.get("daily_date");
 		
-		String episode_name = paramMap.get("episode_name");
-		String content = paramMap.get("content");
-		String author_comment = paramMap.get("author_comment");
+		String episode_name_temp = paramMap.get("episode_name");
+		String content_temp = paramMap.get("content");
+		String author_comment_temp = paramMap.get("author_comment");
 		String bookId = paramMap.get("book_id");
 		
 		
-		
+		String episode_name = episode_name_temp.trim();
+		String content = content_temp.trim();
+		String author_comment = author_comment_temp.trim();
+	
 		
 		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
 		logger.debug("episode_title  -------> " + episode_name);
 		logger.debug("content  -----> " + content);
 		logger.debug("author_comment  ------> " + author_comment);
 		logger.debug("book_id  -----------> " + bookId);
+		
+		
 		
 		/** (5) 입력값의 유효성 검사 */
 		if(!regex.isValue(genre)){

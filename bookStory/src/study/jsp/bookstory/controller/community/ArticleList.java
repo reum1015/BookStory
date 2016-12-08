@@ -50,6 +50,7 @@ public class ArticleList extends BaseController {
 		
 		Article article = new Article();
 		
+		
 		// 현재 페이지 수 --> 기본값은 1페이지로 설정
 		int page = web.getInt("page", 1);
 		

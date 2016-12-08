@@ -23,13 +23,21 @@
 	    <script type="text/javascript" src="assets/js/ie10.js"></script>
 	    <![endif]-->
 
-<style type="text/css">
-</style>
+
+<!-- Multi-column -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/plugins/multi-column/ie-row-fix.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/js/plugins/multi-column/multi-columns-row.css"/>
+	<!-- handlebars -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/plugins/handlebars/handlebars-v4.0.5.js"></script>
+	
+	<!-- ajax -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.css"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.js"></script>
+	
+	<!-- ajaxForm -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 
 
-<script type="text/javascript">
-
-		</script>
 <!-- Article css -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/naviStateColor/articleCommon.css" />
@@ -51,7 +59,7 @@
     <h3 style="margin: 0">
       ${readArticle.subject}<br/>
       <small>
-        작성자 : ${readArticle.member_id} / 조회수 : ${readArticle.hit} / 작성일시 : ${readArticle.reg_date}
+        작성자 : ${readArticle.user_nickname} / 조회수 : ${readArticle.hit} / 작성일시 : ${readArticle.reg_date}
       </small>
     </h3>
   </div>
@@ -98,9 +106,6 @@
   </table>
   <!-- 버튼들 : category값에 대한 상태유지 필요함 -->
   <div class="clearfix">
-  	<div class="pull-left" >
-  		<a href="${pageContext.request.contextPath}/community/article_report.do" class="btn btn-danger">게시글 신고</a>
-  	</div>
     <div class="pull-right">
       <a href="${pageContext.request.contextPath}/community/article_list.do?category=${category}" class="btn btn-info">목록보기</a>
       <a href="${pageContext.request.contextPath}/community/article_write.do?category=${category}" class="btn btn-primary">글쓰기</a>
@@ -110,7 +115,44 @@
     </div>
   </div>
   
+  
 				<br/>
+
+		<!-- 게시글 신고 모달 -->
+		<div class="modal fade" id="article_toadmin" tabindex="-1"
+			role="dialog" aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">게시글 신고</h4>
+					</div>
+					<div class="modal-body">
+
+						<div class="alert alert-danger">
+							<span class="glyphicon glyphicon-warning-sign"></span> 이 게시글을
+							신고하시겠습니까?
+						</div>
+
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-success">
+							<span class="glyphicon glyphicon-ok-sign"></span> Yes
+						</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> No
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+
+
 
 		<!--덧글 신고 모달 -->
 		<div class="modal fade" id="reply_toadmin" tabindex="-1" role="dialog"
@@ -173,7 +215,31 @@
   <div id="comment_delete_modal" class="modal fade">
     <div class="modal-dialog modal-sm">
 	  <div class="modal-content">
-	           
+<form id="comment_delete_form" method="post" 
+	action="${pageContext.request.contextPath}/comment/comment_delete_ok.do">
+	<input type="hidden" name="comment_id" value="${comment_id}" />
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">덧글 삭제</h4>
+	</div>
+	<div class="modal-body">
+		<c:choose>
+			<c:when test="${myComment==true}">
+				<!-- 자신의 글에 대한 삭제 -->
+				<p>정말 이 덧글을 삭제하시겠습니까?</p>
+			</c:when>
+			<c:otherwise>
+				<!-- 자신의 글이 아닌 경우 -->
+				<p>귀하의 덧글이 아닙니다.</p>
+				
+			</c:otherwise>
+		</c:choose>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+		<button type="submit" class="btn btn-danger">삭제</button>
+	</div>
+</form>   
 	  </div>
 	</div>
   </div>
@@ -199,21 +265,22 @@
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 	
 <script id="tmpl_comment_item" type="text/x-handlebars-template">
-    <li class="media" style="border-top: 1px dotted #ccc; padding-top: 15px" id="comment_id={{id}}">
-      <div class="media-body" style="display: block;">
-        <h4 class="media-heading clearfix">
+    <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' 
+    	id="comment_{{id}}">
+        <div class="media-body" style='display: block;'>
+            <h4 class="media-heading clearfix">
           <!-- 작성자, 작성일시 -->
           <div class="pull-left">
-            {{nick_name}}
+            {{member_id}}
             <small>
               / {{reg_date}}
             </small>
           </div>
           <!-- 수정,삭제,신고 버튼 -->
-          <div class="pull-right">
-            <a href="#" data-toggle="modal" data-target="#comment_reported_modal" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-scissors"></i></a>
-            <a href="#" data-toggle="modal" data-target="#comment_edit_modal" class="btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i></a>
-            <a href="#" data-toggle="modal" data-target="#comment_delete_modal" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i></a>
+          <div class="aaa">
+            <a href="${pageContext.request.contextPath}/comment/comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
+            <a href="${pageContext.request.contextPath}/comment/comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
+            <a href="#" data-toggle="modal" data-target="#comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
           </div>
         </h4>
         <!-- 내용 -->
@@ -222,7 +289,7 @@
     </li>
 </script>
 <script type="text/javascript">
-  $(function() {
+$(function() {
 	  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
 	  $.get("${pageContext.request.contextPath}/comment/comment_list.do", {
 		  article_id: "${readArticle.id}"
@@ -232,60 +299,56 @@
 				return false;
 		  }
 		  
-		  // 템플릿 HTML을 로드한다.
-		  var template = Handlebars.compile($("#tmpl_comment_item").html());
-		  
-		  // JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함
-		  // -> 정규표현식 /~~~/g는 문자열 전체의 의미.
-		  for(var i=0; i<json.item.length; i++){
-			  json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
-			  
-			  // 덧글 아이템 항목 하나를 템플릿과 결합한다.
-			  var html = template(json.item[i]);
-			  // 결합된 결과를 덧글 목록에 추가한다.
-			  $("#comment_list").append(html);
-		  }
-	  });
-	  
-	  /** 덧글 작성 폼의 submit 이벤트 Ajax구현 */
-	  // <form>요소의 method, action속성과 <input>태그를 Ajax요청으로 자동 구성한다.
-	  $("#comment_form").ajaxForm(function(json) {
-		// json은 API에서 표시하는 전체 데이터
-		if(json.rt != "OK"){
-			alert(json.rt);
-			return false;
-		}
-		
-		// 줄 바꿈에 대한 처리
-		// -> 정규표현식/~~~/g는 문자열 전체의 의미.
-		// -> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-		json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
-		
 		// 템플릿 HTML을 로드한다.
-		var template = Handlebars.compile($("#tmpl_comment_item").html());
-		// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-		var html = template(json.item);
-		// 결합된 결과를 덧글 목록에 추가한다.
-		$("#comment_list").append(html);
-		// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
-		$("#comment_form").trigger('reset');
-		
-		alert("덧글 작성 성공");
-	  });
-	    //모달이 창이 닫히는 경우의 이벤트
-		//.modal 로 지정하는 경우 모든 모달 창에 적용됨
-		//#아이디 로 지정하는 경우 특정 모달 창에 적용
-		$(".modal").on("hidden.bs.modal",function(e){
-			//내용 삭제
-			$(this).removeData('bs.modal');
+			var template = Handlebars.compile($("#tmpl_comment_item").html());
+			
+			// JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+			for (var i=0; i<json.item.length; i++) {
+				json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
+				
+				// 덧글 아이템 항목 하나를 템플릿과 결합한다.
+				var html = template(json.item[i]);
+				// 결합된 결과를 덧글 목록에 추가한다.
+				$("#comment_list").append(html);
+			}
 		});
 		
-		//ajax에 의해서 로드 되는 폼에 대한 submit 이벤트
-		//ajax에 의해서 동적으로 로드 되는 요소는 on 함수를 통한
-		//이벤트 정의가 요구된다.
-		$(document).on('submit', '#comment_delete_form', function(e){
-			e.preventDefault();
+		/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
+		// <form>요소의 method, action속성과 <input>태그를
+		// Ajax요청으로 자동 구성한다.
+		$("#comment_form").ajaxForm(function(json) {
+			// json은 API에서 표시하는 전체 데이터
+			if (json.rt != "OK") {
+				alert(json.rt);
+				return false;
+			}
+
+			// 줄 바꿈에 대한 처리
+			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+			// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+			json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
 			
+			// 템플릿 HTML을 로드한다.
+			var template = Handlebars.compile($("#tmpl_comment_item").html());
+			// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+			var html = template(json.item);
+			// 결합된 결과를 덧글 목록에 추가한다.
+			$("#comment_list").append(html);
+			// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
+			$("#comment_form").trigger('reset');
+		});
+		
+		/** 모든 모달창의 캐시 방지 처리 */
+		$('.modal').on('hidden.bs.modal', function (e) {
+			// 모달창 내의 내용을 강제로 지움.
+  		    $(this).removeData('bs.modal');
+		});
+		
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on('submit', "#comment_delete_form", function(e) {
+			e.preventDefault();
+
 			// AjaxForm 플러그인의 강제 호출
 			$(this).ajaxSubmit(function(json) {
 				if (json.rt != "OK") {
@@ -298,14 +361,13 @@
 				$("#comment_delete_modal").modal('hide');
 				
 				// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
-				var comment_id = json.comment_id;
-				alert(comment_id);
+				var comment_id = json.commentId;
 				$("#comment_" + comment_id).remove();
 			});
 		});
 		
 		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on('submit', '#comment_edit_form', function(e){
+		$(document).on('submit', "#comment_edit_form", function(e) {
 			e.preventDefault();
 			
 			// AjaxForm 플러그인의 강제 호출
@@ -316,8 +378,8 @@
 				}
 				
 				// 줄 바꿈에 대한 처리
-				// -> 정규표현식/~~~/g는 문자열 전체의 의미.
-				// -> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+				// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
 				json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
 				
 				// 템플릿 HTML을 로드한다.
@@ -331,10 +393,7 @@
 				$("#comment_edit_modal").modal('hide');
 			});
 		});
-		
-		
-	  
-  });
+	});
 </script>
 
 </body>

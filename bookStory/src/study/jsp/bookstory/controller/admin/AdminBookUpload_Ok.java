@@ -74,11 +74,22 @@ public class AdminBookUpload_Ok extends BaseController{
 		//UploadHelper에서 텍스트 형식의 파라미터를 분류한 Map을 리턴 받아서 값을 추출한다.
 		Map<String, String> paramMap = upload.getParamMap();
 		
-		String book_name = paramMap.get("book_name");
-		String book_author = paramMap.get("book_author");
-		String daily_date = paramMap.get("daily_date");
-		String intro = paramMap.get("intro");
-		String genre = paramMap.get("genre");
+		String book_name_temp = paramMap.get("book_name");
+		String book_author_temp = paramMap.get("book_author");
+		String daily_date_temp = paramMap.get("daily_date");
+		String intro_temp = paramMap.get("intro");
+		String genre_temp = paramMap.get("genre");
+		
+		
+		String book_name = book_name_temp.trim();
+		String book_author = book_author_temp.trim();
+		String daily_date = daily_date_temp.trim();
+		String intro = intro_temp.trim();
+		String genre = genre_temp.trim();
+		
+		
+		
+		
 	
 
 		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인

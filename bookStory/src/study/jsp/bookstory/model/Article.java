@@ -10,6 +10,7 @@ public class Article {
 	private String reg_date;	// 작성일자
 	private String edit_date;	// 수정일자
 	private String ip_address;	// 아이피 주소
+	private String user_nickname;
 	private int reported;		// 신고상태 유무
 	private int member_id;
 	
@@ -64,6 +65,12 @@ public class Article {
 	public void setIp_address(String ip_address) {
 		this.ip_address = ip_address;
 	}
+	public String getUser_nickname() {
+		return user_nickname;
+	}
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
+	}
 	public int getReported() {
 		return reported;
 	}
@@ -92,9 +99,11 @@ public class Article {
 	public String toString() {
 		return "Article [id=" + id + ", category=" + category + ", subject=" + subject + ", content=" + content
 				+ ", hit=" + hit + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", ip_address=" + ip_address
-				+ ", reported=" + reported + ", member_id=" + member_id + ", limit_start=" + limit_start
-				+ ", list_count=" + list_count + "]";
+				+ ", user_nickname=" + user_nickname + ", reported=" + reported + ", member_id=" + member_id
+				+ ", limit_start=" + limit_start + ", list_count=" + list_count + "]";
 	}
+	
+	
 	
 	
 	

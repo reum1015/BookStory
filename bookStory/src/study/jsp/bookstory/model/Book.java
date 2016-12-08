@@ -14,6 +14,8 @@ public class Book {
 	private int total_point;					// 총가격
 	private int rent_point;						// 총대여가격
 	private double total_star;					// 별점 평균
+	private int total_favorite;					// 총 관심등록 
+	private String book_end;						// 작품 완결 여부
 	
 	//이미지 구현을 위해서 추가된 값
 	private String imagePath;
@@ -114,6 +116,22 @@ public class Book {
 		this.total_star = total_star;
 	}
 
+	public int getTotal_favorite() {
+		return total_favorite;
+	}
+
+	public void setTotal_favorite(int total_favorite) {
+		this.total_favorite = total_favorite;
+	}
+
+	public String getBook_end() {
+		return book_end;
+	}
+
+	public void setBook_end(String book_end) {
+		this.book_end = book_end;
+	}
+
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -127,9 +145,11 @@ public class Book {
 		return "Book [id=" + id + ", book_name=" + book_name + ", book_author=" + book_author + ", daily_date="
 				+ daily_date + ", total_hit=" + total_hit + ", intro=" + intro + ", genre=" + genre + ", reg_date="
 				+ reg_date + ", edit_date=" + edit_date + ", total_point=" + total_point + ", rent_point=" + rent_point
-				+ ", total_star=" + total_star + ", imagePath=" + imagePath + "]";
+				+ ", total_star=" + total_star + ", total_favorite=" + total_favorite + ", book_end=" + book_end
+				+ ", imagePath=" + imagePath + "]";
 	}
 
+	
 	
 	
 	

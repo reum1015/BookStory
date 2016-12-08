@@ -29,6 +29,16 @@
 
 
 
+	<!-- 작품 하나 가져오기 -->
+	<select id="selectOneBookItem" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
+	SELECT id,book_name, book_author, daily_date, intro, genre, total_point, 
+			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+			ORDER BY id ASC LIMIT 0, 1) as imagePath
+	FROM book
+	WHERE id = #{id}
+	</select>
+
+
 	<!-- 작품 등록 -->
 	<insert id="insertBook" parameterType="study.jsp.bookstory.model.Book" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO book(book_name, book_author,total_hit,intro,genre,
