@@ -21,16 +21,16 @@
 	<!-- 신고된 게시글 등록 -->
 	<insert id="insertArticleReport" parameterType="study.jsp.bookstory.model.Report"
 		useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO report ( member_id, target_memberId, article_id, reg_date ) 
-	SELECT #{member_id}, #{member_id}, #{id}, now()
+	INSERT INTO report ( member_id, target_member_id, article_id, reg_date ) 
+	SELECT #{member_id}, #{target_member_id}, #{id}, now()
 	FROM article
-	WHERE id = #{id} and reported = 'N'
+	WHERE member_id != #{member_id} and id = #{id} and reported = 'N'
 	</insert>
 	
 	<!-- 신고된 게시글의  reported 데이터 변경 -->
 	<update id="updateReportedDate" parameterType="study.jsp.bookstory.model.Article">
 	UPDATE article SET reported = 'Y' 
-	WHERE member_id = #{member_id} and id = #{id};
+	WHERE member_id != #{member_id} and id = #{id};
 	</update>
 	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->

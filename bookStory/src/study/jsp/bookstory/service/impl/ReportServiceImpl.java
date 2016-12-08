@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
+import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ReportService;
 
@@ -42,9 +43,22 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public void updateReport(Report update_reported) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void updateReport(Article update_reported) throws Exception {
+		try{
+			int result = sqlSession.update("ReportMapper.updateReportedDate", update_reported);
+			if ( result == 0 ) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("reported를 수정하기위한 게시글 정보가 없습니다.");
+		} catch (Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("reported수정을 실패하였습니다.");
+		} finally {
+			sqlSession.commit();
+		}
 	}
 
 	@Override
