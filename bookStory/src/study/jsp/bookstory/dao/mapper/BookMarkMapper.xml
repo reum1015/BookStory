@@ -41,13 +41,30 @@
 	
 		<!-- 북마크 목록을 조회한다. -->
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark" resultMap="bookmark">
-SELECT e.episode_order, e.episode_name,( SELECT concat(file_dir, '/', file_name) FROM imagefile i
+<!-- SELECT e.episode_order, e.episode_name,( SELECT concat(file_dir, '/', file_name) FROM imagefile i
    WHERE i.episode_id=e.id AND content_type LIKE ('image/%') ORDER BY id ASC LIMIT 0, 1 ) AS imagePath
    FROM episode e, bookmark b, member m WHERE e.id=b.episode_id AND m.id=b.member_id
 
    
        ORDER BY episode_id DESC
-       LIMIT #{limitStart}, #{listCount}       
+       LIMIT #{limitStart}, #{listCount}  -->
+       
+       SELECT 
+       		e.episode_order
+       		, e.episode_name
+       		, concat(i.file_dir, '/', i.file_name) as imagePath 
+       FROM  
+       	MEMBER as m 
+       	LEFT JOIN BOOKMARK as b 
+       	ON m.id = b.member_id
+       	LEFT JOIN EPISODE as e 
+       	ON b.episode_id = e.id
+       	LEFT JOIN imagefile as i 
+       	ON e.id = i.episode_id	
+       	where i.content_type LIKE ('image/%')
+       	ORDER BY e.id DESC
+      	LIMIT #{limitStart}, #{listCount}
+       
 	</select>
 
 <!-- 현재 북마크에 있는 에피소드 가 다 출력됨. 
