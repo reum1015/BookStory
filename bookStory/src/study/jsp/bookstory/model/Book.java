@@ -6,13 +6,14 @@ public class Book {
 	private String book_name;				// 책이름
 	private String book_author;			// 작가이름
 	private String daily_date;				// 작품의 요일별 데이터
-	private int total_hit;							// 합조회수
-	private String intro;							// 책소개글
+	private int total_hit;							// 합 조회수
+	private String intro;							// 책 소개글
 	private String genre;						// 장르
 	private String reg_date;					// 등록일자
 	private String edit_date;					// 변경일자
 	private int total_point;					// 총가격
 	private int rent_point;						// 총대여가격
+	private double total_star;					// 별점 평균
 	
 	//이미지 구현을 위해서 추가된 값
 	private String imagePath;
@@ -105,6 +106,14 @@ public class Book {
 		this.rent_point = rent_point;
 	}
 
+	public double getTotal_star() {
+		return total_star;
+	}
+
+	public void setTotal_star(double total_star) {
+		this.total_star = total_star;
+	}
+
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -118,7 +127,7 @@ public class Book {
 		return "Book [id=" + id + ", book_name=" + book_name + ", book_author=" + book_author + ", daily_date="
 				+ daily_date + ", total_hit=" + total_hit + ", intro=" + intro + ", genre=" + genre + ", reg_date="
 				+ reg_date + ", edit_date=" + edit_date + ", total_point=" + total_point + ", rent_point=" + rent_point
-				+ ", imagePath=" + imagePath + "]";
+				+ ", total_star=" + total_star + ", imagePath=" + imagePath + "]";
 	}
 
 	

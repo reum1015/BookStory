@@ -5,12 +5,11 @@ public class StarMark {
 	private int member_id;
 	private int episode_id;
 	private int book_id;
-	private double starpoint;
+	private int star_point;
 	
 	private double episode_star_avg;	//에피소드 별점 평균
 	private double book_star_avg;		//작품 별점 평균
 	private int star_count;				//에피소드 별점 등록 총 회원수
-	
 	
 	
 	public int getMember_id() {
@@ -31,11 +30,11 @@ public class StarMark {
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
-	public double getStarpoint() {
-		return starpoint;
+	public int getStar_point() {
+		return star_point;
 	}
-	public void setStarpoint(double starpoint) {
-		this.starpoint = starpoint;
+	public void setStar_point(int star_point) {
+		this.star_point = star_point;
 	}
 	public double getEpisode_star_avg() {
 		return episode_star_avg;
@@ -58,9 +57,11 @@ public class StarMark {
 	@Override
 	public String toString() {
 		return "StarMark [member_id=" + member_id + ", episode_id=" + episode_id + ", book_id=" + book_id
-				+ ", starpoint=" + starpoint + ", episode_star_avg=" + episode_star_avg + ", book_star_avg="
+				+ ", star_point=" + star_point + ", episode_star_avg=" + episode_star_avg + ", book_star_avg="
 				+ book_star_avg + ", star_count=" + star_count + "]";
 	}
+	
+	
 	
 	
 	

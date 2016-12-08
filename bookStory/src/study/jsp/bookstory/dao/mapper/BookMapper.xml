@@ -23,6 +23,7 @@
 		<result property="rent_point" column="rent_point"/>
 		<result property="book_end" column="book_end"/>
 		<result property="total_favorite" column="total_favorite"/>
+		<result property="total_star" column="total_star"/>
 		<result property="imagePath" column="imagePath"/>
 	</resultMap>
 
@@ -31,9 +32,9 @@
 	<!-- 작품 등록 -->
 	<insert id="insertBook" parameterType="study.jsp.bookstory.model.Book" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO book(book_name, book_author,total_hit,intro,genre,
-										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date)
+										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date,total_star)
 	VALUES(#{book_name}, #{book_author},0, #{intro}, #{genre},
-					now(),now(),0,0,"N",0,#{daily_date})
+					now(),now(),0,0,"N",0,#{daily_date},0)
 	</insert>
 	
 	<!-- 같은 이름의 작품이 있는지 검사 
