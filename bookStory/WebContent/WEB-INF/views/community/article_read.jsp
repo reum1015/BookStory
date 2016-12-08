@@ -106,6 +106,10 @@
   </table>
   <!-- 버튼들 : category값에 대한 상태유지 필요함 -->
   <div class="clearfix">
+
+  	<div class="pull-left" >
+  		<a href="${pageContext.request.contextPath}/community/article_report.do?member_id=${readArticle.member_id}&subject=${readArticle.subject}" class="btn btn-danger">게시글 신고</a>
+  	</div>
     <div class="pull-right">
       <a href="${pageContext.request.contextPath}/community/article_list.do?category=${category}" class="btn btn-info">목록보기</a>
       <a href="${pageContext.request.contextPath}/community/article_write.do?category=${category}" class="btn btn-primary">글쓰기</a>

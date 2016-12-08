@@ -26,6 +26,10 @@ public class ArticleReport extends BaseController {
 		
 		web = WebHelper.getInstance(request, response);
 		
+		int member_id = web.getInt("member_id");
+		String subject = web.getString("subject");
+		
+		
 		/** (3) 로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
 		Member loginInfo = (Member) web.getSession("loginInfo");
@@ -34,6 +38,13 @@ public class ArticleReport extends BaseController {
 			web.redirect(null, "로그인 후에 이용 가능합니다.");
 			return null;
 		}
+		
+		// 신고자 id값을 가져온다.
+		int id = loginInfo.getId();
+		
+		request.setAttribute("member_id", member_id);
+		request.setAttribute("subject", subject);
+		request.setAttribute("id", id);
 		
 		String view = "community/article_report";
 		
