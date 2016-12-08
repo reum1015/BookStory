@@ -1,6 +1,8 @@
 package study.jsp.bookstory.controller.book;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +15,17 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
-import study.jsp.helper.RegexHelper;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
+
 
 
 /**
@@ -37,6 +42,7 @@ public class BookList extends BaseController {
 	SqlSession sqlSession;
 	WebHelper web;
 	BookService bookService;
+	EpisodeService episodeService;
 	UploadHelper upload;
 	ImageFileService imageFileService;
 	
@@ -53,6 +59,7 @@ public class BookList extends BaseController {
 		upload = UploadHelper.getInstance();
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		bookService = new BookServiceImpl(sqlSession, logger);
+		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -73,11 +80,22 @@ public class BookList extends BaseController {
 		Book bookItem = new Book();
 		bookItem.setId(book_id);
 		
-		//작품 정보 조회
 		
-		Book getBookItem = new Book();
+		Book getBookItem = new Book();		//작품 정보 조회
+		
+		
+		Episode episode = new Episode();	//에피소드 리스트 조회
+		episode.setBook_id(book_id);
+		
+		List<Episode> episodeList = new ArrayList<Episode>();
+		episodeList = null;
 		try{
+			
+			//작품 정보 조회
 			getBookItem = bookService.selectOneBookItem(bookItem);
+			
+			//에피소드 리스트 조회
+			episodeList = episodeService.selectEpisdoeListAllByBook(episode);
 		}catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -85,7 +103,11 @@ public class BookList extends BaseController {
 			sqlSession.close();
 		}
 		
-		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체
+		
+		
+		logger.debug("episode List -----> " + episodeList);
+		
+		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체(작품 메인)
 		if (getBookItem != null) {
 			String imagePath = getBookItem.getImagePath();
 				if (imagePath != null) {
@@ -97,9 +119,24 @@ public class BookList extends BaseController {
 					
 			}
 		
+		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체
+				if (episodeList != null) {
+					for (int i=0; i<episodeList.size(); i++) {
+						Episode item = episodeList.get(i);
+						String imagePath = item.getImagePath();
+						if (imagePath != null) {
+							String thumbPath = upload.createThumbnail(imagePath, 220, 190, true);
+							// 글 목록 컬렉션 내의 Beans 객체가 갖는 이미지 경로를 썸네일로 변경한다.
+							item.setImagePath(thumbPath);
+							logger.debug("thumbnail create > " + item.getImagePath());
+						}
+					}
+				}
+		
+		
 		
 		request.setAttribute("bookitem", getBookItem);
-		
+		request.setAttribute("episodeList", episodeList);
 		
 		return view;
 	}

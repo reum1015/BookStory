@@ -43,6 +43,13 @@ public class ArticleEdit extends BaseController {
 		/** (3) 글번호 파라미터 받기 */
 		int article_id = web.getInt("article_id");
 		
+		
+		
+		
+		
+		
+		
+		
 		logger.debug("article_id=" + article_id);
 		
 		if(article_id == 0){

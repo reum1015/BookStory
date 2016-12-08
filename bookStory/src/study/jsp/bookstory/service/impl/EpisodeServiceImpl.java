@@ -1,5 +1,7 @@
 package study.jsp.bookstory.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
@@ -81,6 +83,26 @@ public class EpisodeServiceImpl implements EpisodeService{
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("에피소드 총 횟차 검색 에러");
 		}
+		return result;
+	}
+
+	@Override
+	public List<Episode> selectEpisdoeListAllByBook(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		List<Episode> result = null;
+		
+		try {
+			result = sqlSession.selectList("EpisodeMapper.selectEpisdoeListAllByBook", episode);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 에피소드 목록이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 목록 조회에 실패했습니다.");
+		}
+
 		return result;
 	}
 

@@ -42,14 +42,13 @@
 				<span class="grade_area"> <span class="stargrade"></span> <em>${bookitem.total_star}</em>
 				</span>
 				<p class="info_book">
-					<span><span class="">관심 ${bookitem.total_favorite} 명</span>
+					<span><span class="">관심등록 ${bookitem.total_favorite} 명</span>
 					
-					</span> <span class="publish">${bookitem.daily_date} 연재 </span> <span class="genre">
-						퓨전 </span>
+					</span> <span class="publish">${bookitem.daily_date} 연재 </span> <span class="genre">${bookitem.genre} </span>
 				</p>
 				<p class="">${bookitem.intro}</p>
 			</div>
-			<a href="${downloadUrl}"
+			<a href="#"
 				class="btn btn-warning">첫회 보기 </a>
 			<!-- 책 전체 대여 -->
 			<button class="btn btn-default pull-right"
@@ -109,10 +108,12 @@
 			<!-- 전체 구입 모달 끝 -->
 
 		</div>
+		
+		
 		<div class="col-xs-12 col-sm-12 block_12">
 			<div class="col-xs-6 col-sm-6 pull-left">
 				<h3>
-					작품회차<span class="total">(10)</span>
+					작품회차<span class="total"></span>
 				</h3>
 			</div>
 			<div class="col-xs-6 col-sm-6 btn_h3">
@@ -172,40 +173,31 @@
 				</div>
 				<!-- 에피소드 구입 모달 끝-->
 
-				<button class="btn btn-default pull-right">전체선택/해제</button>
+		<button class="btn btn-default pull-right">전체선택/해제</button>
 			</div>
-			<div class="col-xs-12 col-sm-12 block_12_1">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/booklist-01.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">10. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
+			
+			
+			
+			
+		<c:choose>
+			<c:when test="${fn:length(episodeList) > 0}">
+			<c:forEach var="episode" items="${episodeList}">
 			<div class="col-xs-12 col-sm-12 block_12_2">
+			
+				<c:url var="downloadUrl" value="/download.do">
+			 <c:param name="file" value="${episode.imagePath}" />
+				</c:url>
 				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/booklist-02.jpg"
+					src="${downloadUrl}"
 					alt="에피소드_메인그림" />
 				<div class="col-xs-5">
 					<div class="episode_size">
-						<a href="#">9. 회차제목</a>
+						<a href="#">${episode.episode_order} . ${episode.episode_name}</a>
 					</div>
 					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
+						<em>${episode.total_star}</em>
 					</span>
-					<p>2016.10.24(등록일자)</p>
+					<p>${episode.reg_date}(등록일자)</p>
 				</div>
 				<div class="col-xs-3 check_box_list">
 					<p>
@@ -214,181 +206,34 @@
 					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">8. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">7. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">6. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">5. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">4. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">3. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">2. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-12 block_12_2">
-				<img class="col-xs-4"
-					src="${pageContext.request.contextPath}/assets/imgs/img/bookList.jpg"
-					alt="에피소드_메인그림" />
-				<div class="col-xs-5">
-					<div class="episode_size">
-						<a href="#">1. 회차제목</a>
-					</div>
-					<span class="score_area"> <span class="icon_star_s"></span>
-						<em>9.98</em>
-					</span>
-					<p>2016.10.24(등록일자)</p>
-				</div>
-				<div class="col-xs-3 check_box_list">
-					<p>
-						작품선택 : <input type="checkbox" />
-					</p>
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
-			</div>
+			</c:forEach>
+			</c:when>
+			</c:choose>
+			
+			
+			
 		</div>
+			
+			
+			
 	</div>
-	<div class="jb-center">
-		<ul class="pagination">
-			<li class="disabled"><a href="#"><span
-					class="glyphicon glyphicon-chevron-left"></span></a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">4</a></li>
-			<li><a href="#">5</a></li>
-			<li><a href="#"><span
-					class="glyphicon glyphicon-chevron-right"></span></a></li>
-		</ul>
-	</div>
+	<!-- 컨테이너 영역 끝 -->
+	
+	<!-- 페이징 처리 -->
+			<div class="jb-center">
+					<ul class="pagination">
+						<li class="disabled"><a href="#"><span
+								class="glyphicon glyphicon-chevron-left"></span></a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-chevron-right"></span></a></li>
+					</ul>
+			</div>
+			<!-- 페이징 처리 끝 -->
 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
