@@ -111,7 +111,7 @@
 				<!-- 신고하기 위한 본인 게시글 판별 버튼 -->
 					<c:if  test="${count == 0}">
 						<div class="pull-left">
-							<a href="${pageContext.request.contextPath}/community/article_report.do?member_id=${readArticle.member_id}&subject=${readArticle.subject}"
+							<a href="${pageContext.request.contextPath}/community/article_report.do?member_id=${readArticle.member_id}&subject=${readArticle.subject}&article_id=${readArticle.id}"
 								class="btn btn-danger">게시글 신고</a>
 						</div>
            			</c:if>

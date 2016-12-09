@@ -7,13 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
-
-import study.jsp.bookstory.dao.MybatisConnectionFactory;
-import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Member;
-import study.jsp.bookstory.service.ArticleService;
-import study.jsp.bookstory.service.impl.ArticleserviceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -33,7 +27,7 @@ public class ArticleReport extends BaseController {
 		
 		int member_id = web.getInt("member_id");
 		String subject = web.getString("subject");
-		int article_id = web.getInt("id");
+		int article_id = web.getInt("article_id");
 		
 		/** (3) 로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
@@ -46,6 +40,9 @@ public class ArticleReport extends BaseController {
 		
 		// 신고자 id값을 가져온다.
 		int id = loginInfo.getId();
+		
+		
+		logger.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + article_id);
 		
 		request.setAttribute("article_id", article_id);			//게시판 번호
 		request.setAttribute("member_id", member_id);		//게시자 id

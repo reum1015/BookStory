@@ -44,7 +44,7 @@ public class ArticleRead extends BaseController {
 		
 		// 세션에서 member_id 가져오기
 		Member loginInfo = (Member) web.getSession("loginInfo");
-		int mymember_id = loginInfo.getId();
+		int member_id = loginInfo.getId();
 		
 		/** (3) 글번호 파라미터 받기 */
 		int article_id = web.getInt("article_id");
@@ -59,7 +59,7 @@ public class ArticleRead extends BaseController {
 		// 파라미터를 Beans로 묶기
 		Article article = new Article();
 		article.setId(article_id);
-		article.setMember_id(mymember_id);
+		article.setMember_id(member_id);
 		
 		/** (4) 게시물 일련번호를 사용한 데이터 조회 */
 		Article readArticle = null;
@@ -95,7 +95,6 @@ public class ArticleRead extends BaseController {
 		}
 		
 		// 본인 게시글 검사
-		
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + count);
 
 		/** (5) 읽은 데이터를 View에게 전달한다. */

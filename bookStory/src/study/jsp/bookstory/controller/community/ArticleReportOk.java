@@ -41,18 +41,16 @@ public class ArticleReportOk extends BaseController {
 		reportService = new ReportServiceImpl(sqlSession, logger);
 		
 		// 파라미터 name값 가져오기
-		int member_id = web.getInt("id");							//신고자 id
-		int target_member_id = web.getInt("member_id");		//게시자 id
-		String report_subject = web.getString("subject");		//게시글 제목
-		String report_content = web.getString("select");		//신고 내용
-		int article_id = web.getInt("article_id");						//게시글 번호
-		// 게시글이 신고된 데이터로 바꾸기위해 reported변환을 강제한다.
-		String reported = "Y";											// 신고게시판 데이터
+		int member_id = web.getInt("id");									//신고자 id
+		int target_member_id = web.getInt("member_id");				//게시자 id
+		String report_subject = web.getString("subject");				//게시글 제목
+		String report_content = web.getString("report_content");		//신고 내용
+		int article_id = web.getInt("article_id");					 			//게시글 번호
 		
 		// 전달된 파라미터는 로그로 확인한다.
-		logger.debug("member_id=" + member_id);
-		logger.debug("target_mamber_id=" + target_member_id);
-		logger.debug("report_subject=" + report_subject);
+		logger.debug("id=" + member_id);
+		logger.debug("mamber_id=" + target_member_id);
+		logger.debug("subject=" + report_subject);
 		logger.debug("report_content=" + report_content);
 		logger.debug("article_id=" + article_id);
 		
@@ -65,28 +63,21 @@ public class ArticleReportOk extends BaseController {
 		report.setArticle_id(article_id);
 		
 		Article article = new Article();
-		article.setReported(reported);
-		
-		// 값의 변경된 reported 데이터 확인
-		logger.debug("reported=" + article.getReported());
+		article.setMember_id(target_member_id);
+		article.setId(article_id);
 		
 		// Service를 통한 신고테이블의 reported의 데이터를 바꿔준다.
 		try{
 			reportService.updateReport(article);
-		}catch(Exception e){
-			sqlSession.close();
-			web.redirect(null, e.getLocalizedMessage());
-			return null;
-		}
-		
-		// Service를 통한 신고 데이터 저장
-		try{
 			reportService.insertReportArticle(report);
 		}catch(Exception e){
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}
+		
+		// 값의 변경된 reported 데이터 확인
+		logger.debug("reported=" + article.getReported());
 		
 		/** (8) 저장 완료 후 읽기 페이지로 이동하기 */
 		String url = "%s/community/article_write.do";

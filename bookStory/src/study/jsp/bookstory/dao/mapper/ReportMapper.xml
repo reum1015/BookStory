@@ -11,9 +11,9 @@
 		<result property="id" column="id"/>											<!-- 신고 번호 -->
 		<result property="reg_date" column="reg_date"/>							<!-- 신고받은 날짜 -->
 		<result property="blind" column="blind"/>									<!-- 블라인드 처리 N:아무처리 않함 Y:블라인드 처리 -->
-		<result property="member_id" column="member_id"/>					<!-- 회원번호 (외래키) -->
+		<result property="member_id" column="member_id"/>					<!-- 신고자 -->
 		<result property="target_member_id" column="target_member_id"/>	<!-- 신고 당한 회원 id -->
-		<result property="report_subject" column="report_subject" />
+		<result property="report_subject" column="report_subject" />			<!-- 게시글 제목 -->
 		<result property="report_content" column="report_content"/>			<!-- 신고내용 -->
 		<result property="article_id" column="article_id"/>							<!-- 게시글 번호 (외래키) -->
 		<result property="comment_id" column="comment_id"/>					<!-- 덧글 번호 (외래키) -->
@@ -25,14 +25,15 @@
 	INSERT INTO report ( 
 		member_id, target_member_id, report_subject, report_content, article_id, reg_date
 	) 
-	VALUE 
-		${member_id}, ${target_member_id}, ${report_subject}, ${report_content}, ${article_id}, now()
+	VALUES (
+		#{member_id}, #{target_member_id}, #{report_subject}, #{report_content}, #{article_id}, now()
+	)
 	</insert>
 	
 	<!-- 신고된 게시글의  reported 데이터 변경 -->
 	<update id="updateReportedDate" parameterType="study.jsp.bookstory.model.Article">
-	UPDATE article SET reported = 'Y'
-	WHERE reported = 'N' and member_id = #{member_id} and article_id = #{article_id};
+	UPDATE article SET reported = "Y"
+	WHERE reported = "N" and member_id = #{member_id} and id = #{id}
 	</update>
 	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->
