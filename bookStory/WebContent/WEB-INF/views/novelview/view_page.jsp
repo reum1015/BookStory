@@ -66,15 +66,13 @@
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
-				
-				<c:forEach var="title" items="${episodeTitleList}" >
-				  <select name="novellist" class="novellist selectpicker">
-				  <option>제 201화. 이름 없는</option>
-				   <option value="title1">소설제목1</option>  
-				   <option value="title2">소설제목2</option>
-				   <option value="title3">소설제목3</option>
-					</select>
+				<select name="epList_selectBox">
+				<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
+					<option value="${title.id}"><a href="#">${title.episode_order}화. ${title.episode_name}
+					</a>
+					</option>
 				</c:forEach>
+				</select>
 				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
 				
@@ -86,7 +84,7 @@
 				</div>
 				<div id="" class="col-sm-2 view_set">
 					<a>보기설정</a>
-				</div>				
+				</div>
 				
 				</div>
 				<!-- //title bar -->
@@ -108,9 +106,7 @@
 				 -->
 				
 				<div class="detail_view_content">
-				<p>
-				${episode.content}
-				</p>					
+					<p>${episode.content}</p>					
 				</div>				
 				</div>
 				<!-- // view content -->

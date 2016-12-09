@@ -74,7 +74,7 @@
 	
 	<!-- 에피소드 제목 불러오기(셀렉트 박스용) -->
 	<select id="selectAllEpisodeTitle" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
-		SELECT id, content FROM episode WHERE book_id=#{book_id} ORDER BY episode_order DESC
+		SELECT id, episode_name, episode_order FROM episode WHERE book_id=#{book_id} ORDER BY episode_order DESC
 	</select>
 	
 	

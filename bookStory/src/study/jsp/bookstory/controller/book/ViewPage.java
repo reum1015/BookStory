@@ -85,6 +85,7 @@ public class ViewPage extends BaseController{
 		/** 파라미터 Beans로 묶기 */
 		Episode episode = new Episode();
 		episode.setId(episode_id);
+		episode.setBook_id(book_id);
 		
 		Book book = new Book();
 		book.setId(book_id);
