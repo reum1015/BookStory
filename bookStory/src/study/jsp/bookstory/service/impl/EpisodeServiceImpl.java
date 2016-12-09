@@ -51,7 +51,10 @@ public class EpisodeServiceImpl implements EpisodeService{
 		}
 		
 	}
-
+	
+	/**
+	 * 같은 이름의 에피소드가 존재하는지 검사
+	 */
 	@Override
 	public int countEqualEpisodeName(Episode episode) throws Exception {
 		// TODO Auto-generated method stub
@@ -70,6 +73,10 @@ public class EpisodeServiceImpl implements EpisodeService{
 				return result;
 	}
 
+	/**
+	 * 작품에 속해 있는 총 에피소드의 수
+	 */
+	
 	@Override
 	public int countTotalEpisodeByBookId(Episode episode) throws Exception {
 		// TODO Auto-generated method stub
@@ -86,6 +93,10 @@ public class EpisodeServiceImpl implements EpisodeService{
 		return result;
 	}
 
+	
+	/**
+	 * 작품에 속해 있는 모든 에피소드 Select
+	 */
 	@Override
 	public List<Episode> selectEpisdoeListAllByBook(Episode episode) throws Exception {
 		// TODO Auto-generated method stub
@@ -103,6 +114,77 @@ public class EpisodeServiceImpl implements EpisodeService{
 			throw new Exception("에피소드 목록 조회에 실패했습니다.");
 		}
 
+		return result;
+	}
+
+	/**
+	 * 작품의 에피소드 첫화
+	 */
+	@Override
+	public int selectFirstEpisodeIdByBookId(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		
+		
+		try{
+			result = sqlSession.selectOne("EpisodeMapper.selectFirstEpisodeIdByBookId", episode);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+			
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			throw new Exception("작품의 첫화가 존재 하지 않습니다.");
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품의 첫화 조회에 실패했습니다.");
+		}
+		
+		return result;
+		
+	}
+
+	/***
+	 * 한개의 에피소드 가져오기
+	 */
+	@Override
+	public Episode selectOneEpisodeItem(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		Episode result = null;
+		
+		try {
+			result = sqlSession.selectOne("EpisodeMapper.selectOneEpisodeItem", episode);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 에피소드가 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<Episode> selectAllEpisodeTitle(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		List<Episode> result = null;
+		
+		try{
+			result = sqlSession.selectList("EpisodeMapper.selectAllEpisodeTitle", episode);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			throw new Exception("조회된 에피소드제목이 없습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 제목 조회에 실패했습니다.");
+		}
+		
 		return result;
 	}
 

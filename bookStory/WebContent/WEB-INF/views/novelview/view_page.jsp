@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>	
@@ -56,7 +58,7 @@
 				<div class="row view_header" id="titlebar_header">
 				
                 <div id="" class="col-sm-2 novel_title">
-					<h4><a href="#">소설제목</a></h4>
+					<h4><a href="#">${book.book_name}</a></h4>
 				</div>
 				
 				
@@ -64,13 +66,15 @@
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
+				
+				<c:forEach var="title" items="${episodeTitleList}" >
 				  <select name="novellist" class="novellist selectpicker">
 				  <option>제 201화. 이름 없는</option>
 				   <option value="title1">소설제목1</option>  
 				   <option value="title2">소설제목2</option>
 				   <option value="title3">소설제목3</option>
 					</select>
-
+				</c:forEach>
 				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
 				
@@ -91,7 +95,7 @@
 				<div class="viewer_container">
 				
 				<div class="page-header novel_title_header">
-			    <h1>18.어렵네 제목</h1>      
+			    <h1>${episode.episode_order}.${episode.episode_name}</h1>      
 			    <span class="date">2016.10.18</span>
 			  	</div>
 			  	
@@ -104,39 +108,8 @@
 				 -->
 				
 				<div class="detail_view_content">
-				<p>무엇을 바라고 좋아했던 게 아니다. 
-
-처음 하는 사랑이 그저 좋아서, 내가 그를 사랑한다는 느낌이, 그 사람도 나를 사랑한다는 만족감이 그냥 좋아서, 신기해서.
-
-아주 바보 같을 정도로 순수하게, 과거도 미래도 아닌 현재만 바라보면서 좋아했다.
-
-그 또한 그녀를 아무 조건 없이 좋아해줘서, 그녀도 어떤 사심 없이 그 사랑을 받아들였던 것이다.
-
-그냥 그렇게 함께 있는 시간이 좋았을 뿐이었는데, 그 행복의 대가가 이렇게 가혹할 줄이야.
-
-‘몰랐네. 내가 팜므파탈이었네…….’
-
-이새는 힘없이 하아, 한숨을 내쉬었다. 가뭄처럼 메마른 탄식이었다.
-
-그렇게 태원에게 일방적으로 몰린 후, 집으로 돌아오는 길. 
-
-이새는 며칠 전에 문화센터에서 준서를 잃어버렸던 일이 다시 생각났다. 
-
-그 일이 있은 후 그녀는 지원에게, 자신이 연애에 정신을 홀랑 빼앗겨서 준서를 소홀히 하고 있는 것 같다고 말했었다. 
-
-그는 그녀를 위로했고 사귀는 건 보류하자는 그녀의 말에는 잠시 언성을 높이기도 했다.
-
-작은 갈등이 있었지만, 그 일로 인하여 그의 마음을 다시 한 번 깨닫게 됐다. 
-
-그는 절대, 자신을 놓지 않을 것이다.
-
-생각해보니 그때 그녀가 겪은 트러블은 그가 현재 맞닥뜨린 위기에 비하면 아무것도 아닌 일이었다. 어쨌든 잃어버렸던 준서는 금방 찾았으니까.
-
-지금 그렇게 힘든 상황인데도 그는…… 여태껏 아무 말도 하지 않았다.
-
-바쁜 일이 끝나면 많이 놀아주겠다고 했을 뿐, 연애 핑계는 조금도 대지 않았다. 
-
-‘난 정말 이기적이었구나.’
+				<p>
+				${episode.content}
 				</p>					
 				</div>				
 				</div>
@@ -152,8 +125,8 @@
 			<label for="str" title="별점" class="icon_stargrade"  id="stargradeIcon">별점</label>
 			</div>
 			
-			<div class="col-lg-1 col-sm-1"><a id="currentStarScore" class="CurrentStarScore">9.92</a></div>
-			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">1394명</a></div>
+			<div class="col-lg-1 col-sm-1"><a id="currentStarScore" class="CurrentStarScore">${episode.total_star}</a></div>
+			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">${episode.total_starcount}</a></div>
 			
 			<div class="grade_insert col-lg-3 col-sm-3">
 			<a type="button" class="btn btn-default"  id="star_rate" data-toggle="modal" data-target="#myModal">별점주기</a></div>
@@ -166,7 +139,7 @@
 			<div class="author_comment">
 				<h4 class="author_comment_title">작가의 말</h4>
 				 <p>
-				 이것은 마치 오마하 해변 상륙작전 당시, 사방에서 터지는 포화속에 간신히 살아남은 연합군 군인의 모습
+				 	${episode.author_comment}
 				 </p>
 				</div>
 				<!-- // 작가의말 -->

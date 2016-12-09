@@ -23,6 +23,7 @@ import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.PageHelper;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
@@ -45,6 +46,7 @@ public class BookList extends BaseController {
 	EpisodeService episodeService;
 	UploadHelper upload;
 	ImageFileService imageFileService;
+	PageHelper pageHelper; 
 	
 	
 	@Override
@@ -60,6 +62,7 @@ public class BookList extends BaseController {
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		bookService = new BookServiceImpl(sqlSession, logger);
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
+		pageHelper = PageHelper.getInstance();
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -81,21 +84,46 @@ public class BookList extends BaseController {
 		bookItem.setId(book_id);
 		
 		
-		Book getBookItem = new Book();		//작품 정보 조회
+		Book getBookItem = new Book();		//작품 정보 담을 빈즈
 		
 		
-		Episode episode = new Episode();	//에피소드 리스트 조회
-		episode.setBook_id(book_id);
+		Episode episode = new Episode();	//에피소드 리스트 담을 빈즈
+		episode.setBook_id(book_id);		//작품정보 빈즈에 셋팅
+		
+		
+		//현재 페이지 수 --> 기본값 1페이지
+		int page = web.getInt("page",1);
 		
 		List<Episode> episodeList = new ArrayList<Episode>();
 		episodeList = null;
+		
+		
+		//작품의 첫화 저장 변수
+		int firstEpisode = 0;
+		
+		int totalCount = 0;	//작품에 해당하는 전체 에피소드 갯수 저장 변수
 		try{
+			
+			//작품에 해당하는 전체 에피소드 수
+			totalCount = episodeService.countTotalEpisodeByBookId(episode);
+			
+			//나머지 페이지 번호 계산하기
+			//-->현재 페이지, 전체 게시물 수, 한페이지의 목록 수, 그룹 갯수
+			pageHelper.pageProcess(page, totalCount, 4, 5);
+			
+			//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
+			episode.setLimitStart(pageHelper.getLimit_start());
+			episode.setListCount(pageHelper.getList_count());
+			
 			
 			//작품 정보 조회
 			getBookItem = bookService.selectOneBookItem(bookItem);
 			
 			//에피소드 리스트 조회
 			episodeList = episodeService.selectEpisdoeListAllByBook(episode);
+			
+			//작품의 첫화 에피소드 조회
+			firstEpisode = episodeService.selectFirstEpisodeIdByBookId(episode);
 		}catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -133,9 +161,12 @@ public class BookList extends BaseController {
 					}
 				}
 		
-		
+		//페이지 번호 계산 결과 View에 전달
+		request.setAttribute("pageHelper",pageHelper);		
+				
 		
 		request.setAttribute("bookitem", getBookItem);
+		request.setAttribute("firstEpisode", firstEpisode);
 		request.setAttribute("episodeList", episodeList);
 		
 		return view;

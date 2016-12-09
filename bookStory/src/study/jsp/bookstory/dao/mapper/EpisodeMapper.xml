@@ -55,8 +55,27 @@
 				ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM episode WHERE book_id=#{book_id}
 		ORDER BY episode_order DESC
+		LIMIT #{limitStart},#{listCount}
 	</select>
 	
+	
+	<!-- 작품의 에피소드 첫화 -->
+	
+	<select id="selectFirstEpisodeIdByBookId" parameterType="study.jsp.bookstory.model.Episode" resultType="int">
+		SELECT id FROM episode WHERE book_id=#{book_id} AND episode_order = 1
+	</select>
+	
+	<!-- 한개의 Episode Select -->
+	<select id="selectOneEpisodeItem" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id, episode_name, content, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, edit_date, author_comment, episode_buy,
+				episode_rent, book_id, episode_order, total_star, total_starcount
+		FROM episode WHERE id=#{id}
+	</select>
+	
+	<!-- 에피소드 제목 불러오기(셀렉트 박스용) -->
+	<select id="selectAllEpisodeTitle" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id, content FROM episode WHERE book_id=#{book_id} ORDER BY episode_order DESC
+	</select>
 	
 	
 

@@ -69,13 +69,13 @@
 	<c:forEach var="bookmark" items="${bookmark_list}">
 		<!-- 게시물 항목 하나 -->
 		
-<li>
+
 	<c:url var="readUrl" value="/mymenu/bookmark_list.do">
 		<c:param name="bookmark_id" value="${episode.id}" />
 	 </c:url>
 	
 		<!-- 링크 + 썸네일 -->
-		<a class="col-xs-4" href="${readUrl}">
+	<a class="col-xs-4" href="${readUrl}">
 		<c:choose>
 				<c:when test="${bookmark.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">
@@ -89,10 +89,10 @@
 		</c:choose>
 	</a>
 		<!-- 회차 + 제목  -->
-			<div class="episode-content col-md-8 col-lg-12">
+	<div class="episode-content col-md-8 col-lg-12">
 			<h4>제  ${bookmark.episode_order} 화 </h4>
 			<div>${bookmark.episode_name}</div>								
-			</div>
+	</div>
 					
 					
 				</c:forEach>
@@ -103,8 +103,6 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-
-</li>
 	</div>
 	
 	 			
