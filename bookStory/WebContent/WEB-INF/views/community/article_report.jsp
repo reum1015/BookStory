@@ -27,8 +27,8 @@
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
 	
+<script type="text/javascript">
 </script>
 </head>
 <body>
@@ -42,7 +42,7 @@
 				<div class="form-group">
 					<label for="member_id1" class="col-md-2 control-label"></label>
 					<div class="col-md-10">
-						<input type="hidden" class="form-control" name="member_id1"
+						<input type="text" class="form-control" name="id"
 							id="subject1" value="${id}">
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 				<div class="form-group">
 					<label for="member_id2" class="col-md-2 control-label"></label>
 					<div class="col-md-10">
-						<input type="hidden" class="form-control" name="member_id2"
+						<input type="text" class="form-control" name="member_id"
 							id="subject2" value="${member_id}">
 					</div>
 				</div>
@@ -58,35 +58,42 @@
 				<div class="form-group">
 					<label for="member_id2" class="col-md-2 control-label">글제목</label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" name="member_id3"
-							id="subject3" value="${subject}" disabled>
+						<input type="text" class="form-control" name="subject"
+							id="subject3" value="${subject}" >
 					</div>
 				</div>
 				<!-- 신고 내용 -->
 				<div class="form-group">
 					<label for="select1" class="col-md-2 control-label">신고내용</label>
 					<div class="radio col-md-4">
-						<label> <input type="radio" name="select1"
+						<label> <input type="radio" name="report_content"
 							id="optionsRadios1" value="option1" checked> 음란성 또는 청소년에게
 							부적합한 내용
 						</label>
 					</div>
 					<div class="radio col-md-3">
-						<label> <input type="radio" name="select1"
+						<label> <input type="radio" name="report_content"
 							id="optionsRadios2" value="option2"> 폭언 또는 욕설 내용
 						</label>
 					</div>
 					<div class="radio col-md-3">
-						<label> <input type="radio" name="select1"
+						<label> <input type="radio" name="report_content"
 							id="optionsRadios3" value="option3"> 게시물 광고 내용
 						</label>
+					</div>
+				</div>
+				<!-- 게시글 번호 -->
+				<div class="form-group">
+					<label for="member_id2" class="col-md-2 control-label">게시글번호</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" name="article_id"
+							id="subject4" value="${article_id}" >
 					</div>
 				</div>
 				<br /> <br />
 				<!-- 신고내용 끝 -->
 				<div class="pull-right">
-					<a type="button" class="btn btn-danger" id="ReportData"
-						data-toggle="modal" data-target="#report">신고하기</a>
+					<button type="submit" class="btn btn-danger">신고하기</button>
 					<button type="button" class="btn btn-primary"
 						onclick="history.back();">취소</button>
 				</div>
