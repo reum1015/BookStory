@@ -227,4 +227,19 @@ public class ArticleserviceImpl implements ArticleService {
 		
 	}
 
+	@Override
+	public int selectMemberReport(Article article) throws Exception {
+		int result = 0;
+		
+		try{
+			// 자신의 게시물이 아닌 경우도 있으므로,
+			// 결과값이 0인 경우에 대한 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("ArticleMapper.selectMemberReport", article);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("자신의 게시물의 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

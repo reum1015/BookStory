@@ -42,7 +42,7 @@
 				<div class="form-group">
 					<label for="member_id1" class="col-md-2 control-label"></label>
 					<div class="col-md-10">
-						<input type="hidden" class="form-control" name="member_id1"
+						<input type="text" class="form-control" name="member_id1"
 							id="subject1" value="${id}">
 					</div>
 				</div>
@@ -50,7 +50,7 @@
 				<div class="form-group">
 					<label for="member_id2" class="col-md-2 control-label"></label>
 					<div class="col-md-10">
-						<input type="hidden" class="form-control" name="member_id2"
+						<input type="text" class="form-control" name="member_id2"
 							id="subject2" value="${member_id}">
 					</div>
 				</div>
@@ -66,18 +66,18 @@
 				<div class="form-group">
 					<label for="select1" class="col-md-2 control-label">신고내용</label>
 					<div class="radio col-md-4">
-						<label> <input type="radio" name="select1"
+						<label> <input type="radio" name="select"
 							id="optionsRadios1" value="option1" checked> 음란성 또는 청소년에게
 							부적합한 내용
 						</label>
 					</div>
 					<div class="radio col-md-3">
-						<label> <input type="radio" name="select1"
+						<label> <input type="radio" name="select"
 							id="optionsRadios2" value="option2"> 폭언 또는 욕설 내용
 						</label>
 					</div>
 					<div class="radio col-md-3">
-						<label> <input type="radio" name="select1"
+						<label> <input type="radio" name="select"
 							id="optionsRadios3" value="option3"> 게시물 광고 내용
 						</label>
 					</div>

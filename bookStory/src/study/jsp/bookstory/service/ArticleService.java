@@ -99,5 +99,10 @@ public interface ArticleService {
 	 */
     public void updateArticleMemberOut(Article article) throws Exception;
 
-
+    /**
+     * 본인의 게시물일 경우 신고버튼 비활성화
+     * @param document - 게시물 데이터
+	 * @throws Exception
+     */
+    public int selectMemberReport(Article article) throws Exception;
 }

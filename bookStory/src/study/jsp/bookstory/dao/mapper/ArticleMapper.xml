@@ -140,4 +140,9 @@
 	  UPDATE article SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id} AND user_nickname=#{user_nickname}
 	</update>
 	
+	<!-- 본인의 게시글 확인절차 -->
+	<select id="selectMemberReport" parameterType="study.jsp.bookstory.model.Article" resultType="int">
+	  SELECT COUNT(id) FROM article WHERE id=#{id} AND member_id=#{member_id}
+	</select>
+	
 </mapper>

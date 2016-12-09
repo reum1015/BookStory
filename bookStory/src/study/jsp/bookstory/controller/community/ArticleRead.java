@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.ArticleService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
 import study.jsp.helper.BaseController;
@@ -41,6 +42,9 @@ public class ArticleRead extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
 		
+		// 세션에서 member_id 가져오기
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		int mymember_id = loginInfo.getId();
 		
 		/** (3) 글번호 파라미터 받기 */
 		int article_id = web.getInt("article_id");
@@ -55,6 +59,7 @@ public class ArticleRead extends BaseController {
 		// 파라미터를 Beans로 묶기
 		Article article = new Article();
 		article.setId(article_id);
+		article.setMember_id(mymember_id);
 		
 		/** (4) 게시물 일련번호를 사용한 데이터 조회 */
 		Article readArticle = null;
@@ -68,6 +73,8 @@ public class ArticleRead extends BaseController {
 		// 준비한 문자열에 대응되는 쿠키값 조회
 		String cookieVar = web.getCookie(cookieKey);
 		
+		int count = 0;
+		
 		try{
 			// 쿠키 값이 없다면 조회수 갱신
 			if(cookieVar==null){
@@ -79,17 +86,23 @@ public class ArticleRead extends BaseController {
 			readArticle = articleService.selectArticle(article);
 			prevArticle = articleService.selectPrevArticle(article);
 			nextArticle = articleService.selectNextArticle(article);
+			count = articleService.selectMemberReport(article);
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		}finally{
 			sqlSession.close();
 		}
+		
+		// 본인 게시글 검사
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + count);
 
 		/** (5) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("readArticle", readArticle);
 		request.setAttribute("prevArticle", prevArticle);
 		request.setAttribute("nextArticle", nextArticle);
+		request.setAttribute("count", count);
 		logger.debug(readArticle.toString());
 		
 		

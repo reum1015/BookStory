@@ -7,7 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
+import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.service.ArticleService;
+import study.jsp.bookstory.service.impl.ArticleserviceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -20,7 +26,6 @@ public class ArticleReport extends BaseController {
 	private static final long serialVersionUID = 7290700034441742557L;
 
 	WebHelper web;
-	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -28,7 +33,7 @@ public class ArticleReport extends BaseController {
 		
 		int member_id = web.getInt("member_id");
 		String subject = web.getString("subject");
-		
+		int article_id = web.getInt("id");
 		
 		/** (3) 로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
@@ -42,9 +47,10 @@ public class ArticleReport extends BaseController {
 		// 신고자 id값을 가져온다.
 		int id = loginInfo.getId();
 		
-		request.setAttribute("member_id", member_id);
-		request.setAttribute("subject", subject);
-		request.setAttribute("id", id);
+		request.setAttribute("article_id", article_id);			//게시판 번호
+		request.setAttribute("member_id", member_id);		//게시자 id
+		request.setAttribute("subject", subject);				//글제목
+		request.setAttribute("id", id);								//회원 id값
 		
 		String view = "community/article_report";
 		
