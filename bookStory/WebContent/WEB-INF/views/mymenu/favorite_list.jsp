@@ -3,23 +3,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-		<jsp:include page="/WEB-INF/views/template/head.jsp"/>
+			<jsp:include page="/WEB-INF/views/template/head.jsp"/>
 	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
-	
-	
+		
 		<!-- 스타일 sheet -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/mymenuCommon.css" />
-
-
 	
 	</head>
 	<body>
 
-			<!-- 메인 헤더 -->
+		
+	<!-- 메인 헤더 -->
 	
 
 
@@ -31,9 +30,9 @@
     				<div class="container main_navi_sub_list">
     					<div class="table-responsive" id="myNavbar_sub">
     						 <table class="table table-striped table-bordered table-hover" id="table">
-    						 <thead>
-    						 	<tr>
-    						 	    <th><a href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do"><span>최근 본 작품</span></a></th>
+    						 <thead id="thead">
+    						 	<tr id="tr">
+    						 	   <th><a href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do"><span>최근 본 작품</span></a></th>
     						 		<th><a href="${pageContext.request.contextPath}/mymenu/favorite_list.do"><span>관심작품</span></a></th>
     						 		<th><a href="${pageContext.request.contextPath}/mymenu/bookmark_list.do"><span>책갈피</span></a></th>
     						 		<th><a href="${pageContext.request.contextPath}/mymenu/purchase_list.do"><span>구매내역</span></a></th>
@@ -47,38 +46,40 @@
     						 </table>
     					
     					
+    					
+    					
       				
     					</div>
     				</div>
  
 			</nav>
-		
 			
-		
+			
+			
 	<div class="container" id="content_all">
 	  <div class="row">
 	  
-	  <!-- 북마크 리스트 뿌려지는 곳 에피소드 + 페이지번호 --> 	  		
+	  <!-- 관심등록 리스트 뿌려지는 곳 책 + 페이지번호 --> 	  		
 <div class="block_bookmark container_content col-md-8" id="content">
 		
-		<!-- 조회된 북마크가 있는 경우 시작 -->
+		<!-- 조회된 관심등록이 있는 경우 시작 -->
 		<!-- 게시물 항목 하나 -->	
 	 <div class="block_bookmark_list col-md-8 col-lg-11">
 		<c:choose>		
-	<c:when test="${fn:length(bookmark_list) > 0}">
-	<c:forEach var="bookmark" items="${bookmark_list}">
+	<c:when test="${fn:length(favorite_list) > 0}">
+	<c:forEach var="favorite" items="${favorite_list}">
 		
 
-	<c:url var="readUrl" value="/mymenu/bookmark_list.do">
-		<c:param name="bookmark_id" value="${episode.id}" />
+	<c:url var="readUrl" value="/mymenu/favorite_list.do">
+		<c:param name="favorite_id" value="${book.id}" />
 	 </c:url>
 	
 		<!-- 링크 + 썸네일 -->
 		<a class="img_box" href="${readUrl}">
 		<c:choose>
-				<c:when test="${bookmark.imagePath != null}">
+				<c:when test="${favorite.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">
-			<c:param name="file" value="${bookmark.imagePath}" />
+			<c:param name="file" value="${favorite.imagePath}" />
 			</c:url>
 			<img src="${downloadUrl}" class="img-responsive pull-left" />
 			</c:when>
@@ -91,10 +92,9 @@
 		
 		<!-- 회차 + 제목  -->		
      <div class="episode-content col-md-8 col-lg-9">
-      
-             </br>             
-            <h4>  ${bookmark.book_name}  </h4> 
-			<h4>제  ${bookmark.episode_order} 화 ${bookmark.episode_name}</h4>										
+            <div>${favorite.book_name}</div>	
+			<h4> ${favorite.book_author}  </h4>		
+												
 			</div>
 					
 				</c:forEach>
@@ -119,7 +119,7 @@
 	  <c:when test="${pageHelper.prevPage > 0}">
            <!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
            <!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
-          <c:url var="prevUrl" value="/mymenu/bookmark_list.do">
+          <c:url var="prevUrl" value="/mymenu/favorite_list.do">
               <c:param name="member_id" value="${member_id}"></c:param>
               <c:param name="page" value="${pageHelper.prevPage}"></c:param>
           </c:url>	  
@@ -137,7 +137,7 @@
 	   <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 	   
 	    <!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하 page_url에 저장 -->
-	    <c:url var="pageUrl" value="/mymenu/bookmark_list.do">
+	    <c:url var="pageUrl" value="/mymenu/favorite_list.do">
               <c:param name="id" value="${id}"></c:param>
               <c:param name="page" value="${i}"></c:param>
 	   </c:url>
@@ -159,7 +159,7 @@
 	  <c:when test="${pageHelper.nextPage > 0}">
            <!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
            <!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
-          <c:url var="nextUrl" value="/mymenu/bookmark_list.do">
+          <c:url var="nextUrl" value="/mymenu/favorite_list.do">
               <c:param name="member_id" value="${member_id}"></c:param>
               <c:param name="page" value="${pageHelper.nextPage}"></c:param>
           </c:url>	  
@@ -177,10 +177,11 @@
 	 <!-- 페이지 번호 끝 -->
 	 
 	 </div>
-	 <!-- 북마크 리스트 뿌려지는 곳  끝-->
+	 <!-- 관심작품 리스트 뿌려지는 곳  끝-->
+	 
 	 
 			<!-------- 연령별 선호작  ---------->
-			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 col-md-4 text-center section_area list_rank box">
+			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 text-center section_area list_rank box">
   						<h4 class="text-left">연령별 선호작품</h4>
 						<div class="btn-group btn-group-justified" role="group" aria-label="...">
 							  <div class="btn-group" role="group">
@@ -265,14 +266,16 @@
 					<!-- 연령별 선호작 끝 -->
 	 </div>
 	
-</div>
-	
+
+	</div>
 			<!-- 메인 화면 끝 -->
-	
 	
 	  <!-- footer -->
 		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
-		
 	
+
+	
+	
+
 	</body>
 </html>

@@ -8,6 +8,7 @@ public class BookMark {
 	
 	private int episode_order;
 	private String episode_name;
+	private String book_name;
 	// 페이지 구현을 위해서 추가된값
 	private int limitStart;
 	private int listCount;
@@ -15,6 +16,8 @@ public class BookMark {
 	// 갤러리 구현을 위해서 추가된 값
 	private boolean gallery;
 	private String imagePath;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -45,6 +48,12 @@ public class BookMark {
 	public void setEpisode_name(String episode_name) {
 		this.episode_name = episode_name;
 	}
+	public String getBook_name() {
+		return book_name;
+	}
+	public void setBook_name(String book_name) {
+		this.book_name = book_name;
+	}
 	public int getLimitStart() {
 		return limitStart;
 	}
@@ -72,11 +81,10 @@ public class BookMark {
 	@Override
 	public String toString() {
 		return "BookMark [id=" + id + ", member_id=" + member_id + ", episode_id=" + episode_id + ", episode_order="
-				+ episode_order + ", episode_name=" + episode_name + ", limitStart=" + limitStart + ", listCount="
-				+ listCount + ", gallery=" + gallery + ", imagePath=" + imagePath + "]";
+				+ episode_order + ", episode_name=" + episode_name + ", book_name=" + book_name + ", limitStart="
+				+ limitStart + ", listCount=" + listCount + ", gallery=" + gallery + ", imagePath=" + imagePath + "]";
 	}
 	
 	
 	
-
 }

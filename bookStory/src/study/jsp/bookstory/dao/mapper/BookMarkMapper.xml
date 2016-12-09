@@ -16,6 +16,7 @@
 		<result property="imagePath" column="image_path"/>
 		<result property="episode_order" column="episode_order"/>
 		<result property="episode_name" column="episode_name"/>
+
 	
 	</resultMap>
 
@@ -30,61 +31,25 @@
 	<delete id="deleteRemoveBookMark" parameterType="study.jsp.bookstory.model.BookMark">
          DELETE FROM bookmark WHERE id=#{id};
 	</delete>
-	
-	
-	<!-- 전체 게시물 수를 조회한다. 페이지 구현 위해서 -->
-	<select id="selectBookMarkCount" parameterType="study.jsp.bookstory.model.BookMark" resultType="int">
-	SELECT COUNT(id) FROM bookmark WHERE member_id =#{member_id}
-	
-	</select>
-	
-	
+		
 		<!-- 북마크 목록을 조회한다. -->
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark" resultMap="bookmark">
-<!-- SELECT e.episode_order, e.episode_name,( SELECT concat(file_dir, '/', file_name) FROM imagefile i
-   WHERE i.episode_id=e.id AND content_type LIKE ('image/%') ORDER BY id ASC LIMIT 0, 1 ) AS imagePath
-   FROM episode e, bookmark b, member m WHERE e.id=b.episode_id AND m.id=b.member_id
-
-   
-       ORDER BY episode_id DESC
-       LIMIT #{limitStart}, #{listCount}  -->
+    SELECT k.book_name, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
+      FROM MEMBER as m 
+      LEFT JOIN BOOKMARK as b ON m.id = b.member_id
+      LEFT JOIN EPISODE as e ON b.episode_id = e.id
+      LEFT JOIN imagefile as i ON e.id = i.episode_id 
+      LEFT JOIN book as k ON e.book_id = k.id
+        where i.content_type LIKE ('image/%') AND image_type="episode" AND member_id=#{member_id}
        
-       SELECT 
-       		e.episode_order
-       		, e.episode_name
-       		, concat(i.file_dir, '/', i.file_name) as imagePath 
-       FROM  
-       	MEMBER as m 
-       	LEFT JOIN BOOKMARK as b 
-       	ON m.id = b.member_id
-       	LEFT JOIN EPISODE as e 
-       	ON b.episode_id = e.id
-       	LEFT JOIN imagefile as i 
-       	ON e.id = i.episode_id	
-       	where i.content_type LIKE ('image/%')
-       	ORDER BY e.id DESC
-      	LIMIT #{limitStart}, #{listCount}
+       	ORDER BY e.id DESC  
+       	LIMIT #{limitStart}, #{listCount}
        
+	</select>	
+		
+	<!-- 전체 게시물 수를 조회한다. 페이지 구현 위해서 -->
+	<select id="selectBookMarkCount" parameterType="study.jsp.bookstory.model.BookMark" resultType="int">
+	SELECT COUNT(id) FROM bookmark WHERE member_id =#{member_id}	
 	</select>
-
-<!-- 현재 북마크에 있는 에피소드 가 다 출력됨. 
-SELECT e.episode_order, e.episode_name,( SELECT concat(file_dir, '/', file_name) FROM imagefile i
-   WHERE i.episode_id=e.id AND content_type LIKE ('image/%') ORDER BY id ASC LIMIT 0, 1 ) AS imagePath
-   FROM episode e, bookmark b, member m WHERE e.id=b.episode_id AND m.id=b.member_id
- -->
-
-  <!--  형이 짠거. 1개있음연 출력됨, 2개이상은 출력안됨.
-     SELECT e.episode_order, e.episode_name, (SELECT concat (file_dir, '/', file_name) 
-    FROM imagefile WHERE episode_id=(SELECT b.episode_id FROM bookmark b WHERE member_id =#{member_id}) 
-    AND content_type LIKE ('image/%') AND image_type='episode'
-			ORDER BY id ASC LIMIT 0, 3) AS imagePath FROM episode e
-       WHERE id =(select b.episode_id from bookmark b where member_id = #{member_id} )
-        -->
-       
-        <!-- 이건걍 졸라 많이 출력됨
-SELECT e.episode_order, e.episode_name,( SELECT concat(file_dir, '/', file_name) FROM imagefile i
-   WHERE i.episode_id=e.id AND content_type LIKE ('image/%') ORDER BY id ASC LIMIT 0, 1 ) AS imagePath
-   FROM episode e, bookmark b, member m WHERE e.id=b.episode_id AND m.id=any(SELECT member_id FROM bookmark b)
- -->
 	
 </mapper>
