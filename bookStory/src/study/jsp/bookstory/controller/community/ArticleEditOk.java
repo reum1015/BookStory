@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.ArticleService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
 import study.jsp.helper.BaseController;
@@ -56,11 +57,8 @@ public class ArticleEditOk extends BaseController {
 			return null;
 		}
 		
-		
-		
-		
-				
 		String category = web.getString("category");
+		String user_nickname = web.getString("user_nickname");
 		String subject = web.getString("subject");
 		String content = web.getString("content");
 		// 작성자 아이피 주소 가져오기
@@ -68,11 +66,37 @@ public class ArticleEditOk extends BaseController {
 		// 회원 일련번호 --> 비 로그인인 경우 0
 		int member_id = 0;
 		
+		/** (7) 로그인 한 경우 자신의 글이라면 입력하지 않은 정보를 세션 데이터로 대체한다. */
+		// 소유권 검사 정보
+		boolean myArticle = false;
 		
-					
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		if(loginInfo != null){
+			try{
+				Article temp = new Article();
+				temp.setCategory(category);
+				temp.setId(article_id);
+				temp.setMember_id(loginInfo.getId());
+				temp.setUser_nickname(loginInfo.getNick_name());
+				
+				if(articleService.selectArticleCountByMemberId(temp)>0){
+					// 소유권을 의미하는 변수 변경
+					myArticle = true;
+					// 입력되지 않은 정보들 갱신
+					user_nickname = loginInfo.getNick_name();
+					member_id = loginInfo.getId();
+				}
+			}catch(Exception e){
+				sqlSession.close();
+				web.redirect(null, e.getLocalizedMessage());
+				return null;
+			}
+		}
+		
 		// 전달된 파라미터는 로그로 확인한다.
 		logger.debug("article_id=" + article_id);
 		logger.debug("category=" + category);
+		logger.debug("user_nickname=" + user_nickname);
 		logger.debug("subject=" + subject);
 		logger.debug("content=" + content);
 		logger.debug("ipAddress=" + ip_address);
@@ -99,13 +123,15 @@ public class ArticleEditOk extends BaseController {
 		article.setSubject(subject);
 		article.setContent(content);
 		article.setIp_address(ip_address);
+		article.setUser_nickname(user_nickname);
 		article.setMember_id(member_id);
 		logger.debug("article >> " + article.toString());
 		
 		/** (6) Service를 통한 게시물 저장 */
 		try{
-			articleService.selectArticleCountByMemberId(article);
-			
+			if(!myArticle){
+				articleService.selectArticleCountByPw(article);
+			}
 			articleService.updateArticle(article);
 		}catch(Exception e){
 			sqlSession.close();

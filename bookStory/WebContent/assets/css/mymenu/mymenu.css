@@ -1,7 +1,8 @@
 			#nav {height: 50px;}
-			#content {height: 830px;}
+			
 			#main_list > li {list-style: none;}
 			.media {height: 100%;}
+			
 			.row .media .content {
 			  display: inline-block;
               vertical-align: middle;
@@ -9,8 +10,14 @@
               width: 500px;
               margin-top: 15px;
               margin-left: 10px;
-            }
-            .navbar .container #myNavbar_sub #table {
+            }         
+            
+         .main_navi_sub {
+         height: 5px;
+         font-size: 18px;
+         }
+            
+            .navbar .container #myNavbar_sub #table {           
               border-right:none; 
               border-top:none; 
               border-left:none; 
@@ -20,8 +27,8 @@
                text-align: center;
                border:none; 
             }
-            .paginations{padding-top: 10px;}
-			.pagination {display: block; text-align: center;}
+            .paginations { padding-top: 60px;}
+			#pagination {display: block; text-align: center;}
 			.pagination > li > a {float: none;}
 			
 			#content > .table-responsive > .table > tbody > tr > th {
@@ -32,8 +39,7 @@
 			  height: 100%;
 			}
 			
-			.container .point-table{
-			  
+			.container .point-table {			  
 			  width: 100%;
 			  height: 30%;
 			  margin-top: 50px;
@@ -50,10 +56,42 @@
 			  margin-right: 
 			}
 			
+			#content_all {
+			 background-color: #fff;  
+			}
 			
+			.container_content {
+		       margin-top: 20px;					
+			   min-height: 800px;
+			}
 			
-			
-			
-
+			#list-group-content {
+			   margin-top: 10px;
+			   width: auto;
+			   height: 100px;;			  
+			}
+		
+		.block_bookmark {
+		border-right :solid 1px #CCC;
+		  padding-bottom: 50px;	     
+		  
+		}
+		  
+		.block_bookmark_list {
+		   margin-left: 40px;
+		}  
+				  
+		.img-box {
+		margin: auto;
+		position: relative;
+		}
+				   
+		  .episode-content {				   
+		     text-align: center;
+		     height: 119px; 		      
+		    border-top:solid 1px #CCC;
+	       border-bottom: solid 1px #CCC;	
+		  }
+		
 
 			

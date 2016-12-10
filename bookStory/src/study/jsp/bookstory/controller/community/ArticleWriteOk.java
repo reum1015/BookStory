@@ -46,6 +46,7 @@ public class ArticleWriteOk extends BaseController {
 		String category = web.getString("category");
 		String subject = web.getString("subject");
 		String content = web.getString("content");
+		String user_nickname = web.getString("user_nickname");
 		// 작성자 아이피 주소 가져오기
 		String ip_address = web.getClientIP();
 		// 회원 일련번호 --> 비 로그인인 경우 0
@@ -54,12 +55,14 @@ public class ArticleWriteOk extends BaseController {
 		Member loginInfo = (Member) web.getSession("loginInfo");
 		if(loginInfo!=null){
 			member_id = loginInfo.getId();
+			user_nickname = loginInfo.getNick_name();
 		}
 		// 전달된 파라미터는 로그로 확인한다.
 		logger.debug("category=" + category);
 		logger.debug("subject=" + subject);
 		logger.debug("content=" + content);
 		logger.debug("ipAddress=" + ip_address);
+		logger.debug("user_nickname=" + user_nickname);
 		logger.debug("memberId=" + member_id);
 		
 		/** (5) 입력 받은 파라미터에 대한 유효성 검사 */
@@ -82,6 +85,7 @@ public class ArticleWriteOk extends BaseController {
 		article.setSubject(subject);
 		article.setContent(content);
 		article.setIp_address(ip_address);
+		article.setUser_nickname(user_nickname);
 		article.setMember_id(member_id);
 		logger.debug("article >> " + article.toString());
 		

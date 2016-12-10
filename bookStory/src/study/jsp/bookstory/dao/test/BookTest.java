@@ -21,21 +21,21 @@ public class BookTest {
 		
 		BookService bookService = new BookServiceImpl(sqlSession, logger);
 		
-		List<Book> list = new ArrayList<Book>();
+		Book book = new Book();
+		book.setId(1);
 		
-		list = null;
+		Book book1 = new Book();
 		
 		try{
-			list = bookService.selectMainCarouselByRandomThree();
+			book1 = bookService.selectOneBookItem(book);
 		}catch (Exception e) {
 			// TODO: handle exception
 			logger.error(e.getLocalizedMessage());
-			
 		}finally {
 			sqlSession.close();
 		}
 		
-		logger.debug(list.toString());
+		System.out.println(book1.toString());
 		
 	}
 

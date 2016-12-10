@@ -92,7 +92,7 @@
 	    	
 	    	
 	    	<div class="col-sm-offset-2 media" id="search_resultBox">
- 					
+ 			 	
             </div>
 	    	
 	    	

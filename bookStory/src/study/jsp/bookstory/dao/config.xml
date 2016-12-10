@@ -31,6 +31,7 @@
 		<mapper resource="study/jsp/bookstory/dao/mapper/ReportMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/StarmarkMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/CommentMapper.xml"/>
+		<mapper resource="study/jsp/bookstory/dao/mapper/RecentEpisodeMapper.xml"/>
 	</mappers>
 
 	

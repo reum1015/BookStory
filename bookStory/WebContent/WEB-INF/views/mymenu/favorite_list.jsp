@@ -32,8 +32,8 @@
     						 <table class="table table-striped table-bordered table-hover" id="table">
     						 <thead id="thead">
     						 	<tr id="tr">
-    						 	    <th id="th"><a href="${pageContext.request.contextPath}/mymenu/recent_novel_list.do"><span>최근 본 작품</span></a></th>
-    						 		<th><a href="${pageContext.request.contextPath}/mymenu/favor_novel_list.do"><span>관심작품</span></a></th>
+    						 	   <th><a href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do"><span>최근 본 작품</span></a></th>
+    						 		<th><a href="${pageContext.request.contextPath}/mymenu/favorite_list.do"><span>관심작품</span></a></th>
     						 		<th><a href="${pageContext.request.contextPath}/mymenu/bookmark_list.do"><span>책갈피</span></a></th>
     						 		<th><a href="${pageContext.request.contextPath}/mymenu/purchase_list.do"><span>구매내역</span></a></th>
     						 		<th><a href="${pageContext.request.contextPath}/mymenu/my_point.do"><span>내 포인트</span></a></th>
@@ -53,44 +53,131 @@
     				</div>
  
 			</nav>
-	<div class="container" id="content">
+			
+			
+			
+	<div class="container" id="content_all">
 	  <div class="row">
 	  
-	<div class="media col-md-8 col-sm-12">
-	 <ul id="list-group">
-	   <li>
-	     <a class="pull-left" href="#">
-	     <img class="media-object" alt="이계진입리로디드" 
-	     src="${pageContext.request.contextPath}/assets/imgs/mymenu/re.jpg" width="100" height="100">
-	     </a>
-	     
-	     
-	     <div class="content" style="width: 462px">
-	     <p class="media-body">
-	       <span class="media-heading">이계진입리로디드</span>
-	     </p>
-	     <div class="btn-group pull-right">
-	       <button type="button" class="btn btn-link" onclick="confirm('관심작품을 삭제 하시겠습니까?')"><i class="glyphicon glyphicon-remove"></i></button>
-	     </div>
-	     <p class="media-sub_heading">
-	       <span>제178화 결혼은 미친 짓이다(3)</span>
-	     </p>
-	     <p class="league">
-	       <span class="author">임경배</span><em class="line">  </em><span>2016.10.12.</span>
-	     </p>
-	     </div>
-	   </li>
-   
-	 </ul>
-	 <div id="pagination" class="paginations"> 
-	 <ul class="pagination">
-	   <li class="disabled"><a href="#">&laquo;</a></li>
-	   <li class="active"><a href="#">1</a></li>
-	   <li><a href="#">&raquo;</a></li>
-	 </ul>
-	</div> 			
+	  <!-- 관심등록 리스트 뿌려지는 곳 책 + 페이지번호 --> 	  		
+<div class="block_bookmark container_content col-md-8" id="content">
+		
+		<!-- 조회된 관심등록이 있는 경우 시작 -->
+		<!-- 게시물 항목 하나 -->	
+	 <div class="block_bookmark_list col-md-8 col-lg-11">
+		<c:choose>		
+	<c:when test="${fn:length(favorite_list) > 0}">
+	<c:forEach var="favorite" items="${favorite_list}">
+		
+
+	<c:url var="readUrl" value="/mymenu/favorite_list.do">
+		<c:param name="favorite_id" value="${book.id}" />
+	 </c:url>
+	
+		<!-- 링크 + 썸네일 -->
+		<a class="img_box" href="${readUrl}">
+		<c:choose>
+				<c:when test="${favorite.imagePath != null}">
+				<c:url var="downloadUrl" value="/download.do">
+			<c:param name="file" value="${favorite.imagePath}" />
+			</c:url>
+			<img src="${downloadUrl}" class="img-responsive pull-left" />
+			</c:when>
+				<c:otherwise>
+			<img src="${pageContext.request.contextPath}/assets/imgs/mymenu/no_image.jpg"  />
+				</c:otherwise>
+		</c:choose>
+			
+	</a>
+		
+		<!-- 회차 + 제목  -->		
+     <div class="episode-content col-md-8 col-lg-9">
+            <div>${favorite.book_name}</div>	
+			<h4> ${favorite.book_author}  </h4>		
+												
+			</div>
+					
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class="col-md-12">
+					<p class="text-center">조회되는 북마크가 없습니다.</p>
+				</div>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	    	
+	  
+	
+	<!-- 조회된 북마크가 있는 경우 끝 -->
+	
+	 <!-- 페이지 번호 시작 -->
+	 <div id="pagination" class="paginations">
+	   <ul class="pagination"> 	 	 
+	 <!-- 이전 그룹으로 이동 -->
+	 <c:choose>
+	  <c:when test="${pageHelper.prevPage > 0}">
+           <!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
+           <!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
+          <c:url var="prevUrl" value="/mymenu/favorite_list.do">
+              <c:param name="member_id" value="${member_id}"></c:param>
+              <c:param name="page" value="${pageHelper.prevPage}"></c:param>
+          </c:url>	  
+          
+          <li><a href="${prevUrl}">&laquo;</a></li>	  
+	  </c:when>
+	  <c:otherwise>
+	     <!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+	     <li class='disabled'><a href="#">&laquo;</a></li> 
+	  </c:otherwise>	  
+	 </c:choose>
+	 
+	 <!--  페이지 번호 -->
+	   <!-- 현재 그룹의 시작 페이지 ~끝페이지 사이를 1씩 증가하면서 반복 -->	   
+	   <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
+	   
+	    <!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하 page_url에 저장 -->
+	    <c:url var="pageUrl" value="/mymenu/favorite_list.do">
+              <c:param name="id" value="${id}"></c:param>
+              <c:param name="page" value="${i}"></c:param>
+	   </c:url>
+	   
+	   <!-- 반복중의 페이지 번호와 현재 위치한 페이지 번호가 같은 경우에 대한 분기 -->
+	   <c:choose>
+	     <c:when test="${pageHelper.page == i}">
+	        <li class='active'><a href="#">${i}</a></li>
+	     </c:when>
+	     <c:otherwise>
+	         <li><a href="${pageUrl}"></a></li>
+	     </c:otherwise>
+	   </c:choose>
+	   
+	   </c:forEach>
+	   
+	   <!--  다름 그룹으로 이동 -->
+	    <c:choose>
+	  <c:when test="${pageHelper.nextPage > 0}">
+           <!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
+           <!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
+          <c:url var="nextUrl" value="/mymenu/favorite_list.do">
+              <c:param name="member_id" value="${member_id}"></c:param>
+              <c:param name="page" value="${pageHelper.nextPage}"></c:param>
+          </c:url>	  
+          
+          <li><a href="${nextUrl}">&raquo;</a></li>	  
+	  </c:when>
+	  
+	  <c:otherwise>
+	     <!-- 다음 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+	     <li class='disabled'><a href="#">&raquo;</a></li> 
+	  </c:otherwise>	  
+	 </c:choose>	   
+	   </ul>
+	 </div>
+	 <!-- 페이지 번호 끝 -->
 	 
 	 </div>
+	 <!-- 관심작품 리스트 뿌려지는 곳  끝-->
 	 
 	 
 			<!-------- 연령별 선호작  ---------->

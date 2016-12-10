@@ -20,11 +20,14 @@ public class ArticleReport extends BaseController {
 	private static final long serialVersionUID = 7290700034441742557L;
 
 	WebHelper web;
-	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		web = WebHelper.getInstance(request, response);
+		
+		int member_id = web.getInt("member_id");
+		String subject = web.getString("subject");
+		int article_id = web.getInt("article_id");
 		
 		/** (3) 로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
@@ -34,6 +37,17 @@ public class ArticleReport extends BaseController {
 			web.redirect(null, "로그인 후에 이용 가능합니다.");
 			return null;
 		}
+		
+		// 신고자 id값을 가져온다.
+		int id = loginInfo.getId();
+		
+		
+		logger.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + article_id);
+		
+		request.setAttribute("article_id", article_id);			//게시판 번호
+		request.setAttribute("member_id", member_id);		//게시자 id
+		request.setAttribute("subject", subject);				//글제목
+		request.setAttribute("id", id);								//회원 id값
 		
 		String view = "community/article_report";
 		

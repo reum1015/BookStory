@@ -27,52 +27,79 @@
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
 	
+<script type="text/javascript">
 </script>
 </head>
 <body>
 	<div class="container">
 		<form class="form-horizontal" role="form" method="post"
-			action="${pageContext.request.contextPath}/admin/admin_article_manage.do">
+			action="${pageContext.request.contextPath}/community/article_report_ok.do">
 			<fieldset>
+			<br /> <br />
 				<legend>게시글 신고</legend>
-
 				<!-- 신고자 -->
 				<div class="form-group">
-					<label for="subject1" class="col-md-2 control-label">신고자</label>
+					<label for="member_id1" class="col-md-2 control-label"></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" name="member_id1"
-							id="subject1" placeholder="신고자 닉네임">
+						<input type="text" class="form-control" name="id"
+							id="subject1" value="${id}">
 					</div>
 				</div>
 				<!-- 게시자 -->
 				<div class="form-group">
-					<label for="subject2" class="col-md-2 control-label">게시자</label>
+					<label for="member_id2" class="col-md-2 control-label"></label>
 					<div class="col-md-10">
-						<input type="text" class="form-control" name="Member_id2"
-							id="subject2" placeholder="게시자 닉네임">
+						<input type="text" class="form-control" name="member_id"
+							id="subject2" value="${member_id}">
+					</div>
+				</div>
+				<!-- 글제목 -->
+				<div class="form-group">
+					<label for="member_id2" class="col-md-2 control-label">글제목</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" name="subject"
+							id="subject3" value="${subject}" >
 					</div>
 				</div>
 				<!-- 신고 내용 -->
 				<div class="form-group">
-					<label for="select1" class="col-md-2 control-label"> 선택항목</label>
-					<div class="col-md-10">
-						<select class="form-control" name="select1" id="select1">
-							<option>음란성 또는 청소년에게 부적합한 내용</option>
-							<option>폭언 또는 욕설 내용</option>
-							<option>게시물 광고 내용</option>
-						</select>
+					<label for="select1" class="col-md-2 control-label">신고내용</label>
+					<div class="radio col-md-4">
+						<label> <input type="radio" name="report_content"
+							id="optionsRadios1" value="option1" checked> 음란성 또는 청소년에게
+							부적합한 내용
+						</label>
+					</div>
+					<div class="radio col-md-3">
+						<label> <input type="radio" name="report_content"
+							id="optionsRadios2" value="option2"> 폭언 또는 욕설 내용
+						</label>
+					</div>
+					<div class="radio col-md-3">
+						<label> <input type="radio" name="report_content"
+							id="optionsRadios3" value="option3"> 게시물 광고 내용
+						</label>
 					</div>
 				</div>
+				<!-- 게시글 번호 -->
+				<div class="form-group">
+					<label for="member_id2" class="col-md-2 control-label">게시글번호</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" name="article_id"
+							id="subject4" value="${article_id}" >
+					</div>
+				</div>
+				<br /> <br />
+				<!-- 신고내용 끝 -->
 				<div class="pull-right">
-					<a type="button" class="btn btn-danger" id="ReportData"
-						data-toggle="modal" data-target="#report">신고하기</a>
+					<button type="submit" class="btn btn-danger">신고하기</button>
 					<button type="button" class="btn btn-primary"
 						onclick="history.back();">취소</button>
 				</div>
 			</fieldset>
 		</form>
+		<br /> <br /> <br /> <br /> <br />
 	</div>
 
 	<!-- 신고하기 모달 -->

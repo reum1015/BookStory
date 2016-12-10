@@ -2,6 +2,7 @@ package study.jsp.bookstory.service;
 
 import java.util.List;
 
+import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Report;
 
 public interface ReportService {
@@ -18,7 +19,7 @@ public interface ReportService {
 	 * @param report_update
 	 * @throws Exception
 	 */
-	public void updateReport(Report update_reported) throws Exception;
+	public void updateReport(Article update_reported) throws Exception;
 
 	/**
 	 * 신고된 게시글 데이터를 출력한다.

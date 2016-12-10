@@ -23,17 +23,28 @@
 		<result property="rent_point" column="rent_point"/>
 		<result property="book_end" column="book_end"/>
 		<result property="total_favorite" column="total_favorite"/>
+		<result property="total_star" column="total_star"/>
 		<result property="imagePath" column="imagePath"/>
 	</resultMap>
 
 
 
+	<!-- 작품 하나 가져오기 -->
+	<select id="selectOneBookItem" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
+	SELECT id,book_name, book_author, daily_date, intro, genre, total_point, 
+			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+			ORDER BY id ASC LIMIT 0, 1) as imagePath
+	FROM book
+	WHERE id = #{id}
+	</select>
+
+
 	<!-- 작품 등록 -->
 	<insert id="insertBook" parameterType="study.jsp.bookstory.model.Book" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO book(book_name, book_author,total_hit,intro,genre,
-										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date)
+										reg_date,edit_date,total_point,rent_point,book_end,total_favorite,daily_date,total_star)
 	VALUES(#{book_name}, #{book_author},0, #{intro}, #{genre},
-					now(),now(),0,0,"N",0,#{daily_date})
+					now(),now(),0,0,"N",0,#{daily_date},0)
 	</insert>
 	
 	<!-- 같은 이름의 작품이 있는지 검사 
@@ -61,6 +72,9 @@
 		ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM book  order by rand() limit 3;
 	</select>
+	
+	
+	
 	
 	
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 이 파일의 경로를 config.xml에 명시해야 한다. -->
+
+<!-- Member 테이블에 대한 CRUD 기능을 구현하기 위한 Mapper -->
+<mapper namespace="RecentEpisodeMapper">
+	
+	<!-- Beans 클래스의 객체이름(id)과 클래스 이름(type)를 명시한다. -->
+	<resultMap type="study.jsp.bookstory.model.RecentEpisode" id="recentepisode">
+	<!-- 빈즈의 멤버 변수(property) 이름과 대상테이블의 컬럼(column)을 연결한다-->
+		<result property="id" column="id"/>
+		<result property="member_id" column="member_id"/>
+		<result property="episode_id" column="episode_id"/>
+		<result property="book_id" column="book_id"/>
+		<result property="reg_date" column="reg_date"/>
+		<result property="episode_order" column="episode_order"/>
+		<result property="episode_name" column="episode_name"/>			
+		<result property="imagePath" column="image_path"/>
+		<result property="book_author" column="book_author"/>
+		<result property="book_name" column="book_name"/>			
+	</resultMap>
+
+
+	<insert id="insertAddRecentEpisode" parameterType="study.jsp.bookstory.model.RecentEpisode" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO recentrpisode (
+	 member_id, episode_id book_id, gender, birthdate
+	)	VALUES (
+	 #{member_id}, #{episode_id}, #{book_id}, gender, birthdate
+	 )
+	</insert> 
+	
+	
+	<delete id="deleteRemoveRecentEpisode" parameterType="study.jsp.bookstory.model.RecentEpisode">
+	 
+	 DELETE FROM favorite WHERE id=#{id};	
+	</delete>
+	
+		
+		<!-- 관심작품 목록을 조회한다. -->
+	<select id="selectRecentEpisodeList" parameterType="study.jsp.bookstory.model.RecentEpisode" resultMap="recentepisode">
+    
+ SELECT k.book_name, e.reg_date, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
+      FROM MEMBER as m 
+      LEFT JOIN recentepisode as r ON m.id = r.member_id
+      LEFT JOIN EPISODE as e ON r.episode_id = e.id
+      LEFT JOIN imagefile as i ON e.id = i.episode_id 
+      LEFT JOIN book as k ON e.book_id = k.id
+        where i.content_type LIKE ('image/%') AND image_type="episode" AND member_id=#{member_id}
+                      
+	</select>		
+	
+	
+		<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
+	<select id="selectRecentEpisodeCount" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
+	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id}	
+	</select>
+	
+</mapper>

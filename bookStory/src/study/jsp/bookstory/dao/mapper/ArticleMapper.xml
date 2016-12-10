@@ -17,18 +17,19 @@
         <result property="reg_date" column="reg_date"/>
         <result property="edit_date" column="edit_date"/>
         <result property="ip_address" column="ip_address"/>
+        <result property="user_nickname" column="user_nickname"/>
         <result property="reported" column="reported"/>
         <result property="member_id" column="member_id"/>
+        
 	</resultMap>
 	
 	<!-- 게시글 정보 저장하기 -->
 	<insert id="insertArticle" parameterType="study.jsp.bookstory.model.Article" useGeneratedKeys="true" keyProperty="id">
 	  INSERT INTO article (
-	    category, subject, content, hit, reg_date, edit_date, ip_address,
+	    category, subject, content, hit, reg_date, edit_date, ip_address, user_nickname, 
 	    member_id, reported
 	  ) VALUES (
-	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{member_id}, "N"
-	     
+	    "FREE", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{user_nickname}, #{member_id}, "N"
 	  )
 	</insert>
 	
@@ -37,7 +38,7 @@
 	  SELECT id, category, subject, content, hit,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
-	         ip_address, member_id
+	         ip_address, user_nickname, member_id
 	  FROM   article
 	  WHERE  id=#{id}
 	</select>
@@ -47,7 +48,7 @@
 	  SELECT id, category, subject, content, hit,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
-	         ip_address, member_id
+	         ip_address, user_nickname, member_id
 	  FROM   article
 	  WHERE  id &lt; #{id}
 	  ORDER BY id DESC
@@ -59,7 +60,7 @@
 	  SELECT id, category, subject, content, hit,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date,
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
-	         ip_address, member_id
+	         ip_address, user_nickname, member_id
 	  FROM   article
 	  WHERE  id &gt; #{id}
 	  ORDER BY id ASC
@@ -73,7 +74,7 @@
 	
 	<!-- 게시물 목록을 조회한다. -->
 	<select id="selectArticleList" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
-	  SELECT id, category, subject, hit,
+	  SELECT id, category, subject, hit, member_id, user_nickname,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
 	  
 	  FROM   article
@@ -125,7 +126,7 @@
 	
 	<!-- 게시글 삭제하기 -->
 	<delete id="deleteArticle" parameterType="study.jsp.bookstory.model.Article">
-	  DELETE FROM article WHERE id=#{id} AND member_id=#{member_id}
+	  DELETE FROM article WHERE id=#{id} AND member_id=#{member_id} AND user_nickname=#{user_nickname}
 	</delete>
 	
 	<!-- 게시글 정보 수정하기 -->
@@ -135,7 +136,16 @@
 	
 	<!-- 특정 회원과의 게시물 참조 해제하기 -->
 	<update id="updateArticleMemberOut" parameterType="study.jsp.bookstory.model.Article">
-	  UPDATE article SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id}
+	  UPDATE article SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id} AND user_nickname=#{user_nickname}
 	</update>
 	
+	<!-- 본인의 게시글 확인절차 -->
+	<select id="selectMemberReport" parameterType="study.jsp.bookstory.model.Article" resultType="int">
+	  SELECT COUNT(id) FROM article WHERE id=#{id} AND member_id=#{member_id}
+	</select>
+	
+	<!-- 본인이 신고한 게시판인지에 대한 판별 -->
+	<select id="selectReportArticle" parameterType="study.jsp.bookstory.model.Report">
+	SELECT count(id) FROM report WHERE article_id=#{article_id} AND member_id=#{member_id}
+	</select>
 </mapper>

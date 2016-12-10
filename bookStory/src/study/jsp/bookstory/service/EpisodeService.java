@@ -1,6 +1,8 @@
 package study.jsp.bookstory.service;
 
 
+import java.util.List;
+
 import study.jsp.bookstory.model.Episode;
 
 public interface EpisodeService {
@@ -27,5 +29,41 @@ public interface EpisodeService {
 	 * @throws Exception
 	 */
 	public int countTotalEpisodeByBookId(Episode episode)throws Exception;
+	
+	/**
+	 * 작품의 에피소드 리스트
+	 * 	 
+	 * @param episode
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Episode> selectEpisdoeListAllByBook(Episode episode)throws Exception;
+	
+	/**
+	 * 작품의 에피소드 첫화
+	 * @param episode
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectFirstEpisodeIdByBookId(Episode episode)throws Exception;
+	
+	/**
+	 * 한개의 에피소드 가져오기
+	 * @param episode
+	 * @return
+	 * @throws Exception
+	 */
+	public Episode selectOneEpisodeItem(Episode episode)throws Exception;
+	
+	
+	/**
+	 * 한 작품에 속한 모든 에피소드의 제목(뷰페이지 리스트박스용)
+	 * @param episode
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Episode> selectAllEpisodeTitle(Episode episode)throws Exception;
+	
+	
 
 }

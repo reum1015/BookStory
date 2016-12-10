@@ -66,11 +66,6 @@ public class Index extends BaseController{
 			sqlSession.close();
 		}
 		
-	
-		
-		
-		
-		
 		request.setAttribute("carouselList", carouselList);
 		
 		return view;

@@ -21,6 +21,8 @@
 		<result property="episode_rent" column="episode_rent"/>
 		<result property="book_id" column="book_id"/>
 		<result property="episode_order" column="episode_order"/>
+		<result property="total_star" column="total_star"/>
+		<result property="total_starcount" column="total_starcount"/>
 		<result property="imagePath" column="imagePath"/>
 	</resultMap>
 
@@ -28,8 +30,9 @@
 
 	<!-- 에피소드 등록 -->
 	<insert id="insertEpisode" parameterType="study.jsp.bookstory.model.Episode" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO episode(episode_name, hit, content, reg_date, edit_date, author_comment, episode_buy, episode_rent, book_id, episode_order)
-	VALUES(#{episode_name}, 0, #{content}, now(), now(), #{author_comment}, 200, 100, #{book_id}, #{episode_order})
+	INSERT INTO episode(episode_name, hit, content, reg_date, edit_date, author_comment, episode_buy, episode_rent, 
+						book_id, episode_order, total_star, total_starcount)
+	VALUES(#{episode_name}, 0, #{content}, now(), now(), #{author_comment}, 200, 100, #{book_id}, #{episode_order},0,0)
 	</insert> 
 	
 	<!-- 같은 이름의 작품이 있는지 검사 
@@ -43,7 +46,36 @@
 		SELECT COUNT(id) FROM episode where book_id=#{book_id}
 	</select>
 	
-
+	
+	<!-- 에피소드 리스트 -->
+	<select id="selectEpisdoeListAllByBook" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id, episode_name, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, edit_date, author_comment, episode_buy,
+				episode_rent, book_id, episode_order, total_star, total_starcount,
+				(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE episode_id=episode.id AND content_type LIKE ('image/%') AND image_type='episode'
+				ORDER BY id ASC LIMIT 0, 1) as imagePath
+		FROM episode WHERE book_id=#{book_id}
+		ORDER BY episode_order DESC
+		LIMIT #{limitStart},#{listCount}
+	</select>
+	
+	
+	<!-- 작품의 에피소드 첫화 -->
+	
+	<select id="selectFirstEpisodeIdByBookId" parameterType="study.jsp.bookstory.model.Episode" resultType="int">
+		SELECT id FROM episode WHERE book_id=#{book_id} AND episode_order = 1
+	</select>
+	
+	<!-- 한개의 Episode Select -->
+	<select id="selectOneEpisodeItem" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id, episode_name, content, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, edit_date, author_comment, episode_buy,
+				episode_rent, book_id, episode_order, total_star, total_starcount
+		FROM episode WHERE id=#{id}
+	</select>
+	
+	<!-- 에피소드 제목 불러오기(셀렉트 박스용) -->
+	<select id="selectAllEpisodeTitle" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id, episode_name, episode_order FROM episode WHERE book_id=#{book_id} ORDER BY episode_order DESC
+	</select>
 	
 	
 

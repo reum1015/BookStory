@@ -123,4 +123,26 @@ public class BookServiceImpl implements BookService{
 		return bookList;
 	}
 
+	@Override
+	public Book selectOneBookItem(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		Book result = null;
+		
+		try{
+			result = sqlSession.selectOne("BookMapper.selectOneBookItem", book);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			throw new Exception("조회된 하나의 작품정보가 없습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("하나의 작품정보 불러오기 실패");
+			
+		}
+	
+		return result;
+	}
+
 }

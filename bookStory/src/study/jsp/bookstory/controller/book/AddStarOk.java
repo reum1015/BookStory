@@ -101,7 +101,7 @@ public class AddStarOk extends BaseController{
 		starMark.setBook_id(book_id);
 		starMark.setEpisode_id(episode_id);
 		starMark.setMember_id(member_id);
-		starMark.setStarpoint(star_rate);
+
 		
 		/* 별점 등록 처리(테이블에 Insert) */
 		
