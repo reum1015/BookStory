@@ -14,24 +14,46 @@
 		<result property="member_id" column="member_id"/>
 		<result property="book_id" column="book_id"/>
 		<result property="gender" column="gender"/>
-		<result property="birthdate" column="birthdate"/>		
+		<result property="birthdate" column="birthdate"/>	
+		<result property="imagePath" column="image_path"/>
+		<result property="book_author" column="book_author"/>
+		<result property="book_name" column="book_name"/>
+			
 	</resultMap>
 
 
-	<insert id="insertAddEpisode" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertAddFavorite" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO favorite (
 	 member_id, book_id, gender, birthdate
-										)
-	VALUES (
+	)	VALUES (
 	 #{member_id}, #{book_id}, gender, birthdate
 	 )
 	</insert> 
 	
 	
-	<delete id="deleteRemoveEpisode" parameterType="study.jsp.bookstory.model.Favorite">
+	<delete id="deleteRemoveFavorite" parameterType="study.jsp.bookstory.model.Favorite">
 	 
 	 DELETE FROM favorite WHERE id=#{id};	
 	</delete>
+	
+		
+		<!-- 관심작품 목록을 조회한다. -->
+	<select id="selectFavoriteList" parameterType="study.jsp.bookstory.model.Favorite" resultMap="favorite">
+    SELECT  b.book_author, b.book_name, concat(i.file_dir, '/', i.file_name) as imagePath 
+      FROM MEMBER as m LEFT JOIN Favorite as f ON m.id = f.member_id
+      LEFT JOIN Book as b ON f.book_id = b.id LEFT JOIN imagefile as i 
+       	ON b.id = i.book_id where i.content_type LIKE ('image/%') AND image_type="main" AND member_id=#{member_id}
+        
+        ORDER BY b.id DESC
+       	LIMIT #{limitStart}, #{listCount}
+       
+	</select>		
+	
+	
+		<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
+	<select id="selectFavoriteCount" parameterType="study.jsp.bookstory.model.Favorite" resultType="int">
+	SELECT COUNT(id) FROM favorite WHERE member_id =#{member_id}	
+	</select>
 	
 
 </mapper>

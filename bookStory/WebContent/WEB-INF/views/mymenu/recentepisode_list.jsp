@@ -2,27 +2,21 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
-		<jsp:include page="/WEB-INF/views/template/head.jsp"/>
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
 	
-	
+	<jsp:include page="/WEB-INF/views/template/head.jsp"/>
 		<!-- 스타일 sheet -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/naviStateColor/mymenuCommon.css" />
 
-
-	
 	</head>
 	<body>
 
-			<!-- 메인 헤더 -->
-	
-
-
+	<!-- 메인 헤더 -->
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+		
 
 <!-- 메인 화면 시작 -->
 <nav class="navbar navbar-default main_navi main_navi_sub">
@@ -45,16 +39,12 @@
     						 </thead>
     						 
     						 </table>
-    					
-    					
-      				
+    				
     					</div>
     				</div>
  
 			</nav>
-		
 			
-		
 	<div class="container" id="content_all">
 	  <div class="row">
 	  
@@ -65,20 +55,20 @@
 		<!-- 게시물 항목 하나 -->	
 	 <div class="block_bookmark_list col-md-8 col-lg-11">
 		<c:choose>		
-	<c:when test="${fn:length(bookmark_list) > 0}">
-	<c:forEach var="bookmark" items="${bookmark_list}">
+	<c:when test="${fn:length(recentepisode_list) > 0}">
+	<c:forEach var="recentepisode" items="${recentepisode_list}">
 		
 
-	<c:url var="readUrl" value="/mymenu/bookmark_list.do">
+	<c:url var="readUrl" value="/mymenu/recentepisode_list.do">
 		<c:param name="bookmark_id" value="${episode.id}" />
 	 </c:url>
 	
 		<!-- 링크 + 썸네일 -->
 		<a class="img_box" href="${readUrl}">
 		<c:choose>
-				<c:when test="${bookmark.imagePath != null}">
+				<c:when test="${recentepisode.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">
-			<c:param name="file" value="${bookmark.imagePath}" />
+			<c:param name="file" value="${recentepisode.imagePath}" />
 			</c:url>
 			<img src="${downloadUrl}" class="img-responsive pull-left" />
 			</c:when>
@@ -93,8 +83,8 @@
      <div class="episode-content col-md-8 col-lg-9">
       
              </br>             
-            <h4>  ${bookmark.book_name}  </h4> 
-			<h4>제  ${bookmark.episode_order} 화 ${bookmark.episode_name}</h4>										
+            <h4>  ${recentepisode.book_name}  </h4> 
+			<h4>제  ${recentepisode.episode_order} 화 ${recentepisode.episode_name}</h4>										
 			</div>
 					
 				</c:forEach>
@@ -119,7 +109,7 @@
 	  <c:when test="${pageHelper.prevPage > 0}">
            <!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
            <!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
-          <c:url var="prevUrl" value="/mymenu/bookmark_list.do">
+          <c:url var="prevUrl" value="/mymenu/recentepisode_list.do">
               <c:param name="member_id" value="${member_id}"></c:param>
               <c:param name="page" value="${pageHelper.prevPage}"></c:param>
           </c:url>	  
@@ -137,7 +127,7 @@
 	   <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 	   
 	    <!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하 page_url에 저장 -->
-	    <c:url var="pageUrl" value="/mymenu/bookmark_list.do">
+	    <c:url var="pageUrl" value="/mymenu/recentepisode_list.do">
               <c:param name="id" value="${id}"></c:param>
               <c:param name="page" value="${i}"></c:param>
 	   </c:url>
@@ -159,7 +149,7 @@
 	  <c:when test="${pageHelper.nextPage > 0}">
            <!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
            <!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
-          <c:url var="nextUrl" value="/mymenu/bookmark_list.do">
+          <c:url var="nextUrl" value="/mymenu/recentepisode_list.do">
               <c:param name="member_id" value="${member_id}"></c:param>
               <c:param name="page" value="${pageHelper.nextPage}"></c:param>
           </c:url>	  
@@ -179,8 +169,10 @@
 	 </div>
 	 <!-- 북마크 리스트 뿌려지는 곳  끝-->
 	 
+	 
+	 <!-------- 통합 랭킹 ---------->
 			<!-------- 연령별 선호작  ---------->
-			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 col-md-4 text-center section_area list_rank box">
+			<div class="hidden-xs hidden-sm col-xs-12 col-sm-4 text-center section_area list_rank box">
   						<h4 class="text-left">연령별 선호작품</h4>
 						<div class="btn-group btn-group-justified" role="group" aria-label="...">
 							  <div class="btn-group" role="group">
@@ -259,20 +251,19 @@
 				</div>
 			
 		
-							<!-- //tab-x end -->
+		
 							
-					</div>
-					<!-- 연령별 선호작 끝 -->
+					</div><!-- 연령별 선호작 끝 -->
 	 </div>
 	
-</div>
-	
+
+	</div>
 			<!-- 메인 화면 끝 -->
 	
-	
-	  <!-- footer -->
+<!-- footer -->
 		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
-		
+
 	
 	</body>
 </html>
+

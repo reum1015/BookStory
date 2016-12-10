@@ -6,7 +6,7 @@ public class Buy {
 	private String buy_day;			// 구입날짜
 	private int buy_point;			// n개의 총구입가격
 	private int allbuy_point;			// 책에 해당하는 전체 에피소드 가격
-	
+	private String reg_date;
 	public int getId() {
 		return id;
 	}
@@ -31,11 +31,18 @@ public class Buy {
 	public void setAllbuy_point(int allbuy_point) {
 		this.allbuy_point = allbuy_point;
 	}
-	
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
 	@Override
 	public String toString() {
 		return "Buy [id=" + id + ", buy_day=" + buy_day + ", buy_point=" + buy_point + ", allbuy_point=" + allbuy_point
-				+ "]";
+				+ ", reg_date=" + reg_date + "]";
 	}
+	
+	
 	
 }
