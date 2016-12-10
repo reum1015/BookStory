@@ -60,6 +60,7 @@ public class Index extends BaseController{
 		try{
 			carouselList = bookService.selectMainCarouselByRandomThree();
 		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
 			web.redirect(null, e.getLocalizedMessage());
 		}finally {
 			sqlSession.close();

@@ -73,7 +73,7 @@
 								<img src="${downloadUrl}" alt="${carousel.book_name}" style="width: 1159px; height: 367px;"/>
 							</c:when>
 							<c:otherwise>
-								<img src="${pageContext.request.contextPath}/assets/imgs/no_image.jpg" class="img-responsive"/>
+								<img src="${pageContext.request.contextPath}/assets/imgs/no_image.jpg" style="width: 1159px; height: 367px;"/>
 							</c:otherwise>
 						</c:choose>
 						<div class="carousel-caption">
