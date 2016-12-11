@@ -22,3 +22,5 @@
 		<script src="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	    			<!-- ajaxForm -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>

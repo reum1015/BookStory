@@ -72,11 +72,18 @@ public class AddStarOk extends BaseController{
 		
 		//별점 점수 받기
 		String tempStar = web.getString("star_rate");
+		int id = web.getInt("member_id");
 		
+		System.out.println("id----------------------------->" + id);
+		
+		
+		int star_rate = 0;
 		//점수 정수형으로 변환
-		int star_rate = Integer.parseInt(tempStar);
-		
+		if(tempStar != null){
+			star_rate = Integer.parseInt(tempStar);
+		}
 		logger.debug("star_rate ----------------->" + star_rate);
+		
 		
 		//만약 점수가 0이면 되돌림
 		if(star_rate == 0){

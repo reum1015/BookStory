@@ -6,8 +6,13 @@
 <html lang='ko'>
 <head>	
 	<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
-	    		
-	    		
+	   
+	  	<!-- Javascript -->
+	  	<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.js"></script>
+	    
+	   
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>   		
 	<!-- StarRating -->    		
 	<link href="${pageContext.request.contextPath}/assets/css/star-rating/star-rating.css" media="all" rel="stylesheet" type="text/css" />    		
 	    		
@@ -17,13 +22,16 @@
 	
 	<link href="${pageContext.request.contextPath}/assets/css/selectbox/css/bootstrap-select.css" media="all" rel="stylesheet" type="text/css" />
 	
+	<!-- important mandatory libraries -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/css/star-rating/star-rating.js" type="text/javascript"></script>
 	
+	<!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
+	<script src="${pageContext.request.contextPath}/assets/css/star-rating/theme.js"></script>
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script> 
 	
 	
 	<script type="text/javascript">
-	function open1() {
-	    window.open('01-open.jsp');
-	    }
 	
 	</script>
 <!-- main css -->
@@ -126,28 +134,15 @@
 			<div class="col-lg-1 col-sm-1"><a class="CurrentStarScore" id="currentStarScore">${episode.total_star}</a></div>
 			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">${episode.total_starcount}</a></div>
 			
-			
-			
-			
-			
-
-
-				
-				
 				<div class="grade_insert col-lg-3 col-sm-3">
 							<c:choose>
 									
+									
 									<c:when test="${isStarAdd==true}">
-										<a type="button" class="btn btn-warning" id="star_rate_in" href="#">참여 완료</a>
+										<button type="button" class="btn btn-warning star_rate_in" id="star_rate_in">참여 완료</button>
 									</c:when>
-									<c:when test="${isStarAdd==false}">
-										<c:url var="addStarURL" value="/episode/AddStar.do">
-											 <c:param name="member_id" value="${member_id}" />
-											 <c:param name="book_id" value="${book_id}" />
-											 <c:param name="episode_id" value="${episode.id}" />
-										</c:url>
-										<a type="button" class="btn btn-default"  id="star_rate" data-toggle="modal" data-target="#addStarModal"
-										href="${addStarURL}">별점주기</a>
+									<c:when test="${isStarAdd==false}">										
+										<button type="button" class="btn btn-default"  id="star_rate_button" data-toggle="modal" data-target="#addStarModal">별점주기</button>
 									</c:when>
 							</c:choose>
 				</div>
@@ -155,15 +150,6 @@
 			
 			</div>
 		
-			
-			
-		
-				
-				
-			
-	
-			
-			
 			
 			<!-- //별점주기 -->	
 				
@@ -261,42 +247,62 @@
     <div class="modal-dialog modal-sm">
       <!-- Modal content-->
       <div class="modal-content">
-        
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">별점 주기</h4>
+        </div>
+         <form action="${pageContext.request.contextPath}/book/AddStarOk.do" method="post" id="addStarForm">
+        <div class="modal-body">
+         	<input type="hidden" value="${member_id}" name="member_id">
+         	<input type="hidden" value="${book_id}" name="book_id">
+         	<input type="hidden" value="${episode.id}" name="episode_id">
+		    <label for="input-id" class="control-label">이 작품에 별점을 주세요</label>
+		    <input id="input-id" type="text" class="rating" data-size="xs" name="star_rate">
+        </div>
+        <div class="modal-footer">
+         <button class="btn btn-warning btn-block" type="submit">별점주기</button>
+        </div>
+           </form>
       </div>
     </div>
   </div>
 
 
 	<!-- footer -->
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<footer class="page-footer text-center" id="main_footer">
+		<div class="container footer_container">
+			<p class="text-center">
+			<h5>
+				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
+					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
+			</h5>
+
+			<address>
+				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
+					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
+			</address>
+		</div>
+	</footer>
+
 
 
 	<script src="${pageContext.request.contextPath}/assets/css/selectbox/js/bootstrap-select.js" type="text/javascript"></script>
 
-	<!-- important mandatory libraries -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/css/star-rating/star-rating.js" type="text/javascript"></script>
-	
-	<!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
-	<script src="${pageContext.request.contextPath}/assets/css/star-rating/theme.js"></script>
+				<!-- ajaxForm -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 	
 	<script type="text/javascript">
 	$(function() {
-		//모달 캐시 데이터 삭제
-		//모든 모달이 완전히 닫힌 직후 호출됨
 		$('.modal').on('hidden.bs.modal', function(e){
 			//모달창 내의 내용을 강제로 지움.
 			$(this).removeData('bs.modal');
 		});
 		
-
 		// 별점
 		// initialize with defaults
 		$("#input-id").rating();
-
 		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
 		$("#input-id").rating({'size':'xs'});
-		
 		
 		
 		//메뉴바 고정 스크립트
@@ -304,15 +310,10 @@
 		$(window).scroll(function() {
 			if($(document).scrollTop() > barOffset.top){
 				$("#titlebar_header").addClass("barFixed");
-
-		
 			}else{
 				$("#titlebar_header").removeClass("barFixed");
-
 			}
 		});
-		
-		
 		
 		//참여 완료 버튼 클릭시
 		$("#star_rate_in").on('click',function(e){
@@ -321,47 +322,49 @@
 			return false;
 		});
 		
-		
 		//별점 등록 Ajax
 		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on('submit', "#addStarForm", function(e) {
+		$(document).on("submit", "#addStarForm", function(e) {
 			e.preventDefault();
-			
-			// AjaxForm 플러그인의 강제 호출
+
+			/* AjaxForm 플러그인의 강제 호출*/
 			$(this).ajaxSubmit(function(json) {
 				if (json.rt != "OK") {
 					alert(json.rt);
 					return false;
 				}
 				
-				var star_count = json.star_count;
+				//별점 평균, 별점 등록 회원수 갱신
+				var star_count = json.starCount;
 				var starAvgEpisode = json.starAvgEpisode;
-				
 				
 				$("#currentStarScore").text(starAvgEpisode);
 				$("#currentStarScoreCount").text(star_count);
 				
-				
-				
+				if(json.rt == "OK"){
+					//별점 등록 버튼 비활성화
+					var starButton = $("#star_rate_button");
+					starButton.attr('disabled',true);
+					starButton.attr("class","btn btn-warning");
+					starButton.text("참여완료");
+			
 				// 별점 모달 강제로 닫기
-				$("#addStarModal").modal('hide');
+				$('.modal').modal('hide');
+				}
+				alert("별점이 등록 되었습니다. ");
 			});
+	
 		});
 		
-		
+		//모달 캐시 데이터 삭제
+		//모든 모달이 완전히 닫힌 직후 호출됨
 		
 		
 		
 		
 	
 	})
-	
-
-	
-	
-	
 	</script>
-	<!-- ajaxForm -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
+
 </body>
 </html>

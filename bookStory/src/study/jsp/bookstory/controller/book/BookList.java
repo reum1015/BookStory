@@ -107,10 +107,6 @@ public class BookList extends BaseController {
 		//현재 페이지 수 --> 기본값 1페이지
 		int page = web.getInt("page",1);
 		
-		
-		
-		
-		
 		//관심등록 수 저장변수
 		//0 ----> 관심등록 X, 1-----> 관심등록 O
 		int favoriteCount = 0;
@@ -119,10 +115,8 @@ public class BookList extends BaseController {
 		favorite.setMember_id(member_id);
 		favorite.setBook_id(book_id);
 		
-		
 		//작품의 첫화 저장 변수
 		int firstEpisode = 0;
-		
 		
 		//작품에 해당하는 전체 에피소드 갯수 저장 변수
 		int totalCount = 0;
@@ -165,7 +159,6 @@ public class BookList extends BaseController {
 			sqlSession.close();
 		}
 		
-		
 		boolean isFavoriteState = favoriteCount > 0;
 		
 		logger.debug("favoriteCount ------->" + favoriteCount);
@@ -180,7 +173,27 @@ public class BookList extends BaseController {
 					getBookItem.setImagePath(thumbPath);
 					logger.debug("thumbnail create > " + getBookItem.getImagePath());
 					}
+				String day = getBookItem.getDaily_date();
+				if(day != null){
+					if(day.equals("MON")){
+						day = "월요일";
+					}else if(day.equals("TUE")){
+						day = "화요일";
+					}else if(day.equals("WEN")){
+						day = "수요일";
+					}else if("THU".equals(day)){
+						day = "목요일";
+					}else if(day.equals("FRI")){
+						day = "금요일";
+					}else if(day.equals("SAT")){
+						day = "토요일";
+					}else if(day.equals("SUN")){
+						day = "일요일";
+					}
+					getBookItem.setDaily_date(day);
 					
+				}
+				
 			}
 		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체
@@ -201,20 +214,13 @@ public class BookList extends BaseController {
 		request.setAttribute("pageHelper",pageHelper);		
 				
 		
-		
+		request.setAttribute("totalCount", totalCount);
 		request.setAttribute("isFavoriteState", isFavoriteState);
 		request.setAttribute("favoriteCount", favoriteCount);
 		request.setAttribute("member_id", member_id);
 		request.setAttribute("bookitem", getBookItem);
 		request.setAttribute("firstEpisode", firstEpisode);
 		request.setAttribute("episodeList", episodeList);
-		
-		Map<String, Object> data = new HashMap<>();
-		data.put("rt", "OK");
-		
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.writeValueAsString(data);
-		
 		
 		return view;
 	}

@@ -16,15 +16,7 @@
 		<script src="${pageContext.request.contextPath}/assets/js/ckeditor/ckeditor.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
-	    	    
-	   
-	   	
-		
-		
-		
-		
-		
-		
+	    	   
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.css"/>
 	    <script src="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.js"></script>
 	    <script src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>

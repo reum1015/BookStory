@@ -34,7 +34,6 @@
 				$("#favorite_img").removeClass("favorite_On").addClass("favorite_Off");
 			}
 			
-		
 			$("#favorite_button").on('click',function(e){
 				e.preventDefault();
 				if(member_id == 0){
@@ -141,7 +140,7 @@
 		<div class="col-xs-12 col-sm-12 episodeList_header">
 			<div class="col-xs-6 col-sm-6 pull-left">
 				<h3>
-					작품회차<span class="total"></span>
+					작품회차<span class="total">(${totalCount})</span>
 				</h3>
 			</div>
 			<div class="col-xs-6 col-sm-6 btn_h3">
