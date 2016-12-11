@@ -44,5 +44,20 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public Book selectOneBookItem(Book book)throws Exception;
+	
+	
+	/**
+	 * 작품에 대한 총 관심등록 수 +1
+	 * @param book
+	 * @throws Exception
+	 */
+	public void updateTotalFavoritePlus(Book book)throws Exception;
+	
+	/**
+	 * 작품에 대한 총 관심등록 수 -1
+	 * @param book
+	 * @throws Exception
+	 */
+	public void updateTotalFavoriteMinus(Book book)throws Exception;
 
 }

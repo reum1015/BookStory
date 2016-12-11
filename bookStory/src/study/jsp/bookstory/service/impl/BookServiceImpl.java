@@ -72,7 +72,11 @@ public class BookServiceImpl implements BookService{
 		}
 		return result;
 	}
-
+	
+	
+	/**
+	 * 작품 검색(관리자용)
+	 */
 	@Override
 	public List<Book> searchBookItemList(Book book) throws Exception {
 		// TODO Auto-generated method stub
@@ -122,7 +126,10 @@ public class BookServiceImpl implements BookService{
 	
 		return bookList;
 	}
-
+	
+	/**
+	 * 한건의 작품 정보 조회
+	 */
 	@Override
 	public Book selectOneBookItem(Book book) throws Exception {
 		// TODO Auto-generated method stub
@@ -143,6 +150,56 @@ public class BookServiceImpl implements BookService{
 		}
 	
 		return result;
+	}
+
+	/**
+	 * 총 관심등록 수 +1
+	 */
+	@Override
+	public void updateTotalFavoritePlus(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.update("BookMapper.updateTotalFavoritePlus",book);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품의 관심등록 회원 수 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+		
+		
+	}
+	
+	/**
+	 * 총 관심등록 수 -1
+	 */
+	@Override
+	public void updateTotalFavoriteMinus(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.update("BookMapper.updateTotalFavoriteMinus",book);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품의 관심등록 회원 수 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+		
+		
 	}
 
 }

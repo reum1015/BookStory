@@ -14,15 +14,16 @@
 		<result property="allbuy_point" column="allbuy_point"/>		<!-- 전체구매 금액 -->
 		<result property="member_id" column="member_id"/>		<!-- 회원번호 (외래키) -->
 		<result property="member_id" column="episode_id"/>		<!-- 에피소드 번호 (외래키) -->
+		<result property="reg_date" column="reg_date"/>
 	</resultMap>
 
 	<!-- 책 n개 구입 -->
 	<insert id="insertEpisodeItem" parameterType="study.jsp.bookstory.model.Buy"
 		useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO buy (
-		buy_day, buy_point, member_id, episode_id
+		buy_day, buy_point, member_id, episode_id,reg_date
 	) VALUES (
-		#{buy_day}, #{buy_point}, #{member_id}, #{episode_id} 
+		#{buy_day}, #{buy_point}, #{member_id}, #{episode_id} ,now()
 	)
 	</insert>
 	
@@ -30,9 +31,9 @@
 	<insert id="insertAllEpisode" parameterType="study.jsp.bookstory.model.Buy"
 		useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO buy(
-		buy_day, allbuy_point, member_id, episode_id
+		buy_day, allbuy_point, member_id, episode_id,reg_date
 	) VALUES (
-		#{buy_day}, #{allbuy_point}, #{member_id}, #{episode_id} 
+		#{buy_day}, #{allbuy_point}, #{member_id}, #{episode_id},now()
 	)
 	</insert>
 	
@@ -44,7 +45,7 @@
 
 	<!-- 구매 내역 조회 -->
 	<select id="selectBuyList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">
-	SELECT id, buy_day , allbuy_day FROM buy WHERE member_id = #{member_id} ORDER BY id DESC
+	SELECT id, buy_day , allbuy_day,reg_date FROM buy WHERE member_id = #{member_id} ORDER BY id DESC
 	</select>
 	
 </mapper>

@@ -18,22 +18,28 @@
 		<result property="imagePath" column="image_path"/>
 		<result property="book_author" column="book_author"/>
 		<result property="book_name" column="book_name"/>
-			
+		<result property="reg_date" column="reg_date"/>
 	</resultMap>
 
 
+
+	<!-- 관심등록 한 작품인지 아닌지 확인 -->
+	<select id="selectCountFavoriteBookById"  parameterType="study.jsp.bookstory.model.Favorite" resultType="int">
+	SELECT count(id) FROM favorite WHERE member_id=#{member_id} AND book_id=#{book_id}
+	</select>
+	
+	<!-- 관심등록 추가 -->
 	<insert id="insertAddFavorite" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO favorite (
-	 member_id, book_id, gender, birthdate
+	 member_id, book_id, gender, birthdate,reg_date
 	)	VALUES (
-	 #{member_id}, #{book_id}, gender, birthdate
+	 #{member_id}, #{book_id}, #{gender}, #{birthdate},now()
 	 )
 	</insert> 
 	
 	
 	<delete id="deleteRemoveFavorite" parameterType="study.jsp.bookstory.model.Favorite">
-	 
-	 DELETE FROM favorite WHERE id=#{id};	
+	 DELETE FROM favorite WHERE member_id=#{member_id} AND book_id=#{book_id}	
 	</delete>
 	
 		

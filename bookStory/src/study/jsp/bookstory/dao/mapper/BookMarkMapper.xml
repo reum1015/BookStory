@@ -16,15 +16,15 @@
 		<result property="imagePath" column="image_path"/>
 		<result property="episode_order" column="episode_order"/>
 		<result property="episode_name" column="episode_name"/>
-
+		<result property="reg_date" column="reg_date"/>
 	
 	</resultMap>
 
 	<insert id="insertAddBookMark" parameterType="study.jsp.bookstory.model.BookMark" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO bookmark (
-	   member_id, episode_id
+	   member_id, episode_id,reg_date
 	) VALUES (
-	   #{member_id}, #{episode_id} 
+	   #{member_id}, #{episode_id},now()
 	   )
 	</insert> 
 	

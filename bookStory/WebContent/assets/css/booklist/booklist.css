@@ -87,13 +87,24 @@ body .content{
 	padding-top: 20px;
 }
 
-.favorite_module{
+/* 관심등록 Off 일때*/
+.favorite_Off{
 	display: inline-block;
 	zoom: 1;
 	width: 58px;
     height: 47px;
     background-image: url("../../imgs/clipping/sp_but.png");
     background-position: -60px -170px;
+}
+
+/* 관심등록 On 일때*/
+.favorite_On{
+	display: inline-block;
+	zoom: 1;
+	width: 58px;
+    height: 47px;
+    background-image: url("../../imgs/clipping/sp_but.png");
+    background-position: -120px -170px;
 }
 
 .btn_h3{

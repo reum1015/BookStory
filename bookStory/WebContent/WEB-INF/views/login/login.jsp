@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
@@ -39,9 +41,9 @@
 						</div>
 						<br>
 						<br>
-					
+					<input type="hidden" value="${book_id}" name="book_id">
 						
-					<div class="container login_button">					
+					<div class="container login_button" style="text-align: center;">					
 						<ol class="list-inline">
 							<li><a href="${pageContext.request.contextPath}/login/forget_id.do">아이디찾기  /</a></li>
 							<li><a href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기  /</a></li>

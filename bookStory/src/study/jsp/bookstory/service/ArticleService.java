@@ -5,7 +5,6 @@ import java.util.List;
 import study.jsp.bookstory.model.Article;
 
 
-
 public interface ArticleService {
 	
 	/**

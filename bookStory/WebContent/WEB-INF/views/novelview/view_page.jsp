@@ -53,16 +53,16 @@
 		<div class="container">
 			<div class="container_view">
 				<div class="section_area_viewer">
-				<div class="row empty_box"></div>
+
 				<!-- title bar -->
 				<div class="row view_header" id="titlebar_header">
 				
-                <div id="" class="col-sm-2 novel_title">
+                <div id="" class="col-sm-3 novel_title">
 					<h4><a href="#">${book.book_name}</a></h4>
 				</div>
 				
 				
-				<div id="" class="col-sm-7 episode_list">
+				<div id="" class="col-sm-6 episode_list">
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				

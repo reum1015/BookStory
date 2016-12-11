@@ -256,9 +256,9 @@
 				
 				 //업로드 유효성 검사(이미지)
 				 $("#episode_upload").submit(function() {
-						var episode_value = document.getElementById('episode_img').value
+						var episode_imgValue = document.getElementById('episode_img').value
 
-						if(episode_value == null || episode_value ==""){
+						if(episode_imgValue == null || episode_imgValue ==""){
 							alert("이미지를 등록해 주세요");
 							return false;
 						}

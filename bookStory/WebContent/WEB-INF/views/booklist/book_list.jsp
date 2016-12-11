@@ -16,6 +16,62 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/booklist/booklist.css" />
 	
+	
+	<script type="text/javascript">
+	$(function(){
+		
+			
+			var favorite_count = $("#favorite_count").val();
+			var member_id = $("#member_id").val();
+			var total_favorite = $("#total_favorite").val();
+			var book_id = $("#book_id").val();
+			var isFavoriteState = $("#isFavoriteState").val();
+		
+			//관심등록 On 이면 마크 표시
+			if(favorite_count > 0){
+				$("#favorite_img").addClass("favorite_On");
+			}else{
+				$("#favorite_img").removeClass("favorite_On").addClass("favorite_Off");
+			}
+			
+		
+			$("#favorite_button").on('click',function(e){
+				e.preventDefault();
+				if(member_id == 0){
+					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
+					
+					if(result){
+						location.replace('/bookStory/login/login.do?book_id=' + book_id );
+						return false;
+					}else{
+						return false;
+					}
+				}
+				
+				$.get("${pageContext.request.contextPath}/book/addFavorite.do", 
+						{favorite_count : favorite_count, member_id : member_id, total_favorite : total_favorite, book_id : book_id},
+						function(data){
+								var isFavoriteState = data.isFavoriteState;
+								 total_favorite=data.total_favorite;
+								 favorite_count = data.favorite_count;
+							
+								$("#favorite_count").attr("value",favorite_count);
+								$("#concernCount").text(total_favorite);
+								
+								
+								if(isFavoriteState){
+									alert("관심작품으로 설정되었습니다. 나의 메뉴에서 나의 관심 작품을 확인 할 수 있습니다.");
+									$("#favorite_img").addClass("favorite_On");
+								}else{
+									alert("관심 작품에서 삭제되었습니다.");
+									$("#favorite_img").removeClass("favorite_On").addClass("favorite_Off");
+								}
+							});
+			});
+	});
+	
+	
+	</script>
 </head>
 
 <body>
@@ -29,8 +85,13 @@
 				</p>
 			</div>
 			<div class="col-xs-6 col-sm-6 content6">
-				<a href="#"> <span class="favorite_module pull-right"> </span>
+				<a href="#" id="favorite_button" > <span class="favorite_Off pull-right" id="favorite_img"> </span>
 				</a>
+				<input type="text" value="${favoriteCount}" id="favorite_count">
+				<input type="hidden" value="${member_id}" id="member_id">
+				<input type="hidden" value="${bookitem.total_favorite}" id="total_favorite">
+				<input type="hidden" value="${bookitem.id}" id="book_id">
+				<input type="text" value="${isFavoriteState}" id="isFavoriteState">
 			</div>
 		</div>
 		
@@ -47,7 +108,7 @@
 					<span class="grade_area"> <span class="stargrade"></span> <em>${bookitem.total_star}</em>
 					</span>
 					<p class="info_book">
-						<span><span class="">관심등록 ${bookitem.total_favorite} 명</span>
+						<span><span class="">관심등록 <span id="concernCount">${bookitem.total_favorite}</span> 명</span>
 						
 						</span> <span class="publish">${bookitem.daily_date} 연재 </span> <span class="genre">${bookitem.genre} </span>
 					</p>
@@ -56,7 +117,8 @@
 					
 					<div class="bookInfo_button">
 					
-					
+						
+						
 						<!-- 첫회 보기 -->
 						<c:url var="episodeFirstUrl" value="/novelview/view_page.do">
 							<c:param name="episode_id" value="${firstEpisode}" />

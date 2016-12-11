@@ -34,7 +34,6 @@ public class Index extends BaseController{
 	private static final long serialVersionUID = -2715156977810660808L;
 	
 	
-	
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;

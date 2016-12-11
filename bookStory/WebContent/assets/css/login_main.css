@@ -231,10 +231,7 @@ font-size: 25px;
 	display: block;
 }
 
-.sign_up_title {
-	margin-left: 130px;
-	width: 80%;		
-}
+
 
 
 /** 첫번째 박스 */
@@ -385,11 +382,11 @@ label.gender > input:checked + span {
 	text-align: center;
 	font-size: 25px;
 }
-
-.form-group {
-width: 80%;
-margin-left: 140px;
+.sign_up_title #join_form{
+	margin : auto;
+	width: 70%;		
 }
+
 /*---------------------------------------  끝    -------------------------------------------*/
 /*메인 푸터*/
 .aa {

@@ -54,6 +54,8 @@ public class LoginOk extends BaseController {
 		logger.debug("userId=" + user_id);
 		logger.debug("userPw=" + user_pw);
 		
+		int book_id = web.getInt("book_id");
+		
 		if(user_id==null || user_pw == null){
 			sqlSession.close();
 			web.redirect(null, "아이디나 비밀번호가 없습니다.");
@@ -80,6 +82,17 @@ public class LoginOk extends BaseController {
 		// 세션에 보관하는 과정을 말한다.
 		// 로그인에 대한 판별은 저장된 세션정보의 존재 여부로 판별한다.
 		web.setSession("loginInfo", loginInfo);
+		
+		
+		
+		
+		//작품 정보가 있는경우 작품 리스트 페이지로 이동
+		
+		String rootPath = web.getRootPath();
+		String url = rootPath + "?book_id=" + book_id;
+		
+		
+		
 		
 		/** (9) 메인페이지로 이동 */
 		sqlSession.close();

@@ -122,6 +122,10 @@ a:HOVER {
 	
 }
 
+.section_area_viewer{
+	margin-top: 20px;
+}
+
 .container_view{
 	width: 90%;
 	margin: auto;

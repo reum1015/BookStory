@@ -29,11 +29,6 @@ public class AddStarRating extends BaseController{
 		// TODO Auto-generated method stub
 		
 		
-		
-		
-		
-		
-		
 		return null;
 	}
 	
