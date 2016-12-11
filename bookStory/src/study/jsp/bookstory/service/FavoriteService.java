@@ -1,5 +1,7 @@
 package study.jsp.bookstory.service;
 
+import java.util.List;
+
 import study.jsp.bookstory.model.Favorite;
 
 /** 관심등록 서비스 */

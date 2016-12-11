@@ -1,5 +1,7 @@
 package study.jsp.bookstory.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
