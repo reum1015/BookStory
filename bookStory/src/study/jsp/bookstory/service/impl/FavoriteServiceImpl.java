@@ -90,5 +90,40 @@ public class FavoriteServiceImpl implements FavoriteService{
 			sqlSession.commit();
 		}
 	}
+	
+	@Override
+	public int selectFavoriteCount(Favorite favorite) throws Exception {
+	int result = 0;
+		
+		try {
+			// 게시물 수가 0건인 경우도 있으므로
+			// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("FavoriteMapper.selectFavoriteCount", favorite);
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("관심작품 수 조회에 실패했습니다. ");
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public List<Favorite> selectFavoriteList(Favorite favorite) throws Exception {
+         List<Favorite> result = null;
+		
+		try {
+			result = sqlSession.selectList("FavoriteMapper.selectFavoriteList", favorite);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("관심작품에 등록된 목록이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("관심작품 조회에 실패했습니다.");
+		}		
+		
+		return result;
+	}
 
 }

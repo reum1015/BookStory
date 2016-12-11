@@ -30,4 +30,20 @@ public interface FavoriteService {
 	public void deleteRemoveFavorite(Favorite favorite)throws Exception;
 	
 
+	
+	/**
+	 * 관심작품 목록 조회
+	 *  @param favorite - 관심작품이 저장된 BEans
+	 *  @return List- 관심작품 목록
+	 * @throws Exception
+	 */
+	public List<Favorite> selectFavoriteList(Favorite favorite) throws Exception;
+	
+	/**
+	 *  전체 관심작품 목록 조회
+	 *  @param favorite - 관심작품이 저장된 BEans
+	 *  @return int
+	 * @throws Exception
+	 */
+	public int selectFavoriteCount(Favorite favorite) throws Exception;
 }
