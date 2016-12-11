@@ -59,5 +59,13 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public void updateTotalFavoriteMinus(Book book)throws Exception;
+	
+	
+	/**
+	 * 작품의 별점평균 업데이트
+	 * @param book
+	 * @throws Exception
+	 */
+	public void updateStarAvg(Book book)throws Exception;
 
 }

@@ -64,6 +64,13 @@ public interface EpisodeService {
 	 */
 	public List<Episode> selectAllEpisodeTitle(Episode episode)throws Exception;
 	
+	/**
+	 * 에피소드 테이블에 별점등록 총 회원수, 별점 평균 등록
+	 * @param episode
+	 * @throws Exception
+	 */
+	public void updateStarCountAndAvg(Episode episode)throws Exception;
+	
 	
 
 }

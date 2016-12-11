@@ -302,6 +302,8 @@
 						$("#form_daily_date").attr("value",dailyDate);
 						$("#book_id").attr("value",id);
 							
+						$("#episode_name").focus();
+						
 					});				
 				});
 				

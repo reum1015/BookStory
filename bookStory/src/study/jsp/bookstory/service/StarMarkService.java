@@ -12,20 +12,13 @@ public interface StarMarkService {
 	public void insertAddStar(StarMark star)throws Exception;
 	
 	/**
-	 * 에피소드 별점 평균
+	 * 에피소드 별점 평균, 별점 등록 총 회원 수 
 	 * @param star
 	 * @return
 	 * @throws Exception
 	 */
-	public double selectStarAvgEpisode(StarMark star)throws Exception;
+	public StarMark selectStarCountAndAvgEpisode(StarMark star)throws Exception;
 	
-	/**
-	 * 에피소드 별점 등록 총 회원 수 
-	 * @param star
-	 * @return
-	 * @throws Exception
-	 */
-	public int selectStarCountEpisode(StarMark star)throws Exception;
 	
 	/**
 	 * 작품 별점 평균
@@ -34,5 +27,13 @@ public interface StarMarkService {
 	 * @throws Exception
 	 */
 	public double selectStarAvgBook(StarMark star)throws Exception;
+	
+	/**
+	 * 별점 등록 확인 1---> 별점 등록, 0 ---->별점 등록 X
+	 * @param star
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectCountAddStarById(StarMark star)throws Exception;
 
 }

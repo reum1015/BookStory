@@ -87,11 +87,11 @@
 			<div class="col-xs-6 col-sm-6 content6">
 				<a href="#" id="favorite_button" > <span class="favorite_Off pull-right" id="favorite_img"> </span>
 				</a>
-				<input type="text" value="${favoriteCount}" id="favorite_count">
+				<input type="hidden" value="${favoriteCount}" id="favorite_count">
 				<input type="hidden" value="${member_id}" id="member_id">
 				<input type="hidden" value="${bookitem.total_favorite}" id="total_favorite">
 				<input type="hidden" value="${bookitem.id}" id="book_id">
-				<input type="text" value="${isFavoriteState}" id="isFavoriteState">
+				<input type="hidden" value="${isFavoriteState}" id="isFavoriteState">
 			</div>
 		</div>
 		

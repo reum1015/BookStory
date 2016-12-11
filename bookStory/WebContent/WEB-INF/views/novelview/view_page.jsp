@@ -18,6 +18,8 @@
 	<link href="${pageContext.request.contextPath}/assets/css/selectbox/css/bootstrap-select.css" media="all" rel="stylesheet" type="text/css" />
 	
 	
+	
+	
 	<script type="text/javascript">
 	function open1() {
 	    window.open('01-open.jsp');
@@ -121,14 +123,48 @@
 			<label for="str" title="별점" class="icon_stargrade"  id="stargradeIcon">별점</label>
 			</div>
 			
-			<div class="col-lg-1 col-sm-1"><a id="currentStarScore" class="CurrentStarScore">${episode.total_star}</a></div>
+			<div class="col-lg-1 col-sm-1"><a class="CurrentStarScore" id="currentStarScore">${episode.total_star}</a></div>
 			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">${episode.total_starcount}</a></div>
 			
-			<div class="grade_insert col-lg-3 col-sm-3">
-			<a type="button" class="btn btn-default"  id="star_rate" data-toggle="modal" data-target="#myModal">별점주기</a></div>
+			
+			
+			
+			
+
+
+				
+				
+				<div class="grade_insert col-lg-3 col-sm-3">
+							<c:choose>
+									
+									<c:when test="${isStarAdd==true}">
+										<a type="button" class="btn btn-warning" id="star_rate_in" href="#">참여 완료</a>
+									</c:when>
+									<c:when test="${isStarAdd==false}">
+										<c:url var="addStarURL" value="/episode/AddStar.do">
+											 <c:param name="member_id" value="${member_id}" />
+											 <c:param name="book_id" value="${book_id}" />
+											 <c:param name="episode_id" value="${episode.id}" />
+										</c:url>
+										<a type="button" class="btn btn-default"  id="star_rate" data-toggle="modal" data-target="#addStarModal"
+										href="${addStarURL}">별점주기</a>
+									</c:when>
+							</c:choose>
+				</div>
+			
+			
+			</div>
+		
+			
 			
 		
-			</div>
+				
+				
+			
+	
+			
+			
+			
 			<!-- //별점주기 -->	
 				
 				<!-- 작가의말 -->
@@ -221,28 +257,12 @@
 	
 	
 <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="addStarModal" role="dialog">
     <div class="modal-dialog modal-sm">
-    
       <!-- Modal content-->
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">별점 주기</h4>
-        </div>
-         <form action="${pageContext.request.contextPath}/book/addStar.do" method="post">
-        <div class="modal-body">
-         
-		    <label for="input-id" class="control-label">이 작품에 별점을 주세요</label>
-		    <input id="input-id" type="text" class="rating" data-size="xs" name="star_rate">
-        </div>
-        <div class="modal-footer">
-         <button class="btn btn-warning btn-block" type="submit" >별점주기</button>
         
-        </div>
-           </form>
       </div>
-      
     </div>
   </div>
 
@@ -270,10 +290,6 @@
 		});
 		
 
-		
-		
-		
-		
 		// 별점
 		// initialize with defaults
 		$("#input-id").rating();
@@ -295,7 +311,48 @@
 
 			}
 		});
-
+		
+		
+		
+		//참여 완료 버튼 클릭시
+		$("#star_rate_in").on('click',function(e){
+			e.preventDefault();
+			alert("이미 참여 완료 하였습니다.");
+			return false;
+		});
+		
+		
+		//별점 등록 Ajax
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on('submit', "#addStarForm", function(e) {
+			e.preventDefault();
+			
+			// AjaxForm 플러그인의 강제 호출
+			$(this).ajaxSubmit(function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				
+				var star_count = json.star_count;
+				var starAvgEpisode = json.starAvgEpisode;
+				
+				
+				$("#currentStarScore").text(starAvgEpisode);
+				$("#currentStarScoreCount").text(star_count);
+				
+				
+				
+				// 별점 모달 강제로 닫기
+				$("#addStarModal").modal('hide');
+			});
+		});
+		
+		
+		
+		
+		
+		
 	
 	})
 	
@@ -304,6 +361,7 @@
 	
 	
 	</script>
-	
+	<!-- ajaxForm -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 </body>
 </html>

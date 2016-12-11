@@ -134,7 +134,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 			
 		}catch (NullPointerException e) {
 			// TODO: handle exception
-			throw new Exception("작품의 첫화가 존재 하지 않습니다.");
+			throw new Exception("작품의 에피소드가 존재 하지 않습니다.");
 		}catch (Exception e) {
 			// TODO: handle exception
 			logger.error(e.getLocalizedMessage());
@@ -186,6 +186,28 @@ public class EpisodeServiceImpl implements EpisodeService{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public void updateStarCountAndAvg(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			int result = sqlSession.update("EpisodeMapper.updateStarCountAndAvg", episode);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("에피소드에 대한 요청입니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 별점, 회원 수 추가 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		
+		
 	}
 
 }

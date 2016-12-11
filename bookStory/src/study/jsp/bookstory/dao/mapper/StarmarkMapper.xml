@@ -30,17 +30,19 @@
 	VALUES (#{member_id}, #{episode_id},#{book_id},#{star_point},now())
 	</insert>
 	
-	
-	<!-- 에피소드별 별점 평균
-	<select id="selectStarAvgEpisode" parameterType="study.jsp.bookstory.model.StarMark" resultType="double">
-	SELECT truncate(avg(starpoint),2) AS episode_star_avg FROM starmark where episode_id = #{episode_id}
+	<!-- 별점 등록 확인 여부 -->
+	<select id="selectCountAddStarById" parameterType="study.jsp.bookstory.model.StarMark" resultType="int">
+	SELECT COUNT(id) FROM starmark WHERE member_id=#{member_id} AND episode_id=#{episode_id}
 	</select>
 	
-	 에피소드 별점 등록 회원 수 
-	<select id="selectStarCountEpisode" parameterType="study.jsp.bookstory.model.StarMark" resultType="int">
-	SELECT count(id) FROM starmark AS star_count where episode_id = #{episode_id}
+	 <!-- 에피소드 별점 등록 회원 수,  에피소드별 별점 평균 --> 
+	<select id="selectStarCountAndAvgEpisode" parameterType="study.jsp.bookstory.model.StarMark" resultMap="starMark">
+	SELECT COUNT(id) AS star_count, truncate(avg(star_point),2) AS episode_star_avg FROM starmark WHERE episode_id = #{episode_id}
 	</select>
 	
+	
+	
+	<!-- 
 	<select id="selectStarAvgBook" parameterType="study.jsp.bookstory.model.StarMark" resultType="double">
 	SELECT truncate(avg(starpoint),2) AS episode_star_avg FROM starmark where book_id = #{book_id}
 	</select>

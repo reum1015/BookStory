@@ -52,4 +52,6 @@
 	SELECT COUNT(id) FROM bookmark WHERE member_id =#{member_id}	
 	</select>
 	
+	
+	
 </mapper>

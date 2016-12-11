@@ -117,7 +117,7 @@ public class BookServiceImpl implements BookService{
 			}
 		}catch (NullPointerException e) {
 			// TODO: handle exception
-			throw new Exception("캐러셀이 조재 하지 않습니다.");
+			throw new Exception("캐러셀이 존재 하지 않습니다.");
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("메인 캐러셀 불러오기 실패했습니다.");
@@ -200,6 +200,26 @@ public class BookServiceImpl implements BookService{
 		}
 		
 		
+	}
+
+	@Override
+	public void updateStarAvg(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.update("BookMapper.updateStarAvg",book);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품의 별점 평균 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
 	}
 
 }

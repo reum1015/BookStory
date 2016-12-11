@@ -78,5 +78,15 @@
 	</select>
 	
 	
+	<!-- 에피소드에 별점 참여 회원수와 별점 평균 update -->
+	<update id="updateStarCountAndAvg" parameterType="study.jsp.bookstory.model.Episode">
+	UPDATE episode SET total_star=#{total_star}, total_starcount=#{total_starcount} WHERE id={id}
+	</update>
+	
+	
+	
+	
+	
+	
 
 </mapper>

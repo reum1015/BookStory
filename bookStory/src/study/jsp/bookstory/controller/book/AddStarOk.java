@@ -16,15 +16,21 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.StarMark;
+import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.StarMarkService;
+import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.StarMarkServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
-@WebServlet("/book/addStar.do")
+@WebServlet("/book/AddStarOk.do")
 public class AddStarOk extends BaseController{
 
 	private static final long serialVersionUID = -5686895178885874355L;
@@ -41,6 +47,8 @@ public class AddStarOk extends BaseController{
 	UploadHelper upload;
 	
 	StarMarkService starMarkService;
+	EpisodeService episodeService;
+	BookService bookService;
 	
 	
 	@Override
@@ -59,12 +67,14 @@ public class AddStarOk extends BaseController{
 		// --> import study.jsp.mysite.service.impl.BbsCommentServiceImpl;
 		
 		starMarkService = new StarMarkServiceImpl(sqlSession, logger);
+		episodeService = new EpisodeServiceImpl(sqlSession, logger);
+		bookService = new BookServiceImpl(sqlSession, logger);
 		
 		//별점 점수 받기
 		String tempStar = web.getString("star_rate");
 		
 		//점수 정수형으로 변환
-		double star_rate = Double.parseDouble(tempStar);
+		int star_rate = Integer.parseInt(tempStar);
 		
 		logger.debug("star_rate ----------------->" + star_rate);
 		
@@ -77,7 +87,7 @@ public class AddStarOk extends BaseController{
 		
 		
 		
-		int member_id = 1;
+		int member_id = 0;
 		//회원일련번호를 Beans에 추가
 		Member loginInfo = (Member) web.getSession("loginInfo");
 			if(loginInfo != null){
@@ -91,9 +101,9 @@ public class AddStarOk extends BaseController{
 		
 		
 		//파라미터 받기
-		int episode_id = web.getInt("id");	//에피소드 Id 받기
+		int episode_id = web.getInt("episode_id");	//에피소드 Id 받기
 		int book_id = web.getInt("book_id");	//작품 Id 받기
-		
+		member_id = web.getInt("member_id");
 		
 		/* 파라미터를 Beans로 묶기 */
 		StarMark starMark = new StarMark();
@@ -101,22 +111,43 @@ public class AddStarOk extends BaseController{
 		starMark.setBook_id(book_id);
 		starMark.setEpisode_id(episode_id);
 		starMark.setMember_id(member_id);
-
+		starMark.setStar_point(star_rate);
 		
-		/* 별점 등록 처리(테이블에 Insert) */
 		
-		double starAvgEpisode = 0;	//에피소드 평균 별점
-		int star_count = 0;			//에피소드 별점 준 총 회원수
+		StarMark resultItemForCountAvg = new StarMark();
 		
+		int star_count = 0;					//에피소드에 별점준 총회원 수
+		double starAvgEpisode = 0.0;		//에피소드의 별점 평균
+		//double starAvgBook = 0.0;			//작품의 별점 평균
+		
+		//작품테이블에 별점평균 입력 파라미터 셋팅
+		Book book = new Book();
+		book.setId(book_id);
 		
 		try{
+			
+			//starmark 테이블에 별점 정보 입력
 			starMarkService.insertAddStar(starMark);
 			
-			//에피소드 별점 준 총 회원수
-			star_count = starMarkService.selectStarCountEpisode(starMark);
+			//에피소드에 별점준 총 회원 수와 작품의 별점 평균
+			resultItemForCountAvg = starMarkService.selectStarCountAndAvgEpisode(starMark);
 			
-			//에피소드 평균 별점
-			starAvgEpisode = starMarkService.selectStarAvgEpisode(starMark);
+			if(resultItemForCountAvg != null){
+				star_count = resultItemForCountAvg.getStar_count();
+				starAvgEpisode = resultItemForCountAvg.getEpisode_star_avg();
+			}
+			
+			//에피소드 테이블에 작품에 별점준 총회원 수와 작품의 별점 평균 입력
+			Episode episode = new Episode();
+			episode.setTotal_starcount(star_count);
+			episode.setTotal_star(starAvgEpisode);
+			episode.setId(episode_id);
+			
+			episodeService.updateStarCountAndAvg(episode);
+			
+			//작품테이블(Book)에 평균 별점 등록
+			bookService.updateStarAvg(book);
+			
 		}catch (Exception e) {
 			web.printJsonRt(e.getLocalizedMessage());
 			return null;
@@ -140,8 +171,6 @@ public class AddStarOk extends BaseController{
 		// --> import com.fasterxml.jackson.databind.ObjectMapper;
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getWriter(), data);
-		
-		
 		
 		return null;
 	}

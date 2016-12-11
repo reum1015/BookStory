@@ -44,8 +44,7 @@ public class StarmarkTest{
 		double cc=0;
 		
 		try {
-			aa = test.selectStarAvgEpisode(s);
-			bb = test.selectStarCountEpisode(s);
+
 			
 			cc= test.selectStarAvgBook(s1);
 			

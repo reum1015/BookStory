@@ -15,11 +15,15 @@ import org.apache.logging.log4j.Logger;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.Episode;
+import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.StarMark;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
+import study.jsp.bookstory.service.StarMarkService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
+import study.jsp.bookstory.service.impl.StarMarkServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.PageHelper;
 import study.jsp.helper.UploadHelper;
@@ -37,6 +41,7 @@ public class ViewPage extends BaseController{
 	BookService bookService;
 	EpisodeService episodeService;
 	PageHelper pageHelper;
+	StarMarkService starMarkService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,7 +54,7 @@ public class ViewPage extends BaseController{
 		bookService = new BookServiceImpl(sqlSession, logger);
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
-		
+		starMarkService = new StarMarkServiceImpl(sqlSession, logger);
 		
 		/** (3)파라미터 받기 */
 		
@@ -69,11 +74,20 @@ public class ViewPage extends BaseController{
 		/** 로그인 여부 검사 */
 		
 		
+		int memberId = 0;
+		
+		Member loginInfo = new Member();
+		
+		loginInfo = (Member)web.getSession("loginInfo");
+		
+		logger.debug("loginInfo-------------------------------------->" + loginInfo);
+		
+		if(loginInfo != null){
+			memberId = loginInfo.getId();
+		}
 		
 		
-		
-		
-		/** 북마크 등록여부 검사 */ 
+		logger.debug("member_id -----------------------------------> " + memberId);
 		
 		
 		
@@ -94,8 +108,21 @@ public class ViewPage extends BaseController{
 		
 		Episode episodeItem = new Episode();
 		Book bookItem = new Book();
+		
+		
+		/** 별점 등록 확인 여부 */ 
+		int resultaddStarCount = 0;
+		
+		//
+		StarMark star = new StarMark();
+		star.setMember_id(memberId);
+		star.setEpisode_id(episode_id);
+		
 		List<Episode> episodeTitleList = null;		//에피소드 제목 리스트 저장 변수
 		try{
+			
+			/** 별점 참여 여부 검사 */ 
+			resultaddStarCount = starMarkService.selectCountAddStarById(star);
 			
 			/** 한개의 에피소드 가져오기 */
 			episodeItem = episodeService.selectOneEpisodeItem(episode);
@@ -116,12 +143,23 @@ public class ViewPage extends BaseController{
 		}
 		
 		
-		logger.debug("episodeTitleList ------------------> " + episodeTitleList);
+		boolean isStarAdd = false;
+		if(resultaddStarCount > 0){
+			isStarAdd = true;
+		}
 		
+		
+		logger.debug("isStarAdd -----------------------------------------> " + isStarAdd);
+		
+		request.setAttribute("isStarAdd", isStarAdd);
 		request.setAttribute("episodeTitleList", episodeTitleList);
 		request.setAttribute("episode", episodeItem);
 		request.setAttribute("book", bookItem);
         
+		request.setAttribute("member_id", memberId);
+		request.setAttribute("book_id", book_id);
+		
+		
 		return view;
 	}
 
