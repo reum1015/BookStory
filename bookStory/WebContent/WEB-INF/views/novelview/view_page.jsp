@@ -120,35 +120,42 @@
 				</div>				
 				</div>
 				<!-- // view content -->
-								
-				<!-- view footer -->
-			<div class="viewer_footer">
-			
-			<!-- 별점주기 -->
+				
+				
 			<div class="row star_row">
 		
-			<div class="star_grade col-lg-3 col-lg-offset-3 col-sm-3 col-sm-offset-3">
-			<label for="str" title="별점" class="icon_stargrade"  id="stargradeIcon">별점</label>
+		
+			<div class="col-sm-6 score_block">
+				<div class="num_info">
+					<span title="별점" class="icon_stargrade" id="stargradeIcon">별점</span>
+					<p class="CurrentStarScore" id="currentStarScore">${episode.total_star}</p>
+					<p class="num" id="currentStarScoreCount">${episode.total_starcount} 명</p>
+				</div>
 			</div>
 			
-			<div class="col-lg-1 col-sm-1"><a class="CurrentStarScore" id="currentStarScore">${episode.total_star}</a></div>
-			<div class="col-lg-3 col-sm-3"><a class="num" id="currentStarScoreCount">${episode.total_starcount}</a></div>
-			
-				<div class="grade_insert col-lg-3 col-sm-3">
+			<div class="grade_insert col-sm-6">
+					<div class="button_group">
 							<c:choose>
 									
 									
 									<c:when test="${isStarAdd==true}">
-										<button type="button" class="btn btn-warning star_rate_in" id="star_rate_in">참여 완료</button>
+										<button type="button" class="btn btn-warning star_rate_in pull-right" id="star_rate_in">참여 완료</button>
 									</c:when>
 									<c:when test="${isStarAdd==false}">										
 										<button type="button" class="btn btn-default"  id="star_rate_button" data-toggle="modal" data-target="#addStarModal">별점주기</button>
 									</c:when>
 							</c:choose>
+					</div>
 				</div>
-			
-			
 			</div>
+				
+				
+								
+				<!-- view footer -->
+			<div class="viewer_footer">
+			
+			<!-- 별점주기 -->
+			
 		
 			
 			<!-- //별점주기 -->	

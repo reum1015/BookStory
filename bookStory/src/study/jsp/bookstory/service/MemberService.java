@@ -18,6 +18,13 @@ public interface MemberService {
 	public void selectEmailCount(Member member)throws Exception;
 	
 	/**
+	 * 이메일 중복검사
+	 * @param member - 이메일
+	 * @throws Exception - 중복된 데이터인 경우 예외 발생함
+	 */
+	public void selectNickNameCount(Member member)throws Exception;
+	
+	/**
 	 * 회원가입(아이디, 이메일 중복검사 후 가입처리)
 	 * @param member - 일련번호, 가입일시, 변경일시를 제외한 모든 정보
 	 * @throws Exception

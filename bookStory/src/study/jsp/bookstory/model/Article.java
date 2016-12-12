@@ -11,13 +11,12 @@ public class Article {
 	private String edit_date;	// 수정일자
 	private String ip_address;	// 아이피 주소
 	private String user_nickname;
-	private String reported;		// 신고상태 유무
+	private int reported;		// 신고상태 유무
 	private int member_id;
 	
 	// 페이지 구현을 위해서 추가된 값
 	private int limit_start;
 	private int list_count;
-	
 	public int getId() {
 		return id;
 	}
@@ -72,10 +71,10 @@ public class Article {
 	public void setUser_nickname(String user_nickname) {
 		this.user_nickname = user_nickname;
 	}
-	public String getReported() {
+	public int getReported() {
 		return reported;
 	}
-	public void setReported(String reported) {
+	public void setReported(int reported) {
 		this.reported = reported;
 	}
 	public int getMember_id() {
@@ -96,7 +95,6 @@ public class Article {
 	public void setList_count(int list_count) {
 		this.list_count = list_count;
 	}
-	
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", category=" + category + ", subject=" + subject + ", content=" + content
@@ -104,6 +102,10 @@ public class Article {
 				+ ", user_nickname=" + user_nickname + ", reported=" + reported + ", member_id=" + member_id
 				+ ", limit_start=" + limit_start + ", list_count=" + list_count + "]";
 	}
+	
+	
+	
+	
 	
 	
 	

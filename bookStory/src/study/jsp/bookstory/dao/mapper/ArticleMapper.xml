@@ -29,7 +29,8 @@
 	    category, subject, content, hit, reg_date, edit_date, ip_address, user_nickname, 
 	    member_id, reported
 	  ) VALUES (
-	    "FREE", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{user_nickname}, #{member_id}, "N"
+	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{user_nickname}, #{member_id}, "N"
+	     
 	  )
 	</insert>
 	
@@ -139,13 +140,4 @@
 	  UPDATE article SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id} AND user_nickname=#{user_nickname}
 	</update>
 	
-	<!-- 본인의 게시글 확인절차 -->
-	<select id="selectMemberReport" parameterType="study.jsp.bookstory.model.Article" resultType="int">
-	  SELECT COUNT(id) FROM article WHERE id=#{id} AND member_id=#{member_id}
-	</select>
-	
-	<!-- 본인이 신고한 게시판인지에 대한 판별 -->
-	<select id="selectReportArticle" parameterType="study.jsp.bookstory.model.Report">
-	SELECT count(id) FROM report WHERE article_id=#{article_id} AND member_id=#{member_id}
-	</select>
 </mapper>

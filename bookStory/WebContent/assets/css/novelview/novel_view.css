@@ -153,7 +153,6 @@ a:HOVER {
 	border-top: 1px solid #dadbdc;
 	width: 100%;
 	margin: auto;
-	height: 50px;
 	
 }
 
@@ -291,6 +290,8 @@ font-size: 18px;
 }
 
 
+
+
 #grade_bar {
 display: inlilne-block;
 height: 50px;
@@ -298,29 +299,72 @@ margin: 15px;
 border-top: solid 1px #ebebeb;
 border-bottom: solid 1px #ebebeb;
 }
-/** 별점주기 */
 
-.star_grade {
-  width: 114px;
-    height: 24px;
-    margin-top: 9px;
-  display: block;
-   background-image: url(../../imgs/clipping/sp_icon.png);
-     background-position:  0 -230px;
-     }
+
+
+/** 별점주기 라인*/
+
+.container .container_view .section_area_viewer{
+	height: 100%;
+}
+.star_row{
+	width: 100%;
+}
+
+.star_grade .score_block .grade_insert{
+	line-height : 50px;
+	display: inline-block !important;
+}
+
+.score_block{
+
+} 
+.button_group{
+	padding-left: 180px;
+	margin-top: 4.5px;
+	
+}
+.num_info{
+	padding-left: 180px;
+}
+.icon_stargrade{
+		margin-top: 5px;
+		height : 22px;
+		width : 114px;
+  		display: inline-block;
+   		background-image: url(../../imgs/clipping/sp_icon.png);
+     	background-position:  0 -230px;
+     	background-repeat : no-repeat;
+     	 vertical-align: 2px;
+}
      
      .CurrentStarScore {
+     margin-left : 5px;
+     display : inline-block;
      color: #ff0000;
+     font-size: 20px;
+     vertical-align: 5px;
      }
      
    #currentStarScoreCount  {
-     font-size: 14px;
+   display : inline-block;
+     font-size: 15px;
      color: #888;
+     margin-left: 10px;
+     vertical-align: 6.8px;
+}
+
+     
      }
      
    .grade_insert {
-   top: 5px;
+
+
    }  
+   .star_rate_in .star_rate_button{
+   display : block;
+    margin: auto;
+   }
      
 /** !! 별점 주기 끝 */
 

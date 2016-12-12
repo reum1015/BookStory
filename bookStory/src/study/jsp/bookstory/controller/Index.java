@@ -54,9 +54,13 @@ public class Index extends BaseController{
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		upload = UploadHelper.getInstance();
 		
+		
+		//메인 케러셀용 작품 리스트(랜덤 3개)
 		List<Book> carouselList = new ArrayList<>();
 		
 		try{
+			
+			//메인 케러셀용 작품 리스트(랜덤 3개)
 			carouselList = bookService.selectMainCarouselByRandomThree();
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());

@@ -58,12 +58,32 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 	}
+	
+
+	@Override
+	public void selectNickNameCount(Member member) throws Exception {
+		try{
+			int result = sqlSession.selectOne("MemberMapper.selectNickNameCount", member);
+			
+			// 중복된 데이터가 존재한다면?
+			if(result>0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			throw new Exception("이미 사용중인 닉네임 입니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("닉네임 중복검사에 실패했습니다.");
+		}
+		
+	}
 
 	@Override
 	public void insertMember(Member member) throws Exception {
 		// 아이디 중복검사 및 이메일 중복검사 호출
 		selectUserIdCount(member);
 		selectEmailCount(member);
+		selectNickNameCount(member);
 				
 		// 데이터 저장처리 = 가입
 		// not null로 설정된 값이 설정되지 않았다면 예외 발생됨.
@@ -205,5 +225,6 @@ Member result = null;
 		}
 		return result;
 	}
+
 
 }

@@ -11,6 +11,7 @@ public class Comment {
 	private int blind;					// 블라인드 처리
 	private int member_id;
 	private int article_id;
+	private String user_nickname;
 	public int getId() {
 		return id;
 	}
@@ -65,11 +66,17 @@ public class Comment {
 	public void setArticle_id(int article_id) {
 		this.article_id = article_id;
 	}
+	public String getUser_nickname() {
+		return user_nickname;
+	}
+	public void setUser_nickname(String user_nickname) {
+		this.user_nickname = user_nickname;
+	}
 	@Override
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", reg_date=" + reg_date + ", edit_date=" + edit_date
 				+ ", ip_address=" + ip_address + ", reported=" + reported + ", blind=" + blind + ", member_id="
-				+ member_id + ", article_id=" + article_id + "]";
+				+ member_id + ", article_id=" + article_id + ", user_nickname=" + user_nickname + "]";
 	}
 	
 	

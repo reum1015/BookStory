@@ -1,4 +1,4 @@
-package study.jsp.bookstory.controller.community;
+package study.jsp.bookstory.controller.comment;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -11,26 +11,26 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
-import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Comment;
 import study.jsp.bookstory.model.Member;
-import study.jsp.bookstory.service.ArticleService;
-import study.jsp.bookstory.service.impl.ArticleserviceImpl;
+import study.jsp.bookstory.service.CommentService;
+import study.jsp.bookstory.service.impl.CommentServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
 /**
- * Servlet implementation class ArticleEdit
+ * Servlet implementation class CommentEdit
  */
-@WebServlet("/community/article_edit.do")
-public class ArticleEdit extends BaseController {
+@WebServlet("/comment/comment_edit.do")
+public class CommentEdit extends BaseController {
 
-	private static final long serialVersionUID = -2227800958721905492L;
-	
+	private static final long serialVersionUID = -4989420516892789023L;
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
-	ArticleService articleService;
+	CommentService commentService;
+	
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,28 +38,24 @@ public class ArticleEdit extends BaseController {
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
-		articleService = new ArticleserviceImpl(sqlSession, logger);
+		commentService = new CommentServiceImpl(sqlSession, logger);
 		
-		/** (3) 글번호 파라미터 받기 */
-		int article_id = web.getInt("article_id");
-		
-		logger.debug("article_id=" + article_id);
-		
-		if(article_id == 0){
-			web.redirect(null, "글번호가 지정되지 않았습니다.");
+		/** (3) 글 번호 파라미터 받기 */
+		int comment_id = web.getInt("comment_id");
+		if(comment_id==0){
 			sqlSession.close();
+			web.redirect(null, "덧글 번호가 지정되지 않았습니다.");
 			return null;
 		}
 		
 		// 파라미터를 Beans로 묶기
-		Article article = new Article();
-		article.setId(article_id);
+		Comment comment = new Comment();
+		comment.setId(comment_id);
 		
-		// 로그인 한 경우, 입력하지 않은 이름, 비밀번호, 이메일을 세션정보로 대체
 		int member_id = 0;
 		String user_nickname = null;
 		
-		Member loginInfo = (Member) web.getSession("loginInfo");
+        Member loginInfo = (Member) web.getSession("loginInfo");
 		
 		if(loginInfo!=null){
 			member_id = loginInfo.getId();
@@ -71,31 +67,22 @@ public class ArticleEdit extends BaseController {
 		logger.debug("memberId=" + member_id);
 		logger.debug("userNickname=" + user_nickname);
 		
+		comment.setMember_id(member_id);
 		
-		article.setMember_id(member_id);
+		/** (4) 덧글 일련번호를 사용한 데이터 조회 */
+		// 지금 읽고 있는 덧글이 저장될 객체
+		Comment readComment = null;
 		
+		int result = 0;
 		
-		
-
-		/** (4) 게시물 일련번호를 사용한 데이터 조회 */
-		// 지금 읽고 있는 게시물이 저장될 객체
-		Article readArticle = null;
-		
-		
-		
-			int result = 0;
-			
-			
 		try{
-			
-			result = articleService.selectArticleCountByMemberId(article);
-			if(result == 0){
+			result = commentService.selectCommentCountByMemberId(comment);
+			if(result==0){
 				throw new NullPointerException();
 			}
-			
-			readArticle = articleService.selectArticle(article);
-		}catch (NullPointerException ex) {
-			web.redirect(null,"본인의 글만 수정 가능합니다.");
+			readComment = commentService.selectComment(comment);
+		}catch(NullPointerException e){
+			web.redirect(null, "본인의 글만 수정 가능합니다.");
 			return null;
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());
@@ -105,12 +92,11 @@ public class ArticleEdit extends BaseController {
 		}
 		
 		/** (5) 읽은 데이터를 View에게 전달한다. */
-		request.setAttribute("readArticle", readArticle);
+		request.setAttribute("comment", readComment);
 		
 		
 		
-		
-		return "community/article_edit";
+		return "comment/comment_edit";
 	}
 	
 }

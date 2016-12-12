@@ -18,14 +18,15 @@
 	    <result property="blind" column="blind"/>
 	    <result property="member_id" column="member_id"/>
 	    <result property="article_id" column="article_id"/>
+	    <result property="user_nickname" column="user_nickname"/>
 	</resultMap>
 	
 	<!-- 덧글 정보 저장하기 -->
 	<insert id="insertComment" parameterType="study.jsp.bookstory.model.Comment" useGeneratedKeys="true" keyProperty="id">
 	  INSERT INTO comment (
-	    content, reg_date, edit_date, ip_address, reported, blind, article_id, member_id
+	    content, reg_date, edit_date, ip_address, reported, blind, article_id, member_id, user_nickname
 	  ) VALUES (
-	    #{content}, now(), now(), #{ip_address}, 0, 0, #{article_id}, #{member_id}
+	    #{content}, now(), now(), #{ip_address}, 0, 0, #{article_id}, #{member_id}, #{user_nickname}
 	  
 	  )
 	</insert>
@@ -35,7 +36,7 @@
 	  SELECT id, content,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
-	         ip_address, reported, blind, member_id, article_id
+	         ip_address, reported, blind, member_id, article_id, user_nickname
 	  FROM   comment
 	  WHERE  id=#{id}
 	</select>
@@ -45,7 +46,7 @@
 	  SELECT id, content,
 	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
 	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
-	         ip_address, reported, blind, member_id, article_id
+	         ip_address, reported, blind, member_id, article_id, user_nickname
 	  FROM   comment
 	  WHERE  article_id=#{article_id}
 	  ORDER BY id ASC
