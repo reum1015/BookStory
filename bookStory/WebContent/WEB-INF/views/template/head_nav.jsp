@@ -29,8 +29,8 @@
           <!-- 로그인한 경우 표시될 메뉴 -->
           <ul class="dropdown-menu">
             <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
-            <li><a href="${pageContext.request.contextPath}/member/edit.do">회원정보 수정</a></li>
-            <li><a href="${pageContext.request.contextPath}/member/out.do">회원탈퇴</a></li>
+            <li><a href="${pageContext.request.contextPath}/login/edit.do">회원정보 수정</a></li>
+            <li><a href="${pageContext.request.contextPath}/login/out.do">회원탈퇴</a></li>
           </ul>
         </li>
       </ul>

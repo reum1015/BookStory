@@ -160,11 +160,11 @@
 						<div class="col-xs-4 ">							
 								<select class="form-control" id="genre" name="genre" >
 								<option value="">-----장르 선택-----</option>
-								<option value="로맨스">로맨스</option>
-								<option value="SF&판타지">SF&amp;판타지</option>
-								<option value="무협">무협</option>
-								<option value="미스테리">미스테리</option>
-								<option value="퓨전">퓨전</option>							
+								<option value="Romance">로맨스</option>
+								<option value="SF&Fantasy">SF&amp;판타지</option>
+								<option value="Heroism">무협</option>
+								<option value="Mistery">미스테리</option>
+								<option value="Fusion">퓨전</option>
 							</select>
 						</div>
 						
@@ -236,10 +236,7 @@
 	    	
 	    	</div>
 			<!-- //어드민 컨텐트 영역 -->
-    		
 		</div> <!-- end row -->
-
-
 	</div>
 			<!-- 메인 화면 끝 -->
 

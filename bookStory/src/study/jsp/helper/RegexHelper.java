@@ -96,6 +96,25 @@ public class RegexHelper {
 		}
 		return result;
 	}
+	
+	/**
+	 * 영문과 숫자 한글 로만 구성되었는지에 대한 형식 검사
+	 * 
+	 * @param str
+	 *            - 검사할 문자열
+	 * @return boolean - 형식에 맞을 경우 true, 맞지 않을 경우 false
+	 */
+	public boolean isEngNumKor(String str) {
+		boolean result = false;
+		if (isValue(str)) {
+			result = Pattern.matches("^[a-zA-Z0-9ㄱ-ㅎ가-힣]*$", str);
+		}
+		return result;
+	}
+
+	
+	
+	
 
 	/**
 	 * 한글과 숫자로만 구성되었는지에 대한 형식 검사

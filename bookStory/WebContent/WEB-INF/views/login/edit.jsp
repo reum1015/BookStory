@@ -46,10 +46,11 @@
 	<div class="container main_containers">
 		<div class="container login_forms">
 		
-			<fieldset>
-				<legend class="sign_up_title" >회원정보 수정</legend>
+			
 				<form id="join_form" method="post" action="${pageContext.request.contextPath}/member/edit_ok.do">
-
+					<fieldset>
+				<legend class="sign_up_title" >회원정보 수정</legend>
+				
 					<div class="form-group">
 					<div  id="idDiv" class="join_row">
 					    <!-- 아이디는 변경할 수 없기 때문에 출력만 한다. -->
@@ -116,14 +117,15 @@
 					</div>
 					
 	                 <div class="form-group">
-                        <div>
-                           <button type="submit" class="btn btn-warning col-md-6">수정하기</button>
-                           <button type="reset" class="btn btn-danger col-md-6">다시작성</button>
-                        </div>
-                     </div>
-					
+                   
+                           <button type="submit" class="btn btn-warning col-xs-6">수정하기</button>
+                      
+                           <button type="reset" class="btn btn-danger col-xs-6">다시작성</button>
+                        
+                     </div>   
+					</fieldset>
 				</form>
-			</fieldset>
+			
 			
 		</div>
 	</div>

@@ -111,8 +111,8 @@
 					
 	                 <div class="form-group">
                         <div>
-                           <button type="submit" class="btn btn-warning col-md-6">가입하기</button>
-                           <button type="reset" class="btn btn-danger col-md-6">다시작성</button>
+                           <button type="submit" class="btn btn-warning col-xs-6">가입하기</button>
+                           <button type="reset" class="btn btn-danger col-xs-6">다시작성</button>
                         </div>
                      </div>
 					

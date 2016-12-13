@@ -115,7 +115,7 @@ public class SignUpSuccess extends BaseController {
 			return null;
 		}
 				
-		if(!regex.isKorNum(nick_name)){
+		if(!regex.isEngNumKor(nick_name)){
 			sqlSession.close();
 			web.redirect(null, "닉네임은 숫자와 한글의 조합으로 20자까지만 가능합니다.");
 			return null;

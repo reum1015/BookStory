@@ -588,7 +588,7 @@
 					<div class="page-nation text-center">
 							<div class=" reply_damin_pagenation">
                                         <ul class="pagination pagination-large">
-	                                        <li class="disabled"><span><</span></li>
+	                                        <li class="disabled"><span></span></li>
 	                                        <li class="active"><span>1</span></li>
 	                                        <li><a href="#">2</a></li>
 	                                        <li><a href="#">3</a></li>
