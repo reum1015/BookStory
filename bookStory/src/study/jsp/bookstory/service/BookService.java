@@ -39,6 +39,15 @@ public interface BookService {
 	public List<Book> selectMainCarouselByRandomThree()throws Exception;
 	
 	/**
+	 * 메인 장르별 추천작(랜덤3개)
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectListMainByGenre()throws Exception;
+	
+	
+	/**
 	 * 한개의 작품 정보 가져오기
 	 * @return
 	 * @throws Exception
@@ -67,5 +76,6 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public void updateStarAvg(Book book)throws Exception;
+	
 
 }

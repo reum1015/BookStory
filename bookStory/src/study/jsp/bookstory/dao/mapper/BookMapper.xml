@@ -73,6 +73,16 @@
 		FROM book  order by rand() limit 3;
 	</select>
 	
+	<!-- 메인 장르별 추천작 4개 -->
+	<select id="selectListMainByGenre" resultMap="book">
+		select * from book 
+		group by genre
+		order by total_hit desc
+		limit 0,4;
+	</select>
+	
+	
+	
 	<!-- 관심등록 회원 수 +1 -->
 	<update id="updateTotalFavoritePlus" parameterType="study.jsp.bookstory.model.Book">
 		UPDATE book SET total_favorite=total_favorite+1 WHERE id = #{id}

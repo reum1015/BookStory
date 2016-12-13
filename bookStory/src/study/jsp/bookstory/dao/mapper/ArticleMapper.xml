@@ -127,7 +127,7 @@
 	
 	<!-- 게시글 삭제하기 -->
 	<delete id="deleteArticle" parameterType="study.jsp.bookstory.model.Article">
-	  DELETE FROM article WHERE id=#{id} AND member_id=#{member_id} AND user_nickname=#{user_nickname}
+	  DELETE FROM article WHERE id=#{id} AND member_id=#{member_id}
 	</delete>
 	
 	<!-- 게시글 정보 수정하기 -->

@@ -32,6 +32,7 @@
 					$(".female_button").css('background-color','#FFEBCD');
 				});
 				
+				
 			});
 		</script>
 </head>
@@ -199,7 +200,7 @@
 							
 							<span class="text ellipsis">							
 								<span class="summary">
-								마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 
+								열여섯 살 풋내기와의 모든것이
 								</span>
 							</span>
 							
@@ -423,12 +424,15 @@
 				<h4 class="text-left">연령별 선호작품</h4>
 				<div class="btn-group btn-group-justified" role="group"
 					aria-label="...">
-					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default">남자</button>
-					</div>
-					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default">여자</button>
-					</div>
+					<div class="col-xs-12">
+    			<div class="input-group">
+    				<div id="radioBtn" class="btn-group">
+    					<a class="btn btn-primary btn-sm active col-xs-6" data-toggle="happy" data-title="Y">YES</a>
+    					<a class="btn btn-primary btn-sm notActive col-xs-6" data-toggle="happy" data-title="N">NO</a>
+    				</div>
+    				<input type="hidden" name="happy" id="happy">
+    			</div>
+    		</div>
 
 				</div>
 				<div class="row empty_box_rank"></div>
