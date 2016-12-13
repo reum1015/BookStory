@@ -42,8 +42,8 @@
 	 DELETE FROM favorite WHERE member_id=#{member_id} AND book_id=#{book_id}	
 	</delete>
 	
-		
-		<!-- 관심작품 목록을 조회한다. -->
+
+	<!-- 관심작품 목록을 조회한다. -->
 	<select id="selectFavoriteList" parameterType="study.jsp.bookstory.model.Favorite" resultMap="favorite">
     SELECT  b.book_author, b.book_name, concat(i.file_dir, '/', i.file_name) as imagePath 
       FROM MEMBER as m LEFT JOIN Favorite as f ON m.id = f.member_id
@@ -52,8 +52,7 @@
         
         ORDER BY b.id DESC
        	LIMIT #{limitStart}, #{listCount}
-       
-	</select>		
+	</select>
 	
 	
 		<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->

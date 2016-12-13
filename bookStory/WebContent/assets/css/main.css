@@ -208,18 +208,58 @@ body, html{height: 100%;}
 				position: absolute;
 			}
 			
+			
 			.list_info > span{
 				display: block;
 				text-align: left;
-				font-size: 14px;
-				margin-left: 10px;
+				font-size: 13px;
 				padding: 5px 0px 5px 5px;
 			}
 			
 			.list_info{
-				
+				display: block;
 			}
 			
+			/*관심등록 블럭*/
+			.favorite_count span{
+				font-size: 12px;
+			}
+			
+			.list_info .author_info{
+				position: relative;
+				top: -12px;
+			
+			}
+			
+			.text {
+				  position: relative;
+				  font-size: 14px;
+				  color: black;
+				  width: 100%; /* Could be anything you like. */
+				}
+				
+				.summary {
+				  position: relative;
+				  display: inline-block;
+				  word-wrap: break-word;
+				  overflow: hidden;
+				  max-height: 2.4em; /* (Number of lines you want visible) * (line-height) */
+				  line-height: 1.2em;
+				  text-align:justify;
+				  white-space:normal;
+				  text-overflow:ellipsis;
+				}
+				
+				.text.ellipsis::after {
+				  content: "...";
+				  position: relative;
+
+				  bottom: 4px;
+				}
+				
+				.text.ellipsis{
+				display: block;}
+							
 			
 			/*--------- 장르별 추천작 이미지 속 텍스트 ----------*/
 			/*해상도 별 크기 xs일때*/
@@ -238,20 +278,18 @@ body, html{height: 100%;}
 			/*장르*/
 
 			.list_info .genre{
-				font-size: 16px;
+				font-size: 14px;
 				color: #009cd8;
 			}
 			/* 제목*/
 			.list_info .subj{
-				font-size: 18px;
+				font-size: 16px;
 				vertical-align: top;
-				
 				white-space : nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
-				
 				position: relative;
-				top : 10px;
+			
 			}
 			
 			/* 회차 & 작가이름*/

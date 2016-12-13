@@ -139,7 +139,7 @@
 						</span> <span class="score_area"> <span class="icon_star"></span>
 								<em class="score">9.94</em>
 						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-						</span> <span class="emptybox"> </span>
+				
 					</span>
 					</a>
 				</div>
@@ -159,7 +159,7 @@
 						</span> <span class="score_area"> <span class="icon_star"></span>
 								<em>9.94</em>
 						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-						</span> <span class="emptybox"> </span>
+					
 					</span>
 					</a>
 				</div>
@@ -177,7 +177,7 @@
 						</span> <span class="score_area"> <span class="icon_star"></span>
 								<em>9.94</em>
 						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-						</span> <span class="emptybox"> </span>
+					
 					</span>
 					</a>
 				</div>
@@ -190,14 +190,27 @@
 					<a href="#" class="main_alist"> <img alt="thumb"
 						src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png"
 						class="main_list_img"> <span class="caption list_info">
-							<span class="genre">미스테리</span> <span class="subj v2">르네
-								마그리트의 '연인'</span> <span> <span class="author v2">유지나</span> <span
-								class="num_total">총 5회</span>
-						</span> <span class="score_area"> <span class="icon_star"></span>
+					
+							<span class="subj v2">르네마그리트의 '연인'</span> 
+							<span class="author_info"> 
+								<span class="author v2">유지나</span> 
+								<span class="num_total">총 5회</span>
+							</span> 
+							
+							<span class="text ellipsis">							
+								<span class="summary">
+								마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 
+								</span>
+							</span>
+							
+							<span class="score_area"> 
+								<span class="icon_star"></span>
 								<em>9.94</em>
-						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-						</span> <span class="emptybox"> </span>
-					</span>
+							</span> 
+							<span class="favorite favorite_count"> 
+								<span>관심</span> 
+								<span>22,215</span>
+							</span>
 					</a>
 				</div>
 			</div>

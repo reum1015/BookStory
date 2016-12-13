@@ -204,7 +204,6 @@
 						        <li><a href="#">금요일</a></li>
 						        <li><a href="#">토요일</a></li>
 						        <li><a href="#">일요일</a></li>
-						        
      						</ul>
      					
      					

@@ -10,6 +10,8 @@ public class Favorite {
 	private String book_author;
 	private String book_name;
 	
+	private String reg_date;
+	
 	
 	// 페이지 구현을 위해서 추가된값
 	private int limitStart;
@@ -18,8 +20,6 @@ public class Favorite {
 	// 갤러리 구현을 위해서 추가된 값
 	private boolean gallery;
 	private String imagePath;
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -62,6 +62,12 @@ public class Favorite {
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
+	public String getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(String reg_date) {
+		this.reg_date = reg_date;
+	}
 	public int getLimitStart() {
 		return limitStart;
 	}
@@ -90,9 +96,11 @@ public class Favorite {
 	public String toString() {
 		return "Favorite [id=" + id + ", member_id=" + member_id + ", book_id=" + book_id + ", gender=" + gender
 				+ ", birthdate=" + birthdate + ", book_author=" + book_author + ", book_name=" + book_name
-				+ ", limitStart=" + limitStart + ", listCount=" + listCount + ", gallery=" + gallery + ", imagePath="
-				+ imagePath + "]";
+				+ ", reg_date=" + reg_date + ", limitStart=" + limitStart + ", listCount=" + listCount + ", gallery="
+				+ gallery + ", imagePath=" + imagePath + "]";
 	}
+	
+	
 	
 	
 
