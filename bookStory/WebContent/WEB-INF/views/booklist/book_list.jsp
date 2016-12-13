@@ -124,6 +124,8 @@
 					 		<c:param name="book_id" value="${bookitem.id}" />
 						</c:url>
 						<a href="${episodeFirstUrl}"class="btn btn-warning">첫화 보기 </a>
+						
+						
 						<!-- 책 전체 대여 -->
 						<button class="btn btn-default pull-right"
 							data-target="#book_all_rent" data-toggle="modal">전체 대여</button>

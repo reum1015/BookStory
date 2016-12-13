@@ -236,29 +236,29 @@ body, html{height: 100%;}
 				  font-size: 14px;
 				  color: black;
 				  width: 100%; /* Could be anything you like. */
+				  
 				}
 				
 				.summary {
 				  position: relative;
-				  display: inline-block;
-				  word-wrap: break-word;
+				  display: block;
+				 
 				  overflow: hidden;
 				  max-height: 2.4em; /* (Number of lines you want visible) * (line-height) */
 				  line-height: 1.2em;
-				  text-align:justify;
-				  white-space:normal;
+				  
+				  white-space:nowrap;
 				  text-overflow:ellipsis;
+				  word-break: break-word;
+    				word-wrap: break-word;
 				}
 				
-				.text.ellipsis::after {
-				  content: "...";
-				  position: relative;
 
-				  bottom: 4px;
-				}
 				
 				.text.ellipsis{
-				display: block;}
+				display: block;
+				padding-right: 5px;
+				}
 							
 			
 			/*--------- 장르별 추천작 이미지 속 텍스트 ----------*/

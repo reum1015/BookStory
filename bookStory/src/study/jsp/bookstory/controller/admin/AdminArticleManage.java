@@ -19,6 +19,12 @@ public class AdminArticleManage extends BaseController{
 		// TODO Auto-generated method stub
 		String view = "admin/admin_article_manage";
 		
+
+				
+				
+				
+	
+				
 		return view;
 	}
 

@@ -74,7 +74,7 @@ public class ViewPage extends BaseController{
 		/** 로그인 여부 검사 */
 		
 		
-		int memberId = 0;
+		int member_id = 0;
 		
 		Member loginInfo = new Member();
 		
@@ -83,11 +83,11 @@ public class ViewPage extends BaseController{
 		logger.debug("loginInfo-------------------------------------->" + loginInfo);
 		
 		if(loginInfo != null){
-			memberId = loginInfo.getId();
+			member_id = loginInfo.getId();
 		}
 		
 		
-		logger.debug("member_id -----------------------------------> " + memberId);
+		logger.debug("member_id -----------------------------------> " + member_id);
 		
 		
 		
@@ -115,7 +115,7 @@ public class ViewPage extends BaseController{
 		
 		//
 		StarMark star = new StarMark();
-		star.setMember_id(memberId);
+		star.setMember_id(member_id);
 		star.setEpisode_id(episode_id);
 		
 		List<Episode> episodeTitleList = null;		//에피소드 제목 리스트 저장 변수
@@ -156,7 +156,7 @@ public class ViewPage extends BaseController{
 		request.setAttribute("episode", episodeItem);
 		request.setAttribute("book", bookItem);
         
-		request.setAttribute("member_id", memberId);
+		request.setAttribute("member_id", member_id);
 		request.setAttribute("book_id", book_id);
 		
 		
