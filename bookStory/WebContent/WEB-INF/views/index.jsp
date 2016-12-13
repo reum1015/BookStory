@@ -124,9 +124,82 @@
 		<!-- 장르별 추천작 & 드롭다운 메뉴(장르 선택) 끝 -->
 
 
+
+		
+		
+		
+		
+
+
 		<!-- 장르별 추천작 리스트 -->
 		<div class="row genre_row">
-			<!-- 항목1 -->
+						
+						
+						
+						
+	<c:choose>
+		<c:when test="${fn:length(mainGenrelList) > 0}">
+			<c:forEach var="mainGenrelList" items="${mainGenrelList}">
+				<div class="col-xs-6 col-sm-3 main_list_genre">
+					<div class="thumbnail main_thumbbox">
+						<c:url var="bookListURL" value="/booklist/book_list.do">
+				 			<c:param name="book_id" value="${mainGenrelList.id}" />
+						</c:url>
+						<a href="${bookListURL}" class="main_alist"> 
+						<span class="icon_new"></span>
+						<c:url var="downloadUrl" value="/download.do">
+			 			<c:param name="file" value="${mainGenrelList.imagePath}" />
+					</c:url>
+						 <img alt="thumb"src="${downloadUrl}" class="main_list_img"> 
+						 <span class="caption list_info">
+							<span class="genre">${mainGenrelList.genre}</span>
+							 <span class="subj v2">${mainGenrelList.book_name}</span>
+						
+						<span>
+							 <span class="author v2">${mainGenrelList.book_author}</span>
+						  <span class="num_total">총 5회</span>
+						</span> 
+						<span class="score_area"> 
+						<span class="icon_star">
+						</span>
+								<em class="score">${mainGenrelList.total_star}</em>
+						</span> 
+						<span class="favorite"> 
+						<span>관심</span> 
+						<span>${mainGenrelList.total_favorite}</span>
+					</span>
+					</span>
+					</a>
+					
+					
+		
+				</div>
+		
+		</div>
+		
+				</c:forEach>
+			</c:when>
+		</c:choose>
+			</div>
+		<c:choose>
+		<c:when test="${fn:length(mainGenrelList) == 0}">
+			<h1>장르별 작품</h1>
+		
+		</c:when>
+		</c:choose>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			<!-- 항목1
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="${pageContext.request.contextPath}/booklist/book_list.do"
@@ -147,7 +220,7 @@
 			</div>
 
 
-			<!-- 항목2 -->
+			<!-- 항목2 
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="#" class="main_alist"> <span class="icon_com"></span>
@@ -166,7 +239,7 @@
 				</div>
 			</div>
 
-			<!-- 항목3 -->
+			<!-- 항목3 
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="#" class="main_alist"> <img alt="thumb"
@@ -185,7 +258,7 @@
 			</div>
 
 
-			<!-- 항목4 -->
+			<!-- 항목4 
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="#" class="main_alist"> <img alt="thumb"
@@ -215,8 +288,7 @@
 					</a>
 				</div>
 			</div>
-
-		</div>
+ -->
 		<!-- 장르별 추천작 리스트 끝-->
 
 

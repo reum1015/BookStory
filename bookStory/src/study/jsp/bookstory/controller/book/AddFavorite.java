@@ -17,11 +17,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.FavoriteService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.FavoriteServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
@@ -36,6 +39,7 @@ public class AddFavorite extends BaseController{
 	WebHelper web;
 	FavoriteService favoriteService;
 	BookService bookService;
+	EpisodeService episodeService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,6 +56,7 @@ public class AddFavorite extends BaseController{
 		
 		favoriteService = new FavoriteServiceImpl(sqlSession, logger);
 		bookService = new BookServiceImpl(sqlSession, logger);
+		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		
 		int member_id = web.getInt("member_id");
 		int book_id = web.getInt("book_id");
@@ -61,6 +66,9 @@ public class AddFavorite extends BaseController{
 		
 		//관심 작품 등록 해제 여부 false --> 해제 , true --> 등록
 		boolean isFavoriteState = false;
+		
+		//작품에 대한 총 에피소드 개 수
+		int episode_count = 0;
 		
 		System.out.println("favorite_count ---------------------->" + favorite_count);
 		
@@ -126,12 +134,22 @@ public class AddFavorite extends BaseController{
 			//총 관심등록 회원수 +1
 			//json으로 화면에 뿌려줄 값(ajax 통신 완료후 화면에 뿌려주기 위한 값)
 			total_favorite++;
+			
+			Episode episode = new Episode();
+			episode.setBook_id(book_id);
 		
 			try{
+				//작품에 대한 총 에피소드 개수
+				episode_count = episodeService.countTotalEpisodeByBookId(episode);
+				
+				favorite.setEpisode_count(episode_count);
+				
 				//관심등록 테이블에 추가
 				favoriteService.insertAddFavorite(favorite);
 				//작품의 총 관심등록 수 +1
 				bookService.updateTotalFavoritePlus(book);
+				
+				
 			}catch (Exception e) {
 				// TODO: handle exception
 				web.redirect(null, e.getLocalizedMessage());

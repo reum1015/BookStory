@@ -18,6 +18,7 @@
 		<result property="imagePath" column="image_path"/>
 		<result property="book_author" column="book_author"/>
 		<result property="book_name" column="book_name"/>
+		<result property="episode_count" column="episode_count"/>
 		<result property="reg_date" column="reg_date"/>
 	</resultMap>
 
@@ -31,9 +32,9 @@
 	<!-- 관심등록 추가 -->
 	<insert id="insertAddFavorite" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO favorite (
-	 member_id, book_id, gender, birthdate,reg_date
+	 member_id, book_id, gender, birthdate, episode_count, reg_date
 	)	VALUES (
-	 #{member_id}, #{book_id}, #{gender}, #{birthdate},now()
+	 #{member_id}, #{book_id}, #{gender}, #{birthdate}, #{episode_count}, now()
 	 )
 	</insert> 
 	

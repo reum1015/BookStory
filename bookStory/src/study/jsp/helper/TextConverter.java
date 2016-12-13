@@ -40,6 +40,8 @@ public class TextConverter {
 			result="미스테리";
 		}else if(msg.equals("Fusion")){
 			result="퓨전";
+		}else if(msg.equals("MON")){
+			result = "월요일";
 		}else if(msg.equals("TUE")){
 			result = "화요일";
 		}else if(msg.equals("WEN")){

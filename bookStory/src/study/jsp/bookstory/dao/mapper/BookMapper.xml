@@ -75,9 +75,11 @@
 	
 	<!-- 메인 장르별 추천작 4개 -->
 	<select id="selectListMainByGenre" resultMap="book">
-		select * from book 
-		group by genre
-		order by total_hit desc
+SELECT id, book_name, book_author, daily_date, genre, total_hit,
+		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+		ORDER BY id ASC LIMIT 0, 1) as imagePath
+		FROM book
+		order by total_hit, genre desc
 		limit 0,4;
 	</select>
 	

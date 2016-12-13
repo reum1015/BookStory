@@ -29,7 +29,7 @@
 	    category, subject, content, hit, reg_date, edit_date, ip_address, user_nickname, 
 	    member_id, reported
 	  ) VALUES (
-	    "bbs", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{user_nickname}, #{member_id}, "N"
+	    "free", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{user_nickname}, #{member_id}, "N"
 	     
 	  )
 	</insert>

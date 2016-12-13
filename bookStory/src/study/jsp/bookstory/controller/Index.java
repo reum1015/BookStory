@@ -91,15 +91,17 @@ public class Index extends BaseController{
 				String day = textConverter.genreOrDayConverter(tempDay);
 				String genre = textConverter.genreOrDayConverter(tempGenre);
 				
-				
-				
+				temp.setDaily_date(day);
+				temp.setGenre(genre);
+				logger.debug("getDaily_date create > " + temp.getDaily_date());
+				logger.debug("getGenre create > " + temp.getGenre());
 			}
 			
 		}
+
 		
 		
-		
-		
+		request.setAttribute("mainGenrelList", mainGenrelList);
 		request.setAttribute("carouselList", carouselList);
 		
 		return view;

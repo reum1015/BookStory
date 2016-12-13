@@ -147,6 +147,9 @@ body, html{height: 100%;}
 		
 		/* ------- 메인 장르별 추천작 리스트(4개)  시작 ------- */
 		
+
+
+		
 			/*이미지 속 new 이미지*/
 			.icon_new{
 				display: block;
@@ -394,8 +397,15 @@ body, html{height: 100%;}
 				display: inline-block;
 				width: 200px;
 			}
+			
+			h4#genre_title{
+				font-weight: bold;
+				font-size: 20px;
+			}
+			
+			
 			.genre_choice{
-				margin-top: 5px;
+				margin-top: 13px;
 			}
 				
 			
