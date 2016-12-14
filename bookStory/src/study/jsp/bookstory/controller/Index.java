@@ -79,6 +79,8 @@ public class Index extends BaseController{
 		}
 		
 		
+		
+		//메인 장르별 추천작 텍스트 변환(ex.. MON --> 월요일, Romance --> 로맨스)
 		if(mainGenrelList != null){
 			Book temp = new Book();
 			
@@ -98,6 +100,27 @@ public class Index extends BaseController{
 			}
 			
 		}
+		
+		//메인 캐러셀 텍스트 변환(ex.. MON --> 월요일, Romance --> 로맨스)
+				if(carouselList != null){
+					Book temp = new Book();
+					
+					for(int i = 0 ; i < carouselList.size(); i++){
+						temp = carouselList.get(i);
+						
+						String tempDay = temp.getDaily_date();
+						String tempGenre = temp.getGenre();
+						
+						String day = textConverter.genreOrDayConverter(tempDay);
+						String genre = textConverter.genreOrDayConverter(tempGenre);
+						
+						temp.setDaily_date(day);
+						temp.setGenre(genre);
+						logger.debug("getDaily_date create > " + temp.getDaily_date());
+						logger.debug("getGenre create > " + temp.getGenre());
+					}
+					
+				}
 
 		
 		
