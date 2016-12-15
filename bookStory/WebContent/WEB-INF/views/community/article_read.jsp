@@ -41,6 +41,9 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/article/articleRead.css" />
 
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 	<!-- 게시판 영역 -->

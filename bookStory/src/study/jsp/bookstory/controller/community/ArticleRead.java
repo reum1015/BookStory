@@ -97,14 +97,12 @@ public class ArticleRead extends BaseController {
 		// 본인 게시글 검사
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + count);
 		
-		boolean isMyArticle = count > 1;
 
 		/** (5) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("readArticle", readArticle);
 		request.setAttribute("prevArticle", prevArticle);
 		request.setAttribute("nextArticle", nextArticle);
 		request.setAttribute("count", count);
-		request.setAttribute("isMyArticle", isMyArticle);
 		
 		logger.debug(readArticle.toString());
 		

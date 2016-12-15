@@ -104,4 +104,5 @@ public interface ArticleService {
 	 * @throws Exception
      */
     public int selectMemberReport(Article article) throws Exception;
+   
 }

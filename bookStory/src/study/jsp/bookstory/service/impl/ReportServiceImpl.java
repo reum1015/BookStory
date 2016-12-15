@@ -66,5 +66,20 @@ public class ReportServiceImpl implements ReportService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int selectReportArticle(Report report) throws Exception {
+		int result = 0;
+		
+		try{
+			// 자신의 게시물이 아닌 경우도 있으므로,
+			// 결과값이 0인 경우에 대한 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("ReportMapper.selectReportArticle", report);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("신고된 게시물에 대한 조회가 실패 하였습니다.");
+		}
+		return result;
+	}
 	
 }

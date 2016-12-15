@@ -36,6 +36,11 @@
 	WHERE reported = "N" and member_id = #{member_id} and id = #{id}
 	</update>
 	
+	<!-- 신고된 게시판인지에 대한 판별 -->
+	<select id="selectReportArticle" parameterType="study.jsp.bookstory.model.Report" resultType="int">		
+	SELECT COUNT(id) FROM report WHERE article_id=#{article_id}
+	</select>
+	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->
 	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
 	SELECT member_id, target_memberId, article_id, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date

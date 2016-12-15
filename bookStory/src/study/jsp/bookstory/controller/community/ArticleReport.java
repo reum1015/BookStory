@@ -7,7 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+
+import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Report;
+import study.jsp.bookstory.service.ReportService;
+import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -20,10 +26,15 @@ public class ArticleReport extends BaseController {
 	private static final long serialVersionUID = 7290700034441742557L;
 
 	WebHelper web;
+	SqlSession sqlSession;
+	ReportService reportService;
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		web = WebHelper.getInstance(request, response);
+		sqlSession = MybatisConnectionFactory.getSqlSession();
+		reportService = new ReportServiceImpl(sqlSession, logger);
 		
 		int member_id = web.getInt("member_id");
 		String subject = web.getString("subject");
@@ -40,6 +51,28 @@ public class ArticleReport extends BaseController {
 		
 		// 신고자 id값을 가져온다.
 		int id = loginInfo.getId();
+		
+		// 이미 신고된 게시글인지 검사
+		Report report = new Report();
+		report.setArticle_id(article_id);
+		
+		int count = 0;
+		
+		try{
+			count = reportService.selectReportArticle(report);
+		
+			System.out.println("count ***********************************" + count );
+			
+			if(count > 0) {
+				web.redirect(null, "이미 신고접수된 게시물입니다.");
+				return null;
+			}
+		} catch(Exception e) {
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		} finally {
+			sqlSession.close();
+		}
 		
 		
 		logger.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + article_id);
