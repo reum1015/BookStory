@@ -20,6 +20,13 @@ public interface ReportService {
 	 * @throws Exception
 	 */
 	public void updateReport(Article update_reported) throws Exception;
+	
+	/**
+	 * 이미 신고가 된 게시글인지 판별
+	 * @param report
+	 * @throws Exception
+	 */
+	public int selectReportArticle(Report report) throws Exception;
 
 	/**
 	 * 신고된 게시글 데이터를 출력한다.

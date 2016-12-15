@@ -80,7 +80,7 @@ public class ArticleReportOk extends BaseController {
 		logger.debug("reported=" + article.getReported());
 		
 		/** (8) 저장 완료 후 읽기 페이지로 이동하기 */
-		String url = "%s/community/article_write.do";
+		String url = "%s/community/article_read.do";
 		url = String.format(url, web.getRootPath());
 		web.redirect(url, "신고 접수가 완료 되었습니다.");
 		
