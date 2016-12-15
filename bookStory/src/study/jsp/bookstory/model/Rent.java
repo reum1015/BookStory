@@ -7,7 +7,16 @@ public class Rent {
 	private String rent_outday;		// 대여끝나는 날짜
 	private int rent_point;			// n개의 총 대여가격
 	private int allrent_point;		// 책대여가격
+	private int member_id;
 	
+	
+	
+	public int getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
+	}
 	public int getId() {
 		return id;
 	}
@@ -38,11 +47,12 @@ public class Rent {
 	public void setAllrent_point(int allrent_point) {
 		this.allrent_point = allrent_point;
 	}
-	
 	@Override
 	public String toString() {
 		return "Rent [id=" + id + ", rent_day=" + rent_day + ", rent_outday=" + rent_outday + ", rent_point="
-				+ rent_point + ", allrent_point=" + allrent_point + "]";
+				+ rent_point + ", allrent_point=" + allrent_point + ", member_id=" + member_id + "]";
 	}
+	
+	
 	
 }

@@ -33,6 +33,54 @@
 				});
 				
 				
+				//장르선택 드롭다운 버튼
+				//페이지가 시작되면서 장르로 선택되어짐
+				var genre = $("#genreForDrop").val();
+
+				 $("#genre_button").text(jenreTextChange(genre));
+				
+				
+				 
+				 //장르별 드롭다운 선택시 ajax
+				 $(document).on("click","#genreList a",function(e){
+					 e.preventDefault();							 
+
+					 var genre = $(this).attr("data-value");
+					 var aa = jenreTextChange(genre);
+					 $("#genre_button").text(aa);
+					 
+					 $.get("${pageContext.request.contextPath}/main/genreList.do",{genre:genre},function(data){
+						 
+
+					 });
+					 
+					 
+					 
+					 
+					 
+				 }); 
+				 
+				 
+				 
+				 
+				 function jenreTextChange(e){
+					 var genre = e;
+					 
+					 if(genre=='Romance'){
+						 genre='로맨스';
+					 }else if(genre=='SF&Fantasy'){
+						 genre='SF&판타지';
+					 }else if(genre=='Heroism'){
+						 genre='무협';
+					 }else if(genre=='Mystery'){
+						 genre='미스테리';
+					 }else if(genre=='Fusion'){
+						 genre='퓨전';
+					 }
+					 return genre;
+					 
+				 }
+				
 			});
 		</script>
 </head>
@@ -102,41 +150,30 @@
 		</div>
 		<!-- 캐러셀 끝 -->
 
+		<input type="hidden" id="genreForDrop" value="${genreformain}">
 		<!-- 장르별 추천작 시작-->
 		<!-- 장르별 추천작 & 드롭다운 메뉴(장르 선택) -->
 		<div class="dropdown genre_choice">
 			<h4 id="genre_title">장르별 추천작</h4>
 			<div class="btn-group pull-right check_button">
-				<button type="button" data-toggle="dropdown"
-					class="btn btn-warning dropdown-toggle">
+				<button type="button" data-toggle="dropdown"class="btn btn-warning dropdown-toggle" id="genre_button">
 					장르선택 <span class="caret"></span>
 				</button>
-				<ul class="dropdown-menu">
-					<li><a href="#">로맨스</a></li>
-					<li><a href="#">SF&amp;판타지</a></li>
-					<li><a href="#">무협</a></li>
-					<li><a href="#">미스터리</a></li>
-					<li><a href="#">퓨전</a></li>
-
+				<ul class="dropdown-menu" id="genreList">
+					<li><a href="#" id="Romance" data-value="Romance">로맨스</a></li>
+					<li><a href="#" id="SF&Fantasy" data-value="SF&Fantasy">SF&amp;판타지</a></li>
+					<li><a href="#" id="Heroism" data-value="Heroism">무협</a></li>
+					<li><a href="#" id="Mystery" data-value="Mystery">미스터리</a></li>
+					<li><a href="#" id="Fusion" data-value="Fusion">퓨전</a></li>
 				</ul>
 			</div>
 		</div>
 		<!-- 장르별 추천작 & 드롭다운 메뉴(장르 선택) 끝 -->
 
 
-
-		
-		
-		
-		
-
-
 		<!-- 장르별 추천작 리스트 -->
 		<div class="row genre_row">
-						
-						
-						
-						
+		
 	<c:choose>
 		<c:when test="${fn:length(mainGenrelList) > 0}">
 			<c:forEach var="mainGenrelList" items="${mainGenrelList}">
@@ -152,30 +189,34 @@
 					</c:url>
 						 <img alt="thumb"src="${downloadUrl}" class="main_list_img"> 
 						 <span class="caption list_info">
-							<span class="genre">${mainGenrelList.genre}</span>
+							
 							 <span class="subj v2">${mainGenrelList.book_name}</span>
 						
-						<span>
+						<span class="author_info"> 
 							 <span class="author v2">${mainGenrelList.book_author}</span>
 						  <span class="num_total">총 5회</span>
 						</span> 
+											
+						<span class="text ellipsis">							
+								<span class="summary">
+								${mainGenrelList.intro}
+								</span>
+						</span>
+						
 						<span class="score_area"> 
 						<span class="icon_star">
 						</span>
 								<em class="score">${mainGenrelList.total_star}</em>
 						</span> 
-						<span class="favorite"> 
+						<span class="favorite favorite_count"> 
 						<span>관심</span> 
 						<span>${mainGenrelList.total_favorite}</span>
 					</span>
 					</span>
 					</a>
-					
-					
-		
 				</div>
-		
 		</div>
+		
 		
 				</c:forEach>
 			</c:when>
@@ -188,11 +229,7 @@
 		</c:when>
 		</c:choose>
 		
-		
-		
-		
-		
-		
+	
 		
 		
 		

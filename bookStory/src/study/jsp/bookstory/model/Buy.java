@@ -7,6 +7,15 @@ public class Buy {
 	private int buy_point;			// n개의 총구입가격
 	private int allbuy_point;			// 책에 해당하는 전체 에피소드 가격
 	private String reg_date;
+	private int member_id;
+	
+	
+	public int getMember_id() {
+		return member_id;
+	}
+	public void setMember_id(int member_id) {
+		this.member_id = member_id;
+	}
 	public int getId() {
 		return id;
 	}
@@ -40,8 +49,9 @@ public class Buy {
 	@Override
 	public String toString() {
 		return "Buy [id=" + id + ", buy_day=" + buy_day + ", buy_point=" + buy_point + ", allbuy_point=" + allbuy_point
-				+ ", reg_date=" + reg_date + "]";
+				+ ", reg_date=" + reg_date + ", member_id=" + member_id + "]";
 	}
+	
 	
 	
 	
