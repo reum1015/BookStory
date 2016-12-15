@@ -11,6 +11,10 @@ public class Report {
 	private int article_id;
 	private int comment_id;
 	
+	// 페이지 구현을 위해서 추가된 값
+	private int limitStart;
+	private int listCount;
+	
 	public String getReg_date() {
 		return reg_date;
 	}
@@ -59,12 +63,25 @@ public class Report {
 	public void setComment_id(int comment_id) {
 		this.comment_id = comment_id;
 	}
+	public int getLimitStart() {
+		return limitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		this.limitStart = limitStart;
+	}
+	public int getListCount() {
+		return listCount;
+	}
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
 	
 	@Override
 	public String toString() {
 		return "Report [reg_date=" + reg_date + ", blind=" + blind + ", member_id=" + member_id + ", target_member_id="
 				+ target_member_id + ", report_subject=" + report_subject + ", report_content=" + report_content
-				+ ", article_id=" + article_id + ", comment_id=" + comment_id + "]";
+				+ ", article_id=" + article_id + ", comment_id=" + comment_id + ", limitStart=" + limitStart
+				+ ", listCount=" + listCount + "]";
 	}
 	
 }

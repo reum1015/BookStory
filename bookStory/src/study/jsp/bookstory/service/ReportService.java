@@ -27,7 +27,14 @@ public interface ReportService {
 	 * @throws Exception
 	 */
 	public int selectReportArticle(Report report) throws Exception;
-
+	
+	/**
+	 * 신고된 전체 게시물 COUNT 조회
+	 * @param report
+	 * @throws Exception
+	 */
+	public int selectReportCount(Report report) throws Exception;
+	
 	/**
 	 * 신고된 게시글 데이터를 출력한다.
 	 * @param report_select

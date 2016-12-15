@@ -41,11 +41,24 @@
 	SELECT COUNT(id) FROM report WHERE article_id=#{article_id}
 	</select>
 	
+	
+	
+	
+	
+	<!-- 전체 신고 게시글의 count를 구한다. -->
+	<select id="selectReportCount" parameterType="study.jsp.bookstory.model.Report" resultType="int">
+	SELECT COUNT(id) FROM report
+	</select>
+	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->
 	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
-	SELECT member_id, target_memberId, article_id, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+	SELECT member_id, target_member_id, report_content, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, report_subject
 	FROM report
 	</select>
+	
+	
+	
+	
 	
 	<!-- 삭제하는 순간 report테이블이 참조한 aticle_id = null값 적용 -->
 	<update id="updateReportArticleid" parameterType="study.jsp.bookstory.model.Report">
