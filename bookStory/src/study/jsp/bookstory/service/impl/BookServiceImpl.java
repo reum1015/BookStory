@@ -127,6 +127,31 @@ public class BookServiceImpl implements BookService{
 		return bookList;
 	}
 	
+	
+	@Override
+	public List<Book> selectListMainByGenre() throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectListMainByGenre");
+			if(bookList == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			throw new Exception("메인 장르별 추천작이 존재 하지 않습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("메인 장르별 추천작 불러오기 실패했습니다.");
+			
+		}
+	
+		return bookList;
+	}
+	
+	
+	
 	/**
 	 * 한건의 작품 정보 조회
 	 */
@@ -221,5 +246,7 @@ public class BookServiceImpl implements BookService{
 			sqlSession.commit();
 		}
 	}
+
+	
 
 }

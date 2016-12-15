@@ -33,7 +33,7 @@
 	<select id="selectOneBookItem" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
 	SELECT id,book_name, book_author, daily_date, intro, genre, total_point, 
 			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
-			ORDER BY id ASC LIMIT 0, 1) as imagePath
+			ORDER BY id ASC LIMIT 0, 1) AS imagePath
 	FROM book
 	WHERE id = #{id}
 	</select>
@@ -50,7 +50,7 @@
 	<!-- 같은 이름의 작품이 있는지 검사 
 			파라미터와 DB의 book_name 칼럼의 공백 제거 -->
 	<select id="countEqualBookName" parameterType="study.jsp.bookstory.model.Book" resultType="int">
-		select count(book_name) from book where replace(book_name,' ','')= #{book_name} 
+		SELECT COUNT(book_name) FROM book where replace(book_name,' ','')= #{book_name} 
 	</select>
 	
 	
@@ -72,6 +72,18 @@
 		ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM book  order by rand() limit 3;
 	</select>
+	
+	<!-- 메인 장르별 추천작 4개 -->
+	<select id="selectListMainByGenre" resultMap="book">
+	SELECT id, book_name, book_author, daily_date, genre, total_hit,
+		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+		ORDER BY id ASC LIMIT 0, 1) as imagePath
+		FROM book GROUP BY GENRE
+		ORDER BY total_hit DESC
+		limit 0,4;
+	</select>
+	
+	
 	
 	<!-- 관심등록 회원 수 +1 -->
 	<update id="updateTotalFavoritePlus" parameterType="study.jsp.bookstory.model.Book">

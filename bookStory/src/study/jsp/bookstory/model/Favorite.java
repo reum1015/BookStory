@@ -10,6 +10,8 @@ public class Favorite {
 	private String book_author;
 	private String book_name;
 	
+	private int episode_count; //작품이 관심등록 될 때 에피소드 총 권 수
+	
 	private String reg_date;
 	
 	
@@ -62,6 +64,12 @@ public class Favorite {
 	public void setBook_name(String book_name) {
 		this.book_name = book_name;
 	}
+	public int getEpisode_count() {
+		return episode_count;
+	}
+	public void setEpisode_count(int episode_count) {
+		this.episode_count = episode_count;
+	}
 	public String getReg_date() {
 		return reg_date;
 	}
@@ -96,10 +104,9 @@ public class Favorite {
 	public String toString() {
 		return "Favorite [id=" + id + ", member_id=" + member_id + ", book_id=" + book_id + ", gender=" + gender
 				+ ", birthdate=" + birthdate + ", book_author=" + book_author + ", book_name=" + book_name
-				+ ", reg_date=" + reg_date + ", limitStart=" + limitStart + ", listCount=" + listCount + ", gallery="
-				+ gallery + ", imagePath=" + imagePath + "]";
+				+ ", episode_count=" + episode_count + ", reg_date=" + reg_date + ", limitStart=" + limitStart
+				+ ", listCount=" + listCount + ", gallery=" + gallery + ", imagePath=" + imagePath + "]";
 	}
-	
 	
 	
 	

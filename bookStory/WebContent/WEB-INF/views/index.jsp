@@ -32,6 +32,7 @@
 					$(".female_button").css('background-color','#FFEBCD');
 				});
 				
+				
 			});
 		</script>
 </head>
@@ -123,9 +124,82 @@
 		<!-- 장르별 추천작 & 드롭다운 메뉴(장르 선택) 끝 -->
 
 
+
+		
+		
+		
+		
+
+
 		<!-- 장르별 추천작 리스트 -->
 		<div class="row genre_row">
-			<!-- 항목1 -->
+						
+						
+						
+						
+	<c:choose>
+		<c:when test="${fn:length(mainGenrelList) > 0}">
+			<c:forEach var="mainGenrelList" items="${mainGenrelList}">
+				<div class="col-xs-6 col-sm-3 main_list_genre">
+					<div class="thumbnail main_thumbbox">
+						<c:url var="bookListURL" value="/booklist/book_list.do">
+				 			<c:param name="book_id" value="${mainGenrelList.id}" />
+						</c:url>
+						<a href="${bookListURL}" class="main_alist"> 
+						<span class="icon_new"></span>
+						<c:url var="downloadUrl" value="/download.do">
+			 			<c:param name="file" value="${mainGenrelList.imagePath}" />
+					</c:url>
+						 <img alt="thumb"src="${downloadUrl}" class="main_list_img"> 
+						 <span class="caption list_info">
+							<span class="genre">${mainGenrelList.genre}</span>
+							 <span class="subj v2">${mainGenrelList.book_name}</span>
+						
+						<span>
+							 <span class="author v2">${mainGenrelList.book_author}</span>
+						  <span class="num_total">총 5회</span>
+						</span> 
+						<span class="score_area"> 
+						<span class="icon_star">
+						</span>
+								<em class="score">${mainGenrelList.total_star}</em>
+						</span> 
+						<span class="favorite"> 
+						<span>관심</span> 
+						<span>${mainGenrelList.total_favorite}</span>
+					</span>
+					</span>
+					</a>
+					
+					
+		
+				</div>
+		
+		</div>
+		
+				</c:forEach>
+			</c:when>
+		</c:choose>
+			</div>
+		<c:choose>
+		<c:when test="${fn:length(mainGenrelList) == 0}">
+			<h1>장르별 작품</h1>
+		
+		</c:when>
+		</c:choose>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			<!-- 항목1
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="${pageContext.request.contextPath}/booklist/book_list.do"
@@ -146,7 +220,7 @@
 			</div>
 
 
-			<!-- 항목2 -->
+			<!-- 항목2 
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="#" class="main_alist"> <span class="icon_com"></span>
@@ -165,7 +239,7 @@
 				</div>
 			</div>
 
-			<!-- 항목3 -->
+			<!-- 항목3 
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="#" class="main_alist"> <img alt="thumb"
@@ -184,7 +258,7 @@
 			</div>
 
 
-			<!-- 항목4 -->
+			<!-- 항목4 
 			<div class="col-xs-6 col-sm-3 main_list_genre">
 				<div class="thumbnail main_thumbbox">
 					<a href="#" class="main_alist"> <img alt="thumb"
@@ -199,7 +273,7 @@
 							
 							<span class="text ellipsis">							
 								<span class="summary">
-								마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 마도천하(魔道天下)의 시대. 거대한 음모 속에서 죽어 버린 동생의 복수 
+								열여섯 살 풋내기와의 모든것이
 								</span>
 							</span>
 							
@@ -214,8 +288,7 @@
 					</a>
 				</div>
 			</div>
-
-		</div>
+ -->
 		<!-- 장르별 추천작 리스트 끝-->
 
 
@@ -423,12 +496,15 @@
 				<h4 class="text-left">연령별 선호작품</h4>
 				<div class="btn-group btn-group-justified" role="group"
 					aria-label="...">
-					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default">남자</button>
-					</div>
-					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default">여자</button>
-					</div>
+					<div class="col-xs-12">
+    			<div class="input-group">
+    				<div id="radioBtn" class="btn-group">
+    					<a class="btn btn-primary btn-sm active col-xs-6" data-toggle="happy" data-title="Y">YES</a>
+    					<a class="btn btn-primary btn-sm notActive col-xs-6" data-toggle="happy" data-title="N">NO</a>
+    				</div>
+    				<input type="hidden" name="happy" id="happy">
+    			</div>
+    		</div>
 
 				</div>
 				<div class="row empty_box_rank"></div>
