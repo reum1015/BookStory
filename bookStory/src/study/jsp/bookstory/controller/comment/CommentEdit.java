@@ -82,7 +82,7 @@ public class CommentEdit extends BaseController {
 			}
 			readComment = commentService.selectComment(comment);
 		}catch(NullPointerException e){
-			web.redirect(null, "본인의 글만 수정 가능합니다.");
+			web.redirect(null, "본인글만 수정 가능합니다.");
 			return null;
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());
