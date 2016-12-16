@@ -78,7 +78,8 @@
 	SELECT id, book_name, book_author, daily_date, genre, total_hit, intro,
 		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
 		ORDER BY id ASC LIMIT 0, 1) as imagePath
-		FROM book GROUP BY GENRE
+		FROM 
+		WHERE GROUP BY genre=(SELECT genre FROM book ORDER BY RAND()  LIMIT 1)
 		ORDER BY total_hit DESC
 		limit 0,4;
 	</select>
