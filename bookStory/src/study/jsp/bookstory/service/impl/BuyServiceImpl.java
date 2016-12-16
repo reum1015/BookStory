@@ -52,5 +52,20 @@ public class BuyServiceImpl implements BuyService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public void deleteBuyAll(Buy buy) throws Exception {
+		try{
+			// 구매내역이 존재하지 않는 회원에 대한 요청일 수 있으므로,
+			// NullPointerException을 발생시키지 않는다.
+			sqlSession.delete("BuyMapper.deleteBuyAll", buy);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("구매내역 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
 
 }

@@ -42,4 +42,11 @@ public interface BuyService {
 	 * @throws Exception
 	 */
 	public List<Buy> selectMemberBuyList(Buy buy_all_list) throws Exception;
+	
+	/**
+	 * 특정 회원에 속한 모든 구매 내역을 삭제한다.
+	 * @param buy
+	 * @throws Exception
+	 */
+	public void deleteBuyAll(Buy buy) throws Exception;
 }

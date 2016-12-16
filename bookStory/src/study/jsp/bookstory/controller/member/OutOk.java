@@ -12,14 +12,35 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.BookMark;
+import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Comment;
+import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.RecentEpisode;
+import study.jsp.bookstory.model.Rent;
+import study.jsp.bookstory.model.Report;
+import study.jsp.bookstory.model.StarMark;
 import study.jsp.bookstory.service.ArticleService;
+import study.jsp.bookstory.service.BookMarkService;
+import study.jsp.bookstory.service.BuyService;
 import study.jsp.bookstory.service.CommentService;
+import study.jsp.bookstory.service.FavoriteService;
 import study.jsp.bookstory.service.MemberService;
+import study.jsp.bookstory.service.RecentEpisodeService;
+import study.jsp.bookstory.service.RentService;
+import study.jsp.bookstory.service.ReportService;
+import study.jsp.bookstory.service.StarMarkService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
+import study.jsp.bookstory.service.impl.BookMarkServiceImpl;
+import study.jsp.bookstory.service.impl.BuyServiceImpl;
 import study.jsp.bookstory.service.impl.CommentServiceImpl;
+import study.jsp.bookstory.service.impl.FavoriteServiceImpl;
 import study.jsp.bookstory.service.impl.MemberServiceImpl;
+import study.jsp.bookstory.service.impl.RecentEpisodeServiceImpl;
+import study.jsp.bookstory.service.impl.RentServiceImpl;
+import study.jsp.bookstory.service.impl.ReportServiceImpl;
+import study.jsp.bookstory.service.impl.StarMarkServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -38,6 +59,13 @@ public class OutOk extends BaseController {
 	MemberService memberService;
 	ArticleService articleService;
 	CommentService commentService;
+	BookMarkService bookmarkService;
+	BuyService buyService;
+	FavoriteService favoriteService;
+	RecentEpisodeService recentepisodeService;
+	RentService rentService;
+	ReportService reportService;
+	StarMarkService starmarkService;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,6 +76,13 @@ public class OutOk extends BaseController {
 		memberService = new MemberServiceImpl(sqlSession, logger);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
 		commentService = new CommentServiceImpl(sqlSession, logger);
+		bookmarkService = new BookMarkServiceImpl(sqlSession, logger);
+		buyService = new BuyServiceImpl(sqlSession, logger);
+		favoriteService = new FavoriteServiceImpl(sqlSession, logger);
+		recentepisodeService = new RecentEpisodeServiceImpl(sqlSession, logger);
+		rentService = new RentServiceImpl(sqlSession, logger);
+		reportService = new ReportServiceImpl(sqlSession, logger);
+		starmarkService = new StarMarkServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사 */
 		// 로그인 중이 아니라면 탈퇴할 수 없다.
@@ -81,10 +116,38 @@ public class OutOk extends BaseController {
 		Comment comment = new Comment();
 		comment.setMember_id(loginInfo.getId());
 		
+		BookMark bookmark = new BookMark();
+		bookmark.setMember_id(loginInfo.getId());
+		
+		Buy buy = new Buy();
+		buy.setMember_id(loginInfo.getId());
+		
+		Favorite favorite = new Favorite();
+		favorite.setMember_id(loginInfo.getId());
+		
+		RecentEpisode recentepisode = new RecentEpisode();
+		recentepisode.setMember_id(loginInfo.getId());
+		
+		Rent rent = new Rent();
+		rent.setMember_id(loginInfo.getId());
+		
+		Report report = new Report();
+		report.setMember_id(loginInfo.getId());
+		
+		StarMark starmark = new StarMark();
+		starmark.setMember_id(loginInfo.getId());
+		
 		/** (6) Service를 통한 탈퇴 시도 */
 		try{
 			articleService.updateArticleMemberOut(article);
 			commentService.updateCommentMemberOut(comment);
+			bookmarkService.deleteBookMarkAll(bookmark);
+			buyService.deleteBuyAll(buy);
+			favoriteService.deleteFavoriteAll(favorite);
+			recentepisodeService.deleteRecentEpisodeAll(recentepisode);
+			rentService.deleteRentAll(rent);
+			reportService.updateReportMemberOut(report);
+			starmarkService.deleteStarMarkAll(starmark);
 			memberService.selectMemberPasswordCount(member);
 			memberService.deleteMember(member);
 		}catch(Exception e){

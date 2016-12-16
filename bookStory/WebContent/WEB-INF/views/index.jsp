@@ -51,7 +51,8 @@
 					 
 					 $.get("${pageContext.request.contextPath}/main/genreList.do",{genre:genre},function(data){
 						 
-
+						 
+						 
 					 });
 					 
 					 
@@ -195,14 +196,12 @@
 						<span class="author_info"> 
 							 <span class="author v2">${mainGenrelList.book_author}</span>
 						  <span class="num_total">총 5회</span>
-						</span> 
-											
+						</span>
 						<span class="text ellipsis">							
 								<span class="summary">
 								${mainGenrelList.intro}
 								</span>
 						</span>
-						
 						<span class="score_area"> 
 						<span class="icon_star">
 						</span>

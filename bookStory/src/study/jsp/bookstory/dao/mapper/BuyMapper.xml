@@ -48,4 +48,9 @@
 	SELECT id, buy_day , allbuy_day,reg_date FROM buy WHERE member_id = #{member_id} ORDER BY id DESC
 	</select>
 	
+	<!-- 특정 멤버에 속한 모든 구매 내역을 삭제한다. -->
+	<delete id="deleteBuyAll" parameterType="study.jsp.bookstory.model.Buy">
+	  DELETE FROM buy WHERE member_id =#{member_id}
+	</delete>
+	
 </mapper>

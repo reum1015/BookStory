@@ -61,5 +61,10 @@
 	SELECT COUNT(id) FROM favorite WHERE member_id =#{member_id}	
 	</select>
 	
+	<!-- 특정 멤버에 속한 모든 관심작품을 삭제한다. -->
+	<delete id="deleteFavoriteAll" parameterType="study.jsp.bookstory.model.Favorite">
+	  DELETE FROM favorite WHERE member_id =#{member_id}
+	</delete>
+	
 
 </mapper>

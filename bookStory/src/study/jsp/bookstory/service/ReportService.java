@@ -42,5 +42,12 @@ public interface ReportService {
 	 */
 	public List<Report> selectReport(Report select_report) throws Exception;
 	
+	/**
+	 * 회원과 신고된 게시물의 참조관계를 해제한다.
+	 * @param report - 신고된 게시물 데이터
+	 * @throws Exception
+	 */
+	public void updateReportMemberOut(Report report) throws Exception;
+	
 	
 }

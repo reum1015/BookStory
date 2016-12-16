@@ -84,6 +84,21 @@ public class BookMarkServiceImpl implements BookMarkService {
 		
 		return result;
 	}
+	
+	@Override
+	public void deleteBookMarkAll(BookMark bookmark) throws Exception {
+		try{
+			// 북마크가 존재하지 않는 회원에 대한 요청일 수 있으므로,
+			// NullPointerException을 발생시키지 않는다.
+			sqlSession.delete("BookMarkMapper.deleteBookMarkAll", bookmark);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("북마크 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
 
 
 }

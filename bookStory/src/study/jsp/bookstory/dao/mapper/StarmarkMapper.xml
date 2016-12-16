@@ -40,6 +40,10 @@
 	SELECT COUNT(id) AS star_count, truncate(avg(star_point),2) AS episode_star_avg FROM starmark WHERE episode_id = #{episode_id}
 	</select>
 	
+	<!-- 특정 멤버에 속한 모든 별점을 삭제한다. -->
+	<delete id="deleteStarMarkAll" parameterType="study.jsp.bookstory.model.StarMark">
+	  DELETE FROM starmark WHERE member_id =#{member_id}
+	</delete>
 	
 	
 	<!-- 

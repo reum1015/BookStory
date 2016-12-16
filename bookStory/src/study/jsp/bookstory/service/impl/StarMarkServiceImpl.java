@@ -95,5 +95,20 @@ public class StarMarkServiceImpl implements StarMarkService{
 	
 		return result;
 	}
+	
+	@Override
+	public void deleteStarMarkAll(StarMark starmark) throws Exception {
+		try{
+			// 별점이 존재하지 않는 회원에 대한 요청일 수 있으므로,
+			// NullPointerException을 발생시키지 않는다.
+			sqlSession.delete("StarMarkMapper.deleteStarMarkAll", starmark);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("별점 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
 
 }

@@ -28,7 +28,9 @@ import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.FavoriteServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.CommonUtils;
 import study.jsp.helper.PageHelper;
+import study.jsp.helper.TextConverter;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
@@ -53,6 +55,9 @@ public class BookList extends BaseController {
 	ImageFileService imageFileService;
 	PageHelper pageHelper; 
 	FavoriteService favoriteService;
+	TextConverter textConverter;
+	CommonUtils commonUtils;
+	
 	
 	
 	@Override
@@ -70,6 +75,8 @@ public class BookList extends BaseController {
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		favoriteService = new FavoriteServiceImpl(sqlSession, logger);
+		textConverter = TextConverter.getInstance();
+		commonUtils = CommonUtils.getInstance();
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -97,7 +104,7 @@ public class BookList extends BaseController {
 		Book bookItem = new Book();
 		bookItem.setId(book_id);
 		
-		Episode episode = new Episode();		//에피소드 리스트 담을 빈즈
+		Episode episode = new Episode();			//에피소드 리스트 담을 빈즈
 		episode.setBook_id(book_id);				//작품정보 빈즈에 셋팅
 		
 		
@@ -131,16 +138,7 @@ public class BookList extends BaseController {
 			
 			//작품에 해당하는 전체 에피소드 수
 			totalCount = episodeService.countTotalEpisodeByBookId(episode);
-			
-			//나머지 페이지 번호 계산하기
-			//-->현재 페이지, 전체 게시물 수, 한페이지의 목록 수, 그룹 갯수
-			pageHelper.pageProcess(page, totalCount, 4, 5);
-			
-			//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
-			episode.setLimitStart(pageHelper.getLimit_start());
-			episode.setListCount(pageHelper.getList_count());
-			
-			
+				
 			//작품 정보 조회
 			getBookItem = bookService.selectOneBookItem(bookItem);
 			
@@ -149,6 +147,16 @@ public class BookList extends BaseController {
 			
 			//작품의 첫화 에피소드 조회
 			firstEpisode = episodeService.selectFirstEpisodeIdByBookId(episode);
+			
+		
+			//나머지 페이지 번호 계산하기
+			//-->현재 페이지, 전체 게시물 수, 한페이지의 목록 수, 그룹 갯수
+			pageHelper.pageProcess(page, totalCount, 4, 5);
+			
+			//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
+			episode.setLimitStart(pageHelper.getLimit_start());
+			episode.setListCount(pageHelper.getList_count());
+			
 		}catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -160,6 +168,7 @@ public class BookList extends BaseController {
 		
 		logger.debug("favoriteCount ------->" + favoriteCount);
 		logger.debug("episode List -----> " + episodeList);
+		logger.debug("bookItem ----->" + bookItem.toString());
 		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체(작품 메인)
 		if (getBookItem != null) {
@@ -190,6 +199,12 @@ public class BookList extends BaseController {
 					getBookItem.setDaily_date(day);
 					
 				}
+				
+				String genre = textConverter.genreOrDayConverter(getBookItem.getGenre());
+				
+				
+				getBookItem.setGenre(genre);
+				
 				
 			}
 		
