@@ -41,4 +41,11 @@ public interface RentService {
 	 * @throws Exception
 	 */
 	public List<Rent> selectMemberRentList(Rent rent_all_list) throws Exception;
+	
+	/**
+	 * 특정 회원에 속한 모든 대여 내역을 삭제한다.
+	 * @param rent
+	 * @throws Exception
+	 */
+	public void deleteRentAll(Rent rent) throws Exception;
 }

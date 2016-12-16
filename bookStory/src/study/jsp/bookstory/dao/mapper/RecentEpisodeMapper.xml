@@ -52,9 +52,16 @@
 	</select>		
 	
 	
-		<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
+	<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
 	<select id="selectRecentEpisodeCount" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
 	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id}	
 	</select>
+	
+	
+	<!-- 특정 멤버에 속한 모든 최근본작품을 삭제한다. -->
+	<delete id="deleteRecentEpisodeAll" parameterType="study.jsp.bookstory.model.RecentEpisode">
+	  DELETE FROM recentepisode WHERE member_id =#{member_id}
+	</delete>
+	
 	
 </mapper>

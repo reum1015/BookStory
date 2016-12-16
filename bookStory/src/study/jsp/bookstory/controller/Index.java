@@ -81,12 +81,7 @@ public class Index extends BaseController{
 		
 		//메인 장르별 추천작 텍스트 변환(ex.. MON --> 월요일, Romance --> 로맨스)
 		if(mainGenrelList != null){
-			Book tempGenreForMain = mainGenrelList.get(0);
-			
-			String genreformain = tempGenreForMain.getGenre();
-			request.setAttribute("genreformain", genreformain);
-			
-			
+		
 			Book temp = new Book();
 			
 			for(int i = 0 ; i < mainGenrelList.size(); i++){

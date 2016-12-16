@@ -29,6 +29,7 @@ import study.jsp.bookstory.service.impl.FavoriteServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.PageHelper;
+import study.jsp.helper.TextConverter;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
@@ -53,6 +54,7 @@ public class BookList extends BaseController {
 	ImageFileService imageFileService;
 	PageHelper pageHelper; 
 	FavoriteService favoriteService;
+	TextConverter textConverter;
 	
 	
 	@Override
@@ -70,6 +72,7 @@ public class BookList extends BaseController {
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		favoriteService = new FavoriteServiceImpl(sqlSession, logger);
+		textConverter = TextConverter.getInstance();
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -160,6 +163,7 @@ public class BookList extends BaseController {
 		
 		logger.debug("favoriteCount ------->" + favoriteCount);
 		logger.debug("episode List -----> " + episodeList);
+		logger.debug("bookItem ----->" + bookItem.toString());
 		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체(작품 메인)
 		if (getBookItem != null) {
@@ -190,7 +194,13 @@ public class BookList extends BaseController {
 					getBookItem.setDaily_date(day);
 					
 				}
+				logger.debug("be Genre" + bookItem.getGenre());
+				String genre = textConverter.genreOrDayConverter(getBookItem.getGenre());
 				
+				
+				bookItem.setGenre(genre);
+				
+				logger.debug("after" + bookItem.getGenre());
 			}
 		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체

@@ -48,4 +48,9 @@
 	SELECT id, rent_day , allrent_day FROM rent WHERE member_id = #{member_id} ORDER BY id DESC
 	</select>
 	
+	<!-- 특정 멤버에 속한 모든 대여 내역을 삭제한다. -->
+	<delete id="deleteRentAll" parameterType="study.jsp.bookstory.model.Rent">
+	  DELETE FROM rent WHERE member_id =#{member_id}
+	</delete>
+	
 </mapper>

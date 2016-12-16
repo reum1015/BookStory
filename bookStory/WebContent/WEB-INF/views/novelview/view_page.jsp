@@ -139,7 +139,7 @@
 									
 									
 									<c:when test="${isStarAdd==true}">
-										<button type="button" class="btn btn-warning star_rate_in pull-right" id="star_rate_in">참여 완료</button>
+										<button type="button" class="btn btn-warning star_rate_in pull-left" id="star_rate_in">참여 완료</button>
 									</c:when>
 									<c:when test="${isStarAdd==false}">										
 										<button type="button" class="btn btn-default"  id="star_rate_button" data-toggle="modal" data-target="#addStarModal">별점주기</button>

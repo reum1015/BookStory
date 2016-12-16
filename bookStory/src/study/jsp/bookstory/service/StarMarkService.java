@@ -35,5 +35,12 @@ public interface StarMarkService {
 	 * @throws Exception
 	 */
 	public int selectCountAddStarById(StarMark star)throws Exception;
+	
+	/**
+	 * 특정 회원에 속한 모든 구매 내역을 삭제한다.
+	 * @param buy
+	 * @throws Exception
+	 */
+	public void deleteStarMarkAll(StarMark starmark) throws Exception;
 
 }

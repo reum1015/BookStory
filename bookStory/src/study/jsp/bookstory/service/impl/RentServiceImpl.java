@@ -53,4 +53,19 @@ public class RentServiceImpl implements RentService{
 		return null;
 	}
 	
+	@Override
+	public void deleteRentAll(Rent rent) throws Exception {
+		try{
+			// 대여내역이 존재하지 않는 회원에 대한 요청일 수 있으므로,
+			// NullPointerException을 발생시키지 않는다.
+			sqlSession.delete("RentMapper.deleteRentAll", rent);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("대여내역 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+	
 }

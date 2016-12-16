@@ -48,4 +48,11 @@ public interface FavoriteService {
 	 * @throws Exception
 	 */
 	public int selectFavoriteCount(Favorite favorite) throws Exception;
+	
+	/**
+	 * 특정 회원에 속한 모든 관심작품을 삭제한다.
+	 * @param buy
+	 * @throws Exception
+	 */
+	public void deleteFavoriteAll(Favorite favorite) throws Exception;
 }

@@ -51,6 +51,13 @@
 	SELECT COUNT(id) FROM bookmark WHERE member_id =#{member_id}	
 	</select>
 	
+	<!-- 특정 멤버에 속한 모든 북마크를 삭제한다. -->
+	<delete id="deleteBookMarkAll" parameterType="study.jsp.bookstory.model.BookMark">
+	  DELETE FROM bookmark WHERE member_id =#{member_id}
+	</delete>
+	
+	
+	
 	
 	
 </mapper>

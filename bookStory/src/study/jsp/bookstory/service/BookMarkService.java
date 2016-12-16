@@ -36,4 +36,11 @@ public interface BookMarkService {
 	 */
 	public int selectBookMarkCount(BookMark bookmark) throws Exception;
 	
+	/**
+	 * 특정 회원에 속한 모든 북마크를 삭제한다.
+	 * @param bookmark
+	 * @throws Exception
+	 */
+	public void deleteBookMarkAll(BookMark bookmark) throws Exception;
+	
 }
