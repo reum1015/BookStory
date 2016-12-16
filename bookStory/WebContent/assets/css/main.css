@@ -242,6 +242,7 @@ body, html{height: 100%;}
 				  
 				}
 				
+				/* 메인 작품 시놉시스 요약 3줄...*/
 				.summary {
 				  overflow: hidden;
 					 text-overflow: ellipsis;
@@ -250,17 +251,16 @@ body, html{height: 100%;}
 					 -webkit-box-orient: vertical;
 					 word-wrap:break-word; 
 					 line-height: 1.2em;
-					 height: 3.6em; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+					 height: 3.5em; /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
 					 color: #888;
 					 font-size: 14px;
 				}
 				
-
 				
 				.text.ellipsis{
 				display: block;
 				padding-right: 5px;
-				margin-bottom: 8px;
+				margin-bottom: 9px;
 				}
 							
 			

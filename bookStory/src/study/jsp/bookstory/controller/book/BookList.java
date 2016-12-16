@@ -139,14 +139,7 @@ public class BookList extends BaseController {
 			//작품에 해당하는 전체 에피소드 수
 			totalCount = episodeService.countTotalEpisodeByBookId(episode);
 				
-			//작품 정보 조회
-			getBookItem = bookService.selectOneBookItem(bookItem);
-			
-			//에피소드 리스트 조회
-			episodeList = episodeService.selectEpisdoeListAllByBook(episode);
-			
-			//작품의 첫화 에피소드 조회
-			firstEpisode = episodeService.selectFirstEpisodeIdByBookId(episode);
+
 			
 		
 			//나머지 페이지 번호 계산하기
@@ -156,6 +149,15 @@ public class BookList extends BaseController {
 			//페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
 			episode.setLimitStart(pageHelper.getLimit_start());
 			episode.setListCount(pageHelper.getList_count());
+			
+			//작품 정보 조회
+			getBookItem = bookService.selectOneBookItem(bookItem);
+			
+			//에피소드 리스트 조회
+			episodeList = episodeService.selectEpisdoeListAllByBook(episode);
+			
+			//작품의 첫화 에피소드 조회
+			firstEpisode = episodeService.selectFirstEpisodeIdByBookId(episode);
 			
 		}catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
