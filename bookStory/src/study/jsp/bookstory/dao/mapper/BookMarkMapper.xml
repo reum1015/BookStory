@@ -13,27 +13,35 @@
 		<result property="id" column="id"/>
 		<result property="member_id" column="member_id"/>
 		<result property="episode_id" column="episode_id"/>
+		<result property="book_id" column="book_id"/>
 		<result property="imagePath" column="image_path"/>
 		<result property="episode_order" column="episode_order"/>
 		<result property="episode_name" column="episode_name"/>
 		<result property="reg_date" column="reg_date"/>
+	
 	</resultMap>
 
+<!-- 북마크 추가 -->
 	<insert id="insertAddBookMark" parameterType="study.jsp.bookstory.model.BookMark" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO bookmark (
-	   member_id, episode_id,reg_date
+	   member_id, episode_id, book_id, reg_date
 	) VALUES (
-	   #{member_id}, #{episode_id},now()
+	   #{member_id}, #{episode_id}, #{book_id}, now()
 	   )
 	</insert> 
 	
+	<!-- 북마크 등록 한 작품인지 아닌지 확인 -->
+	<select id="selectCountBookMarkById"  parameterType="study.jsp.bookstory.model.BookMark" resultType="int">
+	SELECT count(id) FROM bookmark WHERE member_id=#{member_id} AND episode_id=#{episode_id}
+	</select>
+	
 	<delete id="deleteRemoveBookMark" parameterType="study.jsp.bookstory.model.BookMark">
-         DELETE FROM bookmark WHERE id=#{id};
+         DELETE FROM bookmark WHERE member_id=#{member_id} AND episode_id=#{episode_id}
 	</delete>
 		
 		<!-- 북마크 목록을 조회한다. -->
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark" resultMap="bookmark">
-    SELECT k.book_name, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
+    SELECT b.episode_id, b.book_id, k.book_name, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
       FROM MEMBER as m 
       LEFT JOIN BOOKMARK as b ON m.id = b.member_id
       LEFT JOIN EPISODE as e ON b.episode_id = e.id
@@ -50,13 +58,6 @@
 	<select id="selectBookMarkCount" parameterType="study.jsp.bookstory.model.BookMark" resultType="int">
 	SELECT COUNT(id) FROM bookmark WHERE member_id =#{member_id}	
 	</select>
-	
-	<!-- 특정 멤버에 속한 모든 북마크를 삭제한다. -->
-	<delete id="deleteBookMarkAll" parameterType="study.jsp.bookstory.model.BookMark">
-	  DELETE FROM bookmark WHERE member_id =#{member_id}
-	</delete>
-	
-	
 	
 	
 	

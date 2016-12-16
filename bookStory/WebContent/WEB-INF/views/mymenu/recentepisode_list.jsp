@@ -64,7 +64,7 @@
 	 </c:url>
 	
 		<!-- 링크 + 썸네일 -->
-		<a class="img_box" href="${readUrl}">
+		<a class="img_box" href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${recentepisode.episode_id}&book_id=${recentepisode.book_id}" >
 		<c:choose>
 				<c:when test="${recentepisode.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">
@@ -91,7 +91,7 @@
 			</c:when>
 			<c:otherwise>
 				<div class="col-md-12">
-					<p class="text-center">조회되는 북마크가 없습니다.</p>
+					<p class="text-center">최근 본 작품이 없습니다.</p>
 				</div>
 			</c:otherwise>
 		</c:choose>

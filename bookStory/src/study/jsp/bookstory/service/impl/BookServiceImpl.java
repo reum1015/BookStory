@@ -29,7 +29,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public void insertBook(Book book) throws Exception {
-		// TODO Auto-generated method stub
+		
 		try{
 			int result = sqlSession.insert("BookMapper.insertBook",book);
 			if(result == 0){
@@ -37,11 +37,11 @@ public class BookServiceImpl implements BookService{
 				throw new NullPointerException();
 			}
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			sqlSession.rollback();
 			throw new Exception("등록된 책 정보가 없습니다.");
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("책 등록에 실패했습니다.");
@@ -57,7 +57,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public int countEqualBookName(Book book) throws Exception {
-		// TODO Auto-generated method stub
+	
 		int result = 0;
 		
 		try{
@@ -66,7 +66,7 @@ public class BookServiceImpl implements BookService{
 				throw new Exception();
 			}
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("같은 이름의 작품이 존재 합니다.");
 		}
@@ -79,7 +79,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public List<Book> searchBookItemList(Book book) throws Exception {
-		// TODO Auto-generated method stub
+		
 		List<Book> bookList = null;
 		
 		try{
@@ -88,7 +88,7 @@ public class BookServiceImpl implements BookService{
 				throw new NullPointerException();
 			}
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			throw new Exception("검색 결과가 없습니다.");
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
@@ -107,7 +107,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public List<Book> selectMainCarouselByRandomThree() throws Exception {
-		// TODO Auto-generated method stub
+		
 		List<Book> bookList = null;
 		
 		try{
@@ -116,7 +116,7 @@ public class BookServiceImpl implements BookService{
 				throw new NullPointerException();
 			}
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			throw new Exception("캐러셀이 존재 하지 않습니다.");
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
@@ -127,13 +127,10 @@ public class BookServiceImpl implements BookService{
 		return bookList;
 	}
 	
-	/**
-	 * 메인 장르별 추천작 - 페이지 로딩시
-	 */
 	
 	@Override
 	public List<Book> selectListMainByGenre() throws Exception {
-		// TODO Auto-generated method stub
+		
 		List<Book> bookList = null;
 		
 		try{
@@ -142,40 +139,16 @@ public class BookServiceImpl implements BookService{
 				throw new NullPointerException();
 			}
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			throw new Exception("메인 장르별 추천작이 존재 하지 않습니다.");
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("메인 장르별 추천작 불러오기 실패했습니다.");
+			
 		}
 	
 		return bookList;
 	}
-	
-	/**
-	 * 메인 장르별 추천작 - 드롭다운 선택시......
-	 */
-	
-	@Override
-	public List<Book> selectListMainByGenreForDropDown(Book book) throws Exception {
-		// TODO Auto-generated method stub
-				List<Book> bookList = null;
-				try{
-					bookList = sqlSession.selectList("BookMapper.selectListMainByGenreForDropDown");
-					if(bookList == null){
-						throw new NullPointerException();
-					}
-				}catch (NullPointerException e) {
-					// TODO: handle exception
-					throw new Exception("메인 장르별 추천작이 존재 하지 않습니다.");
-				}catch (Exception e) {
-					logger.error(e.getLocalizedMessage());
-					throw new Exception("메인 장르별 추천작 불러오기 실패했습니다.");
-					
-				}
-				return bookList;
-	}
-	
 	
 	
 	
@@ -184,7 +157,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public Book selectOneBookItem(Book book) throws Exception {
-		// TODO Auto-generated method stub
+		
 		Book result = null;
 		
 		try{
@@ -193,7 +166,7 @@ public class BookServiceImpl implements BookService{
 				throw new NullPointerException();
 			}
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+		
 			throw new Exception("조회된 하나의 작품정보가 없습니다.");
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
@@ -209,7 +182,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public void updateTotalFavoritePlus(Book book) throws Exception {
-		// TODO Auto-generated method stub
+		
 		try{
 			int result = sqlSession.update("BookMapper.updateTotalFavoritePlus",book);
 			if(result == 0){
@@ -234,7 +207,7 @@ public class BookServiceImpl implements BookService{
 	 */
 	@Override
 	public void updateTotalFavoriteMinus(Book book) throws Exception {
-		// TODO Auto-generated method stub
+		
 		try{
 			int result = sqlSession.update("BookMapper.updateTotalFavoriteMinus",book);
 			if(result == 0){
@@ -256,7 +229,7 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public void updateStarAvg(Book book) throws Exception {
-		// TODO Auto-generated method stub
+	
 		try{
 			int result = sqlSession.update("BookMapper.updateStarAvg",book);
 			if(result == 0){
@@ -273,8 +246,6 @@ public class BookServiceImpl implements BookService{
 			sqlSession.commit();
 		}
 	}
-
-	
 
 	
 

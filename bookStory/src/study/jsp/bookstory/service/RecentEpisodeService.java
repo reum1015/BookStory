@@ -37,11 +37,4 @@ public interface RecentEpisodeService {
 	 */
 	public int selectRecentEpisodeCount(RecentEpisode recentepisode) throws Exception;
 	
-	/**
-	 * 특정 회원에 속한 모든 최근본 작품을 삭제한다.
-	 * @param recentepisode
-	 * @throws Exception
-	 */
-	public void deleteRecentEpisodeAll(RecentEpisode recentepisode) throws Exception;
-	
 }

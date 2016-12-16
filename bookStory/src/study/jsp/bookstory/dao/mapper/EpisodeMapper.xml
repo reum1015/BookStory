@@ -24,6 +24,7 @@
 		<result property="total_star" column="total_star"/>
 		<result property="total_starcount" column="total_starcount"/>
 		<result property="imagePath" column="imagePath"/>
+		<result property="total_bookmark" column="total_bookmark"/>
 	</resultMap>
 
 
@@ -82,7 +83,6 @@
 	<update id="updateStarCountAndAvg" parameterType="study.jsp.bookstory.model.Episode">
 	UPDATE episode SET total_star=#{total_star}, total_starcount=#{total_starcount} WHERE id=#{id}
 	</update>
-	
 	
 	
 	

@@ -41,7 +41,7 @@
 		<!-- 관심작품 목록을 조회한다. -->
 	<select id="selectRecentEpisodeList" parameterType="study.jsp.bookstory.model.RecentEpisode" resultMap="recentepisode">
     
- SELECT k.book_name, e.reg_date, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
+ SELECT  r.episode_id, r.book_id, k.book_name, e.reg_date, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
       FROM MEMBER as m 
       LEFT JOIN recentepisode as r ON m.id = r.member_id
       LEFT JOIN EPISODE as e ON r.episode_id = e.id
@@ -52,16 +52,9 @@
 	</select>		
 	
 	
-	<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
+		<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
 	<select id="selectRecentEpisodeCount" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
 	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id}	
 	</select>
-	
-	
-	<!-- 특정 멤버에 속한 모든 최근본작품을 삭제한다. -->
-	<delete id="deleteRecentEpisodeAll" parameterType="study.jsp.bookstory.model.RecentEpisode">
-	  DELETE FROM recentepisode WHERE member_id =#{member_id}
-	</delete>
-	
 	
 </mapper>

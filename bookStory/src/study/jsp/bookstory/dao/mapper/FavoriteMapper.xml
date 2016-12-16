@@ -18,7 +18,6 @@
 		<result property="imagePath" column="image_path"/>
 		<result property="book_author" column="book_author"/>
 		<result property="book_name" column="book_name"/>
-		<result property="episode_count" column="episode_count"/>
 		<result property="reg_date" column="reg_date"/>
 	</resultMap>
 
@@ -32,9 +31,9 @@
 	<!-- 관심등록 추가 -->
 	<insert id="insertAddFavorite" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO favorite (
-	 member_id, book_id, gender, birthdate, episode_count, reg_date
+	 member_id, book_id, gender, birthdate, reg_date
 	)	VALUES (
-	 #{member_id}, #{book_id}, #{gender}, #{birthdate}, #{episode_count}, now()
+	 #{member_id}, #{book_id}, #{gender}, #{birthdate}, now()
 	 )
 	</insert> 
 	
@@ -43,17 +42,20 @@
 	 DELETE FROM favorite WHERE member_id=#{member_id} AND book_id=#{book_id}	
 	</delete>
 	
-
-	<!-- 관심작품 목록을 조회한다. -->
+		
+		<!-- 관심작품 목록을 조회한다. -->
 	<select id="selectFavoriteList" parameterType="study.jsp.bookstory.model.Favorite" resultMap="favorite">
-    SELECT  b.book_author, b.book_name, concat(i.file_dir, '/', i.file_name) as imagePath 
-      FROM MEMBER as m LEFT JOIN Favorite as f ON m.id = f.member_id
-      LEFT JOIN Book as b ON f.book_id = b.id LEFT JOIN imagefile as i 
-       	ON b.id = i.book_id where i.content_type LIKE ('image/%') AND image_type="main" AND member_id=#{member_id}
+    SELECT f.book_id, b.book_author, b.book_name, concat(i.file_dir, '/', i.file_name) as imagePath 
+      FROM MEMBER as m 
+      LEFT JOIN Favorite as f ON m.id = f.member_id
+      LEFT JOIN Book as b ON f.book_id = b.id 
+      LEFT JOIN imagefile as i ON b.id = i.book_id where i.content_type LIKE ('image/%') 
+      AND image_type="main" AND member_id=#{member_id}
         
         ORDER BY b.id DESC
        	LIMIT #{limitStart}, #{listCount}
-	</select>
+       
+	</select>		
 	
 	
 		<!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
@@ -61,10 +63,6 @@
 	SELECT COUNT(id) FROM favorite WHERE member_id =#{member_id}	
 	</select>
 	
-	<!-- 특정 멤버에 속한 모든 관심작품을 삭제한다. -->
-	<delete id="deleteFavoriteAll" parameterType="study.jsp.bookstory.model.Favorite">
-	  DELETE FROM favorite WHERE member_id =#{member_id}
-	</delete>
 	
 
 </mapper>

@@ -30,7 +30,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 	 */
 	@Override
 	public void insertEpisode(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		try{
 			int result = sqlSession.insert("EpisodeMapper.insertEpisode",episode);
 			if(result == 0){
@@ -38,11 +38,11 @@ public class EpisodeServiceImpl implements EpisodeService{
 				throw new NullPointerException();
 			}
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			sqlSession.rollback();
 			throw new Exception("등록된 에피소드 정보가 없습니다.");
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("에피소드 등록에 실패했습니다.");
@@ -57,7 +57,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 	 */
 	@Override
 	public int countEqualEpisodeName(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+	
 				int result = 0;
 				
 				try{
@@ -66,7 +66,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 						throw new Exception();
 					}
 				}catch (Exception e) {
-					// TODO: handle exception
+					
 					logger.error(e.getLocalizedMessage());
 					throw new Exception("같은 이름의 작품이 존재 합니다.");
 				}
@@ -79,14 +79,14 @@ public class EpisodeServiceImpl implements EpisodeService{
 	
 	@Override
 	public int countTotalEpisodeByBookId(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		int result = 0;
 		
 		try{
 			result = sqlSession.selectOne("EpisodeMapper.countTotalEpisodeByBookId", episode);
 
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("에피소드 총 횟차 검색 에러");
 		}
@@ -99,7 +99,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 	 */
 	@Override
 	public List<Episode> selectEpisdoeListAllByBook(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		List<Episode> result = null;
 		
 		try {
@@ -122,7 +122,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 	 */
 	@Override
 	public int selectFirstEpisodeIdByBookId(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		int result = 0;
 		
 		
@@ -133,10 +133,10 @@ public class EpisodeServiceImpl implements EpisodeService{
 			}
 			
 		}catch (NullPointerException e) {
-			// TODO: handle exception
+			
 			throw new Exception("작품의 에피소드가 존재 하지 않습니다.");
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("작품의 첫화 조회에 실패했습니다.");
 		}
@@ -150,7 +150,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 	 */
 	@Override
 	public Episode selectOneEpisodeItem(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		Episode result = null;
 		
 		try {
@@ -170,7 +170,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
 	@Override
 	public List<Episode> selectAllEpisodeTitle(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		List<Episode> result = null;
 		
 		try{
@@ -190,7 +190,7 @@ public class EpisodeServiceImpl implements EpisodeService{
 
 	@Override
 	public void updateStarCountAndAvg(Episode episode) throws Exception {
-		// TODO Auto-generated method stub
+		
 		try {
 			int result = sqlSession.update("EpisodeMapper.updateStarCountAndAvg", episode);
 			if (result == 0) {
@@ -209,5 +209,6 @@ public class EpisodeServiceImpl implements EpisodeService{
 		
 		
 	}
+
 
 }
