@@ -20,6 +20,7 @@ import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.CommonUtils;
 import study.jsp.helper.TextConverter;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
@@ -41,7 +42,7 @@ public class Index extends BaseController{
 	BookService bookService;
 	ImageFileService imageFileService;
 	UploadHelper upload;
-	TextConverter textConverter; 
+	CommonUtils commonUtils; 
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,7 +56,7 @@ public class Index extends BaseController{
 		bookService = new BookServiceImpl(sqlSession, logger);
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		upload = UploadHelper.getInstance();
-		textConverter = TextConverter.getInstance();
+		commonUtils = CommonUtils.getInstance();
 		
 		//메인 케러셀용 작품 리스트(랜덤 3개)
 		List<Book> carouselList = new ArrayList<>();
@@ -78,6 +79,7 @@ public class Index extends BaseController{
 			sqlSession.close();
 		}
 		
+		logger.debug("mainGenrelList -------> " + mainGenrelList.toString());
 		
 		//메인 장르별 추천작 텍스트 변환(ex.. MON --> 월요일, Romance --> 로맨스)
 		if(mainGenrelList != null){
@@ -90,13 +92,11 @@ public class Index extends BaseController{
 				String tempDay = temp.getDaily_date();
 				String tempGenre = temp.getGenre();
 				
-				String day = textConverter.genreOrDayConverter(tempDay);
-				String genre = textConverter.genreOrDayConverter(tempGenre);
+				String day = commonUtils.genreOrDayConverter(tempDay);
+				String genre = commonUtils.genreOrDayConverter(tempGenre);
 				
 				temp.setDaily_date(day);
 				temp.setGenre(genre);
-				logger.debug("getDaily_date create > " + temp.getDaily_date());
-				logger.debug("getGenre create > " + temp.getGenre());
 			}
 			
 		}
@@ -111,13 +111,11 @@ public class Index extends BaseController{
 						String tempDay = temp.getDaily_date();
 						String tempGenre = temp.getGenre();
 						
-						String day = textConverter.genreOrDayConverter(tempDay);
-						String genre = textConverter.genreOrDayConverter(tempGenre);
+						String day = commonUtils.genreOrDayConverter(tempDay);
+						String genre = commonUtils.genreOrDayConverter(tempGenre);
 						
 						temp.setDaily_date(day);
 						temp.setGenre(genre);
-						logger.debug("getDaily_date create > " + temp.getDaily_date());
-						logger.debug("getGenre create > " + temp.getGenre());
 					}
 					
 				}
