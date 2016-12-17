@@ -48,7 +48,7 @@ public class CommonUtils {
 			result = "화요일";
 		}else if(msg.equals("WEN")){
 			result = "수요일";
-		}else if("THU".equals("")){
+		}else if(msg.equals("THU")){
 			result = "목요일";
 		}else if(msg.equals("FRI")){
 			result = "금요일";
