@@ -15,6 +15,7 @@ public class Episode {
 	private int book_id;								// 책 번호
 	private int total_starcount;				// 별점 총 회원수 
 	private double total_star;					// 별점 평균
+	 
 	
 	//이미지 구현을 위해서 추가된 값
 	private String imagePath;

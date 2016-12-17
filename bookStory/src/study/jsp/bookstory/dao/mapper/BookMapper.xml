@@ -31,7 +31,7 @@
 
 	<!-- 작품 하나 가져오기 -->
 	<select id="selectOneBookItem" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
-	SELECT id, book_name, book_author, daily_date, intro, genre, total_point, 
+	SELECT id,book_name, book_author, daily_date, intro, genre, total_point, 
 			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
 			ORDER BY id ASC LIMIT 0, 1) AS imagePath
 	FROM book
@@ -65,17 +65,17 @@
 	</select>
 	
 	
-	<!-- 메인 페이지 캐러셀(랜덤으로 3개의 작품 불러오기) 메인 시작시에 자동 로드-->
+	<!-- 메인 페이지 캐러셀(랜덤으로 3개의 작품 불러오기) -->
 	<select id="selectMainCarouselByRandomThree" resultMap="book">
 		SELECT id, book_name, book_author, daily_date, genre,
 		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='carousel'
 		ORDER BY id ASC LIMIT 0, 1) as imagePath
-		FROM book order by rand() limit 3;
+		FROM book  order by rand() limit 3;
 	</select>
 	
-	<!-- 메인 장르별 추천작 4개 메인 시작시에 자동 로드-->
-	<select id="selectListMainByGenre" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
-	SELECT id, book_name, book_author, daily_date, genre, total_hit, intro,
+	<!-- 메인 장르별 추천작 4개 -->
+	<select id="selectListMainByGenre" resultMap="book">
+	SELECT id, book_name, book_author, daily_date, genre, total_hit,intro
 		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
 		ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM book 
@@ -84,15 +84,6 @@
 		limit 0,4;
 	</select>
 	
-	<!-- 메인 장르별 추천작 4개 드롭다운 선택시 -->
-	<select id="selectListMainByGenreForDropDown">
-	SELECT id, book_name, book_author, daily_date, genre, total_hit, intro,
-		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
-		ORDER BY id ASC LIMIT 0, 1) as imagePath
-		FROM book WHERE genre=#{genre}
-		ORDER BY total_hit DESC
-		limit 0,4;
-	</select>
 	
 	
 	<!-- 관심등록 회원 수 +1 -->

@@ -68,13 +68,10 @@
 	<c:when test="${fn:length(bookmark_list) > 0}">
 	<c:forEach var="bookmark" items="${bookmark_list}">
 		
-
-	<c:url var="readUrl" value="/mymenu/bookmark_list.do">
-		<c:param name="bookmark_id" value="${episode.id}" />
-	 </c:url>
 	
+			
 		<!-- 링크 + 썸네일 -->
-		<a class="img_box" href="${readUrl}">
+	<a class="img_box" href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${bookmark.episode_id}&book_id=${bookmark.book_id}" >
 		<c:choose>
 				<c:when test="${bookmark.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">

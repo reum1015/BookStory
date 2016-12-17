@@ -46,8 +46,21 @@ public class BookMarkServiceImpl implements BookMarkService {
 
 	@Override
 	public void deleteRemoveBookMark(BookMark bookmark) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try{
+			int result = sqlSession.delete("BookMarkMapper.deleteRemoveBookMark", bookmark);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {		
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+		}catch (Exception e) {			
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("북마크 해제에 실패 했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
 	}
 
 	@Override
@@ -82,6 +95,20 @@ public class BookMarkServiceImpl implements BookMarkService {
 			throw new Exception("북마크 수 조회에 실패했습니다. ");
 		}
 		
+		return result;
+	}
+
+	@Override
+	public int selectCountBookMarkById(BookMark bookmark) throws Exception {
+		int result = 0;
+		try{			
+			// 관심등록 수가 0건인 경우도 있으므로
+			// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("BookMarkMapper.selectCountBookMarkById", bookmark);
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("북마크 확인 조회에 실패했습니다. ");
+		}		
 		return result;
 	}
 	

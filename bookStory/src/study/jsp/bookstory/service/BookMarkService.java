@@ -13,6 +13,15 @@ public interface BookMarkService {
 	 */
 	public void insertAddBookMark(BookMark bookmark) throws Exception;
 	
+
+	/**
+	 * 작품에 대한 북마크 등록 확인 여부
+	 * @param bookmark
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectCountBookMarkById(BookMark bookmark)throws Exception;
+	
 	/**
 	 * 하나의 북마크를 삭제한다.
 	 *  @param bookmark - 북마크 데이터

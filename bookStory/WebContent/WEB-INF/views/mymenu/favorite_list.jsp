@@ -63,6 +63,22 @@
 <div class="block_bookmark container_content col-md-8" id="content">
 		
 		<!-- 조회된 관심등록이 있는 경우 시작 -->
+		
+		<a href="${pageContext.request.contextPath}/booklist/book_list.do?book_id=${carousel.id}">
+						<c:choose>
+							<c:when test="${carousel.imagePath != null}">
+								<c:url var="downloadUrl" value="/download.do">
+									<c:param name="file" value="${carousel.imagePath}" />
+								</c:url>
+								<img src="${downloadUrl}" alt="${carousel.book_name}" style="width: 1159px; height: 367px;"/>
+							</c:when>
+							
+						</c:choose>
+						
+					</a>
+		
+		
+		
 		<!-- 게시물 항목 하나 -->	
 	 <div class="block_bookmark_list col-md-8 col-lg-11">
 		<c:choose>		
@@ -75,23 +91,29 @@
 	 </c:url>
 	
 		<!-- 링크 + 썸네일 -->
-		<a class="img_box" href="${readUrl}">
+		<!--   <a class="img_box" href="${readUrl}"> -->
+       <a class="img_box" href="${pageContext.request.contextPath}/booklist/book_list.do?book_id=${favorite.book_id}" >
 		<c:choose>
 				<c:when test="${favorite.imagePath != null}">
 				<c:url var="downloadUrl" value="/download.do">
 			<c:param name="file" value="${favorite.imagePath}" />
 			</c:url>
+			
+			
 			<img src="${downloadUrl}" class="img-responsive pull-left" />
+			
 			</c:when>
 				<c:otherwise>
 			<img src="${pageContext.request.contextPath}/assets/imgs/mymenu/no_image.jpg"  />
 				</c:otherwise>
 		</c:choose>
-			
-	</a>
+			</a>
+	
 		
 		<!-- 회차 + 제목  -->		
      <div class="episode-content col-md-8 col-lg-9">
+     
+          </br>   
             <div>${favorite.book_name}</div>	
 			<h4> ${favorite.book_author}  </h4>		
 												

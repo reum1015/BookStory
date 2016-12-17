@@ -32,6 +32,63 @@
 	
 	
 	<script type="text/javascript">
+	$(function(){		
+		var bookmark_count = $("#bookmark_count").val();
+		var member_id = $("#member_id").val();
+		var total_bookmark = $("#total_bookmark").val();		
+		var episode_id = $("#episode_id").val();
+		var isBookMarkState = $("#isBookMarkState").val();
+		var book_id = $("#book_id").val();
+		
+	
+		
+		
+		
+		//관심등록 On 이면 마크 표시
+		if(total_bookmark > 0){
+			$("#bookmark_img").addClass("bookmark_On");
+		}else{
+			$("#bookmark_img").removeClass("bookmark_On").addClass("bookmark_Off");
+		}
+		
+		$("#bookmark_button").on('click',function(e){
+			e.preventDefault();
+			if(member_id == 0){
+				var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
+				
+				if(result){
+					location.replace('/bookStory/login/login.do?episode_id=' + episode_id );
+					return false;
+				}else{
+					return false;
+				}
+			}
+			
+
+			
+			$.get("${pageContext.request.contextPath}/book/addBookMark.do", 
+					{bookmark_count : bookmark_count, member_id : member_id, total_bookmark : total_bookmark, episode_id: episode_id, book_id:book_id},
+					function(data){
+							var isBookMarkState = data.isBookMarkState;
+							 total_bookmark=data.total_bookmark;
+							 bookmark_count = data.bookmark_count;
+						
+							$("#bookmark_count").attr("value", bookmark_count);
+							$("#concernCount").text(total_bookmark);
+							
+							
+							if(isBookMarkState){
+								alert("이 페이지는 책갈피로 설정되었습니다. 나의 메뉴에서 책갈피 페이지에서 확인 할 수 있습니다.");
+								$("#bookmark_img").addClass("bookmark_On");
+							}else{
+								alert("관심 작품에서 삭제되었습니다.");
+								$("#bookmark_img").removeClass("bookmark_On").addClass("bookmark_Off");
+							}
+						});
+		});
+});
+
+
 	
 	</script>
 <!-- main css -->
@@ -86,11 +143,21 @@
 				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
 				
-				<div id="" class="col-sm-1 episode_bookmark">
-					<a href="#">
-					<span class="icon_bookmark2">책갈피</span>					
-				</a>
 				
+				
+				
+				
+				
+				<div id="" class="col-sm-1 episode_bookmark">
+					<a href="#" id="bookmark_button">
+					<span class="bookmark_Off pull-right" id="bookmark_img"> </span>					
+				</a>
+				<input type="hidden" value="${bookmarkCount}" id="bookmark_count">
+				<input type="hidden" value="${member_id}" id="member_id">				
+                <input type="hidden" value="${book_id}" id="book_id">
+				<input type="hidden" value="${episode.id}" id="episode_id">
+				<input type="hidden" value="${bookmarkCount}" id="total_bookmark">
+				<input type="hidden" value="${isBookMarkState}" id="isBookMarkState">
 				</div>
 				<div id="" class="col-sm-2 view_set">
 					<a>보기설정</a>
@@ -139,7 +206,7 @@
 									
 									
 									<c:when test="${isStarAdd==true}">
-										<button type="button" class="btn btn-warning star_rate_in pull-left" id="star_rate_in">참여 완료</button>
+										<button type="button" class="btn btn-warning star_rate_in pull-right" id="star_rate_in">참여 완료</button>
 									</c:when>
 									<c:when test="${isStarAdd==false}">										
 										<button type="button" class="btn btn-default"  id="star_rate_button" data-toggle="modal" data-target="#addStarModal">별점주기</button>

@@ -3,6 +3,7 @@ package study.jsp.bookstory.service;
 
 import java.util.List;
 
+
 import study.jsp.bookstory.model.Episode;
 
 public interface EpisodeService {
@@ -71,6 +72,6 @@ public interface EpisodeService {
 	 */
 	public void updateStarCountAndAvg(Episode episode)throws Exception;
 	
-	
+
 
 }

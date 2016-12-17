@@ -14,19 +14,22 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.BookMark;
 import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.StarMark;
+import study.jsp.bookstory.service.BookMarkService;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.StarMarkService;
+import study.jsp.bookstory.service.impl.BookMarkServiceImpl;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
-import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
+
 import study.jsp.bookstory.service.impl.StarMarkServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.PageHelper;
-import study.jsp.helper.UploadHelper;
+
 import study.jsp.helper.WebHelper;
 
 @WebServlet("/novelview/view_page.do")
@@ -42,6 +45,7 @@ public class ViewPage extends BaseController{
 	EpisodeService episodeService;
 	PageHelper pageHelper;
 	StarMarkService starMarkService;
+	BookMarkService bookmarkService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -55,6 +59,7 @@ public class ViewPage extends BaseController{
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		starMarkService = new StarMarkServiceImpl(sqlSession, logger);
+		bookmarkService = new BookMarkServiceImpl(sqlSession, logger);
 		
 		/** (3)파라미터 받기 */
 		
@@ -104,10 +109,18 @@ public class ViewPage extends BaseController{
 		Book book = new Book();
 		book.setId(book_id);
 		
-	
 		
+		// 북마크 저장변수
+		int bookmarkCount = 0;
+		
+        BookMark bookmark = new BookMark();
+        bookmark.setMember_id(member_id);
+        bookmark.setEpisode_id(episode_id);
+		
+     // 작품 정보 담을 빈즈
 		Episode episodeItem = new Episode();
-		Book bookItem = new Book();
+		Book bookItem = new Book();		
+		
 		
 		
 		/** 별점 등록 확인 여부 */ 
@@ -120,6 +133,8 @@ public class ViewPage extends BaseController{
 		
 		List<Episode> episodeTitleList = null;		//에피소드 제목 리스트 저장 변수
 		try{
+			// 북마크 확인용
+			bookmarkCount = bookmarkService.selectCountBookMarkById(bookmark);
 			
 			/** 별점 참여 여부 검사 */ 
 			resultaddStarCount = starMarkService.selectCountAddStarById(star);
@@ -135,27 +150,29 @@ public class ViewPage extends BaseController{
 			
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+			
 			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
 			return null;
 		}finally{
 			sqlSession.close();
 		}
 		
+		boolean isBookMarkState = bookmarkCount > 0;
 		
 		boolean isStarAdd = false;
 		if(resultaddStarCount > 0){
 			isStarAdd = true;
 		}
 		
-		
+		logger.debug("bookmarkCount ------->" + bookmarkCount);
 		logger.debug("isStarAdd -----------------------------------------> " + isStarAdd);
 		
 		request.setAttribute("isStarAdd", isStarAdd);
 		request.setAttribute("episodeTitleList", episodeTitleList);
 		request.setAttribute("episode", episodeItem);
 		request.setAttribute("book", bookItem);
-        
+		request.setAttribute("isBookMarkState", isBookMarkState);
+        request.setAttribute("bookmarkCount", bookmarkCount);
 		request.setAttribute("member_id", member_id);
 		request.setAttribute("book_id", book_id);
 		
