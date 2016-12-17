@@ -75,7 +75,7 @@
 	
 	<!-- 메인 장르별 추천작 4개 -->
 	<select id="selectListMainByGenre" resultMap="book">
-	SELECT id, book_name, book_author, daily_date, genre, total_hit,intro
+	SELECT id, book_name, book_author, daily_date, genre, total_hit,intro,total_star,total_favorite,
 		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
 		ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM book 
@@ -103,7 +103,7 @@
 	
 	<!-- 메인 남여별 인기작 리스트(여) -->
 	<select id="selectListForMainByGenderFemale" resultMap="book">
-	select b.id, b.book_name,(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=b.id AND content_type LIKE ('image/%') AND image_type='main' ORDER BY id ASC LIMIT 0, 1) 
+	select b.id, b.book_name, b.book_author,(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=b.id AND content_type LIKE ('image/%') AND image_type='main' ORDER BY id ASC LIMIT 0, 1) 
 		AS imagePath
 			from book b
 			where b.id in (

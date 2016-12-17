@@ -45,8 +45,8 @@
 		
 		
 		//관심등록 On 이면 마크 표시
-		if(total_bookmark > 0){
-			$("#bookmark_img").addClass("bookmark_On");
+		if(bookmark_count > 0){
+			$("#bookmark_img").removeClass("bookmark_Off").addClass("bookmark_On");
 		}else{
 			$("#bookmark_img").removeClass("bookmark_On").addClass("bookmark_Off");
 		}
@@ -79,7 +79,7 @@
 							
 							if(isBookMarkState){
 								alert("이 페이지는 책갈피로 설정되었습니다. 나의 메뉴에서 책갈피 페이지에서 확인 할 수 있습니다.");
-								$("#bookmark_img").addClass("bookmark_On");
+								$("#bookmark_img").removeClass("bookmark_Off").addClass("bookmark_On");
 							}else{
 								alert("관심 작품에서 삭제되었습니다.");
 								$("#bookmark_img").removeClass("bookmark_On").addClass("bookmark_Off");
@@ -206,7 +206,7 @@
 									
 									
 									<c:when test="${isStarAdd==true}">
-										<button type="button" class="btn btn-warning star_rate_in pull-right" id="star_rate_in">참여 완료</button>
+										<button type="button" class="btn btn-warning star_rate_in" id="star_rate_in">참여 완료</button>
 									</c:when>
 									<c:when test="${isStarAdd==false}">										
 										<button type="button" class="btn btn-default"  id="star_rate_button" data-toggle="modal" data-target="#addStarModal">별점주기</button>

@@ -38,7 +38,7 @@ public class CommonUtils {
 			result="SF&판타지";
 		}else if(msg.equals("Heroism")){
 			result="무협";
-		}else if(msg.equals("Mistery")){
+		}else if(msg.equals("Mystery")){
 			result="미스테리";
 		}else if(msg.equals("Fusion")){
 			result="퓨전";

@@ -118,8 +118,6 @@ public class AddBookMark extends BaseController {
 			logger.debug("loginInfo ------------->" + loginInfo);
 			//관심등록 테이블에 저장 할 생일, 성별 추출 
 		
-		
-			
 			//파라미터 Beans에 담기
 			BookMark bookmark = new BookMark();		
 			bookmark.setBook_id(book_id);

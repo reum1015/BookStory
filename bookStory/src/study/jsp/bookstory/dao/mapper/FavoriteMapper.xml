@@ -31,9 +31,9 @@
 	<!-- 관심등록 추가 -->
 	<insert id="insertAddFavorite" parameterType="study.jsp.bookstory.model.Favorite" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO favorite (
-	 member_id, book_id, gender, birthdate, reg_date
+	 member_id, book_id, gender, birthdate, reg_date,episode_count
 	)	VALUES (
-	 #{member_id}, #{book_id}, #{gender}, #{birthdate}, now()
+	 #{member_id}, #{book_id}, #{gender}, #{birthdate}, now(),#{episode_count}
 	 )
 	</insert> 
 	

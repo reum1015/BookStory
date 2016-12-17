@@ -240,6 +240,20 @@ text-align: left;
      background-position: -90px -290px;
 }
 
+.bookmark_On {
+    width: 19px;
+    height: 29px;
+    background-image: url(../../imgs/clipping/sp_icon.png);
+     background-position: -60px -290px;
+}
+
+.bookmark_Off {
+    width: 19px;
+    height: 29px;
+    background-image: url(../../imgs/clipping/sp_icon.png);
+     background-position: -90px -290px;
+}
+
 .bmk {
 overflow: hidden;
 }

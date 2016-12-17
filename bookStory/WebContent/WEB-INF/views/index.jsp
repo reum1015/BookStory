@@ -326,7 +326,7 @@
 								alt="Pulpit Rock"> 
 								<span class="main_gender_info">
 									 <span class="gender_title">${femaleList.book_name}</span> 
-									 <span class="gender_author">${femaleList.book_name}</span>
+									 <span class="gender_author">${femaleList.book_author}</span>
 								</span>
 							</a>
 						</div>
@@ -359,7 +359,7 @@
 								alt="Pulpit Rock"> 
 								<span class="main_gender_info">
 									 <span class="gender_title">${maleList.book_name}</span> 
-									 <span class="gender_author">${maleList.book_name}</span>
+									 <span class="gender_author">${maleList.book_author}</span>
 								</span>
 							</a>
 						</div>
