@@ -44,7 +44,7 @@ public interface BookService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Book> selectListMainByGenre()throws Exception;
+	public List<Book> selectListMainByGenre(Book book)throws Exception;
 	
 	
 	
@@ -86,7 +86,31 @@ public interface BookService {
 	 */
 	public void updateStarAvg(Book book)throws Exception;
 	
-
+	/**
+	 * 남여별 인기 추천작 메인 (여성)
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectListForMainByGenderFemale(Book book)throws Exception;
 	
-
+	
+	/**
+	 * 남여별 인기 추천작 메인 (남성)
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectListForMainByGenderMale(Book book)throws Exception;
+	
+	
+	/**
+	 *  TodayNovel 오늘날짜 작품 리스트 
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectNovelListByDay(Book book)throws Exception;
+	
+	
 }

@@ -163,7 +163,7 @@
 								<option value="Romance">로맨스</option>
 								<option value="SF&Fantasy">SF&amp;판타지</option>
 								<option value="Heroism">무협</option>
-								<option value="Mistery">미스테리</option>
+								<option value="Mystery">미스테리</option>
 								<option value="Fusion">퓨전</option>
 							</select>
 						</div>

@@ -132,12 +132,12 @@ public class BookServiceImpl implements BookService{
 	 */
 	
 	@Override
-	public List<Book> selectListMainByGenre() throws Exception {
+	public List<Book> selectListMainByGenre(Book book) throws Exception {
 		// TODO Auto-generated method stub
 		List<Book> bookList = null;
 		
 		try{
-			bookList = sqlSession.selectList("BookMapper.selectListMainByGenre");
+			bookList = sqlSession.selectList("BookMapper.selectListMainByGenre",book);
 			if(bookList == null){
 				throw new NullPointerException();
 			}
@@ -272,6 +272,54 @@ public class BookServiceImpl implements BookService{
 		}finally {
 			sqlSession.commit();
 		}
+	}
+
+	/**
+	 * 메인 남여별 인기작(여성)
+	 */
+	@Override
+	public List<Book> selectListForMainByGenderFemale(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectListForMainByGenderFemale");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("메인 남여 인기작(여) 불러오기 실패했습니다.");
+			
+		}
+		return bookList;
+	}
+
+	/**
+	 * 메인 남여별 인기작(남성)
+	 */
+	@Override
+	public List<Book> selectListForMainByGenderMale(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectListForMainByGenderMale");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("메인 남여 인기작(남) 불러오기 실패했습니다.");
+			
+		}
+		return bookList;
+	}
+
+	@Override
+	public List<Book> selectNovelListByDay(Book book) throws Exception {
+		// TODO Auto-generated method stub
+				List<Book> bookList = null;
+				try{
+					bookList = sqlSession.selectList("BookMapper.selectNovelListByDay",book);
+				}catch (Exception e) {
+					logger.error(e.getLocalizedMessage());
+					throw new Exception("요일별 작품 리스트 불러오기 실패했습니다.");
+					
+				}
+				return bookList;
 	}
 
 	

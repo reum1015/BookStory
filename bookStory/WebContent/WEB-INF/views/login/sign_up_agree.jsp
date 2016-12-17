@@ -12,13 +12,21 @@
 		<script type="text/javascript">
 		$(function() {
 			
+			var is_check = null;
 			
-			var is_check
 			$("#chk_all").change(function() {
 				is_check = $(this).is(":checked");
 				$(".input_check").prop("checked", is_check);
-				
 			});
+			
+			$("#agree_check").click(function(){
+				
+				if(!is_check){
+					alert("이용 약관에 동의해 주세요.");
+					return false;
+				}
+				
+			})
 			
 
 		});

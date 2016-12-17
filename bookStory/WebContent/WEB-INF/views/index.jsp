@@ -7,14 +7,18 @@
 <html lang='ko'>
 <head>
 <!-- 깃허브 테스트 -->
-
 <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
 
 <style type="text/css">
 </style>
+	<!-- ajax -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.css"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.js"></script>
+
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/plugins/handlebars/handlebars-v4.0.5.js"></script>
 <script type="text/javascript">
 			$(function(){
 				
@@ -31,7 +35,6 @@
 					$(".male_button").css('background-color','#FFF');
 					$(".female_button").css('background-color','#FFEBCD');
 				});
-				
 				
 				//장르선택 드롭다운 버튼
 				//페이지가 시작되면서 장르로 선택되어짐
@@ -50,19 +53,27 @@
 					 $("#genre_button").text(aa);
 					 
 					 $.get("${pageContext.request.contextPath}/main/genreList.do",{genre:genre},function(data){
+								
+						// json은 API에서 표시하는 전체 데이터
+							if (data.rt != "OK") {
+								alert(json.rt);
+								return false;
+							}
 						 
 						 
-						 
+						 //통신 성공시에 원래 있던 작품 리스트 삭제
+						 	$(".genre_row").empty();
+						
+						 // 템플릿 HTML을 로드한다.
+							var template = Handlebars.compile($("#entry-template").html());
+							// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+							var html = template(data);
+							// 결합된 결과를 덧글 목록에 추가한다.
+							$(".genre_row").append(html);
 					 });
 					 
-					 
-					 
-					 
-					 
+				
 				 }); 
-				 
-				 
-				 
 				 
 				 function jenreTextChange(e){
 					 var genre = e;
@@ -79,7 +90,6 @@
 						 genre='퓨전';
 					 }
 					 return genre;
-					 
 				 }
 				
 			});
@@ -151,7 +161,7 @@
 		</div>
 		<!-- 캐러셀 끝 -->
 
-		<input type="hidden" id="genreForDrop" value="${genreformain}">
+		<input type="hidden" id="genreForDrop" value="${selectGenre}">
 		<!-- 장르별 추천작 시작-->
 		<!-- 장르별 추천작 & 드롭다운 메뉴(장르 선택) -->
 		<div class="dropdown genre_choice">
@@ -174,11 +184,10 @@
 
 		<!-- 장르별 추천작 리스트 -->
 		<div class="row genre_row">
-		
 	<c:choose>
 		<c:when test="${fn:length(mainGenrelList) > 0}">
 			<c:forEach var="mainGenrelList" items="${mainGenrelList}">
-				<div class="col-xs-6 col-sm-3 main_list_genre">
+				<div class="col-xs-6 col-sm-3 main_list_genre" id="main_genre_section">
 					<div class="thumbnail main_thumbbox">
 						<c:url var="bookListURL" value="/booklist/book_list.do">
 				 			<c:param name="book_id" value="${mainGenrelList.id}" />
@@ -227,103 +236,49 @@
 		
 		</c:when>
 		</c:choose>
-		
-	
-		
+		<!-- 드롭다운 장르선택에 동적으로 생성될 화면 -->	
+		<script id="entry-template" type="text/x-handlebars-template">
+					{{#mainGenrelListForDrop}}
+					<div class="col-xs-6 col-sm-3 main_list_genre" id="main_genre_section">
+						<div class="thumbnail main_thumbbox" id="genre_drop">
+						<a href="${pageContext.request.contextPath}/booklist/book_list.do?book_id={{id}}" class="main_alist"> 
+						<span class="icon_new"></span>
+
+						 <img alt="thumb"src="${pageContext.request.contextPath}/download.do?file={{imagePath}}" class="main_list_img"> 
+						 <span class="caption list_info">
+							
+							 <span class="subj v2">{{book_name}}</span>
+						
+						<span class="author_info"> 
+							 <span class="author v2">{{book_author}}</span>
+						  <span class="num_total">총 5회</span>
+						</span>
+						<span class="text ellipsis">							
+								<span class="summary">
+								{{{intro}}}
+								</span>
+						</span>
+						<span class="score_area"> 
+						<span class="icon_star">
+						</span>
+								<em class="score">{{total_star}}</em>
+						</span> 
+						<span class="favorite favorite_count"> 
+						<span>관심</span> 
+						<span>{{total_favorite}}</span>
+					</span>
+					</span>
+					</a>
+				</div>
+</div>
+	{{/mainGenrelListForDrop}}
+		</script>
 		
 		
 		
 		
 		
 			<!-- 항목1
-			<div class="col-xs-6 col-sm-3 main_list_genre">
-				<div class="thumbnail main_thumbbox">
-					<a href="${pageContext.request.contextPath}/booklist/book_list.do"
-						class="main_alist"> <span class="icon_new"></span> <img
-						alt="thumb"
-						src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist01.png"
-						class="main_list_img"> <span class="caption list_info">
-							<span class="genre">미스테리</span> <span class="subj v2">르네
-								마그리트의 '연인'</span> <span> <span class="author v2">유지나</span> <span
-								class="num_total">총 5회</span>
-						</span> <span class="score_area"> <span class="icon_star"></span>
-								<em class="score">9.94</em>
-						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-				
-					</span>
-					</a>
-				</div>
-			</div>
-
-
-			<!-- 항목2 
-			<div class="col-xs-6 col-sm-3 main_list_genre">
-				<div class="thumbnail main_thumbbox">
-					<a href="#" class="main_alist"> <span class="icon_com"></span>
-						<img alt="thumb"
-						src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist02.png"
-						class="main_list_img"> <span class="caption list_info">
-							<span class="genre">미스테리</span> <span class="subj v2">르네
-								마그리트의 '연인'</span> <span> <span class="author v2">유지나</span> <span
-								class="num_total">총 5회</span>
-						</span> <span class="score_area"> <span class="icon_star"></span>
-								<em>9.94</em>
-						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-					
-					</span>
-					</a>
-				</div>
-			</div>
-
-			<!-- 항목3 
-			<div class="col-xs-6 col-sm-3 main_list_genre">
-				<div class="thumbnail main_thumbbox">
-					<a href="#" class="main_alist"> <img alt="thumb"
-						src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist03.png"
-						class="main_list_img"> <span class="caption list_info">
-							<span class="genre">미스테리</span> <span class="subj v2">르네
-								마그리트의 '연인'</span> <span> <span class="author v2">유지나</span> <span
-								class="num_total">총 5회</span>
-						</span> <span class="score_area"> <span class="icon_star"></span>
-								<em>9.94</em>
-						</span> <span class="favorite"> <span>관심</span> <span>22,215</span>
-					
-					</span>
-					</a>
-				</div>
-			</div>
-
-
-			<!-- 항목4 
-			<div class="col-xs-6 col-sm-3 main_list_genre">
-				<div class="thumbnail main_thumbbox">
-					<a href="#" class="main_alist"> <img alt="thumb"
-						src="${pageContext.request.contextPath}/assets/imgs/genre/mainlist04.png"
-						class="main_list_img"> <span class="caption list_info">
-					
-							<span class="subj v2">르네마그리트의 '연인'</span> 
-							<span class="author_info"> 
-								<span class="author v2">유지나</span> 
-								<span class="num_total">총 5회</span>
-							</span> 
-							
-							<span class="text ellipsis">							
-								<span class="summary">
-								열여섯 살 풋내기와의 모든것이
-								</span>
-							</span>
-							
-							<span class="score_area"> 
-								<span class="icon_star"></span>
-								<em>9.94</em>
-							</span> 
-							<span class="favorite favorite_count"> 
-								<span>관심</span> 
-								<span>22,215</span>
-							</span>
-					</a>
-				</div>
-			</div>
  -->
 		<!-- 장르별 추천작 리스트 끝-->
 
@@ -350,181 +305,72 @@
 				</div>
 
 
-				<div class="main_gender_list_female">
+	<div class="main_gender_list_female">
+	<c:choose>
+		<c:when test="${fn:length(femaleList) > 0}">
+			<c:forEach var="femaleList" items="${femaleList}">
 					<div class="col-xs-6 col-md-4 list_gender_li">
 						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <span
-								class="icon_new"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list01.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
+						<c:url var="bookListURL" value="/booklist/book_list.do">
+				 			<c:param name="book_id" value="${femaleList.id}" />
+						</c:url>
+						
+							<a href="${bookListURL}"> <span class="gender_list_skin"></span> <span
+								class="icon_new"></span> 
+								
+								<c:url var="downloadUrl" value="/download.do">
+			 						<c:param name="file" value="${femaleList.imagePath}" />
+								</c:url>
+								
+								<img class="gender_list_img img-response" src="${downloadUrl}"
+								alt="Pulpit Rock"> 
+								<span class="main_gender_info">
+									 <span class="gender_title">${femaleList.book_name}</span> 
+									 <span class="gender_author">${femaleList.book_name}</span>
+								</span>
 							</a>
 						</div>
 					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li  list_gender_02">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list02.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <span
-								class="icon_com"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list03.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_04">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list04.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list05.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-				</div>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</div>
+				
+				
 				<!-- 남여별 인기작 숨김영역 남자 -->
-				<div class="main_gender_list_male">
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
+	<div class="main_gender_list_male">
+	<c:choose>
+		<c:when test="${fn:length(maleList) > 0}">
+			<c:forEach var="maleList" items="${maleList}">
+					<div class="col-xs-6 col-md-4 list_gender_li">
 						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
+						<c:url var="bookListURL" value="/booklist/book_list.do">
+				 			<c:param name="book_id" value="${maleList.id}" />
+						</c:url>
+						
+							<a href="${bookListURL}"> <span class="gender_list_skin"></span> <span
+								class="icon_new"></span> 
+								
+								<c:url var="downloadUrl" value="/download.do">
+			 						<c:param name="file" value="${maleList.imagePath}" />
+								</c:url>
+								
+								<img class="gender_list_img img-response" src="${downloadUrl}"
+								alt="Pulpit Rock"> 
+								<span class="main_gender_info">
+									 <span class="gender_title">${maleList.book_name}</span> 
+									 <span class="gender_author">${maleList.book_name}</span>
+								</span>
 							</a>
 						</div>
 					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-					<div class="col-xs-6 col-md-4 list_gender_li list_gender_06">
-						<div class="thumbnail main_gender_list">
-							<a href="#"> <span class="gender_list_skin"></span> <img
-								class="gender_list_img img-response"
-								src="${pageContext.request.contextPath}/assets/imgs/gender/list06.jpg"
-								alt="Pulpit Rock" style="width: 100%; height: 100%"> <span
-								class="main_gender_info"> <span class="gender_title">위험한
-										신혼부부</span> <span class="gender_author">박수정(방울마마)</span>
-
-							</span>
-							</a>
-						</div>
-					</div>
-
-				</div>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+		</div>
+				
+				
+				
 			</div>
 			<!-------- 연령별 선호작  ---------->
 			<div

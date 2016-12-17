@@ -1,4 +1,4 @@
-package study.jsp.bookstory.controller.mainAjax;
+package study.jsp.bookstory.controller.todaynovel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,43 +20,56 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.CommonUtils;
+import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
-@WebServlet("/main/genreList.do")
-public class MainGenreRecommand extends BaseController{
+@WebServlet("/todaynovel/todayList.do")
+public class TodayList extends BaseController{
 
-	private static final long serialVersionUID = -4787805624782434151L;
+	private static final long serialVersionUID = 2974413864183931676L;
+
 	
-	WebHelper web;
 	Logger logger;
 	SqlSession sqlSession;
+	WebHelper web;
 	BookService bookService;
-	CommonUtils commonUtils;
-
+	ImageFileService imageFileService;
+	UploadHelper upload;
+	CommonUtils commonUtils; 
+	
+	
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("application/json");
 		
+		
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		bookService = new BookServiceImpl(sqlSession, logger);
+		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
+		upload = UploadHelper.getInstance();
 		commonUtils = CommonUtils.getInstance();
 		
-		String genre = web.getString("genre"); 
-		
+		//오늘 요일 받기
+		String today = web.getString("today");
+
+		//오늘 요일 파라미터 셋팅
 		Book book = new Book();
-		book.setGenre(genre);
+		book.setDaily_date(today);
 		
-		List<Book> mainGenrelListForDrop = new ArrayList<Book>();
+
+		List<Book> todayList = new ArrayList<Book>();
 		
 		try{
-			//메인 장르별 추천작 4개
-			mainGenrelListForDrop = bookService.selectListMainByGenre(book);
+			todayList = bookService.selectNovelListByDay(book);
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			web.redirect(null, e.getLocalizedMessage());
@@ -64,36 +77,33 @@ public class MainGenreRecommand extends BaseController{
 			sqlSession.close();
 		}
 		
-		logger.debug("mainGenrelListForDrop -------> " + mainGenrelListForDrop.toString());
+		logger.debug("todayList ---------------------> " + todayList);
 		
-		//메인 장르별 추천작 텍스트 변환(ex.. MON --> 월요일, Romance --> 로맨스)
-				if(mainGenrelListForDrop != null){
+		
+		if(todayList != null){
+			Book temp = new Book();
+			
+			for(int i = 0 ; i < todayList.size(); i++){
+				temp = todayList.get(i);
 				
-					Book temp = new Book();
-					
-					for(int i = 0 ; i < mainGenrelListForDrop.size(); i++){
-						temp = mainGenrelListForDrop.get(i);
-						
-						String tempDay = temp.getDaily_date();
-						String tempGenre = temp.getGenre();
-						
-						String day = commonUtils.genreOrDayConverter(tempDay);
-						String genreConvert = commonUtils.genreOrDayConverter(tempGenre);
-						
-						temp.setDaily_date(day);
-						temp.setGenre(genreConvert);
-					}
-					
-				}
+	
+				String tempGenre = temp.getGenre();
+				
+				String genre = commonUtils.genreOrDayConverter(tempGenre);
+				
+				temp.setGenre(genre);
+			}
+			
+		}
 		
-
 		Map<String, Object> data = new HashMap<>();
 		data.put("rt", "OK");
-		data.put("mainGenrelListForDrop",mainGenrelListForDrop);
-
+		data.put("todayList",todayList);
+		data.put("today",today);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getWriter(), data);
+		
 		
 		return null;
 	}

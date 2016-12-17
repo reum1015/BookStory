@@ -64,6 +64,19 @@ public class Index extends BaseController{
 		//메인 장르별 추천작 4개
 		List<Book> mainGenrelList = new ArrayList<>();
 		
+		String[] genreList = {"Romance","SF&Fantasy","Heroism","Mystery","Fusion"};
+		String selectGenre = genreList[commonUtils.getInstance().random(0, 4)];
+		
+		
+		//메인 장블별 추천작 장르 파라미터 셋팅
+		Book book = new Book();
+		book.setGenre(selectGenre);
+		
+		//메인 남여별 인기작(여성)
+		List<Book> femaleList = new ArrayList<>();
+		
+		//메인 남여별 인기작(남성)
+		List<Book> maleList = new ArrayList<>();
 		
 		try{
 			
@@ -71,7 +84,14 @@ public class Index extends BaseController{
 			carouselList = bookService.selectMainCarouselByRandomThree();
 			
 			//메인 장르별 추천작 4개
-			mainGenrelList = bookService.selectListMainByGenre();
+			mainGenrelList = bookService.selectListMainByGenre(book);
+			
+			//메인 남여별 인기작(여성)
+			femaleList = bookService.selectListForMainByGenderFemale(null);
+			
+			//메인 남여별 인기작(남성)
+			maleList =  bookService.selectListForMainByGenderMale(null);
+			
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			web.redirect(null, e.getLocalizedMessage());
@@ -119,9 +139,40 @@ public class Index extends BaseController{
 					}
 					
 				}
+				
+				//메인 남 여 인기작 이미지 썸네일로 교체
+				if(femaleList != null){
+					for(int i = 0; i < femaleList.size(); i++){
+						Book bookItem  = femaleList.get(i);
+						String imagePath = bookItem.getImagePath();
+						if(imagePath != null){
+							String thumbPath = upload.createThumbnail(imagePath, 248, 240, true);
+							bookItem.setImagePath(thumbPath);
+							logger.debug("thumbnail create ---------> " + bookItem.getImagePath());
+						}
+					}
+				}		
+				
+				if(maleList != null){
+					for(int i = 0; i < maleList.size(); i++){
+						Book bookItem  = maleList.get(i);
+						String imagePath = bookItem.getImagePath();
+						if(imagePath != null){
+							String thumbPath = upload.createThumbnail(imagePath, 248, 240, true);
+							bookItem.setImagePath(thumbPath);
+							logger.debug("thumbnail create ---------> " + bookItem.getImagePath());
+						}
+					}
+				}		
+				
 
+				
+		request.setAttribute("selectGenre", selectGenre);
 		request.setAttribute("mainGenrelList", mainGenrelList);
 		request.setAttribute("carouselList", carouselList);
+		
+		request.setAttribute("femaleList", femaleList);
+		request.setAttribute("maleList", maleList);
 		
 		return view;
 	}

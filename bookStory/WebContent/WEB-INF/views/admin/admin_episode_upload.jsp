@@ -276,8 +276,6 @@
 					// 결합된 결과를 덧글 목록에 추가한다.
 					$("#search_resultBox").append(html);
 					
-					
-					
 					//검색결과에 있는 값 ---> 폼으로 이동
 					$("div#search_resultBox a").click(function(e) {
 						
