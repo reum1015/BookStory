@@ -20,6 +20,12 @@
 	<script type="text/javascript">
 	$(function(){
 		
+		/** 모든 모달창의 캐시 방지 처리 */
+		$('.modal').on('hidden.bs.modal', function (e) {
+			// 모달창 내의 내용을 강제로 지움.
+    		$(this).removeData('bs.modal');
+		});
+		
 			
 			var favorite_count = $("#favorite_count").val();
 			var member_id = $("#member_id").val();
@@ -33,6 +39,9 @@
 			}else{
 				$("#favorite_img").removeClass("favorite_On").addClass("favorite_Off");
 			}
+			
+			
+			
 			
 			$("#favorite_button").on('click',function(e){
 				e.preventDefault();
@@ -67,6 +76,27 @@
 								}
 							});
 			});
+			
+			
+			
+			//책 전체 구입
+			// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
+			$("#allBuyBook").on('click',function(e){
+				e.preventDefault();
+				if(member_id == 0){
+					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
+					
+					if(result){
+						location.replace('/bookStory/login/login.do?book_id=' + book_id );
+						return false;
+					}else{
+						return false;
+					}
+				}
+			
+			});
+			
+			
 	});
 	
 	
@@ -126,11 +156,19 @@
 						<a href="${episodeFirstUrl}"class="btn btn-warning">첫화 보기 </a>
 						
 						
-						<!-- 책 전체 대여 -->
-						<button class="btn btn-default pull-right"
-							data-target="#book_all_rent" data-toggle="modal">전체 대여</button>
-							<button class="btn btn-default pull-right"
-				data-target="#book_all_buy" data-toggle="modal">전체 구입</button>
+						
+						<c:url var="allbuybook" value="/book/totalBuyBook.do">
+					 		<c:param name="book_id" value="${bookitem.id}" />
+						</c:url>
+						
+						<!-- 책 전체 구입 -->
+						<a href="${allbuybook}" 
+							class="btn btn-default pull-right" data-target="#book_all_buy" data-toggle="modal" id="allBuyBook">전체 구입</a>
+						
+						
+						<!-- 책 전체 대여 -->	
+						<a class="btn btn-default pull-right" data-target="#book_all_rent" data-toggle="modal">전체 대여</a>
+						
 					</div>
 				</div>
 				
@@ -307,10 +345,8 @@
 						<div class="modal-body">모든 에피소드를 대여 하시겠습니까?</div>
 						<!-- Footer -->
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">확인</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">취소</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 						</div>
 					</div>
 				</div>
@@ -324,28 +360,13 @@
 			<div class="modal fade" id="book_all_buy">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<!-- header -->
-						<div class="modal-header">
-							<!-- 닫기(x) 버튼 -->
-							<button type="button" class="close" data-dismiss="modal">×</button>
-							<!-- header title -->
-							<h4 class="modal-title">책 전체 구입</h4>
-						</div>
-						<!-- body -->
-						<div class="modal-body">모든 에피소드를 구입 하시겠습니까?</div>
-						<!-- Footer -->
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">확인</button>
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">취소</button>
-						</div>
+					
 					</div>
 				</div>
 			</div>
 			<!-- 전체 구입 모달 끝 -->
 			
-						<!-- 에피소드 대여 모달 -->
+			<!-- 에피소드 대여 모달 -->
 				<div class="modal fade" id="book_rent">
 					<div class="modal-dialog">
 						<div class="modal-content">

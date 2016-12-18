@@ -295,6 +295,51 @@ public class BookServiceImpl implements BookService{
 				return bookList;
 	}
 
+	@Override
+	public void updateTotalBuyAndRentPointForBook(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.update("BookMapper.updateTotalBuyAndRentPointForBook",book);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("포인트 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public Book selectTotalPointFromBook(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		Book result = null;
+		try{
+			result = sqlSession.selectOne("BookMapper.selectTotalPointFromBook", book);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+		
+			throw new Exception("조회된 작품의 포인트 정보가 없습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품의 포인트 정보 불러오기 실패");
+			
+		}
+		
+		
+		
+		
+		
+		return result;
+	}
+
 
 	
 

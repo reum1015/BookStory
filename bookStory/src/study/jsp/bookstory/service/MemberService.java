@@ -74,5 +74,24 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public Member selectMember(Member member)throws Exception;
+	
+	/**
+	 * 회원의 현재 보유중인 포인트 조회
+	 * @param member
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectMyPointByMemberId(Member member)throws Exception;
+	
+	/**
+	 * 회원의 포인트 정보 갱신
+	 * @param member
+	 * @throws Exception
+	 */
+	public void updateMyPointByBuyBook(Member member)throws Exception;
+	
+	
+	
+	
 
 }

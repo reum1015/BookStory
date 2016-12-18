@@ -106,4 +106,20 @@ public interface BookService {
 	public List<Book> selectNovelListByDay(Book book)throws Exception;
 	
 	
+	/**
+	 * 작품의 총 구매 포인트와 렌트 포인트 업데이트
+	 * @param book
+	 * @throws Exception
+	 */
+	public void updateTotalBuyAndRentPointForBook(Book book)throws Exception;
+	
+	/**
+	 * 작품의 총 구매 포인트와 총 렌트 포인트 조회
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public Book selectTotalPointFromBook(Book book)throws Exception;
+	
+	
 }

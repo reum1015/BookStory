@@ -98,4 +98,15 @@
 	  FROM member
 	  WHERE id=#{id}
 	</select>
+	
+	<!-- 회원의 포인트 조회 -->
+	<select id="selectMyPointByMemberId" parameterType="study.jsp.bookstory.model.Member" resultType="int">
+	SELECT point FROM member WHERE id=#{id}
+	</select>
+	
+	<!-- 회원의 포인트 차감 -->
+	<update id="updateMyPointByBuyBook" parameterType="study.jsp.bookstory.model.Member">
+	UPDATE member SET point = #{point} WHERE id=#{id} 
+	</update>
+	
 </mapper>

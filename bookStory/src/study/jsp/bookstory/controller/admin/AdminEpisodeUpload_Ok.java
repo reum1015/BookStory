@@ -17,8 +17,10 @@ import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.ImageFile;
+import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
+import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
@@ -40,6 +42,7 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 	EpisodeService episodeService;
 	RegexHelper regex;
 	ImageFileService imageFileService;
+	BookService bookService;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -52,6 +55,7 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		regex = RegexHelper.getInstance();
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
+		bookService = new BookServiceImpl(sqlSession, logger);
 		
 		
 		/** (3) 로그인 여부 검사*/
@@ -84,7 +88,6 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		String author_comment_temp = paramMap.get("author_comment");
 		String bookId = paramMap.get("book_id");
 		
-		
 		String episode_name = episode_name_temp.trim();
 		String content = content_temp.trim();
 		String author_comment = author_comment_temp.trim();
@@ -95,8 +98,6 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		logger.debug("content  -----> " + content);
 		logger.debug("author_comment  ------> " + author_comment);
 		logger.debug("book_id  -----------> " + bookId);
-		
-		
 		
 		/** (5) 입력값의 유효성 검사 */
 		if(!regex.isValue(genre)){
@@ -137,11 +138,12 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 		//에피소드 content 쌍따옴표 처리
 		//String tempContent = content.replace("\'", "\''").replace("\"", "\\\"");
 		
-		
-		
 		//book_id int타입으로 변환
 		int book_id = Integer.parseInt(bookId);
 		
+		//작품의 총 구매 포인트와 렌트 포인트 등록을 위한 파라미터 셋팅
+		Book book = new Book();
+		book.setId(book_id);
 		
 		
 		//입력받은 파라미터를 Beans로 묶기
@@ -190,6 +192,9 @@ public class AdminEpisodeUpload_Ok extends BaseController{
 			
 			//없다면 에피소드 등록
 			episodeService.insertEpisode(episode);
+			
+			//작품의 총 구매포인트와 렌트 포인트 업데이트
+			bookService.updateTotalBuyAndRentPointForBook(book);
 			
 
 		}catch (Exception e) {

@@ -128,7 +128,7 @@
 	</select>
 	
 	<!-- TodayNovel 오늘날짜 작품 리스트 불러오기 -->
-		<select id="selectNovelListByDay" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
+	<select id="selectNovelListByDay" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
 	SELECT id, book_name, book_author, daily_date, intro, genre, total_point, intro,
 			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
 			ORDER BY id ASC LIMIT 0, 1) AS imagePath
@@ -136,6 +136,16 @@
 	WHERE daily_date = #{daily_date}
 	</select>
 	
+	<!-- 에피소드 올릴때 마다 총 대여 포인트 총 구매 포인트 합계 누적 -->
+	<update id="updateTotalBuyAndRentPointForBook" parameterType="study.jsp.bookstory.model.Book">
+	UPDATE book SET total_point = total_point + 200, rent_point = rent_point + 100
+	WHERE id=#{id}
+	</update>
 	
+	<!-- 작품에 대한 총 구매 포인트와 총 렌트 포인트 조회 -->
+	<select id="selectTotalPointFromBook" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
+	SELECT total_point, rent_point FROM book
+	WHERE id=#{id}
+	</select>
 	
 </mapper>

@@ -210,7 +210,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectMember(Member member) throws Exception {
-Member result = null;
+		Member result = null;
 		
 		try{
 			result = sqlSession.selectOne("MemberMapper.selectMember", member);
@@ -224,6 +224,46 @@ Member result = null;
 			throw new Exception("회원정보 조회에 실패했습니다.");
 		}
 		return result;
+	}
+
+	
+	/**
+	 * 회원의 현재 포인트 조회
+	 */
+	@Override
+	public int selectMyPointByMemberId(Member member) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMyPointByMemberId", member);
+			
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("회원의포인트 정보 조회에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateMyPointByBuyBook(Member member) throws Exception {
+		// TODO Auto-generated method stub
+		
+		try{
+			int result = sqlSession.update("MemberMapper.updateMyPointByBuyBook", member);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 정보에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("회원의 포인트 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
 	}
 
 
