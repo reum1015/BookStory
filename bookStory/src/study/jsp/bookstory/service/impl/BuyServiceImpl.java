@@ -1,11 +1,13 @@
 package study.jsp.bookstory.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.model.Buy;
+import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BuyService;
 
@@ -30,8 +32,23 @@ public class BuyServiceImpl implements BuyService{
 	}
 
 	@Override
-	public void insertEpisodeAllBuy(Buy all_buy_insert) throws Exception {
+	public void insertEpisodeAllBuy(Map<String,Object> map) throws Exception {
 		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.insert("BuyMapper.insertAllEpisode", map);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("저장된 전체 구매목록이 없습니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("전체 구매목록 저장에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
 		
 	}
 
@@ -66,6 +83,22 @@ public class BuyServiceImpl implements BuyService{
 		}finally{
 			sqlSession.commit();
 		}
+	}
+
+	@Override
+	public List<Buy> selectPurchaseEpisodeList(Buy buy) throws Exception {
+		// TODO Auto-generated method stub
+		List<Buy> result = null;
+		
+		try {
+			result = sqlSession.selectList("BuyMapper.selectPurchaseEpisodeList", buy);
+
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("구매목록  조회에 실패했습니다.");
+		}
+
+		return result;
 	}
 
 }

@@ -16,14 +16,17 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.BuyService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.FavoriteService;
 import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.BuyServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.FavoriteServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
@@ -57,6 +60,7 @@ public class BookList extends BaseController {
 	FavoriteService favoriteService;
 	TextConverter textConverter;
 	CommonUtils commonUtils;
+	BuyService buyService;
 	
 	
 	
@@ -77,6 +81,7 @@ public class BookList extends BaseController {
 		favoriteService = new FavoriteServiceImpl(sqlSession, logger);
 		textConverter = TextConverter.getInstance();
 		commonUtils = CommonUtils.getInstance();
+		buyService  = new BuyServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -105,7 +110,7 @@ public class BookList extends BaseController {
 		bookItem.setId(book_id);
 		
 		Episode episode = new Episode();			//에피소드 리스트 담을 빈즈
-		episode.setBook_id(book_id);				//작품정보 빈즈에 셋팅
+		episode.setBook_id(book_id);					//작품정보 빈즈에 셋팅
 		
 		
 		//현재 페이지 수 --> 기본값 1페이지
@@ -131,6 +136,12 @@ public class BookList extends BaseController {
 		//에피소드 리스트 저장 List
 		List<Episode> episodeList = new ArrayList<Episode>();
 		episodeList = null;
+		
+		//회원의 작품 구매 목록 조회
+		Buy buy = new Buy();
+		buy.setMember_id(member_id);
+		List<Buy> buyList = null;
+		
 		try{
 			
 			//관심등록 확인용
@@ -159,6 +170,9 @@ public class BookList extends BaseController {
 			//작품의 첫화 에피소드 조회
 			firstEpisode = episodeService.selectFirstEpisodeIdByBookId(episode);
 			
+			//회원의 작품 구매 목록 조회
+			buyList = buyService.selectPurchaseEpisodeList(buy);
+			
 		}catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -171,6 +185,7 @@ public class BookList extends BaseController {
 		logger.debug("favoriteCount ------->" + favoriteCount);
 		logger.debug("episode List -----> " + episodeList);
 		logger.debug("bookItem ----->" + bookItem.toString());
+		logger.debug("buyList ------>" + buyList);
 		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체(작품 메인)
 		if (getBookItem != null) {
@@ -235,6 +250,7 @@ public class BookList extends BaseController {
 		request.setAttribute("bookitem", getBookItem);
 		request.setAttribute("firstEpisode", firstEpisode);
 		request.setAttribute("episodeList", episodeList);
+		request.setAttribute("buyList", buyList);
 		
 		return view;
 	}

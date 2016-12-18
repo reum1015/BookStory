@@ -77,26 +77,28 @@ public class LoginOk extends BaseController {
 			return null;
 		}
 		
+		String nickName = loginInfo.getNick_name();
+		
 		/** (8) 조회된 회원 정보를 세션에 저장 */
 		// 로그인 처리는 아이디와 비밀번호를 기반으로 조회된 정보를
 		// 세션에 보관하는 과정을 말한다.
 		// 로그인에 대한 판별은 저장된 세션정보의 존재 여부로 판별한다.
 		web.setSession("loginInfo", loginInfo);
 		
-		
-		
-		
 		//작품 정보가 있는경우 작품 리스트 페이지로 이동
-		
 		String rootPath = web.getRootPath();
-		String url = rootPath + "?book_id=" + book_id;
+		String url = rootPath + "/booklist/book_list.do?book_id=" + book_id;
 		
-		
-		
+		if(book_id != 0){
+			sqlSession.close();
+			web.redirect(url, nickName + "님 환영합니다.");
+			return null;
+		}
+
 		
 		/** (9) 메인페이지로 이동 */
 		sqlSession.close();
-		web.redirect(web.getRootPath() + "/index.do", "어서오세요. 북스토리입니다.");
+		web.redirect(web.getRootPath() + "/index.do", nickName + "님 환영합니다.");
 		
 		return null;
 	}

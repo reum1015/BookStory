@@ -34,12 +34,14 @@ public class Logout extends BaseController {
 			return null;
 		}
 		
+		String nickName = loginInfo.getNick_name();
+		
 		/** (4) 로그아웃 */
 		// 로그아웃은 모든 세션 정보를 삭제하는 처리.
 		web.removeAllSession();
 		
 		/** (5) 페이지 이동 */
-		web.redirect(web.getRootPath() + "/index.do", "로그아웃 되었습니다.");
+		web.redirect(web.getRootPath() + "/index.do", nickName+"님 바이바이");
 		
 		return null;
 	}

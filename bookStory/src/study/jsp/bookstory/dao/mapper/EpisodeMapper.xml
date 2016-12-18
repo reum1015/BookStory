@@ -84,6 +84,11 @@
 	UPDATE episode SET total_star=#{total_star}, total_starcount=#{total_starcount} WHERE id=#{id}
 	</update>
 	
+	<!-- 에피소드 리스트 가져오기(모든 에피소드 구입용) -->
+	<select id="selectEpisdoeListByBookForBuy" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id, episode_buy,episode_rent, book_id, episode_order
+		FROM episode WHERE book_id=#{book_id}
+	</select>
 	
 	
 	
