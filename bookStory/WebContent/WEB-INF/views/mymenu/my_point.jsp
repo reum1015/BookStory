@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
@@ -140,7 +142,7 @@
 	    <tbody>
 	      <tr>
 	        <th>
-	          <span>0 POINT</span>
+	          <span>${point}</span>
 	          <a data-toggle="modal" href="#myModal" class="btn btn-primary">포인트충전</a>
 	          <a data-toggle="modal" href=".mymodal" class="btn btn-danger">포인트환불</a>
 	        </th>

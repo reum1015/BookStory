@@ -233,10 +233,9 @@
 					<p>${episode.reg_date}</p>
 				</div>
 					
-
-						<input type="text" value="${buyList[status.index].episode_id}">
-						<input type="text" value="${episode.id}">
-						<div class="col-xs-3 check_box_list pull-right">
+					
+					<c:if test="${loginInfo==null}">
+							<div class="col-xs-3 check_box_list pull-right">
 								<div class="checkbox checkbox-warning">
 			                        <input id="${episode.id}" type="checkbox">
 			                        <label for="${episode.id}">
@@ -245,10 +244,82 @@
 		                    	</div>
 							
 								<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-						</div>
+								</div>
+					</c:if>
+					
+					<div class="form-group">
 
-
+					<input type="text" value="${episode.id}">
+					</div>
+					<c:choose>
+						<c:when test="${fn:length(buyList) > 0}">
 						
+							<c:set var="doneLoop" value="false"/>
+							<c:forEach var="buyList" items="${buyList}" varStatus="status">
+								<c:if test="${episode.id==buyList.episode_id}">
+									<div>구매완료</div>
+									
+									<c:set var="doneLoop" value="true"/>
+								</c:if>
+								
+									
+							</c:forEach>	
+							
+							
+						</c:when>
+					</c:choose>
+					
+					
+
+
+						<!-- <div class="col-xs-3 check_box_list pull-right">
+								<div class="checkbox checkbox-warning">
+			                        <input id="${episode.id}" type="checkbox">
+			                        <label for="${episode.id}">
+			  							작품 선택
+			                        </label>
+		                    	</div>
+							
+								<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
+								</div>
+
+						<c:set var="doneLoop" value="false"/>
+					<c:set var="Loop" value="false"/>
+						<c:forEach var="buyList" items="${buyList}">
+							
+						
+							<c:if test="${not doneLoop}">
+								<c:if test="${episode.id!=buyList.episode_id}">
+									<div>********</div>
+									<c:set var="doneLoop" value="true"/>
+								</c:if>	
+								<c:if test="${episode.id==buyList.episode_id}">
+									<div>구매완료</div>
+									<c:set var="doneLoop" value="true"/>
+								</c:if>
+							</c:if>
+		
+						<c:if test="${episode.id==buyList.episode_id}">
+									<div>구매 완료</div>
+								</c:if>
+						
+						
+						</c:forEach>
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+							 -->
+							
+
 
 
 
@@ -304,7 +375,6 @@
 							<li><a href="${pageUrl}">${i}</a></li>
 						</c:otherwise>
 					</c:choose>	
-		
 				</c:forEach>
 					
 				<!-- 다음 그룹으로 이동 -->

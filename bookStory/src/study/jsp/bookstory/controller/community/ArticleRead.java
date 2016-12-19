@@ -44,8 +44,11 @@ public class ArticleRead extends BaseController {
 		
 		// 세션에서 member_id 가져오기
 		Member loginInfo = (Member) web.getSession("loginInfo");
-		int member_id = loginInfo.getId();
 		
+		int member_id = 0;
+		if(loginInfo != null){
+			member_id = loginInfo.getId();
+		}
 		/** (3) 글번호 파라미터 받기 */
 		int article_id = web.getInt("article_id");
 		logger.debug("articleId="+article_id);
