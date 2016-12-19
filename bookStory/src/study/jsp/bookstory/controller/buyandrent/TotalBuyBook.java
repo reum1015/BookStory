@@ -44,6 +44,7 @@ public class TotalBuyBook extends BaseController{
 	EpisodeService episodeService;
 	MemberService memberService;
 	
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
