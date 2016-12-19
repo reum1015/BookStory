@@ -29,14 +29,11 @@
 	
 	<!-- 책 전체 구입 -->
 	<insert id="insertAllEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO buy(
-		buy_day,reg_date, member_id, episode_id, buy_point
-	) VALUES (
-		now(), now(),
+	INSERT INTO buy(buy_day,reg_date, member_id, episode_id, buy_point)
+	VALUES
 		<foreach collection="list" item="item" separator=",">
-		#{item.member_id},#{item.episode_id},#{item.buy_point}
+		(now(), now(),#{item.member_id},#{item.episode_id},#{item.buy_point})
 		</foreach>
-	)
 	</insert>
 	
 	<!-- 회원의 buy_Point 수정 -->
@@ -54,5 +51,11 @@
 	<delete id="deleteBuyAll" parameterType="study.jsp.bookstory.model.Buy">
 	  DELETE FROM buy WHERE member_id =#{member_id}
 	</delete>
+	
+	<!-- 회원의 작품 구매 내역 조회 -->
+	<select id="selectPurchaseEpisodeList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">
+	SELECT id, episode_id, DATE_FORMAT(buy_day, '%Y-%m-%d') AS buy_day FROM buy where member_id=#{member_id}
+	ORDER BY id DESC
+	</select>
 	
 </mapper>

@@ -61,16 +61,18 @@ public class TotalBuyBook extends BaseController{
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);	
 		memberService = new MemberServiceImpl(sqlSession, logger);
 		
+		String view = "booklist/totalBuyBook";
+		
 		int book_id = web.getInt("book_id");
 		
-		Member member = (Member)web.getSession("loginInfo");
+		logger.debug("book_id --------------> " + book_id);
 		
-		int member_id = 0;
+		Member member = (Member)web.getSession("loginInfo");
+
 		//회원 포인트 저장 변수
 		int memberPoint = 0;
 		
 		if(member != null){
-			member_id = member.getId();
 			//회원 포인트 저장
 			memberPoint = member.getPoint();
 		}
@@ -82,78 +84,19 @@ public class TotalBuyBook extends BaseController{
 		//작품의 포인트 저장할 변수(총 구매포인트, 총 렌트포인트 두개 불러옴)
 		Book bookPoint = new Book();
 		
-		
 		//회원이 모든 에피소드 구매가능한지 저장 변수
 		boolean isBuyAllBook;
 		
-		
-		//구매 가능하다면 작품의 모든 에피소드 정보 가져올 변수
-		List<Episode> allEpisodeInfo = new ArrayList<>();
-		
-		//에피소드에게 넘겨줄 작품번호 셋팅
-		Episode episode = new Episode();
-		episode.setBook_id(book_id);
-		
+		int totalBuyPointFromBook = 0;
 		try{
-						
 			//작품의 총 포인트와 렌트 포인트 조회()
 			bookPoint = bookService.selectTotalPointFromBook(book);
 			
-			//작품의 총 구매 포인트만 추출
-			int totalBuyPointFromBook = bookPoint.getTotal_point();
+			//작품의 총 구매 포인트만 추출(렌트 포인트X)
+			totalBuyPointFromBook = bookPoint.getTotal_point();
 			
 			//회원이 작품의 모든 에피소를 구매 하능한지 확인여부
-			isBuyAllBook = memberPoint < totalBuyPointFromBook;
-			
-			//회원의 포인트가 작품의 모든 에피소드 총 합의 포인트보다 적다면
-			if(isBuyAllBook){
-				web.redirect(null, "포인트가 부족합니다.포인트를 충전해 주세요");
-				return null;
-			}else{
-				
-				List<Buy> buyList = new ArrayList<>();
-				
-				//회원 모든 작품을 구매 가능 하다면
-				//작품의 모든 에피소드 정보 가져오기
-				allEpisodeInfo = episodeService.selectEpisdoeListAllByBook(episode);
-				
-					if(allEpisodeInfo != null){
-						for(int i = 0 ; i<allEpisodeInfo.size();i++){
-						
-							Buy buyItem = new Buy();
-							Episode item = new Episode();
-							
-							//에피소드 하나에서
-							item = allEpisodeInfo.get(i);
-							
-							//에피소드 id와 에피소드 한회의 구매 비용 추출
-							int epiosde_id = item.getId();
-							int episode_buy = item.getEpisode_buy();
-							
-							//buy테이블에 insert 할 값들
-							buyItem.setMember_id(member_id);
-							buyItem.setEpisode_id(epiosde_id);
-							buyItem.setBuy_point(episode_buy);
-							
-							buyList.add(buyItem);
-						}//end For
-					}//end if
-				
-				//buy 테이블에 등록
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("list", buyList);
-				
-				//회원의 포인트 차감
-				int memPoint = memberPoint - totalBuyPointFromBook;
-				
-				Member mem = new Member();
-				mem.setId(member_id);
-				mem.setPoint(memPoint);
-				
-				//회원 포인트 갱신
-				memberService.updateMyPointByBuyBook(member);
-			}
-		
+			isBuyAllBook = memberPoint > totalBuyPointFromBook;
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -161,7 +104,17 @@ public class TotalBuyBook extends BaseController{
 			sqlSession.close();
 		}
 		
-		return "booklist/totalBuyBook";
+		logger.debug("isBuyAllBook -->" + isBuyAllBook);
+		logger.debug("memberPoint -->" + memberPoint);
+		logger.debug("totalBuyPointFromBook -->" + totalBuyPointFromBook);
+		logger.debug("book_id -->" + book_id);
+		
+		
+		request.setAttribute("isBuyAllBook", isBuyAllBook);
+		request.setAttribute("memberPoint", memberPoint);
+		request.setAttribute("totalBuyPointFromBook", totalBuyPointFromBook);
+		request.setAttribute("book_id", book_id);
+		return view;
 	}
 
 }

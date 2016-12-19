@@ -72,6 +72,17 @@ public interface EpisodeService {
 	 */
 	public void updateStarCountAndAvg(Episode episode)throws Exception;
 	
+	
+	/**
+	 * 작품의 총 에피소드 구입용 select
+	 * @param episode
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Episode> selectEpisdoeListByBookForBuy(Episode episode)throws Exception;
+	
+	
+	
 
 
 }

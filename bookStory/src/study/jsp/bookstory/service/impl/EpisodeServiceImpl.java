@@ -210,5 +210,25 @@ public class EpisodeServiceImpl implements EpisodeService{
 		
 	}
 
+	@Override
+	public List<Episode> selectEpisdoeListByBookForBuy(Episode episode) throws Exception {
+		// TODO Auto-generated method stub
+		List<Episode> result = null;
+		
+		try{
+			result = sqlSession.selectList("EpisodeMapper.selectEpisdoeListByBookForBuy", episode);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			throw new Exception("조회된 에피소드목록이(모두 구매용) 없습니다.");
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 목록 조회에(모두 구매용) 실패했습니다.");
+		}
+		
+		return result;
+	}
+
 
 }

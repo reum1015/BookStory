@@ -1,6 +1,7 @@
 package study.jsp.bookstory.service;
 
 import java.util.List;
+import java.util.Map;
 
 import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Member;
@@ -20,7 +21,7 @@ public interface BuyService {
 	 * @param all_buy
 	 * @throws Exception
 	 */
-	public void insertEpisodeAllBuy(Buy all_buy_insert) throws Exception;
+	public void insertEpisodeAllBuy(Map<String,Object> map) throws Exception;
 	
 	/**
 	 * 회원이 작품n개의 구입후 Point수정
@@ -49,4 +50,13 @@ public interface BuyService {
 	 * @throws Exception
 	 */
 	public void deleteBuyAll(Buy buy) throws Exception;
+	
+	/** 
+	 * 회원의 작품 구매 목록 조회
+	 * @param buy
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Buy> selectPurchaseEpisodeList(Buy buy) throws Exception;
+	
 }

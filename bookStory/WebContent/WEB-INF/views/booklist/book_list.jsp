@@ -96,6 +96,8 @@
 			
 			});
 			
+
+			
 			
 	});
 	
@@ -203,9 +205,8 @@
 		<div class="episode_list row">
 		<c:choose>
 			<c:when test="${fn:length(episodeList) > 0}">
-			<c:forEach var="episode" items="${episodeList}">
-			
-			
+			<c:forEach var="episode" items="${episodeList}" varStatus="status">
+		
 			<div class="col-xs-12 col-sm-12 block_12_2">
 			
 				<c:url var="downloadUrl" value="/download.do">
@@ -224,36 +225,45 @@
 				</a>
 				<div class="col-xs-5">
 					<div class="episode_size">
-						${episode.episode_order} . ${episode.episode_name}
+						${episode.episode_order}. ${episode.episode_name}
 					</div>
 					<span class="score_area"> <span class="icon_star_s"></span>
 						<em>${episode.total_star}</em>
 					</span>
 					<p>${episode.reg_date}</p>
 				</div>
-				<div class="col-xs-3 check_box_list pull-right">
 					
+
+						<input type="text" value="${buyList[status.index].episode_id}">
+						<input type="text" value="${episode.id}">
+						<div class="col-xs-3 check_box_list pull-right">
+								<div class="checkbox checkbox-warning">
+			                        <input id="${episode.id}" type="checkbox">
+			                        <label for="${episode.id}">
+			  							작품 선택
+			                        </label>
+		                    	</div>
+							
+								<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
+						</div>
+
+
 						
-						 <div class="checkbox checkbox-warning">
-                        <input id="${episode.id}" type="checkbox">
-                        <label for="${episode.id}">
-  							작품 선택
-                        </label>
-                    </div>
-					
-					<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-				</div>
+
+
+
+	
 			</div>
 		
-			</c:forEach>
-			</c:when>
+					</c:forEach>
+				</c:when>
 			</c:choose>
 		</div>
-		<!-- 에피소드 리스트 시작 -->	
-			
+		<!-- 에피소드 리스트 끝 -->	
+		
 			
 			<!-- 페이지 번호 시작 -->
-			<div>
+	<div>
 		<nav class="text-center">
 			<ul class="pagination">
 				<!-- 이전 그룹으로 이동 -->
