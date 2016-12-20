@@ -28,7 +28,21 @@
 	
 	<!-- optionally if you need to use a theme, then include the theme JS file as mentioned below -->
 	<script src="${pageContext.request.contextPath}/assets/css/star-rating/theme.js"></script>
-	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script> 
+	<script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+	
+	<!-- Multi-column -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/plugins/multi-column/ie-row-fix.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/multi-column/multi-columns-row.css"/>
+	
+    <!-- handlebars -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/plugins/handlebars/handlebars-v4.0.5.js"></script>
+	
+	<!-- ajax -->
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.css"/>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax/ajax_helper.js"></script>
+	
+	<!-- ajaxForm -->
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script> 
 	
 	
 	<script type="text/javascript">
@@ -261,37 +275,44 @@
 			<!-- 댓글 부분  -->	 
 			
 	
-	<div class="container comment_view">
-				<div class="section_area_viewer">
-			<h4>
-				<img
-					src="${pageContext.request.contextPath}/assets/imgs/article/coment.png"
-					alt="코멘트" class="left-block"> <span class="coment_size">총<strong
-					class="coment_color">1개</strong>의 코멘트가 있습니다.
-				</span>
-			</h4>
-			<hr />
-			<ul class="list-inline">
-				<li class="coment_li">
-					<div class="coment_div pull-left">
-						<span class="nic1">닉네임&nbsp&nbsp&nbsp&nbsp<span
-							class="nic2">2016.06.15</span></span>
-						<p>코멘트 내용</p>
-					</div>
-					<button type="submit" class="btn btn-danger pull-right btn-sm">신고</button>
-					<button type="submit" class="btn btn-default pull-right btn-sm">삭제</button>
-				</li>
-			</ul>
-			<!-- 덧글 입력 -->
-			<div class="write">
-				<form class="form-group row">
-					<textarea class="form-control col-xs-9 col-sm-9" rows="3"></textarea>
-					<button type="submit"
-						class="btn btn-primary col-xs-3 col-sm-3 pull-right">등록하기</button>
-				</form>
-			</div>
-		</div>
-	
+  <form style="margin: auto; width: 90%;" id="comment_form" method="post" action="${pageContext.request.contextPath}/episodecomment/episode_comment_insert.do">
+    <!-- 글 번호 상태 유지 -->
+    <input type="hidden" name="episode_id" value="${episode.id}"/>
+   
+    <!-- 내용입력, 저장버튼 -->
+    <div style="margin-top: 20px;" class="form-group">
+      <div class="input-group">
+        <textarea class="form-control custom-control" name="content" style="resize:none; height: 80px"></textarea>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-warning" style="height: 80px">저장</button>
+        </span>
+      </div>
+    </div>
+  </form>
+  
+  <!-- 덧글 리스트 -->
+  <ul style="margin: auto; width: 90%;" class="media-list" id="comment_list">
+
+  </ul>
+  
+  <!-- 덧글 삭제 modal -->
+  <div id="episode_comment_delete_modal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+	  <div class="modal-content">
+
+	  </div>
+	</div>
+  </div>
+  
+  <!-- 덧글 수정 modal -->
+  <div id="episode_comment_edit_modal" class="modal fade">
+    <div class="modal-dialog">
+	  <div class="modal-content">
+	           
+	  </div>
+	</div>
+  </div>
+  
 	<div class="jb-center">
 		<ul class="pagination">
 			<li class="disabled"><a href="#"><span
@@ -308,7 +329,6 @@
 			
 			<!-- // 댓글 부분  끝 -->
 			
-		</div>
 	
 
 
@@ -361,9 +381,32 @@
 
 
 	<script src="${pageContext.request.contextPath}/assets/css/selectbox/js/bootstrap-select.js" type="text/javascript"></script>
+	
+	<script id="tmpl_comment_item" type="text/x-handlebars-template">
+    <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' 
+    	id="comment_{{id}}">
+        <div class="media-body" style='display: block;'>
+            <h4 class="media-heading clearfix">
+          <!-- 작성자, 작성일시 -->
+          <div class="pull-left">
+            {{user_nickname}}
+            <small>
+              / {{reg_date}}
+            </small>
+          </div>
+          <!-- 수정,삭제,신고 버튼 -->
+          <div class="aaa">
+            <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
+            <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#episode_comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
+            <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#episode_comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
+          </div>
+        </h4>
+        <!-- 내용 -->
+        <p>{{{content}}}</p>
+      </div>
+    </li>
+</script>
 
-				<!-- ajaxForm -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 	
 	<script type="text/javascript">
 	$(function() {
@@ -433,11 +476,117 @@
 		//모달 캐시 데이터 삭제
 		//모든 모달이 완전히 닫힌 직후 호출됨
 		
-		
-		
-		
-	
 	})
+	
+	</script>
+	
+	<script type="text/javascript">
+	// 코멘트 ajax
+	$(function() {
+	  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
+	  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
+		  episode_id: "${episode.id}"
+	  }, function(json) {
+		  if(json.rt != "OK"){
+				alert(json.rt);
+				return false;
+		  }
+		  
+		// 템플릿 HTML을 로드한다.
+			var template = Handlebars.compile($("#tmpl_comment_item").html());
+			
+			// JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+			for (var i=0; i<json.item.length; i++) {
+				json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
+				
+				// 덧글 아이템 항목 하나를 템플릿과 결합한다.
+				var html = template(json.item[i]);
+				// 결합된 결과를 덧글 목록에 추가한다.
+				$("#comment_list").append(html);
+			}
+		});
+		
+		/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
+		// <form>요소의 method, action속성과 <input>태그를
+		// Ajax요청으로 자동 구성한다.
+		$("#comment_form").ajaxForm(function(json) {
+			// json은 API에서 표시하는 전체 데이터
+			if (json.rt != "OK") {
+				alert(json.rt);
+				return false;
+			}
+			alert("덧글 작성 완료.");
+			// 줄 바꿈에 대한 처리
+			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+			// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+			json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
+			
+			// 템플릿 HTML을 로드한다.
+			var template = Handlebars.compile($("#tmpl_comment_item").html());
+			// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+			var html = template(json.item);
+			// 결합된 결과를 덧글 목록에 추가한다.
+			$("#comment_list").append(html);
+			// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
+			$("#comment_form").trigger('reset');
+		});
+		
+		/** 모든 모달창의 캐시 방지 처리 */
+		$('.modal').on('hidden.bs.modal', function (e) {
+			// 모달창 내의 내용을 강제로 지움.
+  		    $(this).removeData('bs.modal');
+		});
+		
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on('submit', "#episode_comment_delete_form", function(e) {
+			e.preventDefault();
+
+			// AjaxForm 플러그인의 강제 호출
+			$(this).ajaxSubmit(function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				
+				alert("삭제되었습니다.");
+				// modal 강제로 닫기
+				$("#episode_comment_delete_modal").modal('hide');
+				
+				// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+				var comment_id = json.commentId;
+				$("#comment_" + comment_id).remove();
+			});
+		});
+		
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on('submit', "#episode_comment_edit_form", function(e) {
+			e.preventDefault();
+			
+			// AjaxForm 플러그인의 강제 호출
+			$(this).ajaxSubmit(function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				
+				// 줄 바꿈에 대한 처리
+				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+				// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+				json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
+				
+				// 템플릿 HTML을 로드한다.
+				var template = Handlebars.compile($("#tmpl_comment_item").html());
+				// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+				var html = template(json.item);
+				// 결합된 결과를 기존의 덧글 항목과 교체한다.
+				$("#comment_" + json.item.id).replaceWith(html);
+				
+				// 덧글 수정 모달 강제로 닫기
+				$("#episode_comment_edit_modal").modal('hide');
+			});
+		});
+	});
 	</script>
 
 </body>

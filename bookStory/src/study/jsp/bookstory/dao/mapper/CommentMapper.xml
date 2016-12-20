@@ -87,4 +87,41 @@
 	<update id="updateCommentMemberOut" parameterType="study.jsp.bookstory.model.Comment">
 	  UPDATE comment SET member_id=NULL, edit_date=now() WHERE member_id=#{member_id}
 	</update>
+	
+	<!-- episode 덧글 정보 저장하기 -->
+	<insert id="insertEpisodeComment" parameterType="study.jsp.bookstory.model.Comment" useGeneratedKeys="true" keyProperty="id">
+	  INSERT INTO comment (
+	    content, reg_date, edit_date, ip_address, reported, blind, episode_id, member_id, user_nickname
+	  ) VALUES (
+	    #{content}, now(), now(), #{ip_address}, 0, 0, #{episode_id}, #{member_id}, #{user_nickname}
+	  
+	  )
+	</insert>
+	
+	<!-- episode 덧글 하나에 대한 정보를 조회한다. -->
+	<select id="selectEpisodeComment" parameterType="study.jsp.bookstory.model.Comment" resultMap="comment">
+	  SELECT id, content,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+	         ip_address, reported, blind, member_id, episode_id, user_nickname
+	  FROM   comment
+	  WHERE  id=#{id}
+	</select>
+	
+	<!-- 하나의 episode에 속한 모든 덧글 목록을 조회한다. -->
+	<select id="selectEpisodeCommentList" parameterType="study.jsp.bookstory.model.Comment" resultMap="comment">
+	  SELECT id, content,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') as reg_date,
+	         DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') as edit_date,
+	         ip_address, reported, blind, member_id, episode_id, user_nickname
+	  FROM   comment
+	  WHERE  episode_id=#{episode_id}
+	  ORDER BY id ASC
+	</select>
+	
+	<!-- 특정episode에 속한 모든 덧글을 삭제한다. -->
+	<delete id="deleteEpisodeCommentAll" parameterType="study.jsp.bookstory.model.Comment">
+	  DELETE FROM comment WHERE episode_id=#{episode_id}
+	</delete>
+	
 </mapper>

@@ -198,5 +198,81 @@ public class CommentServiceImpl implements CommentService {
 			sqlSession.commit();
 		}
 	}
+	
+	@Override
+	public void insertEpisodeComment(Comment comment) throws Exception {
+		try{
+			int result = sqlSession.insert("CommentMapper.insertEpisodeComment", comment);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("저장된 덧글이 없습니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 등록에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+
+	@Override
+	public Comment selectEpisodeComment(Comment comment) throws Exception {
+		Comment result = null;
+		
+		try{
+			result = sqlSession.selectOne("CommentMapper.selectEpisodeComment", comment);
+			if(result==null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			throw new Exception("조회된 덧글이 없습니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 조회에 실패했습니다.");
+		}
+		return result;
+		
+	}
+
+	@Override
+	public List<Comment> selectEpisodeCommentList(Comment comment) throws Exception {
+        List<Comment> result = null;
+		
+		try{
+			result = sqlSession.selectList("CommentMapper.selectEpisodeCommentList", comment);
+			if(result==null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			throw new Exception("조회된 덧글이 없습니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 목록 조회에 실패했습니다.");
+		}
+		return result;
+		
+	}
+
+	@Override
+	public void deleteEpisodeCommentAll(Comment comment) throws Exception {
+		try{
+			// 덧글이 존재하지 않는 게시물에 대한 요청일 수 있으므로,
+			// NullPointerException을 발생시키지 않는다.
+			sqlSession.delete("CommentMapper.deleteEpisodeCommentAll", comment);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
+	
+	
 
 }

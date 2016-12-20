@@ -73,5 +73,35 @@ public interface CommentService {
 	 * @throws Exception
 	 */
 	public void updateCommentMemberOut(Comment comment) throws Exception;
+	
+	/**
+	 * 덧글을 저장한다.
+	 * @param comment - 덧글 데이터
+	 * @throws Exception
+	 */
+	public void insertEpisodeComment(Comment comment) throws Exception;
+	
+	/**
+	 * 하나의 덧글을 읽어들인다.
+	 * @param comment - 읽어들일 게시물 일련번호가 저장된 Beans
+	 * @return Comment - 읽어들인 게시물 내용
+	 * @throws Exception
+	 */
+	public Comment selectEpisodeComment(Comment comment) throws Exception;
+	
+	/**
+	 * 하나의 게시물에 속한 모든 덧글 목록을 조회한다.
+	 * @param comment - 읽어들일 게시물 일련번호가 저장된 Beans
+	 * @return List - 읽어들인 덧글 목록
+	 * @throws Exception
+	 */
+	public List<Comment> selectEpisodeCommentList(Comment comment) throws Exception;
+	
+	/**
+	 * 특정 게시물에 속한 모든 덧글을 삭제한다.
+	 * @param comment
+	 * @throws Exception
+	 */
+	public void deleteEpisodeCommentAll(Comment comment) throws Exception;
 
 }
