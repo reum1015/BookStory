@@ -17,6 +17,8 @@
 		<result property="report_content" column="report_content"/>			<!-- 신고내용 -->
 		<result property="article_id" column="article_id"/>							<!-- 게시글 번호 (외래키) -->
 		<result property="comment_id" column="comment_id"/>					<!-- 덧글 번호 (외래키) -->
+		<result property="nick_name" column="nick_name"/>
+		<result property="user_nickname" column="user_nickname"/>
 	</resultMap>
 	
 	<!-- 신고된 게시글 등록 -->
@@ -52,11 +54,12 @@
 	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->
 	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
-	SELECT member_id, target_member_id, report_content, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, report_subject
-	FROM report
+	SELECT m.nick_name, a.user_nickname, r.report_content, DATE_FORMAT(reg_date, '%Y-%m-%d') AS r.reg_date, r.report_subject, r.article_id
+	FROM report r, member m, article a
+	WHERE m.nick_name in (select nick_name from member where id=r.member_id)
+	AND a.user_nickname in (select user_nickname from article where member_id=r.target_member_id)
 	</select>
-	
-	
+
 	
 	
 	
