@@ -233,9 +233,18 @@
 					<p>${episode.reg_date}</p>
 				</div>
 					
-
-						<input type="text" value="${buyList[status.index].episode_id}">
+						
+						
+						
+						<input type="text" value="${buyList[status.index].episode_id}"placeholder="바이리스트">
 						<input type="text" value="${episode.id}">
+						<c:if test="${episode.id==buyList[status.index].episode_id }">
+						<div class="col-xs-3 check_box_list pull-right">							
+								<p>구매 완료 </p>
+								<p>${buyList[status.index].buy_day}</p>
+						</div>
+						</c:if>
+						<c:if test="${episode.id ne buyList[status.index].episode_id }">
 						<div class="col-xs-3 check_box_list pull-right">
 								<div class="checkbox checkbox-warning">
 			                        <input id="${episode.id}" type="checkbox">
@@ -246,9 +255,7 @@
 							
 								<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
 						</div>
-
-
-						
+						</c:if>
 
 
 
