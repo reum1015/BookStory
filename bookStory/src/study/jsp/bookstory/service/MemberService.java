@@ -90,8 +90,12 @@ public interface MemberService {
 	 */
 	public void updateMyPointByBuyBook(Member member)throws Exception;
 	
-	
-	
+	/**
+	 * 회원의 포인트 충전 및 환불
+	 * @param member
+	 * @throws Exception
+	 */
+	public void updateMyPointByMemberId(Member member)throws Exception;
 	
 
 }

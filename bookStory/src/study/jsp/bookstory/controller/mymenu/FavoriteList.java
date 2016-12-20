@@ -66,8 +66,11 @@ public class FavoriteList extends BaseController {
 		
 		Member member = (Member)web.getSession("loginInfo");
 		
-		int member_id = member.getId();
 		
+		int member_id = 0;
+		if(member != null){
+			member_id = member.getId();
+		}
 		/** (4) 조회할 정보에 대한 Beans 생성 */
 		Favorite favorite = new Favorite();
 		favorite.setMember_id(member_id);

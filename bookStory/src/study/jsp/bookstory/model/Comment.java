@@ -11,7 +11,16 @@ public class Comment {
 	private int blind;					// 블라인드 처리
 	private int member_id;
 	private int article_id;
+	private int episode_id;
 	private String user_nickname;
+	
+	
+	public int getEpisode_id() {
+		return episode_id;
+	}
+	public void setEpisode_id(int episode_id) {
+		this.episode_id = episode_id;
+	}
 	public int getId() {
 		return id;
 	}
@@ -76,7 +85,8 @@ public class Comment {
 	public String toString() {
 		return "Comment [id=" + id + ", content=" + content + ", reg_date=" + reg_date + ", edit_date=" + edit_date
 				+ ", ip_address=" + ip_address + ", reported=" + reported + ", blind=" + blind + ", member_id="
-				+ member_id + ", article_id=" + article_id + ", user_nickname=" + user_nickname + "]";
+				+ member_id + ", article_id=" + article_id + ", episode_id=" + episode_id + ", user_nickname="
+				+ user_nickname + "]";
 	}
 	
 	
