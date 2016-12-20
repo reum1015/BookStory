@@ -248,7 +248,7 @@ public class BookList extends BaseController {
 		request.setAttribute("bookitem", getBookItem);
 		request.setAttribute("firstEpisode", firstEpisode);
 		request.setAttribute("episodeList", episodeList);
-		request.setAttribute("buyList", buyList);
+		request.setAttribute("buyList", buyList);				//작품 구매목록
 		request.setAttribute("member", member);
 		
 		return view;

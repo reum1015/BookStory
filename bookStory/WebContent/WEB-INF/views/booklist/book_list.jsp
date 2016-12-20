@@ -96,6 +96,8 @@
 			
 			});
 			
+			var BuyItem = <%=request.getAttribute("buyList")%>;
+			alert(BuyItem)
 
 			
 			
@@ -248,24 +250,22 @@
 					</c:if>
 					
 					<div class="form-group">
-
-					<input type="text" value="${episode.id}">
+					
 					</div>
+					<span>${buyList[status.index].episode_id}</span>
+					<span>${episode.id}</span>
+					<c:set var="doneLoop" value="false"/>
 					<c:choose>
 						<c:when test="${fn:length(buyList) > 0}">
-						
-							<c:set var="doneLoop" value="false"/>
 							<c:forEach var="buyList" items="${buyList}" varStatus="status">
-								<c:if test="${episode.id==buyList.episode_id}">
-									<div>구매완료</div>
-									
-									<c:set var="doneLoop" value="true"/>
-								</c:if>
 								
-									
-							</c:forEach>	
-							
-							
+								<c:choose>
+								<c:when test="${episode.id==buyList.episode_id}">
+									<div>구매완료</div>
+									<c:set var="doneLoop" value="true"/>
+								</c:when>
+							</c:choose>
+							</c:forEach>
 						</c:when>
 					</c:choose>
 					
