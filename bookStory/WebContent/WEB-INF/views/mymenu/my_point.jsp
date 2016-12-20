@@ -48,7 +48,7 @@
 							
 							$("#nicKName").html(nickName+" 님");
 							
-							$("#myPointScore").text(myPoint);
+							$("#myPointScore").text(myPoint + "POINT");
 							$("#myPointAdd").modal('hide');
 							$("#afterPoint").modal('show');
 						});

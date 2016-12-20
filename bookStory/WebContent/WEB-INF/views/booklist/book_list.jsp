@@ -10,13 +10,142 @@
 <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
 <!-- Article css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/article/articleList.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/article/articleList.css" />
 
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/booklist/booklist.css" />
-	
-	
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/booklist/booklist.css" />
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+ <style type="text/css">
+	    
+	    /**체크박스*/
+		 <style type="text/css">
+	    
+	    /**완성작 보기 체크박스*/
+			@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') 
+			
+			.funkyradio div {
+			  clear: both;
+			  overflow: hidden;
+			}
+			
+			.funkyradio label {
+			  width: 100%;
+			  border-radius: 3px;
+			  border: 1px solid #D1D3D4;
+			  font-weight: normal;
+			}
+			
+			.funkyradio input[type="radio"]:empty,
+			.funkyradio input[type="checkbox"]:empty {
+			  display: none;
+			}
+			
+			.funkyradio input[type="radio"]:empty ~ label,
+			.funkyradio input[type="checkbox"]:empty ~ label {
+			  position: relative;
+			  line-height: 2.5em;
+			  text-indent: 3.25em;
+			  margin-top: 2em;
+			  cursor: pointer;
+			  -webkit-user-select: none;
+			     -moz-user-select: none;
+			      -ms-user-select: none;
+			          user-select: none;
+			}
+			
+			.funkyradio input[type="radio"]:empty ~ label:before,
+			.funkyradio input[type="checkbox"]:empty ~ label:before {
+			  position: absolute;
+			  display: block;
+			  top: 0;
+			  bottom: 0;
+			  left: 0;
+			  content: '';
+			  width: 2.5em;
+			  background: #D1D3D4;
+			  border-radius: 3px 0 0 3px;
+			}
+			
+			.funkyradio input[type="radio"]:hover:not(:checked) ~ label,
+			.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label {
+			  color: #888;
+			}
+			
+			.funkyradio input[type="radio"]:hover:not(:checked) ~ label:before,
+			.funkyradio input[type="checkbox"]:hover:not(:checked) ~ label:before {
+			  content: '\2714';
+			  text-indent: .9em;
+			  color: #C2C2C2;
+			}
+			
+			.funkyradio input[type="radio"]:checked ~ label,
+			.funkyradio input[type="checkbox"]:checked ~ label {
+			  color: #777;
+			}
+			
+			.funkyradio input[type="radio"]:checked ~ label:before,
+			.funkyradio input[type="checkbox"]:checked ~ label:before {
+			  content: '\2714';
+			  text-indent: .9em;
+			  color: #333;
+			  background-color: #ccc;
+			}
+			
+			.funkyradio input[type="radio"]:focus ~ label:before,
+			.funkyradio input[type="checkbox"]:focus ~ label:before {
+			  box-shadow: 0 0 0 3px #999;
+			}
+			
+			.funkyradio-default input[type="radio"]:checked ~ label:before,
+			.funkyradio-default input[type="checkbox"]:checked ~ label:before {
+			  color: #333;
+			  background-color: #ccc;
+			}
+			
+			.funkyradio-primary input[type="radio"]:checked ~ label:before,
+			.funkyradio-primary input[type="checkbox"]:checked ~ label:before {
+			  color: #fff;
+			  background-color: #337ab7;
+			}
+			
+			.funkyradio-success input[type="radio"]:checked ~ label:before,
+			.funkyradio-success input[type="checkbox"]:checked ~ label:before {
+			  color: #fff;
+			  background-color: #5cb85c;
+			}
+			
+			.funkyradio-danger input[type="radio"]:checked ~ label:before,
+			.funkyradio-danger input[type="checkbox"]:checked ~ label:before {
+			  color: #fff;
+			  background-color: #d9534f;
+			}
+			
+			.funkyradio-warning input[type="radio"]:checked ~ label:before,
+			.funkyradio-warning input[type="checkbox"]:checked ~ label:before {
+			  color: #fff;
+			  background-color: #f0ad4e;
+			  
+			}
+			
+			.funkyradio-info input[type="radio"]:checked ~ label:before,
+			.funkyradio-info input[type="checkbox"]:checked ~ label:before {
+			  color: #fff;
+			  background-color: #5bc0de;
+			}
+			
+			.check_label{
+				margin: 0;
+				margin-top: 10px !important;
+			}
+			
+			.check_button{
+				margin-top: 10px;
+			}
+			
+			
+	    </style>
+			
+			
+	    </style>
 	<script type="text/javascript">
 	$(function(){
 		
@@ -81,7 +210,7 @@
 			
 			//책 전체 구입
 			// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
-			$("#allBuyBook").on('click',function(e){
+			$("#allBuyBook, #allRentBook").on('click',function(e){
 				e.preventDefault();
 				if(member_id == 0){
 					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
@@ -96,11 +225,22 @@
 			
 			});
 			
-			var BuyItem = <%=request.getAttribute("buyList")%>;
-			alert(BuyItem)
-
 			
 			
+			
+			//구매목록 리스트
+			//구매목록에 구매 완료 표시
+			var buyList= eval(${json});
+			var buyListLength = buyList.length;
+			
+			
+			for(var i = 0; i <buyListLength ; i++){
+				var epid = buyList[i].episode_id;
+				$("#episode_" + epid).empty();
+				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-5x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+			};
+			
+	
 	});
 	
 	
@@ -160,18 +300,22 @@
 						<a href="${episodeFirstUrl}"class="btn btn-warning">첫화 보기 </a>
 						
 						
-						
+						<!-- 책 전체 구입 -->
 						<c:url var="allbuybook" value="/book/totalBuyBook.do">
 					 		<c:param name="book_id" value="${bookitem.id}" />
 						</c:url>
-						
-						<!-- 책 전체 구입 -->
 						<a href="${allbuybook}" 
 							class="btn btn-default pull-right" data-target="#book_all_buy" data-toggle="modal" id="allBuyBook">전체 구입</a>
 						
+							<!-- 책 전체 대여 -->	
+						<c:url var="allrentbook" value="/book/totalRentBook.do">
+					 		<c:param name="book_id" value="${bookitem.id}" />
+					 		<c:param name="totalEpisodeCount" value="${totalCount}" />
+					 		<c:param name="buyEpisodeCount" value="${fn:length(buyList)}" />
+						</c:url>
+						<a href="${allrentbook }" 
+						class="btn btn-default pull-right" data-target="#book_all_rent" data-toggle="modal" id="allRentBook">전체 대여</a>
 						
-						<!-- 책 전체 대여 -->	
-						<a class="btn btn-default pull-right" data-target="#book_all_rent" data-toggle="modal">전체 대여</a>
 						
 					</div>
 				</div>
@@ -235,54 +379,18 @@
 					<p>${episode.reg_date}</p>
 				</div>
 					
-
-						
-						
-						
-						<input type="text" value="${buyList[status.index].episode_id}"placeholder="바이리스트">
-						<input type="text" value="${episode.id}">
-
-						<c:if test="${episode.id ne buyList[status.index].episode_id }">
-						<div class="col-xs-3 check_box_list pull-right">
-
 					
-					<c:if test="${loginInfo==null}">
-							<div class="col-xs-3 check_box_list pull-right">
-
-								<div class="checkbox checkbox-warning">
-			                        <input id="${episode.id}" type="checkbox">
-			                        <label for="${episode.id}">
-			  							작품 선택
-			                        </label>
-		                    	</div>
-							
-								<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-
-						</div>
-						</c:if>
-
-								</div>
-					</c:if>
 					
-					<div class="form-group">
-					
-					</div>
-					<span>${buyList[status.index].episode_id}</span>
-					<span>${episode.id}</span>
-					<c:set var="doneLoop" value="false"/>
-					<c:choose>
-						<c:when test="${fn:length(buyList) > 0}">
-							<c:forEach var="buyList" items="${buyList}" varStatus="status">
-								
-								<c:choose>
-								<c:when test="${episode.id==buyList.episode_id}">
-									<div>구매완료</div>
-									<c:set var="doneLoop" value="true"/>
-								</c:when>
-							</c:choose>
-							</c:forEach>
-						</c:when>
-					</c:choose>
+							<div class="col-xs-3 check_box_list pull-right" id="episode_${episode.id}">
+								<div class="funkyradio pull-right" style="width: 33%;">
+											<div class="funkyradio-warning">
+									            <input type="checkbox" name="checkbox" id="${episode.id}"/>
+									            <label for="${episode.id}" class="check_label">선택</label>
+								        	</div>
+								     </div>
+								<span>대여일자 ~ 대여마지막일자 or 구입일자</span>
+							</div>
+		
 					
 					
 
@@ -335,7 +443,6 @@
 							 -->
 							
 
->>>>>>> branch 'master' of https://github.com/reum1015/bookstory.git
 
 
 
