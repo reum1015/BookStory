@@ -230,7 +230,7 @@
 			<div class="col-md-10 admin_content">
 				<h1 class="page-header">게시글 관리</h1>
 				<c:choose>
-					<c:when test="${fn:length(reportlist) > 0}">
+					<c:when test="${fn:length(reportList) > 0}">
 						<c:forEach var="report" items="${reportList}">
 							<ul class="list-group">
 								<li class="list-group-item">
@@ -238,14 +238,14 @@
 										<div class="col-xs-2 admin_article_name">${report.member_id}</div>
 										<div class="col-xs-3 admin_article_id">${report.target_member_id}</div>
 										<div class="col-xs-5 admin_article_reason">${report.report_content}</div>
-										<div class="col-xs-2 admin_article_date">${report.rag_date}</div>
+										<div class="col-xs-2 admin_article_date">${report.reg_date}</div>
 									</div>
 									<div class="row">
 										<div class="admin_article_title">
 											<c:url var="readUrl" value="/community/article_read.do">
-												<c:param name="report_id" value="${report.id}" />
+												<c:param name="article_id" value="${report.article_id}" />
 											</c:url>
-											<a href="${readUrl}">${report.subject}</a>
+											<a href="${readUrl}">${report.report_subject}</a>
 										</div>
 									</div>
 								</li>
