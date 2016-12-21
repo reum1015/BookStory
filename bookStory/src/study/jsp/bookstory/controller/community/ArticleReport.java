@@ -39,6 +39,8 @@ public class ArticleReport extends BaseController {
 		int member_id = web.getInt("member_id");
 		String subject = web.getString("subject");
 		int article_id = web.getInt("article_id");
+		String nick_name = web.getString("nick_name");
+		String user_nickname = web.getString("user_nickname");
 		
 		/** (3) 로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
@@ -76,11 +78,14 @@ public class ArticleReport extends BaseController {
 		
 		
 		logger.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + article_id);
+		logger.debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + member_id);
 		
 		request.setAttribute("article_id", article_id);			//게시판 번호
 		request.setAttribute("member_id", member_id);		//게시자 id
 		request.setAttribute("subject", subject);				//글제목
 		request.setAttribute("id", id);								//회원 id값
+		request.setAttribute("nick_name", nick_name);
+		request.setAttribute("user_nickname", user_nickname);
 		
 		String view = "community/article_report";
 		

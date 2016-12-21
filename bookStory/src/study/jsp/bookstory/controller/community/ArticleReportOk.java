@@ -46,6 +46,8 @@ public class ArticleReportOk extends BaseController {
 		String report_subject = web.getString("subject");				//게시글 제목
 		String report_content = web.getString("report_content");		//신고 내용
 		int article_id = web.getInt("article_id");					 			//게시글 번호
+		String nick_name = web.getString("nick_name");				//신고자 닉네임
+		String user_nickname = web.getString("user_nickname");		//당한자 닉네임
 		
 		// 전달된 파라미터는 로그로 확인한다.
 		logger.debug("id=" + member_id);
@@ -53,6 +55,8 @@ public class ArticleReportOk extends BaseController {
 		logger.debug("subject=" + report_subject);
 		logger.debug("report_content=" + report_content);
 		logger.debug("article_id=" + article_id);
+		logger.debug("nick_name=" + nick_name);
+		logger.debug("user_nickname=" + user_nickname);
 		
 		// beans로 묶기
 		Report report = new Report();
@@ -61,6 +65,8 @@ public class ArticleReportOk extends BaseController {
 		report.setReport_subject(report_subject);
 		report.setReport_content(report_content);
 		report.setArticle_id(article_id);
+		report.setNick_name(nick_name);
+		report.setUser_nickname(user_nickname);
 		
 		Article article = new Article();
 		article.setMember_id(target_member_id);
