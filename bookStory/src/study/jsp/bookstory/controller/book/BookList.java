@@ -37,6 +37,9 @@ import study.jsp.helper.TextConverter;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
+import twitter4j.JSONArray;
+import twitter4j.JSONException;
+
 
 
 /**
@@ -138,7 +141,7 @@ public class BookList extends BaseController {
 		//회원의 작품 구매 목록 조회
 		Buy buy = new Buy();
 		buy.setMember_id(member_id);
-		List<Buy> buyList = null;
+		List<Buy> buyList = new ArrayList<Buy>();
 		
 		try{
 			
@@ -178,6 +181,7 @@ public class BookList extends BaseController {
 			sqlSession.close();
 		}
 		
+		//관심등록 설정 확인
 		boolean isFavoriteState = favoriteCount > 0;
 		
 		logger.debug("favoriteCount ------->" + favoriteCount);
@@ -237,19 +241,31 @@ public class BookList extends BaseController {
 					}
 				}
 		
+				JSONArray json = new JSONArray();	
+				
+		try {
+			 json = new JSONArray(buyList.toArray());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		
+		//구매목록 리스트 자바스크립트용
+		request.setAttribute("json", json);
 		//페이지 번호 계산 결과 View에 전달
 		request.setAttribute("pageHelper",pageHelper);		
 				
 		
-		request.setAttribute("totalCount", totalCount);
-		request.setAttribute("isFavoriteState", isFavoriteState);
+		request.setAttribute("totalCount", totalCount);						//작품에 해당하는 전체 에피소드 수
+		request.setAttribute("isFavoriteState", isFavoriteState);		//관심등록 설정 확인
 		request.setAttribute("favoriteCount", favoriteCount);
-		request.setAttribute("member_id", member_id);
-		request.setAttribute("bookitem", getBookItem);
-		request.setAttribute("firstEpisode", firstEpisode);
-		request.setAttribute("episodeList", episodeList);
-		request.setAttribute("buyList", buyList);
-		request.setAttribute("member", member);
+		request.setAttribute("member_id", member_id);						
+		request.setAttribute("bookitem", getBookItem);						//작품의 정보
+		request.setAttribute("firstEpisode", firstEpisode);					//작품의 에피소드 첫화
+		request.setAttribute("episodeList", episodeList);					//작품의 에피소드 리스트
+		request.setAttribute("buyList", buyList);									//작품 구매목록 리스트
+		request.setAttribute("member", member);					
 		
 		return view;
 	}

@@ -42,7 +42,8 @@ public class MyPoint extends BaseController {
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		
+		
 		/** (2) 사용하고자 하는 Helper+Service 객체 생성 */
 		// 페이지 형식을 JSON으로 설정한다.
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
@@ -51,23 +52,37 @@ public class MyPoint extends BaseController {
 		memberService = new MemberServiceImpl(sqlSession, logger);		
 		
 		
+		
+		
 		/** (3) 비로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
 		Member member = (Member) web.getSession("loginInfo");
 		// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
 		int point = 0;
+		int member_id=0;
+		
+		
 		if(member != null){		
-			point = member.getPoint();			
+			member_id=member.getId();
 		}
 			
-		System.out.println("************************************");
-	
 		
+		Member mem = new Member();
+		mem.setId(member_id);
+		
+		try{
+			point = memberService.selectMyPointByMemberId(mem);
+		}catch (Exception e) {
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		}finally{
+			sqlSession.close();
+		}
 		
 		/** (6) 조회 결과를 View에 전달 */
-			request.setAttribute("point", point);
-		 
-		   String view = "mymenu/my_point";
+		request.setAttribute("point", point);
+		request.setAttribute("member_id", member_id);
+		String view = "mymenu/my_point";
 		
 		return view;
 	}

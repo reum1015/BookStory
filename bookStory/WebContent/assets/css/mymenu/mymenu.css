@@ -103,6 +103,10 @@
 		    border-top:solid 1px #CCC;
 	       border-bottom: solid 1px #CCC;	
 		  }
-		
+		  
+	/* 포인트 충전 후 모달 이미지 center*/
+	.modal-body > .img-responsive { display: block; margin-left: auto; margin-right: auto; }
+	
+	
 
 			

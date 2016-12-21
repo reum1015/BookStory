@@ -97,6 +97,5 @@ public interface MemberService {
 	 */
 	public void updateMyPointByMemberId(Member member)throws Exception;
 	
-	
 
 }
