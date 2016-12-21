@@ -46,6 +46,7 @@
   <form name="myform" method="post" action="${pageContext.request.contextPath}/community/article_delete_ok.do">
     <!-- 카테고리와 게시글 번호 상태유지 -->
     <input type="hidden" name="article_id" value="${article_id}"/>
+    <input type="hidden" name="member_level" value="${member_level}"/>
     
     <div style="width: 300px; margin: 50px auto;">
     

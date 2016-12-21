@@ -14,10 +14,13 @@ import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Comment;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ArticleService;
 import study.jsp.bookstory.service.CommentService;
+import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
 import study.jsp.bookstory.service.impl.CommentServiceImpl;
+import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -35,6 +38,7 @@ public class ArticleDeleteOk extends BaseController {
 	WebHelper web;
 	ArticleService articleService;
 	CommentService commentService;
+	ReportService reportService;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,9 +48,11 @@ public class ArticleDeleteOk extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
 		commentService = new CommentServiceImpl(sqlSession, logger);
+		reportService = new ReportServiceImpl(sqlSession, logger);
 		
 		/** (3) 게시글 번호 받기 */
 		int article_id = web.getInt("article_id");
+		String member_level = web.getString("member_level");
 		
 		logger.debug("article_id=" + article_id);
 		
@@ -64,6 +70,10 @@ public class ArticleDeleteOk extends BaseController {
 		Comment comment = new Comment();
 		comment.setArticle_id(article_id);
 		
+		// 게시물을 강제 삭제하기위한 사전 report게시물 삭제
+		Report report = new Report();
+		report.setArticle_id(article_id);
+		
 		/** (5) 데이터 삭제 처리 */
 		// 로그인 한 경우만 삭제 활성화 비로그인 인 경우 로그인 메시지 출력
 		Member loginInfo = (Member) web.getSession("loginInfo");
@@ -74,15 +84,37 @@ public class ArticleDeleteOk extends BaseController {
 			return null;
 		}
 		
-		try{
-			articleService.selectArticleCountByMemberId(article);
-			commentService.deleteCommentAll(comment);
-			articleService.deleteArticle(article);
-		}catch(Exception e){
-			web.redirect(null, e.getLocalizedMessage());
-			return null;
-		}finally{
-			sqlSession.close();
+		System.out.println("----------------------------------------------------------" + member_level);
+		
+		int Count = 0;
+		String relation = null;
+		
+		if(member_level.equals("BB")){
+			try{
+				Count = reportService.selectCommentCount(comment);
+					if(Count > 0) {
+						reportService.deleteAdminComment(comment);
+					}
+				
+				reportService.deleteReportArticle(report);
+				reportService.deleteAdminArticle(article);
+			}catch(Exception e){
+				web.redirect(null, e.getLocalizedMessage());
+				return null;
+			}finally{
+				sqlSession.close();
+			}
+		} else {
+			try{
+				articleService.selectArticleCountByMemberId(article);
+				commentService.deleteCommentAll(comment);
+				articleService.deleteArticle(article);
+			}catch(Exception e){
+				web.redirect(null, e.getLocalizedMessage());
+				return null;
+			}finally{
+				sqlSession.close();
+			}
 		}
 		
 		/** (8) 삭제완료후 리스트 페이지로 이동하기 */

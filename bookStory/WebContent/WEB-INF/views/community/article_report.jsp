@@ -38,20 +38,36 @@
 			<fieldset>
 			<br /> <br />
 				<legend>게시글 신고</legend>
-				<!-- 신고자 -->
+				<!-- 신고자 id -->
 				<div class="form-group">
-					<label for="member_id1" class="col-md-2 control-label"></label>
+					<label for="member_id1" class="col-md-2 control-label">신고자 id</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" name="id"
 							id="subject1" value="${id}">
 					</div>
 				</div>
-				<!-- 게시자 -->
+				<!-- 게시자 id -->
 				<div class="form-group">
-					<label for="member_id2" class="col-md-2 control-label"></label>
+					<label for="member_id2" class="col-md-2 control-label">게시자 id</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" name="member_id"
 							id="subject2" value="${member_id}">
+					</div>
+				</div>
+				<!-- 신고자 -->
+				<div class="form-group">
+					<label for="member_id1" class="col-md-2 control-label">신고자</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" name="nick_name"
+							id="subject1" value="${nick_name}">
+					</div>
+				</div>
+				<!-- 게시자 -->
+				<div class="form-group">
+					<label for="member_id2" class="col-md-2 control-label">게시자</label>
+					<div class="col-md-10">
+						<input type="text" class="form-control" name="user_nickname"
+							id="subject2" value="${user_nickname}">
 					</div>
 				</div>
 				<!-- 글제목 -->

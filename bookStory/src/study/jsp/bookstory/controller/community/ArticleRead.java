@@ -46,8 +46,13 @@ public class ArticleRead extends BaseController {
 		Member loginInfo = (Member) web.getSession("loginInfo");
 		
 		int member_id = 0;
+		String nick_name = null;
+		String member_level = null;
+		
 		if(loginInfo != null){
 			member_id = loginInfo.getId();
+			nick_name = loginInfo.getNick_name();
+			member_level = loginInfo.getMember_level();
 		}
 		/** (3) 글번호 파라미터 받기 */
 		int article_id = web.getInt("article_id");
@@ -102,6 +107,8 @@ public class ArticleRead extends BaseController {
 		
 
 		/** (5) 읽은 데이터를 View에게 전달한다. */
+		request.setAttribute("member_level", member_level);
+		request.setAttribute("nick_name", nick_name);
 		request.setAttribute("readArticle", readArticle);
 		request.setAttribute("prevArticle", prevArticle);
 		request.setAttribute("nextArticle", nextArticle);

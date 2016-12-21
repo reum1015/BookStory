@@ -25,10 +25,12 @@
 	<insert id="insertArticleReport" parameterType="study.jsp.bookstory.model.Report"
 		useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO report ( 
-		member_id, target_member_id, report_subject, report_content, article_id, reg_date
+		member_id, target_member_id, report_subject, report_content, article_id, reg_date,
+		nick_name, user_nickname
 	) 
 	VALUES (
-		#{member_id}, #{target_member_id}, #{report_subject}, #{report_content}, #{article_id}, now()
+		#{member_id}, #{target_member_id}, #{report_subject}, #{report_content}, #{article_id}, now(),
+		#{nick_name}, #{user_nickname}
 	)
 	</insert>
 	
@@ -43,10 +45,6 @@
 	SELECT COUNT(id) FROM report WHERE article_id=#{article_id}
 	</select>
 	
-	
-	
-	
-	
 	<!-- 전체 신고 게시글의 count를 구한다. -->
 	<select id="selectReportCount" parameterType="study.jsp.bookstory.model.Report" resultType="int">
 	SELECT COUNT(id) FROM report
@@ -54,12 +52,31 @@
 	
 	<!-- 신고한 게시글을 리스트로 출력한다. -->
 	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
-	SELECT m.nick_name, a.user_nickname, r.report_content, DATE_FORMAT(reg_date, '%Y-%m-%d') AS r.reg_date, r.report_subject, r.article_id
-	FROM report r, member m, article a
-	WHERE m.nick_name in (select nick_name from member where id=r.member_id)
-	AND a.user_nickname in (select user_nickname from article where member_id=r.target_member_id)
+	SELECT nick_name, user_nickname, report_content, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, report_subject, article_id
+	FROM report
+	ORDER BY id desc
 	</select>
 
+	<!-- 관리자가 게시글 강제 삭제 하기위한 mapper -->
+	<!-- (1.1) 삭제하려는 덧글의 존재 유/무를 파악하기위한 쿼리 -->
+	<select id="selectCommentCount" parameterType="study.jsp.bookstory.model.Comment" resultType="int">
+		SELECT count(id) FROM comment WHERE article_id=#{article_id}
+	</select> 
+	
+	<!-- (1.2) 게시글을 강제삭제 하기위한 관리자 권한으로 해당 게시글의 덧글 삭제 -->
+	<delete id="deleteAdminComment" parameterType="study.jsp.bookstory.model.Comment">
+		DELETE from Comment WHERE article_id=#{article_id}
+	</delete>
+	
+	<!-- (2.2) 게시글을 강제삭제 하기위한 신고된 report 게시글 삭제 -->
+	<delete id="deleteReportArticle" parameterType="study.jsp.bookstory.model.Report">
+		DELETE from Report WHERE article_id=#{article_id}
+	</delete>
+	<!-- (3) 게시글을 강제삭제 하기위한 관리자 권한으로 강제 삭제 -->
+	<delete id="deleteAdminArticle" parameterType="study.jsp.bookstory.model.Article">
+		DELETE from Article WHERE id=#{id}
+	</delete>
+	<!-- 관리자가 게시글 강제 삭제 하기위한 mapper 끝-->
 	
 	
 	

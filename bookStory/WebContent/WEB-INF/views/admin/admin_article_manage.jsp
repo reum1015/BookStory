@@ -235,8 +235,8 @@
 							<ul class="list-group">
 								<li class="list-group-item">
 									<div class="row">
-										<div class="col-xs-2 admin_article_name">${report.member_id}</div>
-										<div class="col-xs-3 admin_article_id">${report.target_member_id}</div>
+										<div class="col-xs-2 admin_article_name">${report.nick_name}</div>
+										<div class="col-xs-3 admin_article_id">${report.user_nickname}</div>
 										<div class="col-xs-5 admin_article_reason">${report.report_content}</div>
 										<div class="col-xs-2 admin_article_date">${report.reg_date}</div>
 									</div>
@@ -281,7 +281,6 @@
 							end="${pageHelper.endPage}" step="1">
 							<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
 							<c:url var="pageUrl" value="/admin/article_manage.do">
-
 								<c:param name="page" value="${i}"></c:param>
 							</c:url>
 

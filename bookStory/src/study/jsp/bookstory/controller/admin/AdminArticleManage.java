@@ -51,7 +51,7 @@ public class AdminArticleManage extends BaseController{
 			
 			totalCount = reportService.selectReportCount(report);
 			
-			pageHelper.pageProcess(page, totalCount, 5, 5);
+			pageHelper.pageProcess(page, totalCount, 10, 5);
 			
 			report.setLimitStart(pageHelper.getLimit_start());
 			report.setListCount(pageHelper.getList_count());
