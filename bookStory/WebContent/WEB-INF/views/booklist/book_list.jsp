@@ -7,52 +7,7 @@
 <html>
 <head>
 
-<!-- 저장시에 사용된 인코딩(파일의 저장 형식) 값을 웹 브라우저에게 알려준다. 
-			- ANSI(euc-kr), UTF-8 -->
-		<meta charset="utf-8"/>
-		<!-- IE의 호환성 보기 모드 금지 -->
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<!-- 스마트 장치에서의 해상도 균일화 처리 -->
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
-		maximum-scale=1.0,user-scalable=no">
-		
-		<!-- 모바일 웹 페이지 설정 -->
-		<link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/icon/book01.png"/>
-		<link rel="apple-touch-icon-precomposed" 
-			  href="${pageContext.request.contextPath}/assets/icon/apple-touch-icon-144-precomposed.png"/>
-			  
-		<!-- bootstrap -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css"/>
-		
-		<!-- 나눔고딕 웹 폰트 적용 -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/nanumfont.css"/>
-		
-		<!-- main css -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/main.css"/>
-		
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/navbarfont.css"/>
-		
-		<!-- bootstrap-tabs-x  -->
-		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.css"/>
-		<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
-		
-
-		
-		<!-- 반응형 웹을 지원하지 않을 경우 -->
-		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->
-		
-		<!-- IE8 이하 버전 지원 -->
-	    <!--[if lt IE 9]>
-	    <script type="text/javascript" src="assets/js/html5shiv.js"></script>
-	    <script type="text/javascript" src="assets/js/respond.min.js"></script>
-	    <![endif]-->
-	
-	    <!-- IE10 반응형 웹 버그 보완 -->
-	    <!--[if gt IE 9]>
-	    <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
-	    <script type="text/javascript" src="assets/js/ie10.js"></script>
-	    <![endif]-->
+<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
 <!-- Article css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/article/articleList.css" />
@@ -66,6 +21,19 @@
 </style>
 	<script type="text/javascript">
 	$(function(){
+		
+		// 작품 체크 박스 모두 체크/해제
+		var checkedValues = [];		//체크 했을때 에피소드 id값 담을 변수
+		var isChecked;			//체크 상태
+	
+		$("input[name=checkboxitem]").on('change',function(idx){
+	         
+	        // 해당 체크박스의 Value 가져오기
+	        var checkedValues = $(this).val();
+	        
+	        console.log(checkedValues) ;
+	         
+	      });
 		
 			/** 모든 모달창의 캐시 방지 처리 */
 			$('.modal').on('hidden.bs.modal', function (e) {
@@ -156,11 +124,10 @@
 
 			
 			
-			// 작품 체크 박스 모두 체크/해제
-			var checkedValues = [];	//체크 했을때 에피소드 id값 담을 변수
-			var isChecked;			//체크 상태
+			
 			
 			$("#checkAll").on("click",function(){
+			
 				isChecked = $("input:checkbox[name='checkboxitem']").is(":checked");
 				
 				if(isChecked){
@@ -169,48 +136,31 @@
 					checkedValues = [];
 					
 				}else{
+					checkedValues = [];
 					$("input:checkbox[name='checkboxitem']").prop("checked", true);
 					$("input:checkbox[name='checkboxitem']").attr("checked", true);
-					$("input[name=checkboxitem]:checked").each(function() {
-						checkedValues = $("input:checkbox[name='checkboxitem']").val();
-					});
+		
 				}
-								
+				
+				 var size = document.getElementsByName("checkboxitem").length;
+				    for(var i = 0; i < size; i++){
+				        if(document.getElementsByName("checkboxitem")[i].checked == true){
+				        	checkedValues.push(document.getElementsByName("checkboxitem")[i].value);
+				        }
+				    }
+				    
+				    
+				    
+				    console.log(checkedValues) ;
 			});
 			
-			$("#buyEpisodeButton").on("click",function(e){
-				
-				if(member_id == 0){
-					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
-					
-					if(result){
-						location.replace('/bookStory/login/login.do?book_id=' + book_id );
-						return false;
-					}else{
-						return false;
-					}
-				}
-				
-				alert(checkedValues);
-				
-				e.preventDefault();
-				var aa= new Array();
-								
-				$.get("${pageContext.request.contextPath}/book/buyEpisode.do", {
-					book_id:book_id,checkedValues:checkedValues},function(json) {
-					  if(json.rt != "OK"){
-							alert(json.rt);
-							return false;
-					  }
-				
-				
-				});
-			});
-	
+			
+			
+			
+			
+
 	});
 	
-	
-
 	
 	
 	</script>
@@ -309,7 +259,7 @@
 						<c:url var="buyEpisode" value="/book/buyEpisode.do">
 					 		<c:param name="book_id" value="${bookitem.id}" />
 						</c:url>
-						<a data-toggle="modal" class="btn btn-default" href="${buyEpisode}" id="buyEpisodeButton">구매</a>
+						<button data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeButton">구매</button>
 						<button class="btn btn-default" id="checkAll">전체선택</button>
 					</div>
 				</div>
@@ -578,7 +528,7 @@
 				<!--  에피소드 구입 -->
 				
 				<!-- 에피소드 구입 모달 -->
-				<div class="modal fade" id="book_buy">
+				<div class="modal fade" id="book_buy" role="dialog">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<!-- header -->
@@ -589,44 +539,48 @@
 								<h4 class="modal-title">에피소드 구입</h4>
 							</div>
 							<!-- body -->
-							<div class="modal-body">N개의 에피소드를 구입 하시겠습니까?</div>
+							<form action="${pageContext.request.contextPath}/book/BuyEpisodeOk.do" method="post" id="buyEpisodeForm" name="buyEpiForm">
+								<input type="hidden" value="${bookitem.id}" name="bookitem.id">
+         						<input type="hidden" name="episodeValues" id="episodeValues">
+								<div class="modal-body">N개의 에피소드를 구입 하시겠습니까?</div>
 							<!-- Footer -->
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">확인</button>
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">취소</button>
-							</div>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-default" data-dismiss="modal">확인</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
 				<!-- 에피소드 구입 모달 끝-->
+				
+				<!-- Modal -->
+  <div class="modal fade" id="addStarModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">별점 주기</h4>
+        </div>
+         <form action="${pageContext.request.contextPath}/book/AddStarOk.do" method="post" id="addStarForm">
+        <div class="modal-body">
+         	<input type="hidden" value="${member_id}" name="member_id">
+         	<input type="hidden" value="${book_id}" name="book_id">
+         	<input type="hidden" value="${episode.id}" name="episode_id">
+		    <label for="input-id" class="control-label">이 작품에 별점을 주세요</label>
+		    <input id="input-id" type="text" class="rating" data-size="xs" name="star_rate">
+        </div>
+        <div class="modal-footer">
+         <button class="btn btn-warning btn-block" type="submit">별점주기</button>
+        </div>
+           </form>
+      </div>
+    </div>
+  </div>
 	
-
-	<!-- footer -->
-
-	<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
-			<p class="text-center">
-			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
-			</h5>
-
-			<address>
-				<small>본 콘텐츠의 저작권은 제공처에 있으며, 이를 무단 이용하는경우 저작권법 등에 따라 법적 책임을
-					질 수 있습니다.</small> <br> <img src="${pageContext.request.contextPath}/assets/imgs/main/homebutton.jpg" alt="저작권"  width="100" />   copyright&copy; All rights reserved.
-			</address>
-		</div>
-	</footer>
-
-	
-	<!-- Javascript -->
-
-	    
-	    		
-	    <script src="${pageContext.request.contextPath}/assets/js/tab-x/bootstrap-tabs-x.min.js"></script>
-	    <script src="${pageContext.request.contextPath}/assets/js/bootstrap.min.js"></script>
+<!-- footer -->
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 </body>
 </html>
