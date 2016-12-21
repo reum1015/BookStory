@@ -3,6 +3,7 @@ package study.jsp.bookstory.service;
 import java.util.List;
 
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Comment;
 import study.jsp.bookstory.model.Report;
 
 public interface ReportService {
@@ -49,5 +50,11 @@ public interface ReportService {
 	 */
 	public void updateReportMemberOut(Report report) throws Exception;
 	
+	// 게시물을 강제 삭제하기 위한 서비스 구축
+	
+	public int selectCommentCount(Comment comment) throws Exception;
+	public void deleteAdminComment(Comment comment) throws Exception;
+	public void deleteReportArticle(Report report) throws Exception;
+	public void deleteAdminArticle(Article article) throws Exception;
 	
 }

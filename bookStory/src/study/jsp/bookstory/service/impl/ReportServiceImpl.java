@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Comment;
 import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ReportService;
 
@@ -125,6 +126,81 @@ public class ReportServiceImpl implements ReportService{
 			sqlSession.commit();
 		}
 	}
+
+	// 게시물 강제삭제 서비스 레이어
+	
+	@Override
+	public int selectCommentCount(Comment comment) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("ReportMapper.selectCommentCount", comment);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글에 대한 count 조회가 실패 하였습니다.");
+		}
+		return result;
+	}
+	
+	@Override
+	public void deleteAdminComment(Comment comment) throws Exception {
+		try{
+			int result = sqlSession.delete("ReportMapper.deleteAdminComment", comment);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("해당 덧글이 아닙니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteReportArticle(Report report) throws Exception {
+		try{
+			int result = sqlSession.delete("ReportMapper.deleteReportArticle", report);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("해당 신고게시물이 아닙니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("신고 게시물 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteAdminArticle(Article article) throws Exception {
+		try{
+			int result = sqlSession.delete("ReportMapper.deleteAdminArticle", article);
+			if(result==0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("해당 자유 게시물이 아닙니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("자유 게시물 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+	// 게시물 강제삭제 서비스 레이어 끝
+
+	
 
 	
 }

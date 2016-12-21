@@ -40,6 +40,14 @@ public class ArticleDelete extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
 		
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		
+		String member_level = null;
+		
+		if(loginInfo != null) {
+			member_level = loginInfo.getMember_level();
+		}
+		
 		/** (3) 게시글 번호 받기 */
 		int article_id = web.getInt("article_id");
 		if(article_id==0){
@@ -53,7 +61,6 @@ public class ArticleDelete extends BaseController {
 		article.setId(article_id);
 		
 		// 로그인 한 경우 현재 회원의 일련번호를 추가한다. (비로그인 시 0으로 설정됨)
-		Member loginInfo = (Member) web.getSession("loginInfo");
 		if(loginInfo!=null){
 			article.setMember_id(loginInfo.getId());
 		}else{
@@ -79,6 +86,9 @@ public class ArticleDelete extends BaseController {
 		
 		// 상태 유지를 위하여 게시글 일련번호를 View에 전달
 		request.setAttribute("article_id", article_id);
+		
+		//관리자 게시물과 덧글을 강제 삭제하기 위한 권한 데이터 전달
+		request.setAttribute("member_level", member_level);
 		
 		return "/community/article_delete";
 	}
