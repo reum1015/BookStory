@@ -22,10 +22,12 @@ import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookMarkService;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.BuyService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.MemberService;
 import study.jsp.bookstory.service.impl.BookMarkServiceImpl;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.BuyServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.MemberServiceImpl;
 import study.jsp.helper.BaseController;
@@ -43,6 +45,7 @@ public class TotalBuyBook extends BaseController{
 	BookService bookService;
 	EpisodeService episodeService;
 	MemberService memberService;
+	BuyService buyService;
 	
 	
 	@Override
@@ -60,35 +63,70 @@ public class TotalBuyBook extends BaseController{
 		bookService = new BookServiceImpl(sqlSession, logger);
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);	
 		memberService = new MemberServiceImpl(sqlSession, logger);
+		buyService = new BuyServiceImpl(sqlSession, logger);
 		
 		String view = "booklist/totalBuyBook";
 		
 		int book_id = web.getInt("book_id");
-		
 		logger.debug("book_id --------------> " + book_id);
+		
 		
 		Member member = (Member)web.getSession("loginInfo");
 
+		
 		//회원 포인트 저장 변수
 		int memberPoint = 0;
+		int memberId = 0;
 		
 		if(member != null){
 			//회원 포인트 저장
 			memberPoint = member.getPoint();
+			memberId = member.getId();
 		}
+		
 		
 		//작품의 포인트와 회원의 포인트 조회를 위한 파라미터 셋팅
 		Book book = new Book();
 		book.setId(book_id);
-				
+
 		//작품의 포인트 저장할 변수(총 구매포인트, 총 렌트포인트 두개 불러옴)
 		Book bookPoint = new Book();
+		
 		
 		//회원이 모든 에피소드 구매가능한지 저장 변수
 		boolean isBuyAllBook;
 		
+		//작품의 모든에피소드 구매가격 저장 변수
 		int totalBuyPointFromBook = 0;
+		
+		//회원의 기존 구매 내역과 현시점의 작품 수 비교
+		//기존 구매내역 = 현시점의 작품수 -----> 더이상 구매 X
+		
+		Episode epiParams = new Episode();
+		Buy buyParams = new Buy();
+		
+		epiParams.setBook_id(book_id);
+		buyParams.setMember_id(memberId);
+		buyParams.setBook_id(book_id);
+		
+		
+		int totalEpisode = 0;
+		int totalBuyEpisode = 0;
+		
+		
 		try{
+			
+			totalEpisode = episodeService.countTotalEpisodeByBookId(epiParams);
+			totalBuyEpisode = buyService.selectCountAllBuyEpisode(buyParams);
+			
+			logger.debug("totalEpisode ----------> " + totalEpisode);
+			logger.debug("totalBuyEpisode -------> " + totalBuyEpisode);
+			
+			if(totalEpisode == totalBuyEpisode){
+				web.redirect(null, "작품의 모든 에피소드를 구매 하셨습니다.");
+				return null;
+			}
+			
 			//작품의 총 포인트와 렌트 포인트 조회()
 			bookPoint = bookService.selectTotalPointFromBook(book);
 			
@@ -108,7 +146,6 @@ public class TotalBuyBook extends BaseController{
 		logger.debug("memberPoint -->" + memberPoint);
 		logger.debug("totalBuyPointFromBook -->" + totalBuyPointFromBook);
 		logger.debug("book_id -->" + book_id);
-		
 		
 		request.setAttribute("isBuyAllBook", isBuyAllBook);
 		request.setAttribute("memberPoint", memberPoint);

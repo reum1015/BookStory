@@ -15,6 +15,7 @@
 		<result property="allrent_point" column="allrent_point"/>
 		<result property="member_id" column="member_id"/>
 		<result property="episode_id" column="episode_id"/>
+		<result property="book_id" column="book_id"/>
 	</resultMap>
 	
 	<!-- 에피소드 N개 RENT -->

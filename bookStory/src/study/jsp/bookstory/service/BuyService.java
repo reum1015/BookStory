@@ -59,4 +59,13 @@ public interface BuyService {
 	 */
 	public List<Buy> selectPurchaseEpisodeList(Buy buy) throws Exception;
 	
+	
+	/**
+	 * 회원이 구매한 작품의 에피소드 수
+	 * @param buy
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectCountAllBuyEpisode(Buy buy) throws Exception;
+	
 }

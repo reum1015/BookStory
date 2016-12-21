@@ -109,6 +109,8 @@ public class TotalBuyBookOk extends BaseController{
 					buyItem.setMember_id(member_id);
 					buyItem.setEpisode_id(epiosde_id);
 					buyItem.setBuy_point(episode_buy);
+					buyItem.setBook_id(book_id);
+					
 					
 					buyList.add(buyItem);
 				}//end For

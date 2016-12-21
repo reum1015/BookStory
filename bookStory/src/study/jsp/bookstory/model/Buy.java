@@ -9,6 +9,8 @@ public class Buy {
 	private String reg_date;
 	private int member_id;
 	private int episode_id;
+	private int book_id;
+	
 	public int getId() {
 		return id;
 	}
@@ -51,11 +53,19 @@ public class Buy {
 	public void setEpisode_id(int episode_id) {
 		this.episode_id = episode_id;
 	}
+	public int getBook_id() {
+		return book_id;
+	}
+	public void setBook_id(int book_id) {
+		this.book_id = book_id;
+	}
 	@Override
 	public String toString() {
 		return "Buy [id=" + id + ", buy_day=" + buy_day + ", buy_point=" + buy_point + ", allbuy_point=" + allbuy_point
-				+ ", reg_date=" + reg_date + ", member_id=" + member_id + ", episode_id=" + episode_id + "]";
+				+ ", reg_date=" + reg_date + ", member_id=" + member_id + ", episode_id=" + episode_id + ", book_id="
+				+ book_id + "]";
 	}
+	
 	
 	
 	

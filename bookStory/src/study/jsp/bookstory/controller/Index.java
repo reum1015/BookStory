@@ -64,8 +64,10 @@ public class Index extends BaseController{
 		//메인 장르별 추천작 4개
 		List<Book> mainGenrelList = new ArrayList<>();
 		
+		int randomNumber = commonUtils.random(0, 4);
+		
 		String[] genreList = {"Romance","SF&Fantasy","Heroism","Mystery","Fusion"};
-		String selectGenre = genreList[commonUtils.getInstance().random(0, 4)];
+		String selectGenre = genreList[randomNumber];
 		
 		
 		//메인 장블별 추천작 장르 파라미터 셋팅

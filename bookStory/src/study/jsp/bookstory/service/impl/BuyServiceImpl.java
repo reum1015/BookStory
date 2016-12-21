@@ -101,4 +101,22 @@ public class BuyServiceImpl implements BuyService{
 		return result;
 	}
 
+	/**
+	 * 회원이 구매한 작품의 에피소드 수
+	 */
+	@Override
+	public int selectCountAllBuyEpisode(Buy buy) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("BuyMapper.selectCountAllBuyEpisode", buy);
+
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드의 구매목록 갯수 조회에 실패했습니다.");
+		}
+
+		return result;
+	}
+
 }

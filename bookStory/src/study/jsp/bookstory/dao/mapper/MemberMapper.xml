@@ -48,7 +48,7 @@
 	  ) VALUES (
 	    #{nick_name}, #{birthdate}, #{name}, #{user_id}, password(#{user_pw}),
 	    #{email}, #{gender}, #{tel},
-	    1000, now(), now(), "AA"
+	    10000, now(), now(), "AA"
 	  )
 	</insert>
 	

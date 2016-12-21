@@ -59,7 +59,7 @@
 					<label for="member_id2" class="col-md-2 control-label">글제목</label>
 					<div class="col-md-10">
 						<input type="text" class="form-control" name="subject"
-							id="subject3" value="${subject}" >
+							id="subject3" value="${subject}" readonly="readonly">
 					</div>
 				</div>
 				<!-- 신고 내용 -->
