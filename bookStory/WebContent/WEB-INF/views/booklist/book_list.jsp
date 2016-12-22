@@ -15,38 +15,115 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/booklist/booklist.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/checkbox/awesome-bootstrap-checkbox.css" />
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
- 
+ <script src="http://code.jquery.com/jquery-1.9.1.min.js" ></script>
  <style type="text/css">
 	    
 </style>
 	<script type="text/javascript">
+	
+	
+	
 	$(function(){
+		/** 모든 모달창의 캐시 방지 처리 */
+		$('.modal').on('hidden.bs.modal', function (e) {
+			// 모달창 내의 내용을 강제로 지움.
+    		$(this).removeData('bs.modal');
+		});
+		
+		
+		var favorite_count = $("#favorite_count").val();
+		var member_id = $("#member_id").val();
+		var total_favorite = $("#total_favorite").val();
+		var book_id = $("#book_id").val();
+		var isFavoriteState = $("#isFavoriteState").val();
+		
+		
 		
 		// 작품 체크 박스 모두 체크/해제
-		var checkedValues = [];		//체크 했을때 에피소드 id값 담을 변수
+		var checkedValues;	//체크 했을때 에피소드 id값 담을 변수
 		var isChecked;			//체크 상태
-	
-		$("input[name=checkboxitem]").on('change',function(idx){
+		var total=new Array();
+		var count = 0;
+		
+		function fchk(){
+			var check = document.getElementsByName("checkboxitem");
+			var chk_leng = check.length;
+			var sum=0;
+			
+			
+			
+			for(var i = 0; i <chk_leng ; i++){
+				if(check[i].checked == true){
+					total[sum] = check[i].value;
+					sum++;
+					count++;
+				}else{
+					total.splice([i],1);
+				}	
+			
+			}
+			
+			alert("total -->" + total)
+		}
+
+		$("input[name=checkboxitem]").on('click',function(){
 	         
-	        // 해당 체크박스의 Value 가져오기
-	        var checkedValues = $(this).val();
-	        
-	        console.log(checkedValues) ;
-	         
+			fchk();
+	     	console.log(total,count);
 	      });
 		
-			/** 모든 모달창의 캐시 방지 처리 */
-			$('.modal').on('hidden.bs.modal', function (e) {
-				// 모달창 내의 내용을 강제로 지움.
-	    		$(this).removeData('bs.modal');
-			});
-		
+		$("#checkAll").on("click",function(){
+			
+			isChecked = $("input:checkbox[name='checkboxitem']").is(":checked");
+			
+			if(isChecked){
+				$("input:checkbox[name='checkboxitem']").prop("checked", false);
+				$("input:checkbox[name='checkboxitem']").attr("checked", false);
+				total=[];
 
-			var favorite_count = $("#favorite_count").val();
-			var member_id = $("#member_id").val();
-			var total_favorite = $("#total_favorite").val();
-			var book_id = $("#book_id").val();
-			var isFavoriteState = $("#isFavoriteState").val();
+			}else{
+				total=[];
+				$("input:checkbox[name='checkboxitem']").prop("checked", true);
+				$("input:checkbox[name='checkboxitem']").attr("checked", true);
+				
+			}
+			
+			 var size = document.getElementsByName("checkboxitem").length;
+			    for(var i = 0; i < size; i++){
+			        if(document.getElementsByName("checkboxitem")[i].checked == true){
+			        	total.push(document.getElementsByName("checkboxitem")[i].value);
+
+			        }
+			    }
+			    
+			    console.log(total) ;
+		});
+		
+		
+		
+		//선택 작품 구매
+		$(document).on("click","#buyEpisodeCheck",function(e){
+			e.preventDefault();
+		
+			$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
+					{book_id:book_id,total:total},
+					function(data){
+						if (data.rt != "OK") {
+							alert(json.rt);
+							return false;
+						}else{
+							alert(" 성공 ");
+							return false;						
+						}
+						
+					});
+			});
+	
+		
+		
+		
+		
+		
 		
 			//관심등록 On 이면 마크 표시
 			if(favorite_count > 0){
@@ -94,7 +171,7 @@
 			
 			//책 전체 구입
 			// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
-			$("#allBuyBook, #allRentBook").on('click',function(e){
+			$("#buyEpisodeCheck, #rentEpisodeCheck").on('click',function(e){
 				e.preventDefault();
 				if(member_id == 0){
 					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
@@ -121,44 +198,6 @@
 				$("#episode_" + epid).empty();
 				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
 			};
-
-			
-			
-			
-			
-			$("#checkAll").on("click",function(){
-			
-				isChecked = $("input:checkbox[name='checkboxitem']").is(":checked");
-				
-				if(isChecked){
-					$("input:checkbox[name='checkboxitem']").prop("checked", false);
-					$("input:checkbox[name='checkboxitem']").attr("checked", false);
-					checkedValues = [];
-					
-				}else{
-					checkedValues = [];
-					$("input:checkbox[name='checkboxitem']").prop("checked", true);
-					$("input:checkbox[name='checkboxitem']").attr("checked", true);
-		
-				}
-				
-				 var size = document.getElementsByName("checkboxitem").length;
-				    for(var i = 0; i < size; i++){
-				        if(document.getElementsByName("checkboxitem")[i].checked == true){
-				        	checkedValues.push(document.getElementsByName("checkboxitem")[i].value);
-				        }
-				    }
-				    
-				    
-				    
-				    console.log(checkedValues) ;
-			});
-			
-			
-			
-			
-			
-
 	});
 	
 	
@@ -251,19 +290,28 @@
 					</h3>
 				</div>
 				
+				
+				<c:if test="${loginInfo!= null}">
+				
 				<div class="col-xs-6 col-sm-6">
 					<div class="btn-group btn-group-md pull-right pull-right" style="margin-top: 13px;">
 						
-						<a data-target="#book_rent" data-toggle="modal" class="btn btn-default">대여</a>
+						<a data-target="#book_rent" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">대여</a>
 						
 						<c:url var="buyEpisode" value="/book/buyEpisode.do">
 					 		<c:param name="book_id" value="${bookitem.id}" />
 						</c:url>
-						<button data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeButton">구매</button>
+						<a data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">구매</a>
 						<button class="btn btn-default" id="checkAll">전체선택</button>
 					</div>
 				</div>
+				</c:if>
+				
+				
+				
 			</div>
+			
+			
 		</div>
 			<!--  작품 정보  끝-->
 		

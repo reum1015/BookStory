@@ -1,6 +1,8 @@
 package study.jsp.bookstory.controller.buyandrent;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.service.BookMarkService;
@@ -25,7 +29,7 @@ import study.jsp.bookstory.service.impl.MemberServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
-@WebServlet("/book/buyEpisode.do")
+@WebServlet("/buyandrent/buyEpisode.do")
 public class BuyEpisode extends BaseController{
 	private static final long serialVersionUID = 1073609117458949692L;
 
@@ -43,6 +47,8 @@ public class BuyEpisode extends BaseController{
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// --> import org.apache.logging.log4j.LogManager;
+		response.setContentType("application/json");
+		
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		// --> import study.jsp.mysite.service.impl.MemberServiceImpl;
 		sqlSession = MybatisConnectionFactory.getSqlSession();
@@ -56,14 +62,21 @@ public class BuyEpisode extends BaseController{
 		
 
 		int book_id = web.getInt("book_id");
-		System.out.println("book_id --------------> " + book_id);
+
+		String[] abc;
+		abc = web.getStringArray("total");
+		logger.debug("book_id ----------------->" + book_id);
+		logger.debug("abc --------------------->" + abc);
+
 		
-		String[] abc = web.getStringArray("checkedValues");
+	
+		Map<String, Object> data = new HashMap<>();
+		data.put("rt", "OK");
+
+
 		
-		
-		for(int i=0 ; i < abc.length ; i++){
-			System.out.println(abc[i]);
-		}
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValue(response.getWriter(), data);
 		
 		
 		return null;
