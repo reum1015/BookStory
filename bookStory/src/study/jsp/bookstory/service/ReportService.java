@@ -56,5 +56,7 @@ public interface ReportService {
 	public void deleteAdminComment(Comment comment) throws Exception;
 	public void deleteReportArticle(Report report) throws Exception;
 	public void deleteAdminArticle(Article article) throws Exception;
+	public int selectReportCountArticle(Report report) throws Exception;
+	public void updateArticleReported(Article article) throws Exception;
 	
 }

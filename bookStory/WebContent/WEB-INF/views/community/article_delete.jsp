@@ -47,6 +47,8 @@
     <!-- 카테고리와 게시글 번호 상태유지 -->
     <input type="hidden" name="article_id" value="${article_id}"/>
     <input type="hidden" name="member_level" value="${member_level}"/>
+    <input type="hidden" name="report_delete" value="${report_delete}"/>
+    <input type="hidden" name="member_id" value="${member_id}"/>
     
     <div style="width: 300px; margin: 50px auto;">
     

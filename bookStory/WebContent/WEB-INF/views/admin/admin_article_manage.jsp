@@ -222,10 +222,6 @@
 
 
 
-
-
-
-
 			<!-- 어드민 컨텐트 영역 -->
 			<div class="col-md-10 admin_content">
 				<h1 class="page-header">게시글 관리</h1>
@@ -235,9 +231,25 @@
 							<ul class="list-group">
 								<li class="list-group-item">
 									<div class="row">
-										<div class="col-xs-2 admin_article_name">${report.nick_name}</div>
-										<div class="col-xs-3 admin_article_id">${report.user_nickname}</div>
-										<div class="col-xs-5 admin_article_reason">${report.report_content}</div>
+										<div class="col-xs-2 admin_article_name">신고자 : ${report.nick_name}</div>
+										<div class="col-xs-3 admin_article_id">게시자 : ${report.user_nickname}</div>
+										<c:choose>
+											<c:when test="${report.report_content == 'option1'}">
+												<div class="col-xs-5 admin_article_reason">
+												음란성 또는 청소년에게 부적합한 내용
+												</div>
+											</c:when>
+											<c:when test="${report.report_content == 'option2'}">
+												<div class="col-xs-5 admin_article_reason">
+												폭언 또는 욕설 내용
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="col-xs-5 admin_article_reason">
+												게시물 광고 내용
+												</div>
+											</c:otherwise>
+										</c:choose>
 										<div class="col-xs-2 admin_article_date">${report.reg_date}</div>
 									</div>
 									<div class="row">

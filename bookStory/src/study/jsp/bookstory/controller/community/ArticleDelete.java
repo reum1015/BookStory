@@ -40,6 +40,8 @@ public class ArticleDelete extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
 		
+		int report_delete = web.getInt("report_delete");
+		int member_id = web.getInt("member_id");
 		Member loginInfo = (Member) web.getSession("loginInfo");
 		
 		String member_level = null;
@@ -89,6 +91,13 @@ public class ArticleDelete extends BaseController {
 		
 		//관리자 게시물과 덧글을 강제 삭제하기 위한 권한 데이터 전달
 		request.setAttribute("member_level", member_level);
+		
+		//report만 삭제하기위한 데이터값 전달
+		request.setAttribute("report_delete", report_delete);
+		
+		request.setAttribute("member_id", member_id);
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&delete.do = " + article_id);
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&delete.do = " + member_id);
 		
 		return "/community/article_delete";
 	}

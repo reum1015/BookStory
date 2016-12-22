@@ -14,8 +14,11 @@ import org.apache.logging.log4j.Logger;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ArticleService;
+import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
+import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -32,7 +35,7 @@ public class ArticleRead extends BaseController {
 	SqlSession sqlSession;
 	WebHelper web;
 	ArticleService articleService;
-	
+	ReportService reportService;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +44,7 @@ public class ArticleRead extends BaseController {
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
+		reportService = new ReportServiceImpl(sqlSession, logger);
 		
 		// 세션에서 member_id 가져오기
 		Member loginInfo = (Member) web.getSession("loginInfo");
@@ -48,6 +52,7 @@ public class ArticleRead extends BaseController {
 		int member_id = 0;
 		String nick_name = null;
 		String member_level = null;
+		int report_delete = 1;
 		
 		if(loginInfo != null){
 			member_id = loginInfo.getId();
@@ -69,6 +74,9 @@ public class ArticleRead extends BaseController {
 		article.setId(article_id);
 		article.setMember_id(member_id);
 		
+		Report report = new Report();
+		report.setArticle_id(article_id);
+		
 		/** (4) 게시물 일련번호를 사용한 데이터 조회 */
 		Article readArticle = null;
 		Article prevArticle = null;
@@ -82,6 +90,7 @@ public class ArticleRead extends BaseController {
 		String cookieVar = web.getCookie(cookieKey);
 		
 		int count = 0;
+		int report_count = 0;
 		
 		try{
 			// 쿠키 값이 없다면 조회수 갱신
@@ -90,7 +99,7 @@ public class ArticleRead extends BaseController {
 				// 준비한 문자열에 대한 쿠키를 24시간동안 저장
 				web.setCookie(cookieKey, "Y", 60*60*24);
 			}
-		
+			report_count = reportService.selectReportCountArticle(report);
 			readArticle = articleService.selectArticle(article);
 			prevArticle = articleService.selectPrevArticle(article);
 			nextArticle = articleService.selectNextArticle(article);
@@ -107,6 +116,8 @@ public class ArticleRead extends BaseController {
 		
 
 		/** (5) 읽은 데이터를 View에게 전달한다. */
+		request.setAttribute("report_count", report_count);
+		request.setAttribute("report_delete", report_delete);
 		request.setAttribute("member_level", member_level);
 		request.setAttribute("nick_name", nick_name);
 		request.setAttribute("readArticle", readArticle);
