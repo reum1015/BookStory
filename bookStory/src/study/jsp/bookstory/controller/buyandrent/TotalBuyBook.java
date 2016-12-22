@@ -117,7 +117,7 @@ public class TotalBuyBook extends BaseController{
 		try{
 			
 			totalEpisode = episodeService.countTotalEpisodeByBookId(epiParams);
-			totalBuyEpisode = buyService.selectCountAllBuyEpisode(buyParams);
+			totalBuyEpisode = buyService.selectBuyCount(buyParams);
 			
 			logger.debug("totalEpisode ----------> " + totalEpisode);
 			logger.debug("totalBuyEpisode -------> " + totalBuyEpisode);
