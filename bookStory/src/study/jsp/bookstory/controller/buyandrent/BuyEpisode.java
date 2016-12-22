@@ -64,10 +64,26 @@ public class BuyEpisode extends BaseController{
 		int book_id = web.getInt("book_id");
 
 		String[] abc;
-		abc = web.getStringArray("total");
+		abc = web.getStringArray("total[]");
+		
+		String[ ] arr;
+		
+		arr=request.getParameterValues("arr[]");
+		
+		
+		if(abc != null){
+			for(int i =0; i<abc.length;i++){
+				System.out.println(abc[i]);
+			}
+		}
+		
+		
+		
 		logger.debug("book_id ----------------->" + book_id);
 		logger.debug("abc --------------------->" + abc);
-
+		logger.debug("arr --------------------->" + arr);
+		
+		
 		
 	
 		Map<String, Object> data = new HashMap<>();

@@ -297,7 +297,13 @@ body .nic2{
 				margin-top: 10px;
 			}
 			
-			
+/*에피소드 체크 버튼*/
+.button_span{
+	display: block;
+	height: 120px;
+	
+}
+
 
 
 

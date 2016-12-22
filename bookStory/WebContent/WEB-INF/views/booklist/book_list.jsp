@@ -43,33 +43,31 @@
 		var checkedValues;	//체크 했을때 에피소드 id값 담을 변수
 		var isChecked;			//체크 상태
 		var total=new Array();
-		var count = 0;
+		var check = document.getElementsByName("checkboxitem");
+		var cnt=0;
 		
 		function fchk(){
-			var check = document.getElementsByName("checkboxitem");
 			var chk_leng = check.length;
 			var sum=0;
-			
-			
-			
 			for(var i = 0; i <chk_leng ; i++){
 				if(check[i].checked == true){
 					total[sum] = check[i].value;
 					sum++;
-					count++;
+					cnt++;
 				}else{
 					total.splice([i],1);
+
 				}	
 			
 			}
 			
-			alert("total -->" + total)
+
 		}
 
-		$("input[name=checkboxitem]").on('click',function(){
+		$(".check_btn").on('click',function(){
 	         
 			fchk();
-	     	console.log(total,count);
+	     	console.log(total,cnt);
 	      });
 		
 		$("#checkAll").on("click",function(){
@@ -80,11 +78,21 @@
 				$("input:checkbox[name='checkboxitem']").prop("checked", false);
 				$("input:checkbox[name='checkboxitem']").attr("checked", false);
 				total=[];
-
+				cnt=0;
+				
+				/*
+				$("span > button").removeClass('btn-warning active').addClass('btn-default');
+				$("span > button > i").removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+				*/
 			}else{
 				total=[];
 				$("input:checkbox[name='checkboxitem']").prop("checked", true);
 				$("input:checkbox[name='checkboxitem']").attr("checked", true);
+				cnt=check.length;
+				/*
+				$("span > button").removeClass('btn-default').addClass('btn-warning active');
+				$("span > button > i").removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+				*/
 				
 			}
 			
@@ -96,35 +104,10 @@
 			        }
 			    }
 			    
-			    console.log(total) ;
+			    console.log(total,cnt) ;
 		});
 		
-		
-		
-		//선택 작품 구매
-		$(document).on("click","#buyEpisodeCheck",function(e){
-			e.preventDefault();
-		
-			$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
-					{book_id:book_id,total:total},
-					function(data){
-						if (data.rt != "OK") {
-							alert(json.rt);
-							return false;
-						}else{
-							alert(" 성공 ");
-							return false;						
-						}
-						
-					});
-			});
 	
-		
-		
-		
-		
-		
-		
 			//관심등록 On 이면 마크 표시
 			if(favorite_count > 0){
 				$("#favorite_img").addClass("favorite_On");
@@ -167,26 +150,6 @@
 							});
 			});
 			
-			
-			
-			//책 전체 구입
-			// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
-			$("#buyEpisodeCheck, #rentEpisodeCheck").on('click',function(e){
-				e.preventDefault();
-				if(member_id == 0){
-					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
-					
-					if(result){
-						location.replace('/bookStory/login/login.do?book_id=' + book_id );
-						return false;
-					}else{
-						return false;
-					}
-				}
-			
-			});
-			
-			
 			//구매목록 리스트
 			//구매목록에 구매 완료 표시
 			var buyList= eval(${json});
@@ -198,7 +161,72 @@
 				$("#episode_" + epid).empty();
 				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
 			};
-	});
+			
+			
+
+			$(".confirm").confirm({
+				
+				
+			    text:"선택하신 에피소드를 구매 하시겠습니까?",
+			    title: "에피소드 구매",
+			    confirm: function(button) {
+			    	$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
+							{book_id:book_id,total:total},
+							function(data){
+								if (data.rt != "OK") {
+									alert(json.rt);
+									return false;
+								}else{
+									alert(" 성공 ");
+									return false;						
+								}
+								
+							});
+			    },
+			    cancel: function(button) {
+			        // nothing to do
+			    },
+			    confirmButton: "확인",
+			    cancelButton: "취소",
+			    post: true,
+			    confirmButtonClass: "btn-warning",
+			    cancelButtonClass: "btn-default",
+			    dialogClass: "modal-dialog modal-md" // Bootstrap classes for large modal
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+				//책 전체 구입
+				// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
+				$("#buyEpisodeCheck, #rentEpisodeCheck").on('click',function(e){
+					e.preventDefault();
+					if(member_id == 0){
+						var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
+						
+						if(result){
+							location.replace('/bookStory/login/login.do?book_id=' + book_id );
+							return false;
+						}else{
+							return false;
+						}
+					}
+				
+				});
+			
+			
+			
+			
+			
+	})
+	
+	
+	
+	
 	
 	
 	
@@ -301,8 +329,10 @@
 						<c:url var="buyEpisode" value="/book/buyEpisode.do">
 					 		<c:param name="book_id" value="${bookitem.id}" />
 						</c:url>
-						<a data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">구매</a>
+						<!-- <a data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">구매</a> -->
+						<button class="confirm btn btn-default" type="button">구매</button>
 						<button class="btn btn-default" id="checkAll">전체선택</button>
+						
 					</div>
 				</div>
 				</c:if>
@@ -359,12 +389,18 @@
 						<c:otherwise>
 					
 							<div class="col-xs-3 check_box_list pull-right" id="episode_${episode.id}">
-
+										
 											<div class="checkbox checkbox-success pull-right">
-									            <input type="checkbox" name="checkboxitem" id="${episode.id}" class="input_check" value="${episode.id}"/>
+									            <input type="checkbox" name="checkboxitem" id="${episode.id}" class="input_check check_btn" value="${episode.id}"/>
 									            <label for="${episode.id}" class="check_label">선택</label>
 								        	</div>
-								  
+								  			<!-- 
+								  			  <span class="button-checkbox button_span pull-right">
+										        <button type="button" class="btn check_btn" data-color="warning" id="${episode.id}">선택</button>
+										        <input type="checkbox" class="hidden" name="checkboxitem" class="input_check" value="${episode.id}" id="${episode.id}"/>
+										   		<label for="${episode.id}" class="check_label"></label>
+										    </span>
+								  			 	 -->
 											<div></div>
 							</div>
 						</c:otherwise>
@@ -504,7 +540,7 @@
 			
 			
 			
-			
+
 			
 			
 	</div>
@@ -629,6 +665,6 @@
 	
 <!-- footer -->
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jqueryconfirm/jquery.confirm.min.js"></script>
 </body>
 </html>
