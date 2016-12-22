@@ -25,33 +25,46 @@ public class RentServiceImpl implements RentService{
 
 	@Override
 	public void insertEpisodeRent(Rent rent_insert) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void insertEpisodeAllRent(Rent rent_all_insert) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void updateMemberRentPoint(Member rent_point) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void updateMemberAllRentPoint(Member rent_all_point) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
-	public List<Rent> selectMemberRentList(Rent rent_all_list) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Rent> selectRentList(Rent rent) throws Exception {
+         List<Rent> result = null;
+		
+		try {
+			result = sqlSession.selectList("RentMapper.selectRentList", rent);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("대여 처리된 에피소드목록이 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("대여 목록 조회에 실패했습니다.");
+		}				
+		return result;
 	}
+	
 	
 	@Override
 	public void deleteRentAll(Rent rent) throws Exception {
@@ -66,6 +79,20 @@ public class RentServiceImpl implements RentService{
 		}finally{
 			sqlSession.commit();
 		}
+	}
+
+	@Override
+	public int selectRentCount(Rent rent) throws Exception {
+         int result = 0;		
+		try {
+			// 게시물 수가 0건인 경우도 있으므로
+			// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("RentMapper.selectRentCount", rent);
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("대여내역 수 조회에 실패했습니다. ");
+		}		
+		return result;
 	}
 	
 }

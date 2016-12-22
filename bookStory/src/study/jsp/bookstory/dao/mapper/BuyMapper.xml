@@ -14,8 +14,10 @@
 		<result property="allbuy_point" column="allbuy_point"/>		<!-- 전체구매 금액 -->
 		<result property="member_id" column="member_id"/>		<!-- 회원번호 (외래키) -->
 		<result property="episode_id" column="episode_id"/>		<!-- 에피소드 번호 (외래키) -->
-		<result property="book_id" column="book_id"/>
 		<result property="reg_date" column="reg_date"/>
+		<result property="book_id" column="book_id"/>
+		<result property="episode_name" column="episode_name"/>
+		
 	</resultMap>
 
 	<!-- 책 n개 구입 -->
@@ -30,27 +32,29 @@
 	
 	<!-- 책 전체 구입 -->
 	<insert id="insertAllEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO buy(buy_day,reg_date, member_id, episode_id, buy_point, book_id)
+	INSERT INTO buy(buy_day,reg_date, member_id, episode_id, buy_point)
 	VALUES
 		<foreach collection="list" item="item" separator=",">
-		(now(), now(),#{item.member_id},#{item.episode_id},#{item.buy_point},#{item.book_id})
+		(now(), now(),#{item.member_id},#{item.episode_id},#{item.buy_point})
 		</foreach>
 	</insert>
 	
-	<select id="selectCountAllBuyEpisode" parameterType="study.jsp.bookstory.model.Buy" resultType="int">
-		SELECT COUNT(id) FROM buy WHERE member_id=#{member_id} AND book_id=#{book_id}
-	</select>
-	
-	
-	
-	
-	
-	
+	<!-- 회원의 buy_Point 수정 -->
+	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
+	UPDATE member SET point = #{point} - buy_point 
+	WHERE member_id = #{member_id} and #{point} > buy_point
+	</update>
 
-	<!-- 구매 내역 조회 -->
+	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectBuyList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">
-	SELECT id, buy_day, allbuy_day,reg_date FROM buy WHERE member_id = #{member_id} ORDER BY id DESC
+	SELECT b.id, b.buy_day, b.episode_id, b.book_id, e.episode_name, b.buy_point FROM buy as b, episode as e where b.member_id=#{member_id} and b.episode_id=e.id;
 	</select>
+	
+  <!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->
+	<select id="selectBuyCount" parameterType="study.jsp.bookstory.model.Buy" resultType="int">
+	  SELECT COUNT(id) FROM buy WHERE member_id =#{member_id}	
+	</select>
+	
 	
 	<!-- 특정 멤버에 속한 모든 구매 내역을 삭제한다. -->
 	<delete id="deleteBuyAll" parameterType="study.jsp.bookstory.model.Buy">

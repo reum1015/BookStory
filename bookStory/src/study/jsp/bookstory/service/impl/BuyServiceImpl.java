@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.model.Buy;
-import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BuyService;
 
@@ -65,10 +64,22 @@ public class BuyServiceImpl implements BuyService{
 	}
 
 	@Override
-	public List<Buy> selectMemberBuyList(Buy buy_all_list) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Buy> selectBuyList(Buy buy) throws Exception {
+		  List<Buy> result = null;
+			
+			try {
+				result = sqlSession.selectList("BuyMapper.selectBuyList", buy);
+				if (result == null) {
+					throw new NullPointerException();
+				}
+			} catch (NullPointerException e) {
+				throw new Exception("구매 처리된 에피소드목록이 없습니다.");
+			} catch (Exception e) {
+				logger.error(e.getLocalizedMessage());
+				throw new Exception("구매 목록 조회에 실패했습니다.");
+			}				
+			return result;
+		}
 	
 	@Override
 	public void deleteBuyAll(Buy buy) throws Exception {
@@ -101,22 +112,18 @@ public class BuyServiceImpl implements BuyService{
 		return result;
 	}
 
-	/**
-	 * 회원이 구매한 작품의 에피소드 수
-	 */
 	@Override
-	public int selectCountAllBuyEpisode(Buy buy) throws Exception {
-		// TODO Auto-generated method stub
-		int result = 0;
-		try {
-			result = sqlSession.selectOne("BuyMapper.selectCountAllBuyEpisode", buy);
-
-		} catch (Exception e) {
-			logger.error(e.getLocalizedMessage());
-			throw new Exception("에피소드의 구매목록 갯수 조회에 실패했습니다.");
+	public int selectBuyCount(Buy buy) throws Exception {
+		 int result = 0;		
+			try {
+				// 게시물 수가 0건인 경우도 있으므로
+				// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+				result = sqlSession.selectOne("BuyMapper.selectBuyCount", buy);
+			} catch(Exception e) {
+				logger.error(e.getLocalizedMessage());
+				throw new Exception("구매내역 수 조회에 실패했습니다. ");
+			}		
+			return result;
 		}
-
-		return result;
-	}
 
 }
