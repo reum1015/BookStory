@@ -120,9 +120,16 @@
   	<!-- 관리자삭제 버튼 -->
   	<c:if test="${member_level=='BB'}">
   	<div class="pull-left" >
-  		<a href="${pageContext.request.contextPath}/community/article_delete.do?category=${category}&article_id=${readArticle.id}&member_level=${member_level}" class="btn btn-danger">관리자 삭제</a>
+  		<a href="${pageContext.request.contextPath}/community/article_delete.do?category=${category}&article_id=${readArticle.id}&member_level=${member_level}" class="btn btn-default">관리자 삭제</a>
   	</div>
   	</c:if>
+  	<!-- report 삭제 버튼 -->
+  	<c:if test="${member_level=='BB' && report_count > 0}">
+  	<div class="pull-left" >
+  		<a href="${pageContext.request.contextPath}/community/article_delete.do?member_id=${readArticle.member_id}&category=${category}&article_id=${readArticle.id}&report_delete=${report_delete}&member_level=${member_level}" class="btn btn-default">report 삭제</a>
+  	</div>
+  	</c:if>
+  	
     <div class="pull-right">
       <a href="${pageContext.request.contextPath}/community/article_list.do?category=${category}" class="btn btn-info">목록보기</a>
       <a href="${pageContext.request.contextPath}/community/article_write.do?category=${category}" class="btn btn-primary">글쓰기</a>

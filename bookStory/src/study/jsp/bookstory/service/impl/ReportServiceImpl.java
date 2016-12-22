@@ -198,9 +198,39 @@ public class ReportServiceImpl implements ReportService{
 			sqlSession.commit();
 		}
 	}
-	// 게시물 강제삭제 서비스 레이어 끝
-
 	
+	@Override
+	public int selectReportCountArticle(Report report) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.selectOne("ReportMapper.selectReportCountArticle", report);
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("report에 대한 count 조회가 실패 하였습니다.");
+		}
+		return result;
+	}
 
+	@Override
+	public void updateArticleReported(Article article) throws Exception {
+		try{
+			int result = sqlSession.update("ReportMapper.updateArticleReported", article);
+			if ( result == 0 ) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("reported를 수정하기위한 게시글 정보가 없습니다.");
+		} catch (Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("reported수정을 실패하였습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+	
+	// 게시물 강제삭제 서비스 레이어 끝
 	
 }

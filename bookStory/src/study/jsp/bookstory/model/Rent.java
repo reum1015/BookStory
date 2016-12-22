@@ -8,7 +8,15 @@ public class Rent {
 	private int rent_point;			// n개의 총 대여가격
 	private int allrent_point;		// 책대여가격
 	private int member_id;
+	private int episode_id;	
+	private String episode_name;	
 	private int book_id;
+	
+	// 페이지 구현을 위해서 추가된값
+	private int limitStart;
+	private int listCount;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -45,19 +53,43 @@ public class Rent {
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
+	public int getEpisode_id() {
+		return episode_id;
+	}
+	public void setEpisode_id(int episode_id) {
+		this.episode_id = episode_id;
+	}
+	public String getEpisode_name() {
+		return episode_name;
+	}
+	public void setEpisode_name(String episode_name) {
+		this.episode_name = episode_name;
+	}
 	public int getBook_id() {
 		return book_id;
 	}
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
+	public int getLimitStart() {
+		return limitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		this.limitStart = limitStart;
+	}
+	public int getListCount() {
+		return listCount;
+	}
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
 	@Override
 	public String toString() {
 		return "Rent [id=" + id + ", rent_day=" + rent_day + ", rent_outday=" + rent_outday + ", rent_point="
-				+ rent_point + ", allrent_point=" + allrent_point + ", member_id=" + member_id + ", book_id=" + book_id
-				+ "]";
+				+ rent_point + ", allrent_point=" + allrent_point + ", member_id=" + member_id + ", episode_id="
+				+ episode_id + ", episode_name=" + episode_name + ", book_id=" + book_id + ", limitStart=" + limitStart
+				+ ", listCount=" + listCount + "]";
 	}
 	
 	
-	
-}
+	}

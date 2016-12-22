@@ -31,13 +31,12 @@
 					id="table">
 					<thead>
 						<tr>
-							<th><a href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do"><span>최근 본 작품</span></a></th>
+								<th><a href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do"><span>최근 본 작품</span></a></th>
     						<th><a href="${pageContext.request.contextPath}/mymenu/favorite_list.do"><span>관심작품</span></a></th>
     						<th><a href="${pageContext.request.contextPath}/mymenu/bookmark_list.do"><span>책갈피</span></a></th>
     						<th><a href="${pageContext.request.contextPath}/mymenu/purchase_list.do"><span>구매내역</span></a></th>    						
     						<th><a href="${pageContext.request.contextPath}/mymenu/rent_list.do"><span>대여내역</span></a></th>
     						<th><a href="${pageContext.request.contextPath}/mymenu/my_point.do"><span>내 포인트</span></a></th>
-    						
 
 						</tr>
 					</thead>
@@ -52,25 +51,26 @@
 			<div class="rent_totallist col-lg-12">
 			<table class="table">
 			<c:choose>
-			 <c:when test="${fn:length(purchase_list) > 0}">
-			 <c:forEach var="buy" items="${purchase_list}">
+			 <c:when test="${fn:length(rent_list) > 0}">
+			 <c:forEach var="rent" items="${rent_list}">
 					<thead>
 						<tr>
 							<th class="col-lg-3 col-md-3">구매일자</th>
-							<th class="col-lg-2 col-md-2">구매 금액</th>
-							<th class="col-lg-5 col-md-5">에피소드제목</th>
-							<th class="col-lg-2 col-md-2">회원 포인트</th>							
+							<th class="col-lg-5 col-md-5">책 제목</th>
+							<th class="col-lg-2 col-md-2">대여 금액</th>
+							<th class="col-lg-2 col-md-2">대여 종료일자</th>
 						</tr>
 					</thead>
-					<c:url var="readUrl" value="/mymenu/purchase_list.do">
-		<c:param name="buy_id" value="${buy.id}" />
+					<c:url var="readUrl" value="/mymenu/rent_list.do">
+		<c:param name="rent_id" value="${rent.id}" />
 	        </c:url> 
 					<tbody>
 						<tr>
-							<td>${buy.buy_day}</td>
-							<td>${buy.buy_point}</td>
-							<td><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${buy.episode_id}&book_id=${buy.book_id}" >${buy.episode_name}</a></td>														
-							<td>${point}	</td>							
+							<td>${rent.rent_day}</td>
+							<td><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${rent.episode_id}&book_id=${rent.book_id}" >${rent.episode_name}</a></td>														
+							<td>${rent.rent_point}</td>
+							<td>${rent.rent_outday}</td>
+		<!-- <td><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${rent.episode_id}">{rent.episode_name}</a></td> -->
 						</tr>						
 					</tbody>
 					</c:forEach>
@@ -89,7 +89,7 @@
 	  <c:when test="${pageHelper.prevPage > 0}">
            <!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
            <!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
-          <c:url var="prevUrl" value="/mymenu/purchase_list.do">
+          <c:url var="prevUrl" value="/mymenu/rent_list.do">
               <c:param name="member_id" value="${member_id}"></c:param>
               <c:param name="page" value="${pageHelper.prevPage}"></c:param>
           </c:url>	  
@@ -107,7 +107,7 @@
 	   <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 	   
 	    <!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하 page_url에 저장 -->
-	    <c:url var="pageUrl" value="/mymenu/purchase_list.do">
+	    <c:url var="pageUrl" value="/mymenu/rent_list.do">
               <c:param name="id" value="${id}"></c:param>
               <c:param name="page" value="${i}"></c:param>
 	   </c:url>
@@ -129,7 +129,7 @@
 	  <c:when test="${pageHelper.nextPage > 0}">
            <!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
            <!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
-          <c:url var="nextUrl" value="/mymenu/purchase_list.do">
+          <c:url var="nextUrl" value="/mymenu/rent_list.do">
               <c:param name="member_id" value="${member_id}"></c:param>
               <c:param name="page" value="${pageHelper.nextPage}"></c:param>
           </c:url>	  
@@ -150,7 +150,6 @@
 		</div>
 	</div>
 	<!-- 메인 화면 끝 -->
-	
 	
 
 

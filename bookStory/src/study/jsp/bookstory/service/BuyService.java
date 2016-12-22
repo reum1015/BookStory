@@ -5,6 +5,7 @@ import java.util.Map;
 
 import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Rent;
 
 // 에피소드의 구매에 대한 Service
 public interface BuyService {
@@ -38,11 +39,11 @@ public interface BuyService {
 	public void updateMemberAllBuyPoint(Member buy_all_point) throws Exception;
 	
 	/**
-	 * 회원이 구매한 모든 작품의 리스트
+	 * 회원이 구매한 모든 작품의 리스트 (윤식)
 	 * @param all_buy_list
 	 * @throws Exception
 	 */
-	public List<Buy> selectMemberBuyList(Buy buy_all_list) throws Exception;
+	public List<Buy> selectBuyList(Buy buy) throws Exception;
 	
 	/**
 	 * 특정 회원에 속한 모든 구매 내역을 삭제한다.
@@ -59,13 +60,11 @@ public interface BuyService {
 	 */
 	public List<Buy> selectPurchaseEpisodeList(Buy buy) throws Exception;
 	
-	
 	/**
-	 * 회원이 구매한 작품의 에피소드 수
-	 * @param buy
-	 * @return
+	 *  전체 관심작품 목록 조회
+	 *  @param favorite - 관심작품이 저장된 BEans
+	 *  @return int
 	 * @throws Exception
 	 */
-	public int selectCountAllBuyEpisode(Buy buy) throws Exception;
-	
+	public int selectBuyCount(Buy buy) throws Exception;
 }

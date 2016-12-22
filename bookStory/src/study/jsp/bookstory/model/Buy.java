@@ -10,7 +10,11 @@ public class Buy {
 	private int member_id;
 	private int episode_id;
 	private int book_id;
+	private String episode_name;	
 	
+	// 페이지 구현을 위해서 추가된값
+	private int limitStart;
+	private int listCount;
 	public int getId() {
 		return id;
 	}
@@ -59,14 +63,31 @@ public class Buy {
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
+	public String getEpisode_name() {
+		return episode_name;
+	}
+	public void setEpisode_name(String episode_name) {
+		this.episode_name = episode_name;
+	}
+	public int getLimitStart() {
+		return limitStart;
+	}
+	public void setLimitStart(int limitStart) {
+		this.limitStart = limitStart;
+	}
+	public int getListCount() {
+		return listCount;
+	}
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
 	@Override
 	public String toString() {
 		return "Buy [id=" + id + ", buy_day=" + buy_day + ", buy_point=" + buy_point + ", allbuy_point=" + allbuy_point
 				+ ", reg_date=" + reg_date + ", member_id=" + member_id + ", episode_id=" + episode_id + ", book_id="
-				+ book_id + "]";
+				+ book_id + ", episode_name=" + episode_name + ", limitStart=" + limitStart + ", listCount=" + listCount
+				+ "]";
 	}
-	
-	
 	
 	
 }

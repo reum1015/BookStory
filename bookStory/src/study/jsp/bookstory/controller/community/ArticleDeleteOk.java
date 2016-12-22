@@ -53,6 +53,8 @@ public class ArticleDeleteOk extends BaseController {
 		/** (3) 게시글 번호 받기 */
 		int article_id = web.getInt("article_id");
 		String member_level = web.getString("member_level");
+		int report_delete = web.getInt("report_delete");
+		int member_idd = web.getInt("member_id");
 		
 		logger.debug("article_id=" + article_id);
 		
@@ -65,6 +67,7 @@ public class ArticleDeleteOk extends BaseController {
 		/** (4) 파라미터를 Beans로 묶기 */
 		Article article = new Article();
 		article.setId(article_id);
+		article.setMember_id(member_idd);
 		
 		// 게시물에 속한 덧글 삭제를 위해서 생성
 		Comment comment = new Comment();
@@ -76,28 +79,36 @@ public class ArticleDeleteOk extends BaseController {
 		
 		/** (5) 데이터 삭제 처리 */
 		// 로그인 한 경우만 삭제 활성화 비로그인 인 경우 로그인 메시지 출력
-		Member loginInfo = (Member) web.getSession("loginInfo");
-		if(loginInfo!=null){
-			article.setMember_id(loginInfo.getId());
-		}else{
-			web.redirect(web.getRootPath() + "/community/article_read.do", "로그인 후에 이용 가능합니다.");
-			return null;
+		if(member_level.equals("AA")) {
+			Member loginInfo = (Member) web.getSession("loginInfo");
+			if(loginInfo!=null){
+				article.setMember_id(loginInfo.getId());
+			}else{
+				web.redirect(web.getRootPath() + "/community/article_read.do", "로그인 후에 이용 가능합니다.");
+				return null;
+			}
 		}
 		
-		System.out.println("----------------------------------------------------------" + member_level);
 		
-		int Count = 0;
-		String relation = null;
+		int Count1 = 0;
+		int Count2 = 0;
 		
 		if(member_level.equals("BB")){
 			try{
-				Count = reportService.selectCommentCount(comment);
-					if(Count > 0) {
-						reportService.deleteAdminComment(comment);
-					}
-				
-				reportService.deleteReportArticle(report);
+				if(report_delete == 1) {
+					reportService.deleteReportArticle(report);
+					reportService.updateArticleReported(article);
+				} else {
+					Count1 = reportService.selectCommentCount(comment);
+						if(Count1 > 0) {
+							reportService.deleteAdminComment(comment);
+						}
+					Count2 = reportService.selectReportCountArticle(report);
+						if(Count2 > 0) {						
+							reportService.deleteReportArticle(report);
+						}
 				reportService.deleteAdminArticle(article);
+				}
 			}catch(Exception e){
 				web.redirect(null, e.getLocalizedMessage());
 				return null;
@@ -118,10 +129,16 @@ public class ArticleDeleteOk extends BaseController {
 		}
 		
 		/** (8) 삭제완료후 리스트 페이지로 이동하기 */
-		String url = "%s/community/article_list.do?category=%s&article_id=%d";
-		url = String.format(url, web.getRootPath(), article.getCategory(), article.getId());
-		web.redirect(url, "삭제되었습니다.");
+		String url2 = "%s/admin/article_manage.do";
+		url2 = String.format(url2, web.getRootPath());
+		String url1 = "%s/community/article_list.do?category=%s&article_id=%d";
+		url1 = String.format(url1, web.getRootPath(), article.getCategory(), article.getId());
 		
+		if(member_level.equals("BB")){
+			web.redirect(url2, "삭제되었습니다.");	
+		} else {
+			web.redirect(url1, "삭제되었습니다.");			
+		}
 		
 		return null;
 	}
