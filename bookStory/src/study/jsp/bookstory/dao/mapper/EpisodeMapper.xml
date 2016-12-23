@@ -25,6 +25,7 @@
 		<result property="total_starcount" column="total_starcount"/>
 		<result property="imagePath" column="imagePath"/>
 		<result property="total_bookmark" column="total_bookmark"/>
+		
 	</resultMap>
 
 
@@ -88,6 +89,22 @@
 	<select id="selectEpisdoeListByBookForBuy" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
 		SELECT id, episode_buy,episode_rent, book_id, episode_order
 		FROM episode WHERE book_id=#{book_id}
+	</select>
+	
+	<!-- 회원이 선택한 에피소드의 총 가격(포인트) -->
+	<select id="selectTotalPointByEpisodeIds" parameterType="java.util.Map" resultType="int">
+		SELECT SUM(episode_buy) AS episodePrice FROM episode WHERE id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+	
+	<!-- 회원이 선택한 각각의 에피소드의 가격(포인트) -->
+	<select id="selectEachPointByEpisodeIds" parameterType="java.util.Map" resultMap="Episode">
+		SELECT id, episode_buy FROM episode WHERE id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
 	</select>
 	
 	

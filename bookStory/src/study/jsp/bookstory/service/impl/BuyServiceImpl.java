@@ -30,6 +30,11 @@ public class BuyServiceImpl implements BuyService{
 		
 	}
 
+	
+	
+	/**
+	 * 선택한 에피소드 구매 테이블에 등록
+	 */
 	@Override
 	public void insertEpisodeAllBuy(Map<String,Object> map) throws Exception {
 		// TODO Auto-generated method stub
@@ -40,11 +45,11 @@ public class BuyServiceImpl implements BuyService{
 			}
 		}catch(NullPointerException e){
 			sqlSession.rollback();
-			throw new Exception("저장된 전체 구매목록이 없습니다.");
+			throw new Exception("저장된 구매목록이 없습니다.");
 		}catch(Exception e){
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
-			throw new Exception("전체 구매목록 저장에 실패했습니다.");
+			throw new Exception("구매목록 저장에 실패했습니다.");
 		}finally{
 			sqlSession.commit();
 		}

@@ -128,6 +128,7 @@ public class Episode {
 				+ total_star + ", imagePath=" + imagePath + ", limitStart=" + limitStart + ", listCount=" + listCount
 				+ "]";
 	}
+
 	
 	
 	

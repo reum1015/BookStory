@@ -162,22 +162,19 @@
 				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
 			};
 			
-			
-
+			//구매 확인 처리 과정
 			$(".confirm").confirm({
-				
-				
 			    text:"선택하신 에피소드를 구매 하시겠습니까?",
 			    title: "에피소드 구매",
 			    confirm: function(button) {
 			    	$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
-							{book_id:book_id,total:total},
+							{book_id:book_id,total:total,member_id:member_id},
 							function(data){
 								if (data.rt != "OK") {
-									alert(json.rt);
+									alert(data.rt);
 									return false;
 								}else{
-									alert(" 성공 ");
+									alert("구매 성공");
 									return false;						
 								}
 								

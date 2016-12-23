@@ -1,6 +1,9 @@
 package study.jsp.bookstory.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
@@ -228,6 +231,52 @@ public class EpisodeServiceImpl implements EpisodeService{
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 회원이 선택한 에피소드의 총 가겨
+	 */
+	@Override
+	public int selectTotalPointByEpisodeIds(Map map) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try{
+			result = sqlSession.selectOne("EpisodeMapper.selectTotalPointByEpisodeIds", map);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			throw new Exception("선택된 에피소드의 모든 가격이 없습니다.");
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드의 총 가격 조회에 실패 했습니다.");
+		}
+		
+		
+		
+		return result;
+	}
+
+	@Override
+	public List<Episode> selectEachPointByEpisodeIds(Map map) throws Exception {
+		// TODO Auto-generated method stub
+		List<Episode> list = new ArrayList<Episode>();
+		
+		try{
+			list = sqlSession.selectList("EpisodeMapper.selectEachPointByEpisodeIds", map);
+		}catch (NullPointerException e) {
+			throw new Exception("선택된 에피소드의 모든 가격이 없습니다.");
+		}catch (Exception e) {
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드의 총 가격 조회에 실패 했습니다.");
+		}
+		
+		
+		
+		
+		return list;
 	}
 
 
