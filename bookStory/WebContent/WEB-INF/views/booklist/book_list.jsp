@@ -175,6 +175,11 @@
 									return false;
 								}else{
 									alert("구매 성공");
+									for(var i = 0; i < total.length ; i++){
+										console.log(total[i]);
+										$("#episode_" + total[i]).empty();
+										$("#episode_" + total[i]).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+									}
 									return false;						
 								}
 								
