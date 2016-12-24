@@ -93,10 +93,26 @@ List<RecentEpisode> result = null;
 		}catch(Exception e){
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
+			throw new Exception("최근본 작품 모두 삭제에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteRecentEpisodeOneByOld(RecentEpisode recentepisode) throws Exception {
+		try{
+			// 최근본 작품이 존재하지 않는 회원에 대한 요청일 수 있으므로,
+			// NullPointerException을 발생시키지 않는다.
+			sqlSession.delete("RecentEpisodeMapper.deleteRecentEpisodeOneByOld", recentepisode);
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
 			throw new Exception("최근본 작품 삭제에 실패했습니다.");
 		}finally{
 			sqlSession.commit();
 		}
+		
 	}
 
 

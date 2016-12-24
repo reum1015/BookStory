@@ -30,6 +30,10 @@
 		</foreach>
 	</insert>
 	
+	<!-- 회원의 에피소드에 대한 구매 여부 확인 -->
+	<select id="selectBuyCountByMemberId" parameterType="study.jsp.bookstory.model.Buy" resultType="int">
+	  SELECT COUNT(id) FROM buy WHERE member_id =#{member_id} AND episode_id=#{episode_id}
+	</select>
 
 	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectBuyList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">

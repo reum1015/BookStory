@@ -113,6 +113,13 @@ public interface EpisodeService {
 	 * @throws Exception
 	 */
 	public int selectTotalRentPointByEpisodeIds(Map map)throws Exception;
+	
+	/**
+	 * episode hit +1
+	 * @param episode
+	 * @throws Exception
+	 */
+	public void updateEpisodeHit(Episode episode)throws Exception;
 
 
 }

@@ -148,4 +148,9 @@
 	WHERE id=#{id}
 	</select>
 	
+	<!-- 작품의 총 조회 수 +1-->
+	<update id="updateBookHit" parameterType="study.jsp.bookstory.model.Book">
+		UPDATE book SET total_hit=total_hit+1 WHERE id=#{id}
+	</update>
+	
 </mapper>

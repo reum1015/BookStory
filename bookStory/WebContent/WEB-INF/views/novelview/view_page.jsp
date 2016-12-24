@@ -43,20 +43,26 @@
 	
 	<!-- ajaxForm -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script> 
+	<style type="text/css">
+	
+	</style>
 	
 	
 	<script type="text/javascript">
 	$(function(){		
+		
+		$('.modal').on('hidden.bs.modal', function(e){
+			//모달창 내의 내용을 강제로 지움.
+			$(this).removeData('bs.modal');
+		});
+		
+		
 		var bookmark_count = $("#bookmark_count").val();
 		var member_id = $("#member_id").val();
 		var total_bookmark = $("#total_bookmark").val();		
 		var episode_id = $("#episode_id").val();
 		var isBookMarkState = $("#isBookMarkState").val();
 		var book_id = $("#book_id").val();
-		
-	
-		
-		
 		
 		//관심등록 On 이면 마크 표시
 		if(bookmark_count > 0){
@@ -78,8 +84,7 @@
 				}
 			}
 			
-
-			
+			//북마크 On/Off
 			$.get("${pageContext.request.contextPath}/book/addBookMark.do", 
 					{bookmark_count : bookmark_count, member_id : member_id, total_bookmark : total_bookmark, episode_id: episode_id, book_id:book_id},
 					function(data){
@@ -100,6 +105,171 @@
 							}
 						});
 		});
+		
+		// 별점
+		// initialize with defaults
+		$("#input-id").rating();
+		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
+		$("#input-id").rating({'size':'xs'});
+		
+		
+		//메뉴바 고정 스크립트
+		var barOffset = $("#titlebar_header").offset();
+		$(window).scroll(function() {
+			if($(document).scrollTop() > barOffset.top){
+				$("#titlebar_header").addClass("barFixed");
+			}else{
+				$("#titlebar_header").removeClass("barFixed");
+			}
+		});
+		
+		//참여 완료 버튼 클릭시
+		$("#star_rate_in").on('click',function(e){
+			e.preventDefault();
+			alert("이미 참여 완료 하였습니다.");
+			return false;
+		});
+		
+		//별점 등록 Ajax
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on("submit", "#addStarForm", function(e) {
+			e.preventDefault();
+
+			/* AjaxForm 플러그인의 강제 호출*/
+			$(this).ajaxSubmit(function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				
+				//별점 평균, 별점 등록 회원수 갱신
+				var star_count = json.starCount;
+				var starAvgEpisode = json.starAvgEpisode;
+				
+				$("#currentStarScore").text(starAvgEpisode);
+				$("#currentStarScoreCount").text(star_count);
+				
+				if(json.rt == "OK"){
+					//별점 등록 버튼 비활성화
+					var starButton = $("#star_rate_button");
+					starButton.attr('disabled',true);
+					starButton.attr("class","btn btn-warning");
+					starButton.text("참여완료");
+			
+				// 별점 모달 강제로 닫기
+				$('.modal').modal('hide');
+				}
+				alert("별점이 등록 되었습니다. ");
+			});
+	
+		});
+		// 코멘트 ajax
+		  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
+		  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
+			  episode_id: "${episode.id}"
+		  }, function(json) {
+			  if(json.rt != "OK"){
+					alert(json.rt);
+					return false;
+			  }
+			  
+			// 템플릿 HTML을 로드한다.
+				var template = Handlebars.compile($("#tmpl_comment_item").html());
+				
+				// JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+				for (var i=0; i<json.item.length; i++) {
+					json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
+					
+					// 덧글 아이템 항목 하나를 템플릿과 결합한다.
+					var html = template(json.item[i]);
+					// 결합된 결과를 덧글 목록에 추가한다.
+					$("#comment_list").append(html);
+				}
+			});
+			
+			/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
+			// <form>요소의 method, action속성과 <input>태그를
+			// Ajax요청으로 자동 구성한다.
+			$("#comment_form").ajaxForm(function(json) {
+				// json은 API에서 표시하는 전체 데이터
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				alert("덧글 작성 완료.");
+				// 줄 바꿈에 대한 처리
+				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+				// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+				json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
+				
+				// 템플릿 HTML을 로드한다.
+				var template = Handlebars.compile($("#tmpl_comment_item").html());
+				// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+				var html = template(json.item);
+				// 결합된 결과를 덧글 목록에 추가한다.
+				$("#comment_list").append(html);
+				// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
+				$("#comment_form").trigger('reset');
+			});
+			
+			/** 모든 모달창의 캐시 방지 처리 */
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달창 내의 내용을 강제로 지움.
+	  		    $(this).removeData('bs.modal');
+			});
+			
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#episode_comment_delete_form", function(e) {
+				e.preventDefault();
+
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					alert("삭제되었습니다.");
+					// modal 강제로 닫기
+					$("#episode_comment_delete_modal").modal('hide');
+					
+					// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+					var comment_id = json.commentId;
+					$("#comment_" + comment_id).remove();
+				});
+			});
+			
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#episode_comment_edit_form", function(e) {
+				e.preventDefault();
+				
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					// 줄 바꿈에 대한 처리
+					// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+					// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+					json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
+					
+					// 템플릿 HTML을 로드한다.
+					var template = Handlebars.compile($("#tmpl_comment_item").html());
+					// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+					var html = template(json.item);
+					// 결합된 결과를 기존의 덧글 항목과 교체한다.
+					$("#comment_" + json.item.id).replaceWith(html);
+					
+					// 덧글 수정 모달 강제로 닫기
+					$("#episode_comment_edit_modal").modal('hide');
+				});
+			});
+		
+			//관리자에 의한 덧그 blind 처리
+			$(".reportState_Y").text("관리자에의해 blind된 게시물 입니다.");
 });
 
 
@@ -120,12 +290,20 @@
 
 .titlebar2Width{
 	width: 45% !important;
+	}
+.txtcolor{
+	color: red;
+	font-style: italic;
+	}
+	
+	.diplayBlock{
+		display: none;
+	}
 }
 
 </style>
 </head>
 <body>
-
    <!-- 메인 헤더 -->
 	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>	
    
@@ -156,11 +334,6 @@
 				</select>
 				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
-				
-				
-				
-				
-				
 				
 				<div id="" class="col-sm-1 episode_bookmark">
 					<a href="#" id="bookmark_button">
@@ -382,8 +555,7 @@
 	<script src="${pageContext.request.contextPath}/assets/css/selectbox/js/bootstrap-select.js" type="text/javascript"></script>
 	
 	<script id="tmpl_comment_item" type="text/x-handlebars-template">
-    <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' 
-    	id="comment_{{id}}">
+    <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' id="comment_{{id}}">
         <div class="media-body" style='display: block; width:100%;'>
             <h4 class="media-heading clearfix">
           <!-- 작성자, 작성일시 -->
@@ -394,199 +566,40 @@
             </small>
           </div>
           <!-- 수정,삭제,신고 버튼 -->
-          <div class="pull-right">
+          <div class="pull-right {{restate blind}}">
             <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
             <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#episode_comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
             <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#episode_comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
           </div>
         </h4>
         <!-- 내용 -->
-        <p>{{{content}}}</p>
+        <p class="{{converterComment blind}}" id="reportState_{{blind}}">{{{content}}}</p>
       </div>
     </li>
 </script>
 
-	
-	<script type="text/javascript">
-	$(function() {
-		$('.modal').on('hidden.bs.modal', function(e){
-			//모달창 내의 내용을 강제로 지움.
-			$(this).removeData('bs.modal');
-		});
-		
-		// 별점
-		// initialize with defaults
-		$("#input-id").rating();
-		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
-		$("#input-id").rating({'size':'xs'});
-		
-		
-		//메뉴바 고정 스크립트
-		var barOffset = $("#titlebar_header").offset();
-		$(window).scroll(function() {
-			if($(document).scrollTop() > barOffset.top){
-				$("#titlebar_header").addClass("barFixed");
+<script type="text/javascript">
+	$(function(){
+		Handlebars.registerHelper("converterComment",function(g){
+			if(g=="Y"){
+				return "txtcolor";
 			}else{
-				$("#titlebar_header").removeClass("barFixed");
+				return "";
 			}
 		});
 		
-		//참여 완료 버튼 클릭시
-		$("#star_rate_in").on('click',function(e){
-			e.preventDefault();
-			alert("이미 참여 완료 하였습니다.");
-			return false;
+		Handlebars.registerHelper("restate",function(g){
+			if(g=="Y"){
+				return "diplayBlock";
+			}else{
+				return "";
+			}
 		});
-		
-		//별점 등록 Ajax
-		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on("submit", "#addStarForm", function(e) {
-			e.preventDefault();
-
-			/* AjaxForm 플러그인의 강제 호출*/
-			$(this).ajaxSubmit(function(json) {
-				if (json.rt != "OK") {
-					alert(json.rt);
-					return false;
-				}
-				
-				//별점 평균, 별점 등록 회원수 갱신
-				var star_count = json.starCount;
-				var starAvgEpisode = json.starAvgEpisode;
-				
-				$("#currentStarScore").text(starAvgEpisode);
-				$("#currentStarScoreCount").text(star_count);
-				
-				if(json.rt == "OK"){
-					//별점 등록 버튼 비활성화
-					var starButton = $("#star_rate_button");
-					starButton.attr('disabled',true);
-					starButton.attr("class","btn btn-warning");
-					starButton.text("참여완료");
-			
-				// 별점 모달 강제로 닫기
-				$('.modal').modal('hide');
-				}
-				alert("별점이 등록 되었습니다. ");
-			});
-	
-		});
-		
-		//모달 캐시 데이터 삭제
-		//모든 모달이 완전히 닫힌 직후 호출됨
 		
 	})
-	
-	</script>
-	
-	<script type="text/javascript">
-	// 코멘트 ajax
-	$(function() {
-	  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
-	  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
-		  episode_id: "${episode.id}"
-	  }, function(json) {
-		  if(json.rt != "OK"){
-				alert(json.rt);
-				return false;
-		  }
-		  
-		// 템플릿 HTML을 로드한다.
-			var template = Handlebars.compile($("#tmpl_comment_item").html());
-			
-			// JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
-			for (var i=0; i<json.item.length; i++) {
-				json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
-				
-				// 덧글 아이템 항목 하나를 템플릿과 결합한다.
-				var html = template(json.item[i]);
-				// 결합된 결과를 덧글 목록에 추가한다.
-				$("#comment_list").append(html);
-			}
-		});
-		
-		/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
-		// <form>요소의 method, action속성과 <input>태그를
-		// Ajax요청으로 자동 구성한다.
-		$("#comment_form").ajaxForm(function(json) {
-			// json은 API에서 표시하는 전체 데이터
-			if (json.rt != "OK") {
-				alert(json.rt);
-				return false;
-			}
-			alert("덧글 작성 완료.");
-			// 줄 바꿈에 대한 처리
-			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
-			// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-			json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
-			
-			// 템플릿 HTML을 로드한다.
-			var template = Handlebars.compile($("#tmpl_comment_item").html());
-			// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-			var html = template(json.item);
-			// 결합된 결과를 덧글 목록에 추가한다.
-			$("#comment_list").append(html);
-			// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
-			$("#comment_form").trigger('reset');
-		});
-		
-		/** 모든 모달창의 캐시 방지 처리 */
-		$('.modal').on('hidden.bs.modal', function (e) {
-			// 모달창 내의 내용을 강제로 지움.
-  		    $(this).removeData('bs.modal');
-		});
-		
-		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on('submit', "#episode_comment_delete_form", function(e) {
-			e.preventDefault();
+var temp = document.getElementById("reportState_Y");
 
-			// AjaxForm 플러그인의 강제 호출
-			$(this).ajaxSubmit(function(json) {
-				if (json.rt != "OK") {
-					alert(json.rt);
-					return false;
-				}
-				
-				alert("삭제되었습니다.");
-				// modal 강제로 닫기
-				$("#episode_comment_delete_modal").modal('hide');
-				
-				// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
-				var comment_id = json.commentId;
-				$("#comment_" + comment_id).remove();
-			});
-		});
-		
-		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on('submit', "#episode_comment_edit_form", function(e) {
-			e.preventDefault();
-			
-			// AjaxForm 플러그인의 강제 호출
-			$(this).ajaxSubmit(function(json) {
-				if (json.rt != "OK") {
-					alert(json.rt);
-					return false;
-				}
-				
-				// 줄 바꿈에 대한 처리
-				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
-				// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-				json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
-				
-				// 템플릿 HTML을 로드한다.
-				var template = Handlebars.compile($("#tmpl_comment_item").html());
-				// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-				var html = template(json.item);
-				// 결합된 결과를 기존의 덧글 항목과 교체한다.
-				$("#comment_" + json.item.id).replaceWith(html);
-				
-				// 덧글 수정 모달 강제로 닫기
-				$("#episode_comment_edit_modal").modal('hide');
-			});
-		});
-	});
-	</script>
-
+console.log("temp" +  temp);
+</script>
 </body>
 </html>

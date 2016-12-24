@@ -320,4 +320,23 @@ public class EpisodeServiceImpl implements EpisodeService {
 		return result;
 	}
 
+	@Override
+	public void updateEpisodeHit(Episode episode) throws Exception {
+		try{
+			int result = sqlSession.update("EpisodeMapper.updateEpisodeHit",episode);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 게시물에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("조회수 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+	}
+
 }

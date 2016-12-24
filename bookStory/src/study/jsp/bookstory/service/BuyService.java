@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import study.jsp.bookstory.model.Buy;
+import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Rent;
 
@@ -60,4 +61,12 @@ public interface BuyService {
 	 * @throws Exception
 	 */
 	public int selectBuyCount(Buy buy) throws Exception;
+	
+	/**
+	 * 회원의 에피소드에 대한 구매 여부 확인
+	 * @param buy
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectBuyCountByMemberId(Buy buy)throws Exception;
 }

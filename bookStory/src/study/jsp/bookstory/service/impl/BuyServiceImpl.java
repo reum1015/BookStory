@@ -123,4 +123,22 @@ public class BuyServiceImpl implements BuyService{
 			return result;
 		}
 
+	/**
+	 * 회원의 에피소드에 대한 구매 여부 확인
+	 */
+	@Override
+	public int selectBuyCountByMemberId(Buy buy) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;		
+		try {
+			// 게시물 수가 0건인 경우도 있으므로
+			// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("BuyMapper.selectBuyCountByMemberId", buy);
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("구매내역 확인 조회에 실패했습니다. ");
+		}		
+		return result;
+	}
+
 }

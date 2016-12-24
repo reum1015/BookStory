@@ -91,6 +91,15 @@ public class EpisodeCommentList extends BaseController {
 			temp.setContent(web.convertHtmlTag(temp.getContent()));
 		}
 		
+		
+		//관리자에의한 댓글 블라인드 처리
+		for(int i=0; i<item.size(); i++){
+			Comment temp = item.get(i);
+			if(temp.getBlind().equals("Y")){
+				temp.setContent("관리자에 의해 Blind 처리된 덧글 입니다.");
+			}
+		}
+		
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("rt", "OK");
 		data.put("item", item);

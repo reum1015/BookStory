@@ -15,17 +15,22 @@ import org.apache.logging.log4j.Logger;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.BookMark;
+import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Rent;
 import study.jsp.bookstory.model.StarMark;
 import study.jsp.bookstory.service.BookMarkService;
 import study.jsp.bookstory.service.BookService;
+import study.jsp.bookstory.service.BuyService;
 import study.jsp.bookstory.service.EpisodeService;
+import study.jsp.bookstory.service.RentService;
 import study.jsp.bookstory.service.StarMarkService;
 import study.jsp.bookstory.service.impl.BookMarkServiceImpl;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
+import study.jsp.bookstory.service.impl.BuyServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
-
+import study.jsp.bookstory.service.impl.RentServiceImpl;
 import study.jsp.bookstory.service.impl.StarMarkServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.PageHelper;
@@ -46,6 +51,8 @@ public class ViewPage extends BaseController{
 	PageHelper pageHelper;
 	StarMarkService starMarkService;
 	BookMarkService bookmarkService;
+	BuyService buyService;
+	RentService rentService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,6 +67,8 @@ public class ViewPage extends BaseController{
 		pageHelper = PageHelper.getInstance();
 		starMarkService = new StarMarkServiceImpl(sqlSession, logger);
 		bookmarkService = new BookMarkServiceImpl(sqlSession, logger);
+		buyService = new BuyServiceImpl(sqlSession, logger);
+		rentService = new RentServiceImpl(sqlSession, logger);
 		
 		/** (3)파라미터 받기 */
 		
@@ -74,33 +83,68 @@ public class ViewPage extends BaseController{
 			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
 			return null;
 		}
-		
-		
+
 		/** 로그인 여부 검사 */
-		
-		
 		int member_id = 0;
 		
 		Member loginInfo = new Member();
-		
 		loginInfo = (Member)web.getSession("loginInfo");
-		
 		logger.debug("loginInfo-------------------------------------->" + loginInfo);
 		
 		if(loginInfo != null){
 			member_id = loginInfo.getId();
+		}else{
+			web.redirect(null, "로그인이 필요한 서비스 입니다.");
+			sqlSession.close();
+			return null;
 		}
-		
 		
 		logger.debug("member_id -----------------------------------> " + member_id);
 		
+		/** 구매 여부와 렌트 여부 확인 */
+		Buy paramBuy = new Buy();
+		Rent paramRent = new Rent();
+		
+		paramBuy.setMember_id(member_id);
+		paramBuy.setEpisode_id(episode_id);
+		
+		paramRent.setMember_id(member_id);
+		paramRent.setEpisode_id(episode_id);
+		
+		//회원의 렌트 여부와 대여 기간 저장 변수
+		Rent rentItem = new Rent();
+		try{
+			//회원의 작품의 구매여부 확인
+			int buyCount = buyService.selectBuyCountByMemberId(paramBuy);
+			logger.debug("buyCount ------------>" + buyCount);
+			
+			boolean isBuyed = buyCount > 0;
+		
+			rentItem = rentService.selectRentCountByMemberId(paramRent);
+			boolean isRented = (rentItem != null);
+			
+			//대여나 구매를 하지 않았다면
+			if(!isBuyed && !isRented){
+				web.redirect(null, "작품을 볼 권한이 없습니다.");
+				sqlSession.close();
+				return null;
+			}
+			
+			if(rentItem != null){
+				String temp_date = rentItem.getRent_term();
+				int rent_term = Integer.parseInt(temp_date);
+				logger.debug("rent_term ----------------> " + rent_term);
+			}
+
+			
+			
+		}catch (Exception e) {
+			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
+			return null;
+		}
 		
 		
-		
-		
-		
-		
-		
+	
 		/** 파라미터 Beans로 묶기 */
 		Episode episode = new Episode();
 		episode.setId(episode_id);
@@ -108,7 +152,6 @@ public class ViewPage extends BaseController{
 		
 		Book book = new Book();
 		book.setId(book_id);
-		
 		
 		// 북마크 저장변수
 		int bookmarkCount = 0;
@@ -120,8 +163,6 @@ public class ViewPage extends BaseController{
      // 작품 정보 담을 빈즈
 		Episode episodeItem = new Episode();
 		Book bookItem = new Book();		
-		
-		
 		
 		/** 별점 등록 확인 여부 */ 
 		int resultaddStarCount = 0;
@@ -148,9 +189,7 @@ public class ViewPage extends BaseController{
 			/** 한개의 작품속에 있는 에피소드의 제목과 ID*/
 			episodeTitleList = episodeService.selectAllEpisodeTitle(episode);
 			
-			
 		}catch (Exception e) {
-			
 			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
 			return null;
 		}finally{

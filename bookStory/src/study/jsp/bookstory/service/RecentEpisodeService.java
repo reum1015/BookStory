@@ -44,4 +44,11 @@ public interface RecentEpisodeService {
 	 */
 	public void deleteRecentEpisodeAll(RecentEpisode recentepisode) throws Exception;
 	
+	/**
+	 * 오래된 최근 본 작품 삭제
+	 * @param recentepisode
+	 * @throws Exception
+	 */
+	public void deleteRecentEpisodeOneByOld(RecentEpisode recentepisode) throws Exception;
+	
 }

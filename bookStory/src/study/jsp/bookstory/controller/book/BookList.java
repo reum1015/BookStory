@@ -42,9 +42,6 @@ import study.jsp.helper.WebHelper;
 
 import twitter4j.JSONArray;
 import twitter4j.JSONException;
-
-
-
 /**
  * Servlet implementation class BookList
  */
@@ -109,15 +106,12 @@ public class BookList extends BaseController {
 		//전달받은 파라미터는 값의 정상여부 확인을 위해서 로그로 확인
 		logger.debug("book_id ------> " + book_id);
 		
-		
-		
 		//입력받은 파라미터를 Beans로 묶기, 파라미터로 넘겨줄 데이터
 		Book bookItem = new Book();
 		bookItem.setId(book_id);
 		
 		Episode episode = new Episode();			//에피소드 리스트 담을 빈즈
 		episode.setBook_id(book_id);					//작품정보 빈즈에 셋팅
-		
 		
 		//현재 페이지 수 --> 기본값 1페이지
 		int page = web.getInt("page",1);
@@ -238,7 +232,7 @@ public class BookList extends BaseController {
 				
 			}
 		
-		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체
+		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체(에피소드 리스트)
 				if (episodeList != null) {
 					for (int i=0; i<episodeList.size(); i++) {
 						Episode item = episodeList.get(i);
@@ -272,16 +266,16 @@ public class BookList extends BaseController {
 		request.setAttribute("pageHelper",pageHelper);		
 				
 		
-		request.setAttribute("totalCount", totalCount);						//작품에 해당하는 전체 에피소드 수
+		request.setAttribute("totalCount", totalCount);							//작품에 해당하는 전체 에피소드 수
 		request.setAttribute("isFavoriteState", isFavoriteState);			//관심등록 설정 확인
 		request.setAttribute("favoriteCount", favoriteCount);
 		request.setAttribute("member_id", member_id);						
 		request.setAttribute("bookitem", getBookItem);						//작품의 정보
 		request.setAttribute("firstEpisode", firstEpisode);					//작품의 에피소드 첫화
 		request.setAttribute("episodeList", episodeList);					//작품의 에피소드 리스트
-		request.setAttribute("buyList", buyList);							//작품 구매목록 리스트
+		request.setAttribute("buyList", buyList);									//작품 구매목록 리스트
 		request.setAttribute("rentList", rentList);
-		request.setAttribute("member", member);					
+		request.setAttribute("member", member);
 		
 		return view;
 	}

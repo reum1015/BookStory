@@ -47,6 +47,20 @@
 <script type="text/javascript">
 
 </script>
+
+<style type="text/css">
+/*댓글 blind용 css*/
+.txtcolor{
+	color: red;
+	font-style: italic;
+	}
+	
+	.diplayBlock{
+		display: none;
+	}
+}
+
+</style>
 </head>
 <body>
 	<!-- 게시판 영역 -->
@@ -277,14 +291,14 @@
             </small>
           </div>
           <!-- 수정,삭제,신고 버튼 -->
-          <div class="pull-right">
+          <div class="pull-right {{restate blind}}">
             <a href="${pageContext.request.contextPath}/comment/comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
             <a href="${pageContext.request.contextPath}/comment/comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
             <a href="${pageContext.request.contextPath}/comment/comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
           </div>
         </h4>
         <!-- 내용 -->
-        <p>{{{content}}}</p>
+        <p class="{{converterComment blind}}">{{{content}}}</p>
       </div>
     </li>
 </script>
@@ -393,6 +407,24 @@ $(function() {
 				$("#comment_edit_modal").modal('hide');
 			});
 		});
+		
+		Handlebars.registerHelper("converterComment",function(g){
+			if(g=="Y"){
+				return "txtcolor";
+			}else{
+				return "";
+			}
+		});
+		
+		Handlebars.registerHelper("restate",function(g){
+			if(g=="Y"){
+				return "diplayBlock";
+			}else{
+				return "";
+			}
+		});
+		
+		
 	});
 </script>
 

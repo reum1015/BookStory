@@ -165,7 +165,7 @@
 			for(var i = 0; i <rentListLength ; i++){
 				var epid = rentList[i].episode_id;
 				$("#episode_" + epid).empty();
-				$("#episode_" + epid).append('<div class="buystate pull-right"><p>대여 만료 일자</p><p>'+ rentList[i].rent_term +'</p></div>')
+				$("#episode_" + epid).append('<div class="buystate pull-right"><p>대여 만료일</p><p>'+ rentList[i].rent_term +'</p></div>')
 			};
 			
 			
@@ -225,7 +225,7 @@
 	
 									for(var i = 0; i < data.endEpisodeList.length; i++){
 										$("#episode_" + data.endEpisodeList[i].episode_id).empty();
-										$("#episode_" + data.endEpisodeList[i].episode_id).append('<div class="buystate pull-right"><p>남은 대여기간 '+ data.endEpisodeList[i].rent_term +'</p></div>')
+										$("#episode_" + data.endEpisodeList[i].episode_id).append('<div class="buystate pull-right"><p>대여 만료일</p><p>'+ data.endEpisodeList[i].rent_term +'</p></p></div>')
 									}
 									
 							

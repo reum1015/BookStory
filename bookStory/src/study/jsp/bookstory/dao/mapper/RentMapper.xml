@@ -31,7 +31,7 @@
 	
 	<!-- 선택한 에피소드들의 남은 대여기간 조회 -->
 	<select id="selectEndRentTerm" parameterType="java.util.Map" resultMap="rent">
-		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d %H:%i')AS rent_term
+		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d')AS rent_term
 		FROM rent
 		WHERE episode_id IN
 		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
@@ -41,12 +41,18 @@
 	
 	<!-- 작품의 에피소드들의 남은 대여기간 조회 -->
 	<select id="selectEndRentTermForBook" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
-		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d %H:%i')AS rent_term
+		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d')AS rent_term
 		FROM rent
 		WHERE book_id=#{book_id}
 	</select>
 	
-	
+	<!-- 회원의 에피소드에 대한 대여 여부 확인, 남은기간 조회 -->
+	<select id="selectRentCountByMemberId" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
+	  SELECT id, (date_format(rent_outday,'%Y%m%d%H')-date_format(now(),'%Y%m%d%H')) as rent_term
+	  FROM rent
+	  WHERE member_id =#{member_id} AND episode_id=#{episode_id}
+	</select>
+
 	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectRentList" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
 	SELECT r.id, r.rent_day, r.episode_id, r.book_id, e.episode_name, r.rent_point, r.rent_outday FROM rent as r, episode as e where r.member_id=#{member_id} and r.episode_id=e.id;

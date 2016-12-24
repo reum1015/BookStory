@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Comment;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ArticleService;
@@ -113,7 +114,7 @@ public class ArticleRead extends BaseController {
 		
 		// 본인 게시글 검사
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + count);
-		
+
 
 		/** (5) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("report_count", report_count);

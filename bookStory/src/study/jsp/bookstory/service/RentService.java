@@ -54,4 +54,12 @@ public interface RentService {
 	 */
 	public List<Rent> selectEndRentTermForBook(Rent rent) throws Exception;
 	
+	/**
+	 * 회원의 에피소드에 대한 대여 여부 확인, 남은기간 조회 
+	 * @param rent
+	 * @return
+	 * @throws Exception
+	 */
+	public Rent selectRentCountByMemberId(Rent rent) throws Exception;
+	
 }

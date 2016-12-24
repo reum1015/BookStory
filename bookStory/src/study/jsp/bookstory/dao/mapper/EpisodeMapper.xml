@@ -123,6 +123,11 @@
 		</foreach>
 	</select>
 	
+	<!-- 에피소드의 조회 수 +1-->
+	<update id="updateEpisodeHit" parameterType="study.jsp.bookstory.model.Episode">
+		UPDATE episode SET hit=hit+1 WHERE id=#{id}
+	</update>	
+
 	
 	
 	

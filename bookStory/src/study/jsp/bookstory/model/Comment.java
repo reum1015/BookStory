@@ -7,20 +7,12 @@ public class Comment {
 	private String reg_date;		// 작성 일자
 	private String edit_date;		// 변경 일자
 	private String ip_address;		// 아이피 주소
-	private int reported;			// 신고 상태 유무
-	private int blind;					// 블라인드 처리
+	private String reported;			// 신고 상태 유무
+	private String  blind;					// 블라인드 처리
 	private int member_id;
 	private int article_id;
 	private int episode_id;
 	private String user_nickname;
-	
-	
-	public int getEpisode_id() {
-		return episode_id;
-	}
-	public void setEpisode_id(int episode_id) {
-		this.episode_id = episode_id;
-	}
 	public int getId() {
 		return id;
 	}
@@ -51,16 +43,16 @@ public class Comment {
 	public void setIp_address(String ip_address) {
 		this.ip_address = ip_address;
 	}
-	public int getReported() {
+	public String getReported() {
 		return reported;
 	}
-	public void setReported(int reported) {
+	public void setReported(String reported) {
 		this.reported = reported;
 	}
-	public int getBlind() {
+	public String getBlind() {
 		return blind;
 	}
-	public void setBlind(int blind) {
+	public void setBlind(String blind) {
 		this.blind = blind;
 	}
 	public int getMember_id() {
@@ -75,6 +67,12 @@ public class Comment {
 	public void setArticle_id(int article_id) {
 		this.article_id = article_id;
 	}
+	public int getEpisode_id() {
+		return episode_id;
+	}
+	public void setEpisode_id(int episode_id) {
+		this.episode_id = episode_id;
+	}
 	public String getUser_nickname() {
 		return user_nickname;
 	}
@@ -88,7 +86,4 @@ public class Comment {
 				+ member_id + ", article_id=" + article_id + ", episode_id=" + episode_id + ", user_nickname="
 				+ user_nickname + "]";
 	}
-	
-	
-	
 }
