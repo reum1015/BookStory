@@ -9,13 +9,6 @@ import study.jsp.bookstory.model.Rent;
 
 // 에피소드의 구매에 대한 Service
 public interface BuyService {
-
-	/**
-	 * n개의  Episode를 구매한 책을 등록
-	 * @param  buy
-	 * @throws Exception
-	 */
-	public void insertEpisodeBuy(Buy buy_insert) throws Exception;
 	
 	/**
 	 * 전체의 Episode를 구매한 책을 등록

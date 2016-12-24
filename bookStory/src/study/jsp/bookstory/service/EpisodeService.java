@@ -82,7 +82,7 @@ public interface EpisodeService {
 	public List<Episode> selectEpisdoeListByBookForBuy(Episode episode)throws Exception;
 	
 	/**
-	 * 회원이 선택한 에피소드의 총 가격
+	 * 회원이 선택한 에피소드의 총 구매 가격
 	 * @param map
 	 * @return
 	 * @throws Exception
@@ -91,14 +91,28 @@ public interface EpisodeService {
 	
 	
 	/**
-	 * 회원이 선택한 에피소드 각각의 가격
+	 * 회원이 선택한 에피소드들의 각각의 구매 가격
 	 * @param map
 	 * @return
 	 * @throws Exception
 	 */
 	public List<Episode> selectEachPointByEpisodeIds(Map map)throws Exception;
 	
+	/**
+	 * 회원이 선택한 에피소드들의 각각의 대여 가격
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Episode> selectEachRentPointByEpisodeIds(Map map)throws Exception;
 	
+	/**
+	 * 회원이 선택한 에피소드의 총 대여 가격
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectTotalRentPointByEpisodeIds(Map map)throws Exception;
 
 
 }

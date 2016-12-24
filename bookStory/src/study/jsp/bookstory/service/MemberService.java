@@ -39,6 +39,14 @@ public interface MemberService {
 	 */
 	public Member selectLoginInfo(Member member) throws Exception;
 	
+	
+	/**
+	 * 새로운 세션 정보 가져오기
+	 * @param member- id
+	 * @return 회원정보
+	 * @throws Exception
+	 */
+	public Member selectLoginInfoSessionUp(Member member) throws Exception;
 	/**
 	 * 비밀번호 변경
 	 * @param member - 이메일 주소, 비밀번호

@@ -11,12 +11,11 @@ public class Rent {
 	private int episode_id;	
 	private String episode_name;	
 	private int book_id;
+	private String rent_term;		//남은 대여 기간
 	
 	// 페이지 구현을 위해서 추가된값
 	private int limitStart;
 	private int listCount;
-	
-	
 	public int getId() {
 		return id;
 	}
@@ -71,6 +70,12 @@ public class Rent {
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
+	public String getRent_term() {
+		return rent_term;
+	}
+	public void setRent_term(String rent_term) {
+		this.rent_term = rent_term;
+	}
 	public int getLimitStart() {
 		return limitStart;
 	}
@@ -87,9 +92,12 @@ public class Rent {
 	public String toString() {
 		return "Rent [id=" + id + ", rent_day=" + rent_day + ", rent_outday=" + rent_outday + ", rent_point="
 				+ rent_point + ", allrent_point=" + allrent_point + ", member_id=" + member_id + ", episode_id="
-				+ episode_id + ", episode_name=" + episode_name + ", book_id=" + book_id + ", limitStart=" + limitStart
-				+ ", listCount=" + listCount + "]";
+				+ episode_id + ", episode_name=" + episode_name + ", book_id=" + book_id + ", rent_term=" + rent_term
+				+ ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
 	}
+	
+	
+	
 	
 	
 	}

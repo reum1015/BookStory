@@ -23,14 +23,6 @@ public class BuyServiceImpl implements BuyService{
 		this.logger = logger;
 		this.sqlSession = sqlSession;
 	}
-
-	@Override
-	public void insertEpisodeBuy(Buy buy_insert) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 	
 	/**
 	 * 선택한 에피소드 구매 테이블에 등록
@@ -39,7 +31,7 @@ public class BuyServiceImpl implements BuyService{
 	public void insertEpisodeAllBuy(Map<String,Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		try{
-			int result = sqlSession.insert("BuyMapper.insertAllEpisode", map);
+			int result = sqlSession.insert("BuyMapper.insertAllBuyEpisode", map);
 			if(result==0){
 				throw new NullPointerException();
 			}

@@ -20,16 +20,19 @@ import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Rent;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.BuyService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.FavoriteService;
 import study.jsp.bookstory.service.ImageFileService;
+import study.jsp.bookstory.service.RentService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.BuyServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.FavoriteServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
+import study.jsp.bookstory.service.impl.RentServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.CommonUtils;
 import study.jsp.helper.PageHelper;
@@ -64,6 +67,7 @@ public class BookList extends BaseController {
 	TextConverter textConverter;
 	CommonUtils commonUtils;
 	BuyService buyService;
+	RentService rentService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -83,6 +87,7 @@ public class BookList extends BaseController {
 		textConverter = TextConverter.getInstance();
 		commonUtils = CommonUtils.getInstance();
 		buyService  = new BuyServiceImpl(sqlSession, logger);
+		rentService = new RentServiceImpl(sqlSession, logger);
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -143,6 +148,11 @@ public class BookList extends BaseController {
 		buy.setMember_id(member_id);
 		List<Buy> buyList = new ArrayList<Buy>();
 		
+		//회원의 작품에대한 대여 목록 조회
+		Rent rent = new Rent();
+		rent.setBook_id(book_id);
+		List<Rent> rentList = new ArrayList<Rent>();
+	
 		try{
 			
 			//관심등록 확인용
@@ -150,10 +160,7 @@ public class BookList extends BaseController {
 			
 			//작품에 해당하는 전체 에피소드 수
 			totalCount = episodeService.countTotalEpisodeByBookId(episode);
-				
-
-			
-		
+	
 			//나머지 페이지 번호 계산하기
 			//-->현재 페이지, 전체 게시물 수, 한페이지의 목록 수, 그룹 갯수
 			pageHelper.pageProcess(page, totalCount, 4, 5);
@@ -174,6 +181,9 @@ public class BookList extends BaseController {
 			//회원의 작품 구매 목록 조회
 			buyList = buyService.selectPurchaseEpisodeList(buy);
 			
+			//회원의 작품에 대한 대여 목록 조회
+			rentList = rentService.selectEndRentTermForBook(rent);
+			
 		}catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -188,6 +198,7 @@ public class BookList extends BaseController {
 		logger.debug("episode List -----> " + episodeList);
 		logger.debug("bookItem ----->" + bookItem.toString());
 		logger.debug("buyList ------>" + buyList);
+		logger.debug("rentList ----->" + rentList);
 		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체(작품 메인)
 		if (getBookItem != null) {
@@ -241,30 +252,35 @@ public class BookList extends BaseController {
 					}
 				}
 		
-				JSONArray json = new JSONArray();	
+		JSONArray buyState = new JSONArray();
+		JSONArray rentState = new JSONArray();
 				
 		try {
-			 json = new JSONArray(buyList.toArray());
+			buyState = new JSONArray(buyList.toArray());
+			rentState = new JSONArray(rentList.toArray());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				
 		
-		//구매목록 리스트 자바스크립트용
-		request.setAttribute("json", json);
+		//구매,대여 목록 리스트 자바스크립트용
+		request.setAttribute("buyState", buyState);
+		request.setAttribute("rentState", rentState);
+		
 		//페이지 번호 계산 결과 View에 전달
 		request.setAttribute("pageHelper",pageHelper);		
 				
 		
 		request.setAttribute("totalCount", totalCount);						//작품에 해당하는 전체 에피소드 수
-		request.setAttribute("isFavoriteState", isFavoriteState);		//관심등록 설정 확인
+		request.setAttribute("isFavoriteState", isFavoriteState);			//관심등록 설정 확인
 		request.setAttribute("favoriteCount", favoriteCount);
 		request.setAttribute("member_id", member_id);						
 		request.setAttribute("bookitem", getBookItem);						//작품의 정보
 		request.setAttribute("firstEpisode", firstEpisode);					//작품의 에피소드 첫화
 		request.setAttribute("episodeList", episodeList);					//작품의 에피소드 리스트
-		request.setAttribute("buyList", buyList);									//작품 구매목록 리스트
+		request.setAttribute("buyList", buyList);							//작품 구매목록 리스트
+		request.setAttribute("rentList", rentList);
 		request.setAttribute("member", member);					
 		
 		return view;

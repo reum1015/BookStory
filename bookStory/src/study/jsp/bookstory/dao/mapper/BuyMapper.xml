@@ -20,18 +20,9 @@
 		
 	</resultMap>
 
-	<!-- 책 n개 구입 -->
-	<insert id="insertEpisodeItem" parameterType="study.jsp.bookstory.model.Buy"
-		useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO buy (
-		buy_day, buy_point, member_id, episode_id,reg_date
-	) VALUES (
-		#{buy_day}, #{buy_point}, #{member_id}, #{episode_id} ,now()
-	)
-	</insert>
 	
-	<!-- 책 전체 구입 -->
-	<insert id="insertAllEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+	<!-- 선택한 작품 구입-->
+	<insert id="insertAllBuyEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO buy(buy_day,member_id,episode_id,buy_point,book_id)
 	VALUES
 		<foreach collection="list" item="item" separator=",">

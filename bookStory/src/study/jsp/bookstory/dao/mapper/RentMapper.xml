@@ -17,35 +17,35 @@
 		<result property="episode_id" column="episode_id"/>
 		<result property="book_id" column="book_id"/>
 		<result property="episode_name" column="episode_name"/>
-			
-		
+		<result property="rent_term" column="rent_term"/>
 	</resultMap>
 	
-	<!-- 에피소드 N개 RENT -->
-	<insert id="insertEpisodeItem" parameterType="study.jsp.bookstory.model.Rent"
-		useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO rent (
-		rent_day, rent_outday, rent_point, member_id, episode_id
-	) VALUES (
-	  #{rent_day}, #{rent_outday}, #{rent_point}, #{member_id}, #{episode_id} 
-	)
+	<!-- 선택한 작품 대여-->
+	<insert id="insertAllRentEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO rent(rent_day,rent_outday,member_id,episode_id,rent_point,book_id)
+	VALUES
+		<foreach collection="list" item="item" separator=",">
+		(now(),date_add(now(),interval 3 day),#{item.member_id},#{item.episode_id},#{item.rent_point},#{item.book_id})
+		</foreach>
 	</insert>
 	
-	<!-- 에피소드 전체 RENT -->
-	<insert id="insertAllEpisode" parameterType="study.jsp.bookstory.model.Rent"
-		useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO rent (
-		rent_day, rent_outday, allrent_point, member_id, episode_id
-	) VALUES (
-	  #{rent_day}, #{rent_outday}, #{allrent_point}, #{member_id}, #{episode_id} 
-	)
-	</insert>
+	<!-- 선택한 에피소드들의 남은 대여기간 조회 -->
+	<select id="selectEndRentTerm" parameterType="java.util.Map" resultMap="rent">
+		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d %H:%i')AS rent_term
+		FROM rent
+		WHERE episode_id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
 	
-	<!-- 회원의 rent_Point 수정 -->
-	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
-	UPDATE member SET point = #{point} - rent_point 
-	WHERE member_id = #{member_id} and #{point} > rent_point
-	</update>
+	<!-- 작품의 에피소드들의 남은 대여기간 조회 -->
+	<select id="selectEndRentTermForBook" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
+		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d %H:%i')AS rent_term
+		FROM rent
+		WHERE book_id=#{book_id}
+	</select>
+	
 	
 	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectRentList" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
