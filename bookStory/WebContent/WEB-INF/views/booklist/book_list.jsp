@@ -49,6 +49,7 @@
 		function fchk(){
 			var chk_leng = check.length;
 			var sum=0;
+			cnt=0;
 			for(var i = 0; i <chk_leng ; i++){
 				if(check[i].checked == true){
 					total[sum] = check[i].value;
@@ -56,7 +57,7 @@
 					cnt++;
 				}else{
 					total.splice([i],1);
-
+					
 				}	
 			
 			}
@@ -162,11 +163,20 @@
 				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
 			};
 			
+			
+	
+			
 			//구매 확인 처리 과정
 			$(".confirm").confirm({
-			    text:"선택하신 에피소드를 구매 하시겠습니까?",
+				
+				
+				text:"선택하신 에피소드를 구매 하시겠습니까?",
 			    title: "에피소드 구매",
 			    confirm: function(button) {
+			    	if(cnt==0){
+						alert("작품을 선택해 주세요");
+						return false;
+					};
 			    	$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
 							{book_id:book_id,total:total,member_id:member_id},
 							function(data){
@@ -332,7 +342,7 @@
 					 		<c:param name="book_id" value="${bookitem.id}" />
 						</c:url>
 						<!-- <a data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">구매</a> -->
-						<button class="confirm btn btn-default" type="button">구매</button>
+						<button class="confirm btn btn-default" type="button" id="buy_button">구매</button>
 						<button class="btn btn-default" id="checkAll">전체선택</button>
 						
 					</div>
