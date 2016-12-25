@@ -51,9 +51,14 @@
     <input type="hidden" name="member_id" value="${member_id}"/>
     
     <div style="width: 300px; margin: 50px auto;">
-    
-          <h4>정말 이 게시물을 삭제 하시겠습니까?</h4>
-       
+    	<c:choose>
+    		<c:when test="${report_delete != 1}">
+       			<h4>정말 이 게시물을 삭제 하시겠습니까?</h4>
+       		</c:when>
+       		<c:otherwise>
+       			<h4>Report에 등록된 게시글 데이터만 삭제 하시겠습니까?</h4>
+       		</c:otherwise>
+       </c:choose>
       <div class="form-group">
         <button type="submit" class="btn btn-danger btn-block">삭제하기</button>
         <button type="button" class="btn btn-primary btn-block" onclick="history.back()">삭제취소</button>

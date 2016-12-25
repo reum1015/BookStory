@@ -24,6 +24,8 @@ public class ReportServiceImpl implements ReportService{
 		this.sqlSession = sqlSession;
 	}
 
+	//------------------------------------------------------------------------ 게시판 관리 서비스 레이어 시작
+	
 	@Override
 	public void insertReportArticle(Report insert_report) throws Exception {
 		try{
@@ -230,7 +232,115 @@ public class ReportServiceImpl implements ReportService{
 			sqlSession.commit();
 		}
 	}
-	
 	// 게시물 강제삭제 서비스 레이어 끝
+
+	//------------------------------------------------------------------------ 게시판 관리 서비스 레이어 끝
+	
+	//------------------------------------------------------------------------ 덧글 관리 서비스 레이어 시작
+	@Override
+	public void insertCommentReport(Report report) throws Exception {
+		int result = 0;
+		
+		try{
+			result = sqlSession.insert("ReportMapper.insertCommentReport", report);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("insert하기위한 덧글이 존재하지 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("덧글을 insert하는데 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+	
+	@Override
+	public void updateComment(Comment comment) throws Exception {
+		
+	}
+
+	@Override
+	public int selectCommentReportCount(Report report) throws Exception {
+		int result;
+		
+		try{
+			result = sqlSession.selectOne("ReportMapper.selectCommentReportCount", report);
+			if( result == 0){
+				throw new NullPointerException() ;
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("CommentReportCount를 실패하였습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public List<Report> selectCommentReportList(Report report) throws Exception {
+		List<Report> result = null;
+		
+		try{
+			result = sqlSession.selectList("ReportMapper.selectCommentReportList", report);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new NullPointerException("CommentReportList를 출력하기 위한 데이터가 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("CommentReportList를 출력하기 실패했습니다.");
+		} 
+		return result;
+	}
+	
+	@Override
+	public void deleteComment(Comment comment) throws Exception {
+		int result;
+		
+		try{
+			result = sqlSession.delete("ReportMapper.deleteComment", comment);
+			if (result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new NullPointerException("Comment의 삭제하기 위한 덧글이 존재하지 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("Comment의 덧글을 삭제하기 위한 sql쿼리문이 실패하였습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	} 
+
+	@Override
+	public void deleteReportComment(Report report) throws Exception {
+		int result;
+		
+		try{
+			result = sqlSession.delete("ReportMapper.deleteReportComment", report);
+			if (result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new NullPointerException("report테이블에 덧글을 삭제하기 위한 데이터가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("report에 덧글만삭제하기 위한 sql쿼리문이 실패하였습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		
+	}
+
+	
+
+	//------------------------------------------------------------------------ 덧글 관리 서비스 레이어 끝
+	
 	
 }

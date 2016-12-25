@@ -50,7 +50,7 @@ public interface ReportService {
 	 */
 	public void updateReportMemberOut(Report report) throws Exception;
 	
-	// 게시물을 강제 삭제하기 위한 서비스 구축
+	// 게시물을 강제 삭제하기 or report게시물만 삭제하기 위한 서비스 구축
 	
 	public int selectCommentCount(Comment comment) throws Exception;
 	public void deleteAdminComment(Comment comment) throws Exception;
@@ -59,4 +59,21 @@ public interface ReportService {
 	public int selectReportCountArticle(Report report) throws Exception;
 	public void updateArticleReported(Article article) throws Exception;
 	
+	// 게시물을 강제 삭제하기 or report게시물만 삭제하기 위한 서비스 구축 끝
+	
+	//----------------------------------------------------덧글 서비스 레이어 시작
+	// 덧글을 report테이블에 저장하기
+	public void insertCommentReport(Report report) throws Exception;
+	// 덧글이 저장되면서 덧글을 reported 데이터가 변경
+	public void updateComment(Comment comment) throws Exception;
+	// 신고덧글의 총 개수값 구하기 (페이징 처리하기위한 값)
+	public int selectCommentReportCount(Report report) throws Exception;
+	// 신고덧글을 List로 출력하기
+	public List<Report> selectCommentReportList(Report report) throws Exception;
+	// 신고덧글을 삭제하기
+	public void deleteComment(Comment comment)throws Exception;
+	// 신고 덧글을 reoprt에서만 삭제하기
+	public void deleteReportComment(Report report) throws Exception;
+	
+	//----------------------------------------------------덧글 서비스 레이어 끝
 }

@@ -179,7 +179,7 @@
 
 
 		<!--덧글 신고 모달 -->
-		<div class="modal fade" id="reply_toadmin" tabindex="-1" role="dialog"
+		<div class="modal fade" id="comment_report_modal"" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -235,6 +235,15 @@
 
   </ul>
   
+  <!-- 덧글 신고 modal -->
+  <div id="comment_report_modal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+	  <div class="modal-content">
+
+	  </div>
+	</div>
+  </div>
+  
   <!-- 덧글 삭제 modal -->
   <div id="comment_delete_modal" class="modal fade">
     <div class="modal-dialog modal-sm">
@@ -278,7 +287,7 @@
           </div>
           <!-- 수정,삭제,신고 버튼 -->
           <div class="pull-right">
-            <a href="${pageContext.request.contextPath}/comment/comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
+            <a href="${pageContext.request.contextPath}/comment/comment_report.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
             <a href="${pageContext.request.contextPath}/comment/comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
             <a href="${pageContext.request.contextPath}/comment/comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
           </div>
