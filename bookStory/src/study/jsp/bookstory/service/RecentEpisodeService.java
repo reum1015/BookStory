@@ -44,4 +44,19 @@ public interface RecentEpisodeService {
 	 */
 	public void deleteRecentEpisodeAll(RecentEpisode recentepisode) throws Exception;
 	
+	/**
+	 * 오래된 최근 본 작품 삭제
+	 * @param recentepisode
+	 * @throws Exception
+	 */
+	public void deleteRecentEpisodeOneByOld(RecentEpisode recentepisode) throws Exception;
+	
+	/**
+	 * 최근 본작품이 RecentEpisode 테이블에 존재 하는지 판별
+	 * @param recentepisode
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectRecentEpisodeIsCount(RecentEpisode recentepisode) throws Exception;
+	
 }

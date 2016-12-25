@@ -20,30 +20,20 @@
 		
 	</resultMap>
 
-	<!-- 책 n개 구입 -->
-	<insert id="insertEpisodeItem" parameterType="study.jsp.bookstory.model.Buy"
-		useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO buy (
-		buy_day, buy_point, member_id, episode_id,reg_date
-	) VALUES (
-		#{buy_day}, #{buy_point}, #{member_id}, #{episode_id} ,now()
-	)
-	</insert>
 	
-	<!-- 책 전체 구입 -->
-	<insert id="insertAllEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO buy(buy_day,reg_date, member_id, episode_id, buy_point,book_id)
+	<!-- 선택한 작품 구입-->
+	<insert id="insertAllBuyEpisode" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO buy(buy_day,member_id,episode_id,buy_point,book_id)
 	VALUES
 		<foreach collection="list" item="item" separator=",">
-		(now(), now(),#{item.member_id},#{item.episode_id},#{item.buy_point},#{item.book_id})
+		(now(),#{item.member_id},#{item.episode_id},#{item.buy_point},#{item.book_id})
 		</foreach>
 	</insert>
 	
-	<!-- 회원의 buy_Point 수정 -->
-	<update id="updateMemberPoint" parameterType="study.jsp.bookstory.model.Member">
-	UPDATE member SET point = #{point} - buy_point 
-	WHERE member_id = #{member_id} and #{point} > buy_point
-	</update>
+	<!-- 회원의 에피소드에 대한 구매 여부 확인 -->
+	<select id="selectBuyCountByMemberId" parameterType="study.jsp.bookstory.model.Buy" resultType="int">
+	  SELECT COUNT(id) FROM buy WHERE member_id =#{member_id} AND episode_id=#{episode_id}
+	</select>
 
 	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectBuyList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">

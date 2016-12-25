@@ -25,6 +25,7 @@
 		<result property="total_starcount" column="total_starcount"/>
 		<result property="imagePath" column="imagePath"/>
 		<result property="total_bookmark" column="total_bookmark"/>
+		
 	</resultMap>
 
 
@@ -90,6 +91,43 @@
 		FROM episode WHERE book_id=#{book_id}
 	</select>
 	
+	<!-- 회원이 선택한 에피소드의 총 구매 가격(포인트) -->
+	<select id="selectTotalPointByEpisodeIds" parameterType="java.util.Map" resultType="int">
+		SELECT SUM(episode_buy) AS episodePrice FROM episode WHERE id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+	
+	<!-- 회원이 선택한 에피소드의 총 대여 가격(포인트) -->
+	<select id="selectTotalRentPointByEpisodeIds" parameterType="java.util.Map" resultType="int">
+		SELECT SUM(episode_rent) AS episodePrice FROM episode WHERE id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+	
+	<!-- 회원이 선택한 각각의 에피소드들의 구매 가격(포인트) -->
+	<select id="selectEachPointByEpisodeIds" parameterType="java.util.Map" resultMap="Episode">
+		SELECT id, episode_buy FROM episode WHERE id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+	
+	<!-- 회원이 선택한 각각의 에피소드들의 대여 가격(포인트) -->
+	<select id="selectEachRentPointByEpisodeIds" parameterType="java.util.Map" resultMap="Episode">
+		SELECT id, episode_rent FROM episode WHERE id IN
+		<foreach collection="buyEpisodeItem" item="type" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+	
+	<!-- 에피소드의 조회 수 +1-->
+	<update id="updateEpisodeHit" parameterType="study.jsp.bookstory.model.Episode">
+		UPDATE episode SET hit=hit+1 WHERE id=#{id}
+	</update>	
+
 	
 	
 	

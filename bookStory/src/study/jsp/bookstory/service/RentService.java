@@ -1,7 +1,7 @@
 package study.jsp.bookstory.service;
 
 import java.util.List;
-
+import java.util.Map;
 
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Rent;
@@ -9,33 +9,13 @@ import study.jsp.bookstory.model.Rent;
 public interface RentService {
 
 	/**
-	 * n개의  Episode를 대여한 책을 등록
-	 * @param rent
+	 * 회원이 선택한 대여 에피소드들 저장
+	 * @param all_buy
 	 * @throws Exception
 	 */
-	public void insertEpisodeRent(Rent rent_insert) throws Exception;
+	public void insertEpisodeAllRent(Map<String,Object> map) throws Exception;
 	
-	/**
-	 * 전체의 Episode를 대여한 책을 등록
-	 * @param all_rent
-	 * @throws Exception
-	 */
-	public void insertEpisodeAllRent(Rent rent_all_insert) throws Exception;
-	
-	/**
-	 * 회원이 n개의 에피소드 대여후 Point수정
-	 * @param rent_point
-	 * @throws Exception
-	 */
-	public void updateMemberRentPoint(Member rent_point) throws Exception;
-	
-	/**
-	 * 회원의 전체의 에피소드 대여후 Point수정
-	 * @param all_rent_point
-	 * @throws Exception
-	 */
-	public void updateMemberAllRentPoint(Member rent_all_point) throws Exception;
-	
+		
 	/**
 	 * 특정 회원에 속한 모든 대여 리스트 조회한다. (윤식)
 	 * @param rent
@@ -57,5 +37,29 @@ public interface RentService {
 	 * @throws Exception
 	 */
 	public int selectRentCount(Rent rent) throws Exception;
+	
+	/**
+	 * 선택한 모든 에피소드의 남은 시간
+	 * @param rent
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Rent> selectEndRentTerm(Map map) throws Exception;
+	
+	/**
+	 * 작품의 모든 에피소드의 남은 시간
+	 * @param rent
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Rent> selectEndRentTermForBook(Rent rent) throws Exception;
+	
+	/**
+	 * 회원의 에피소드에 대한 대여 여부 확인, 남은기간 조회 
+	 * @param rent
+	 * @return
+	 * @throws Exception
+	 */
+	public Rent selectRentCountByMemberId(Rent rent) throws Exception;
 	
 }

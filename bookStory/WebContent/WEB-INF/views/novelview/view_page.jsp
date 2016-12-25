@@ -43,20 +43,26 @@
 	
 	<!-- ajaxForm -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script> 
+	<style type="text/css">
+	
+	</style>
 	
 	
 	<script type="text/javascript">
 	$(function(){		
+		
+		$('.modal').on('hidden.bs.modal', function(e){
+			//모달창 내의 내용을 강제로 지움.
+			$(this).removeData('bs.modal');
+		});
+		
+		
 		var bookmark_count = $("#bookmark_count").val();
 		var member_id = $("#member_id").val();
 		var total_bookmark = $("#total_bookmark").val();		
 		var episode_id = $("#episode_id").val();
 		var isBookMarkState = $("#isBookMarkState").val();
 		var book_id = $("#book_id").val();
-		
-	
-		
-		
 		
 		//관심등록 On 이면 마크 표시
 		if(bookmark_count > 0){
@@ -78,8 +84,7 @@
 				}
 			}
 			
-
-			
+			//북마크 On/Off
 			$.get("${pageContext.request.contextPath}/book/addBookMark.do", 
 					{bookmark_count : bookmark_count, member_id : member_id, total_bookmark : total_bookmark, episode_id: episode_id, book_id:book_id},
 					function(data){
@@ -100,6 +105,178 @@
 							}
 						});
 		});
+		
+		// 별점
+		// initialize with defaults
+		$("#input-id").rating();
+		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
+		$("#input-id").rating({'size':'xs'});
+		
+		
+		//메뉴바 고정 스크립트
+		var barOffset = $("#titlebar_header").offset();
+		$(window).scroll(function() {
+			if($(document).scrollTop() > barOffset.top){
+				$("#titlebar_header").addClass("barFixed");
+			}else{
+				$("#titlebar_header").removeClass("barFixed");
+			}
+		});
+		
+		//참여 완료 버튼 클릭시
+		$("#star_rate_in").on('click',function(e){
+			e.preventDefault();
+			alert("이미 참여 완료 하였습니다.");
+			return false;
+		});
+		
+		//별점 등록 Ajax
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on("submit", "#addStarForm", function(e) {
+			e.preventDefault();
+
+			/* AjaxForm 플러그인의 강제 호출*/
+			$(this).ajaxSubmit(function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				
+				//별점 평균, 별점 등록 회원수 갱신
+				var star_count = json.starCount;
+				var starAvgEpisode = json.starAvgEpisode;
+				
+				$("#currentStarScore").text(starAvgEpisode);
+				$("#currentStarScoreCount").text(star_count);
+				
+				if(json.rt == "OK"){
+					//별점 등록 버튼 비활성화
+					var starButton = $("#star_rate_button");
+					starButton.attr('disabled',true);
+					starButton.attr("class","btn btn-warning");
+					starButton.text("참여완료");
+			
+				// 별점 모달 강제로 닫기
+				$('.modal').modal('hide');
+				}
+				alert("별점이 등록 되었습니다. ");
+			});
+	
+		});
+		// 코멘트 ajax
+		  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
+		  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
+			  episode_id: "${episode.id}"
+		  }, function(json) {
+			  if(json.rt != "OK"){
+					alert(json.rt);
+					return false;
+			  }
+			  
+			// 템플릿 HTML을 로드한다.
+				var template = Handlebars.compile($("#tmpl_comment_item").html());
+				
+				// JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+				for (var i=0; i<json.item.length; i++) {
+					json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
+					
+					// 덧글 아이템 항목 하나를 템플릿과 결합한다.
+					var html = template(json.item[i]);
+					// 결합된 결과를 덧글 목록에 추가한다.
+					$("#comment_list").append(html);
+				}
+			});
+			
+			/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
+			// <form>요소의 method, action속성과 <input>태그를
+			// Ajax요청으로 자동 구성한다.
+			$("#comment_form").ajaxForm(function(json) {
+				// json은 API에서 표시하는 전체 데이터
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+				alert("덧글 작성 완료.");
+				// 줄 바꿈에 대한 처리
+				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+				// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+				json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
+				
+				// 템플릿 HTML을 로드한다.
+				var template = Handlebars.compile($("#tmpl_comment_item").html());
+				// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+				var html = template(json.item);
+				// 결합된 결과를 덧글 목록에 추가한다.
+				$("#comment_list").append(html);
+				// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
+				$("#comment_form").trigger('reset');
+			});
+			
+			/** 모든 모달창의 캐시 방지 처리 */
+			$('.modal').on('hidden.bs.modal', function (e) {
+				// 모달창 내의 내용을 강제로 지움.
+	  		    $(this).removeData('bs.modal');
+			});
+			
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#episode_comment_delete_form", function(e) {
+				e.preventDefault();
+
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					alert("삭제되었습니다.");
+					// modal 강제로 닫기
+					$("#episode_comment_delete_modal").modal('hide');
+					
+					// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+					var comment_id = json.commentId;
+					$("#comment_" + comment_id).remove();
+				});
+			});
+			
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#episode_comment_edit_form", function(e) {
+				e.preventDefault();
+				
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					// 줄 바꿈에 대한 처리
+					// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
+					// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
+					json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
+					
+					// 템플릿 HTML을 로드한다.
+					var template = Handlebars.compile($("#tmpl_comment_item").html());
+					// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+					var html = template(json.item);
+					// 결합된 결과를 기존의 덧글 항목과 교체한다.
+					$("#comment_" + json.item.id).replaceWith(html);
+					
+					// 덧글 수정 모달 강제로 닫기
+					$("#episode_comment_edit_modal").modal('hide');
+				});
+			});
+		
+			//관리자에 의한 덧그 blind 처리
+			$(".reportState_Y").text("관리자에의해 blind된 게시물 입니다.");
+			
+			//우클릭 금지
+			$(document).ready(function(){
+				 $(document).bind("contextmenu", function(e) {
+				  return false;
+				 });
+				});
 });
 
 
@@ -120,34 +297,161 @@
 
 .titlebar2Width{
 	width: 45% !important;
+	}
+.txtcolor{
+	color: red;
+	font-style: italic;
+	}
+	
+	.diplayBlock{
+		display: none;
+	}
 }
 
 </style>
 </head>
 <body>
-
    <!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>	
+<!-- 메인 헤더 -->
+<header class="main_header clearfix page-header hidden-xs" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+	<!-- 메인 wrapper div -->
+	<div class="container clearfix main_header_wrapperdiv">
+      <c:choose>
+        <c:when test="${loginInfo==null}">
+		<!-- 메인 헤더 로그인 회원가입 화면-->
+		<ul class="nav navbar-nav navbar-right hidden-xs">
+			<li><a
+				href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span
+					class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			<li><a href="${pageContext.request.contextPath}/login/login.do"><span
+					class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		</ul>
+        </c:when>
+        <c:otherwise>
+          <!-- 로그인 된 경우 -->
+      <ul class="nav navber-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px">
+            ${loginInfo.nick_name}님 <span class="caret"></span>
+          </a>
+          <!-- 로그인한 경우 표시될 메뉴 -->
+          <ul class="dropdown-menu">
+            <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+            <li><a href="${pageContext.request.contextPath}/login/edit.do">회원정보 수정</a></li>
+            <li><a href="${pageContext.request.contextPath}/login/out.do">회원탈퇴</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- // 로그인 된 경우 -->
+        </c:otherwise>
+      </c:choose>
+		<!-- 메인 헤더 이미지 -->
+		<div class="container main_header_image">
+			<h1 class="main_h1">
+				<a href="${pageContext.request.contextPath}/index.do"
+					id="main_image_link"></a>
+			</h1>
+			<p class="sr-only">북스토리 메인 헤더영역</p>
+		</div>
+
+	</div>
+	<div id="top_mar"></div>
+
+
+
+</header>
+
+<!-- 네비게이션 바 (메뉴 영역) -->
+<nav class="navbar navbar-default main_navi"  oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+	<div class="container">
+		<div class="navbar-header clearfix">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a href="${pageContext.request.contextPath}/index.do"
+				class="navbar-brand bookstoryhome">BookStory</a>
+		</div>
+		<div class="container">
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+
+
+					<li class="todayNovel"><a
+						href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
+					<li class="novelList"><a
+						href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+					<li class="community"><a
+						href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+					<li class="mymenu"><a
+						href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
+					<li class="main_admin"><a
+						href="${pageContext.request.contextPath}/admin/admin_main.do"
+						class="main_navi_admin active">administrator</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do" class="visible-xs signup_icon"><span
+							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/login.do" class="visible-xs login_icon"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li>
+						<form
+							class="navbar-form navbar-left pull-left search_form visible-xs"
+							role="search"
+							action="${pageContext.request.contextPath}/totalsearch/total_search.do">
+							<fieldset>
+								<div class="input-group form-group">
+
+									<label class="sr-only" for="total_search">통합검색</label> <input
+										type="text" class="form-control" placeholder="통합검색"
+										id="total_search"> <span class="input-group-btn">
+										<button type="submit" class="btn btn-default">검색</button>
+									</span>
+								</div>
+							</fieldset>
+						</form>
+					</li>
+				</ul>
+
+				<div class="main_login">
+					<form
+						class="navbar-form navbar-left pull-right hidden-xs form-inline"
+						role="search"
+						action="${pageContext.request.contextPath}/totalsearch/total_search.do">
+						<fieldset>
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" placeholder="통합검색">
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-default">검색</button>
+								</span>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
    
 	<!-- 메인 화면 시작 -->
 	
-		<div class="container">
-			<div class="container_view">
-				<div class="section_area_viewer">
+		<div class="container" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+			<div class="container_view" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+				<div class="section_area_viewer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
 				<!-- title bar -->
-				<div class="row view_header" id="titlebar_header">
+				<div class="row view_header" id="titlebar_header" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				
-                <div id="" class="col-sm-3 novel_title">
+                <div id="" class="col-sm-3 novel_title" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<h4><a href="#">${book.book_name}</a></h4>
 				</div>
 				
 				
-				<div id="" class="col-sm-6 episode_list">
+				<div id="" class="col-sm-6 episode_list" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
-				<select name="epList_selectBox">
+				<select name="epList_selectBox" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
 					<option value="${title.id}"><a href="#">${title.episode_order}화. ${title.episode_name}
 					</a>
@@ -156,11 +460,6 @@
 				</select>
 				<button type="button" class="nextpage btn-default">&gt;</button>
 				</div>
-				
-				
-				
-				
-				
 				
 				<div id="" class="col-sm-1 episode_bookmark">
 					<a href="#" id="bookmark_button">
@@ -173,7 +472,7 @@
 				<input type="hidden" value="${bookmarkCount}" id="total_bookmark">
 				<input type="hidden" value="${isBookMarkState}" id="isBookMarkState">
 				</div>
-				<div id="" class="col-sm-2 view_set">
+				<div id="" class="col-sm-2 view_set" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<a>보기설정</a>
 				</div>
 				
@@ -183,7 +482,7 @@
 				<!-- view content -->
 				<div class="viewer_container">
 				
-				<div class="page-header novel_title_header">
+				<div class="page-header novel_title_header" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			    <h1>${episode.episode_order}.${episode.episode_name}</h1>      
 			    <span class="date">2016.10.18</span>
 			  	</div>
@@ -196,17 +495,17 @@
 				</div>
 				 -->
 				
-				<div class="detail_view_content">
+				<div class="detail_view_content"  id="mouse_no" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<p>${episode.content}</p>					
 				</div>				
 				</div>
 				<!-- // view content -->
 				
 				
-			<div class="row star_row">
+			<div class="row star_row" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 		
 		
-			<div class="col-sm-6 score_block">
+			<div class="col-sm-6 score_block" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				<div class="num_info">
 					<span title="별점" class="icon_stargrade" id="stargradeIcon">별점</span>
 					<p class="CurrentStarScore" id="currentStarScore">${episode.total_star}</p>
@@ -214,7 +513,7 @@
 				</div>
 			</div>
 			
-			<div class="grade_insert col-sm-6">
+			<div class="grade_insert col-sm-6" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<div class="button_group">
 							<c:choose>
 									
@@ -233,7 +532,7 @@
 				
 								
 				<!-- view footer -->
-			<div class="viewer_footer">
+			<div class="viewer_footer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			
 			<!-- 별점주기 -->
 			
@@ -362,8 +661,8 @@
 
 
 	<!-- footer -->
-<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
+<footer class="page-footer text-center" id="main_footer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+		<div class="container footer_container" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			<p class="text-center">
 			<h5>
 				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
@@ -382,8 +681,7 @@
 	<script src="${pageContext.request.contextPath}/assets/css/selectbox/js/bootstrap-select.js" type="text/javascript"></script>
 	
 	<script id="tmpl_comment_item" type="text/x-handlebars-template">
-    <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' 
-    	id="comment_{{id}}">
+    <li class="media" style='border-top: 1px dotted #ccc; padding-top: 15px' id="comment_{{id}}">
         <div class="media-body" style='display: block; width:100%;'>
             <h4 class="media-heading clearfix">
           <!-- 작성자, 작성일시 -->
@@ -394,199 +692,40 @@
             </small>
           </div>
           <!-- 수정,삭제,신고 버튼 -->
-          <div class="pull-right">
+          <div class="pull-right {{restate blind}}">
             <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
             <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#episode_comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
             <a href="${pageContext.request.contextPath}/episodecomment/episode_comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#episode_comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
           </div>
         </h4>
         <!-- 내용 -->
-        <p>{{{content}}}</p>
+        <p class="{{converterComment blind}}" id="reportState_{{blind}}">{{{content}}}</p>
       </div>
     </li>
 </script>
 
-	
-	<script type="text/javascript">
-	$(function() {
-		$('.modal').on('hidden.bs.modal', function(e){
-			//모달창 내의 내용을 강제로 지움.
-			$(this).removeData('bs.modal');
-		});
-		
-		// 별점
-		// initialize with defaults
-		$("#input-id").rating();
-		// with plugin options (do not attach the CSS class "rating" to your input if using this approach)
-		$("#input-id").rating({'size':'xs'});
-		
-		
-		//메뉴바 고정 스크립트
-		var barOffset = $("#titlebar_header").offset();
-		$(window).scroll(function() {
-			if($(document).scrollTop() > barOffset.top){
-				$("#titlebar_header").addClass("barFixed");
+<script type="text/javascript">
+	$(function(){
+		Handlebars.registerHelper("converterComment",function(g){
+			if(g=="Y"){
+				return "txtcolor";
 			}else{
-				$("#titlebar_header").removeClass("barFixed");
+				return "";
 			}
 		});
 		
-		//참여 완료 버튼 클릭시
-		$("#star_rate_in").on('click',function(e){
-			e.preventDefault();
-			alert("이미 참여 완료 하였습니다.");
-			return false;
+		Handlebars.registerHelper("restate",function(g){
+			if(g=="Y"){
+				return "diplayBlock";
+			}else{
+				return "";
+			}
 		});
-		
-		//별점 등록 Ajax
-		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on("submit", "#addStarForm", function(e) {
-			e.preventDefault();
-
-			/* AjaxForm 플러그인의 강제 호출*/
-			$(this).ajaxSubmit(function(json) {
-				if (json.rt != "OK") {
-					alert(json.rt);
-					return false;
-				}
-				
-				//별점 평균, 별점 등록 회원수 갱신
-				var star_count = json.starCount;
-				var starAvgEpisode = json.starAvgEpisode;
-				
-				$("#currentStarScore").text(starAvgEpisode);
-				$("#currentStarScoreCount").text(star_count);
-				
-				if(json.rt == "OK"){
-					//별점 등록 버튼 비활성화
-					var starButton = $("#star_rate_button");
-					starButton.attr('disabled',true);
-					starButton.attr("class","btn btn-warning");
-					starButton.text("참여완료");
-			
-				// 별점 모달 강제로 닫기
-				$('.modal').modal('hide');
-				}
-				alert("별점이 등록 되었습니다. ");
-			});
-	
-		});
-		
-		//모달 캐시 데이터 삭제
-		//모든 모달이 완전히 닫힌 직후 호출됨
 		
 	})
-	
-	</script>
-	
-	<script type="text/javascript">
-	// 코멘트 ajax
-	$(function() {
-	  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
-	  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
-		  episode_id: "${episode.id}"
-	  }, function(json) {
-		  if(json.rt != "OK"){
-				alert(json.rt);
-				return false;
-		  }
-		  
-		// 템플릿 HTML을 로드한다.
-			var template = Handlebars.compile($("#tmpl_comment_item").html());
-			
-			// JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
-			for (var i=0; i<json.item.length; i++) {
-				json.item[i].content = json.item[i].content.replace(/&lt;br\/&gt;/g, "<br/>");
-				
-				// 덧글 아이템 항목 하나를 템플릿과 결합한다.
-				var html = template(json.item[i]);
-				// 결합된 결과를 덧글 목록에 추가한다.
-				$("#comment_list").append(html);
-			}
-		});
-		
-		/** 덧글 작성 폼의 submit 이벤트 Ajax 구현 */
-		// <form>요소의 method, action속성과 <input>태그를
-		// Ajax요청으로 자동 구성한다.
-		$("#comment_form").ajaxForm(function(json) {
-			// json은 API에서 표시하는 전체 데이터
-			if (json.rt != "OK") {
-				alert(json.rt);
-				return false;
-			}
-			alert("덧글 작성 완료.");
-			// 줄 바꿈에 대한 처리
-			// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
-			// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-			json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
-			
-			// 템플릿 HTML을 로드한다.
-			var template = Handlebars.compile($("#tmpl_comment_item").html());
-			// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-			var html = template(json.item);
-			// 결합된 결과를 덧글 목록에 추가한다.
-			$("#comment_list").append(html);
-			// 폼 태그의 입력값을 초기화 하기 위해서 reset이벤트를 강제로 호출
-			$("#comment_form").trigger('reset');
-		});
-		
-		/** 모든 모달창의 캐시 방지 처리 */
-		$('.modal').on('hidden.bs.modal', function (e) {
-			// 모달창 내의 내용을 강제로 지움.
-  		    $(this).removeData('bs.modal');
-		});
-		
-		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on('submit', "#episode_comment_delete_form", function(e) {
-			e.preventDefault();
+var temp = document.getElementById("reportState_Y");
 
-			// AjaxForm 플러그인의 강제 호출
-			$(this).ajaxSubmit(function(json) {
-				if (json.rt != "OK") {
-					alert(json.rt);
-					return false;
-				}
-				
-				alert("삭제되었습니다.");
-				// modal 강제로 닫기
-				$("#episode_comment_delete_modal").modal('hide');
-				
-				// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
-				var comment_id = json.commentId;
-				$("#comment_" + comment_id).remove();
-			});
-		});
-		
-		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
-		$(document).on('submit', "#episode_comment_edit_form", function(e) {
-			e.preventDefault();
-			
-			// AjaxForm 플러그인의 강제 호출
-			$(this).ajaxSubmit(function(json) {
-				if (json.rt != "OK") {
-					alert(json.rt);
-					return false;
-				}
-				
-				// 줄 바꿈에 대한 처리
-				// --> 정규표현식 /~~~/g는 문자열 전체의 의미.
-				// --> JSON에 포함된 '&lt;br/&gt;'을 검색에서 <br/>로 변경함.
-				json.item.content = json.item.content.replace(/&lt;br\/&gt;/g, "<br/>");
-				
-				// 템플릿 HTML을 로드한다.
-				var template = Handlebars.compile($("#tmpl_comment_item").html());
-				// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-				var html = template(json.item);
-				// 결합된 결과를 기존의 덧글 항목과 교체한다.
-				$("#comment_" + json.item.id).replaceWith(html);
-				
-				// 덧글 수정 모달 강제로 닫기
-				$("#episode_comment_edit_modal").modal('hide');
-			});
-		});
-	});
-	</script>
-
+console.log("temp" +  temp);
+</script>
 </body>
 </html>

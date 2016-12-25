@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.service.BookService;
 
 public class BookServiceImpl implements BookService{
@@ -245,8 +246,6 @@ public class BookServiceImpl implements BookService{
 			sqlSession.commit();
 		}
 	}
-
-
 	/**
 	 * 메인 남여별 인기작(여성)
 	 */
@@ -263,7 +262,7 @@ public class BookServiceImpl implements BookService{
 		}
 		return bookList;
 	}
-
+	
 	/**
 	 * 메인 남여별 인기작(남성)
 	 */
@@ -332,15 +331,26 @@ public class BookServiceImpl implements BookService{
 			throw new Exception("작품의 포인트 정보 불러오기 실패");
 			
 		}
-		
-		
-		
-		
-		
 		return result;
 	}
 
-
-	
-
+	@Override
+	public void updateBookHit(Book book) throws Exception {
+		try{
+			int result = sqlSession.update("BookMapper.updateBookHit",book);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 작품에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품의 총 조회수 갱신에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+		
+	}
 }

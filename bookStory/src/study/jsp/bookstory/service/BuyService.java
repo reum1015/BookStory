@@ -4,18 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import study.jsp.bookstory.model.Buy;
+import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Rent;
 
 // 에피소드의 구매에 대한 Service
 public interface BuyService {
-
-	/**
-	 * n개의  Episode를 구매한 책을 등록
-	 * @param  buy
-	 * @throws Exception
-	 */
-	public void insertEpisodeBuy(Buy buy_insert) throws Exception;
 	
 	/**
 	 * 전체의 Episode를 구매한 책을 등록
@@ -67,4 +61,12 @@ public interface BuyService {
 	 * @throws Exception
 	 */
 	public int selectBuyCount(Buy buy) throws Exception;
+	
+	/**
+	 * 회원의 에피소드에 대한 구매 여부 확인
+	 * @param buy
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectBuyCountByMemberId(Buy buy)throws Exception;
 }

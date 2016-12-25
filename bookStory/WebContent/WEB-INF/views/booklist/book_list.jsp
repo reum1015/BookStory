@@ -30,25 +30,23 @@
     		$(this).removeData('bs.modal');
 		});
 		
-		
 		var favorite_count = $("#favorite_count").val();
 		var member_id = $("#member_id").val();
 		var total_favorite = $("#total_favorite").val();
 		var book_id = $("#book_id").val();
 		var isFavoriteState = $("#isFavoriteState").val();
 		
-		
-		
 		// 작품 체크 박스 모두 체크/해제
-		var checkedValues;	//체크 했을때 에피소드 id값 담을 변수
+		var checkedValues;		//체크 했을때 에피소드 id값 담을 변수
 		var isChecked;			//체크 상태
+		var cnt=0;				//체크된 에피소드 갯수
 		var total=new Array();
 		var check = document.getElementsByName("checkboxitem");
-		var cnt=0;
 		
 		function fchk(){
 			var chk_leng = check.length;
 			var sum=0;
+			cnt=0;
 			for(var i = 0; i <chk_leng ; i++){
 				if(check[i].checked == true){
 					total[sum] = check[i].value;
@@ -56,20 +54,17 @@
 					cnt++;
 				}else{
 					total.splice([i],1);
-
 				}	
-			
 			}
-			
-
 		}
 
+		//각각의 체크버튼
 		$(".check_btn").on('click',function(){
-	         
-			fchk();
+			fchk();		//버튼 체크시에 함수 호출
 	     	console.log(total,cnt);
 	      });
 		
+		/* 전체 체크버튼 시작 */
 		$("#checkAll").on("click",function(){
 			
 			isChecked = $("input:checkbox[name='checkboxitem']").is(":checked");
@@ -93,20 +88,18 @@
 				$("span > button").removeClass('btn-default').addClass('btn-warning active');
 				$("span > button > i").removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 				*/
-				
 			}
-			
-			 var size = document.getElementsByName("checkboxitem").length;
+			var size = document.getElementsByName("checkboxitem").length;
 			    for(var i = 0; i < size; i++){
 			        if(document.getElementsByName("checkboxitem")[i].checked == true){
 			        	total.push(document.getElementsByName("checkboxitem")[i].value);
 
 			        }
-			    }
+			  }
 			    
-			    console.log(total,cnt) ;
+			 console.log(total,cnt) ;
 		});
-		
+		/* 전체 체크버튼 끝 */
 	
 			//관심등록 On 이면 마크 표시
 			if(favorite_count > 0){
@@ -128,7 +121,6 @@
 						return false;
 					}
 				}
-				
 				$.get("${pageContext.request.contextPath}/book/addFavorite.do", 
 						{favorite_count : favorite_count, member_id : member_id, total_favorite : total_favorite, book_id : book_id},
 						function(data){
@@ -150,86 +142,121 @@
 							});
 			});
 			
-			//구매목록 리스트
-			//구매목록에 구매 완료 표시
-			var buyList= eval(${json});
+			/*
+				구매목록 리스트
+				구매목록에 구매 완료 표시
+			*/
+			var buyList= eval(${buyState});
 			var buyListLength = buyList.length;
-			
 			
 			for(var i = 0; i <buyListLength ; i++){
 				var epid = buyList[i].episode_id;
 				$("#episode_" + epid).empty();
-				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-3x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+			};
+			
+			/*
+				대여목록 리스트
+				대여목록에 남은 기간 표시
+			*/
+			var rentList= eval(${rentState});
+			var rentListLength = rentList.length;
+			
+			for(var i = 0; i <rentListLength ; i++){
+				var epid = rentList[i].episode_id;
+				$("#episode_" + epid).empty();
+				$("#episode_" + epid).append('<div class="buystate pull-right"><p>대여 만료일</p><p>'+ rentList[i].rent_term +'</p></div>')
 			};
 			
 			
-
-			$(".confirm").confirm({
-				
-				
-			    text:"선택하신 에피소드를 구매 하시겠습니까?",
-			    title: "에피소드 구매",
-			    confirm: function(button) {
-			    	$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
-							{book_id:book_id,total:total},
+			
+			
+			/* 선택한 책 구입 */
+			$("#buy_confirm").on('click',function(){
+				if(cnt==0){
+					alert("작품을 선택해 주세요");
+					return false;
+				}else{
+					if(confirm(cnt + "개의 에피소드를 구매 하시겠습니까?")){
+					
+					$.get("${pageContext.request.contextPath}/buyandrent/buyEpisode.do", 
+							{book_id:book_id,total:total,member_id:member_id},
 							function(data){
 								if (data.rt != "OK") {
-									alert(json.rt);
+									alert(data.rt);
 									return false;
 								}else{
-									alert(" 성공 ");
+									alert("구매 성공");
+									for(var i = 0; i < total.length ; i++){
+										console.log(total[i]);
+										$("#episode_" + total[i]).empty();
+										$("#episode_" + total[i]).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+									}
 									return false;						
 								}
 								
-							});
-			    },
-			    cancel: function(button) {
-			        // nothing to do
-			    },
-			    confirmButton: "확인",
-			    cancelButton: "취소",
-			    post: true,
-			    confirmButtonClass: "btn-warning",
-			    cancelButtonClass: "btn-default",
-			    dialogClass: "modal-dialog modal-md" // Bootstrap classes for large modal
+							})
+					}else{
+						return false;
+					};
+				};
 			});
+			/* 선택한 책 구입 끝*/
 			
 			
+			/* 선택한 책 대여 */
+			$("#rent_confirm").on('click',function(){
+				if(cnt==0){
+					alert("작품을 선택해 주세요");
+					return false;
+				}else{
+					if(confirm(cnt + "개의 에피소드를 대여 하시겠습니까?")){
+					
+					$.get("${pageContext.request.contextPath}/buyandrent/rentEpisode.do", 
+							{book_id:book_id,total:total,member_id:member_id},
+							function(data){
+								if (data.rt != "OK") {
+									alert(data.rt);
+									return false;
+								}else{
+									alert("대여 성공");
+								
+									console.log(data.endEpisodeList.length);
+	
+									for(var i = 0; i < data.endEpisodeList.length; i++){
+										$("#episode_" + data.endEpisodeList[i].episode_id).empty();
+										$("#episode_" + data.endEpisodeList[i].episode_id).append('<div class="buystate pull-right"><p>대여 만료일</p><p>'+ data.endEpisodeList[i].rent_term +'</p></p></div>')
+									}
+									
+							
+									return false;				
+								}
+								
+							})
+					}else{
+						return false;
+					};
+				};
+			});
+			/* 선택한 책 대여 끝*/
 			
-			
-			
-			
-			
-			
-				//책 전체 구입
-				// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
-				$("#buyEpisodeCheck, #rentEpisodeCheck").on('click',function(e){
-					e.preventDefault();
-					if(member_id == 0){
-						var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
+			// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
+			$("#buyEpisodeCheck, #rentEpisodeCheck").on('click',function(e){
+				e.preventDefault();
+				if(member_id == 0){
+					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
 						
-						if(result){
-							location.replace('/bookStory/login/login.do?book_id=' + book_id );
-							return false;
-						}else{
-							return false;
-						}
+					if(result){
+						location.replace('/bookStory/login/login.do?book_id=' + book_id );
+						return false;
+					}else{
+						return false;
 					}
+				}
 				
-				});
-			
-			
-			
-			
-			
-	})
-	
-	
-	
-	
-	
-	
-	
+			});
+	});
+
 	</script>
 </head>
 
@@ -275,9 +302,6 @@
 					
 					
 					<div class="bookInfo_button">
-					
-						
-						
 						<!-- 첫회 보기 -->
 						<c:url var="episodeFirstUrl" value="/novelview/view_page.do">
 							<c:param name="episode_id" value="${firstEpisode}" />
@@ -324,24 +348,14 @@
 				<div class="col-xs-6 col-sm-6">
 					<div class="btn-group btn-group-md pull-right pull-right" style="margin-top: 13px;">
 						
-						<a data-target="#book_rent" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">대여</a>
-						
-						<c:url var="buyEpisode" value="/book/buyEpisode.do">
-					 		<c:param name="book_id" value="${bookitem.id}" />
-						</c:url>
-						<!-- <a data-target="#book_buy" data-toggle="modal" class="btn btn-default" id="buyEpisodeCheck">구매</a> -->
-						<button class="confirm btn btn-default" type="button">구매</button>
+						<button class="btn btn-default" type="button" id="rent_confirm">대여</button>
+						<button class="btn btn-default" type="button" id="buy_confirm"> 구매</button>
 						<button class="btn btn-default" id="checkAll">전체선택</button>
 						
 					</div>
 				</div>
 				</c:if>
-				
-				
-				
 			</div>
-			
-			
 		</div>
 			<!--  작품 정보  끝-->
 		
@@ -404,64 +418,7 @@
 											<div></div>
 							</div>
 						</c:otherwise>
-					</c:choose>
-
-
-
-
-
-						<!-- <div class="col-xs-3 check_box_list pull-right">
-								<div class="checkbox checkbox-warning">
-			                        <input id="${episode.id}" type="checkbox">
-			                        <label for="${episode.id}">
-			  							작품 선택
-			                        </label>
-		                    	</div>
-							
-								<p>대여일자 ~ 대여마지막일자 or 구입일자</p>
-								</div>
-
-						<c:set var="doneLoop" value="false"/>
-					<c:set var="Loop" value="false"/>
-						<c:forEach var="buyList" items="${buyList}">
-							
-						
-							<c:if test="${not doneLoop}">
-								<c:if test="${episode.id!=buyList.episode_id}">
-									<div>********</div>
-									<c:set var="doneLoop" value="true"/>
-								</c:if>	
-								<c:if test="${episode.id==buyList.episode_id}">
-									<div>구매완료</div>
-									<c:set var="doneLoop" value="true"/>
-								</c:if>
-							</c:if>
-		
-						<c:if test="${episode.id==buyList.episode_id}">
-									<div>구매 완료</div>
-								</c:if>
-						
-						
-						</c:forEach>
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-						
-							 -->
-							
-
-
-
-
-	
+					</c:choose>	
 			</div>
 		
 					</c:forEach>

@@ -3,6 +3,7 @@ package study.jsp.bookstory.service;
 import java.util.List;
 
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Buy;
 
 /** Novel 관련 기능을 제공하기 위한 Service계층 */
 public interface BookService {
@@ -120,6 +121,13 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public Book selectTotalPointFromBook(Book book)throws Exception;
+	
+	/**
+	 * book hit +1
+	 * @param episode
+	 * @throws Exception
+	 */
+	public void updateBookHit(Book book)throws Exception;
 	
 	
 }

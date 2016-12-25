@@ -376,19 +376,6 @@
 			<div
 				class="col-xs-12 col-sm-4 text-center section_area list_rank box">
 				<h4 class="text-left">연령별 선호작품</h4>
-				<div class="btn-group btn-group-justified" role="group"
-					aria-label="...">
-					<div class="col-xs-12">
-    			<div class="input-group">
-    				<div id="radioBtn" class="btn-group">
-    					<a class="btn btn-primary btn-sm active col-xs-6" data-toggle="happy" data-title="Y">YES</a>
-    					<a class="btn btn-primary btn-sm notActive col-xs-6" data-toggle="happy" data-title="N">NO</a>
-    				</div>
-    				<input type="hidden" name="happy" id="happy">
-    			</div>
-    		</div>
-
-				</div>
 				<div class="row empty_box_rank"></div>
 
 				<!-- tab-x -->

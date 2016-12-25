@@ -2,7 +2,7 @@ package study.jsp.bookstory.service;
 
 
 import java.util.List;
-
+import java.util.Map;
 
 import study.jsp.bookstory.model.Episode;
 
@@ -81,8 +81,45 @@ public interface EpisodeService {
 	 */
 	public List<Episode> selectEpisdoeListByBookForBuy(Episode episode)throws Exception;
 	
+	/**
+	 * 회원이 선택한 에피소드의 총 구매 가격
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectTotalPointByEpisodeIds(Map map)throws Exception;
 	
 	
+	/**
+	 * 회원이 선택한 에피소드들의 각각의 구매 가격
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Episode> selectEachPointByEpisodeIds(Map map)throws Exception;
+	
+	/**
+	 * 회원이 선택한 에피소드들의 각각의 대여 가격
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Episode> selectEachRentPointByEpisodeIds(Map map)throws Exception;
+	
+	/**
+	 * 회원이 선택한 에피소드의 총 대여 가격
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public int selectTotalRentPointByEpisodeIds(Map map)throws Exception;
+	
+	/**
+	 * episode hit +1
+	 * @param episode
+	 * @throws Exception
+	 */
+	public void updateEpisodeHit(Episode episode)throws Exception;
 
 
 }

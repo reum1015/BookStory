@@ -19,15 +19,16 @@
 		<result property="episode_name" column="episode_name"/>			
 		<result property="imagePath" column="image_path"/>
 		<result property="book_author" column="book_author"/>
-		<result property="book_name" column="book_name"/>			
+		<result property="book_name" column="book_name"/>
+		<result property="oldfordelete" column="oldfordelete"/>
 	</resultMap>
 
 
 	<insert id="insertAddRecentEpisode" parameterType="study.jsp.bookstory.model.RecentEpisode" useGeneratedKeys="true" keyProperty="id">
-	INSERT INTO recentrpisode (
-	 member_id, episode_id book_id, gender, birthdate
+	INSERT INTO recentepisode (
+	 member_id, episode_id, book_id, reg_date
 	)	VALUES (
-	 #{member_id}, #{episode_id}, #{book_id}, gender, birthdate
+	 #{member_id}, #{episode_id}, #{book_id}, now()
 	 )
 	</insert> 
 	
@@ -62,4 +63,14 @@
 	  DELETE FROM recentepisode WHERE member_id =#{member_id}
 	</delete>
 	
+	<!-- 최근 본 작품이 15개 이상이면 가장 오래된 목록 1개 삭제 -->
+	<delete id="deleteRecentEpisodeOneByOld" parameterType="study.jsp.bookstory.model.RecentEpisode">
+	DELETE FROM recentepisode
+	  WHERE member_id=#{memeber_id} AND id IN (SELECT id FROM( (SELECT id FROM recentepisode ORDER BY reg_date ASC limit 0,1) AS oldfordelete)) LIMIT 0,1;
+	</delete>
+	
+	<!-- 최근 본작품 Insert 전에 이미 존재 하는 판별 -->
+	<select id="selectRecentEpisodeIsCount" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
+	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id}	 AND episode_id=#{episode_id}
+	</select>
 </mapper>

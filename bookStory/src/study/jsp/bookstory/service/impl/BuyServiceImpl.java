@@ -23,28 +23,25 @@ public class BuyServiceImpl implements BuyService{
 		this.logger = logger;
 		this.sqlSession = sqlSession;
 	}
-
-	@Override
-	public void insertEpisodeBuy(Buy buy_insert) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
+	/**
+	 * 선택한 에피소드 구매 테이블에 등록
+	 */
 	@Override
 	public void insertEpisodeAllBuy(Map<String,Object> map) throws Exception {
 		// TODO Auto-generated method stub
 		try{
-			int result = sqlSession.insert("BuyMapper.insertAllEpisode", map);
+			int result = sqlSession.insert("BuyMapper.insertAllBuyEpisode", map);
 			if(result==0){
 				throw new NullPointerException();
 			}
 		}catch(NullPointerException e){
 			sqlSession.rollback();
-			throw new Exception("저장된 전체 구매목록이 없습니다.");
+			throw new Exception("저장된 구매목록이 없습니다.");
 		}catch(Exception e){
 			sqlSession.rollback();
 			logger.error(e.getLocalizedMessage());
-			throw new Exception("전체 구매목록 저장에 실패했습니다.");
+			throw new Exception("구매목록 저장에 실패했습니다.");
 		}finally{
 			sqlSession.commit();
 		}
@@ -125,5 +122,23 @@ public class BuyServiceImpl implements BuyService{
 			}		
 			return result;
 		}
+
+	/**
+	 * 회원의 에피소드에 대한 구매 여부 확인
+	 */
+	@Override
+	public int selectBuyCountByMemberId(Buy buy) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;		
+		try {
+			// 게시물 수가 0건인 경우도 있으므로
+			// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("BuyMapper.selectBuyCountByMemberId", buy);
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("구매내역 확인 조회에 실패했습니다. ");
+		}		
+		return result;
+	}
 
 }

@@ -26,8 +26,7 @@
 	  INSERT INTO comment (
 	    content, reg_date, edit_date, ip_address, reported, blind, article_id, member_id, user_nickname
 	  ) VALUES (
-	    #{content}, now(), now(), #{ip_address}, 0, 0, #{article_id}, #{member_id}, #{user_nickname}
-	  
+	    #{content}, now(), now(), #{ip_address}, "N", "N", #{article_id}, #{member_id}, #{user_nickname}
 	  )
 	</insert>
 	
@@ -93,8 +92,7 @@
 	  INSERT INTO comment (
 	    content, reg_date, edit_date, ip_address, reported, blind, episode_id, member_id, user_nickname
 	  ) VALUES (
-	    #{content}, now(), now(), #{ip_address}, 0, 0, #{episode_id}, #{member_id}, #{user_nickname}
-	  
+	    #{content}, now(), now(), #{ip_address}, "N", "N", #{episode_id}, #{member_id}, #{user_nickname}
 	  )
 	</insert>
 	
