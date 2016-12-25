@@ -127,7 +127,7 @@ public interface BookService {
 	 * @param episode
 	 * @throws Exception
 	 */
-	public void updateBookHit(Buy buy)throws Exception;
+	public void updateBookHit(Book book)throws Exception;
 	
 	
 }

@@ -115,6 +115,22 @@ List<RecentEpisode> result = null;
 		
 	}
 
+	@Override
+	public int selectRecentEpisodeIsCount(RecentEpisode recentepisode) throws Exception {
+		// TODO Auto-generated method stub
+	int result = 0;
+		
+		try {
+			// 게시물 수가 0건인 경우도 있으므로
+			// 결과값이 0인 경우에 예외를 발생시키지 않는다.
+			result = sqlSession.selectOne("RecentEpisodeMapper.selectRecentEpisodeIsCount", recentepisode);
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("최근작품 수 1건 조회에 실패했습니다. ");
+		}
+		return result;
+	}
+
 
 
 }

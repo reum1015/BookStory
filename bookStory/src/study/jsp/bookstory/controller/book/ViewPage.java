@@ -18,18 +18,21 @@ import study.jsp.bookstory.model.BookMark;
 import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Episode;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.RecentEpisode;
 import study.jsp.bookstory.model.Rent;
 import study.jsp.bookstory.model.StarMark;
 import study.jsp.bookstory.service.BookMarkService;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.BuyService;
 import study.jsp.bookstory.service.EpisodeService;
+import study.jsp.bookstory.service.RecentEpisodeService;
 import study.jsp.bookstory.service.RentService;
 import study.jsp.bookstory.service.StarMarkService;
 import study.jsp.bookstory.service.impl.BookMarkServiceImpl;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.BuyServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
+import study.jsp.bookstory.service.impl.RecentEpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.RentServiceImpl;
 import study.jsp.bookstory.service.impl.StarMarkServiceImpl;
 import study.jsp.helper.BaseController;
@@ -53,6 +56,7 @@ public class ViewPage extends BaseController{
 	BookMarkService bookmarkService;
 	BuyService buyService;
 	RentService rentService;
+	RecentEpisodeService recentEpisodeService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,6 +73,7 @@ public class ViewPage extends BaseController{
 		bookmarkService = new BookMarkServiceImpl(sqlSession, logger);
 		buyService = new BuyServiceImpl(sqlSession, logger);
 		rentService = new RentServiceImpl(sqlSession, logger);
+		recentEpisodeService = new RecentEpisodeServiceImpl(sqlSession, logger);
 		
 		/** (3)파라미터 받기 */
 		
@@ -101,7 +106,7 @@ public class ViewPage extends BaseController{
 		
 		logger.debug("member_id -----------------------------------> " + member_id);
 		
-		/** 구매 여부와 렌트 여부 확인 */
+		/** 구매 여부와 대여 여부 확인 */
 		Buy paramBuy = new Buy();
 		Rent paramRent = new Rent();
 		
@@ -134,17 +139,19 @@ public class ViewPage extends BaseController{
 				String temp_date = rentItem.getRent_term();
 				int rent_term = Integer.parseInt(temp_date);
 				logger.debug("rent_term ----------------> " + rent_term);
+				
+					if(rent_term <= 0){
+						web.redirect(null, "작품을 볼 권한이 없습니다.");
+						sqlSession.close();
+						return null;
+					}
 			}
-
-			
-			
 		}catch (Exception e) {
 			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
+			sqlSession.close();
 			return null;
 		}
 		
-		
-	
 		/** 파라미터 Beans로 묶기 */
 		Episode episode = new Episode();
 		episode.setId(episode_id);
@@ -173,7 +180,28 @@ public class ViewPage extends BaseController{
 		star.setEpisode_id(episode_id);
 		
 		List<Episode> episodeTitleList = null;		//에피소드 제목 리스트 저장 변수
+		
+		//최근 본 작품 Insert용 파라미터
+		RecentEpisode recent = new RecentEpisode();
+		recent.setMember_id(member_id);
+		recent.setBook_id(book_id);
+		recent.setEpisode_id(episode_id);
+		
+		//작품 아이디와 에피소드 아이드를 조합한 문자열 생성
+		String cookieKey = "episode_" + book_id + "_" + episode_id;
+		//준비한 문자열에 대응되는 쿠키값 조회
+		String cookieVar = web.getCookie(cookieKey);
+		
 		try{
+			//쿠키값이 없다면 조회수 갱신
+			if(cookieVar == null){
+				episodeService.updateEpisodeHit(episode); 	//에피소드 조회수 +1
+				bookService.updateBookHit(book); 					//작품 +1
+				
+				//준비한 문자열에 대한 쿠키를 24시간동안 저장
+				web.setCookie(cookieKey, "Y", 60*60*24);
+			}
+			
 			// 북마크 확인용
 			bookmarkCount = bookmarkService.selectCountBookMarkById(bookmark);
 			
@@ -189,6 +217,12 @@ public class ViewPage extends BaseController{
 			/** 한개의 작품속에 있는 에피소드의 제목과 ID*/
 			episodeTitleList = episodeService.selectAllEpisodeTitle(episode);
 			
+			//최근 본 작품이 존재 하지 않다면 RecenteEpisode 테이블에 insert
+			int result = recentEpisodeService.selectRecentEpisodeIsCount(recent);
+			if(result <= 0){
+				/** 최근 본작품 테이블에 Insert*/
+				recentEpisodeService.insertAddRecentEpisode(recent);
+			}
 		}catch (Exception e) {
 			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
 			return null;
@@ -214,7 +248,6 @@ public class ViewPage extends BaseController{
         request.setAttribute("bookmarkCount", bookmarkCount);
 		request.setAttribute("member_id", member_id);
 		request.setAttribute("book_id", book_id);
-		
 		
 		return view;
 	}

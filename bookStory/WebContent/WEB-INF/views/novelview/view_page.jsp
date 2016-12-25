@@ -270,6 +270,13 @@
 		
 			//관리자에 의한 덧그 blind 처리
 			$(".reportState_Y").text("관리자에의해 blind된 게시물 입니다.");
+			
+			//우클릭 금지
+			$(document).ready(function(){
+				 $(document).bind("contextmenu", function(e) {
+				  return false;
+				 });
+				});
 });
 
 
@@ -305,27 +312,146 @@
 </head>
 <body>
    <!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>	
+<!-- 메인 헤더 -->
+<header class="main_header clearfix page-header hidden-xs" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+
+	<!-- 메인 wrapper div -->
+	<div class="container clearfix main_header_wrapperdiv">
+      <c:choose>
+        <c:when test="${loginInfo==null}">
+		<!-- 메인 헤더 로그인 회원가입 화면-->
+		<ul class="nav navbar-nav navbar-right hidden-xs">
+			<li><a
+				href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span
+					class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			<li><a href="${pageContext.request.contextPath}/login/login.do"><span
+					class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		</ul>
+        </c:when>
+        <c:otherwise>
+          <!-- 로그인 된 경우 -->
+      <ul class="nav navber-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px">
+            ${loginInfo.nick_name}님 <span class="caret"></span>
+          </a>
+          <!-- 로그인한 경우 표시될 메뉴 -->
+          <ul class="dropdown-menu">
+            <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+            <li><a href="${pageContext.request.contextPath}/login/edit.do">회원정보 수정</a></li>
+            <li><a href="${pageContext.request.contextPath}/login/out.do">회원탈퇴</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- // 로그인 된 경우 -->
+        </c:otherwise>
+      </c:choose>
+		<!-- 메인 헤더 이미지 -->
+		<div class="container main_header_image">
+			<h1 class="main_h1">
+				<a href="${pageContext.request.contextPath}/index.do"
+					id="main_image_link"></a>
+			</h1>
+			<p class="sr-only">북스토리 메인 헤더영역</p>
+		</div>
+
+	</div>
+	<div id="top_mar"></div>
+
+
+
+</header>
+
+<!-- 네비게이션 바 (메뉴 영역) -->
+<nav class="navbar navbar-default main_navi"  oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+	<div class="container">
+		<div class="navbar-header clearfix">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a href="${pageContext.request.contextPath}/index.do"
+				class="navbar-brand bookstoryhome">BookStory</a>
+		</div>
+		<div class="container">
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+
+
+					<li class="todayNovel"><a
+						href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
+					<li class="novelList"><a
+						href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+					<li class="community"><a
+						href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
+					<li class="mymenu"><a
+						href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
+					<li class="main_admin"><a
+						href="${pageContext.request.contextPath}/admin/admin_main.do"
+						class="main_navi_admin active">administrator</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do" class="visible-xs signup_icon"><span
+							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/login.do" class="visible-xs login_icon"><span
+							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li>
+						<form
+							class="navbar-form navbar-left pull-left search_form visible-xs"
+							role="search"
+							action="${pageContext.request.contextPath}/totalsearch/total_search.do">
+							<fieldset>
+								<div class="input-group form-group">
+
+									<label class="sr-only" for="total_search">통합검색</label> <input
+										type="text" class="form-control" placeholder="통합검색"
+										id="total_search"> <span class="input-group-btn">
+										<button type="submit" class="btn btn-default">검색</button>
+									</span>
+								</div>
+							</fieldset>
+						</form>
+					</li>
+				</ul>
+
+				<div class="main_login">
+					<form
+						class="navbar-form navbar-left pull-right hidden-xs form-inline"
+						role="search"
+						action="${pageContext.request.contextPath}/totalsearch/total_search.do">
+						<fieldset>
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" placeholder="통합검색">
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-default">검색</button>
+								</span>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
    
 	<!-- 메인 화면 시작 -->
 	
-		<div class="container">
-			<div class="container_view">
-				<div class="section_area_viewer">
+		<div class="container" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+			<div class="container_view" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+				<div class="section_area_viewer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 
 				<!-- title bar -->
-				<div class="row view_header" id="titlebar_header">
+				<div class="row view_header" id="titlebar_header" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				
-                <div id="" class="col-sm-3 novel_title">
+                <div id="" class="col-sm-3 novel_title" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<h4><a href="#">${book.book_name}</a></h4>
 				</div>
 				
 				
-				<div id="" class="col-sm-6 episode_list">
+				<div id="" class="col-sm-6 episode_list" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			
 				<button type="button" class="prevpage btn-default">&lt;</button>
 				
-				<select name="epList_selectBox">
+				<select name="epList_selectBox" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
 					<option value="${title.id}"><a href="#">${title.episode_order}화. ${title.episode_name}
 					</a>
@@ -346,7 +472,7 @@
 				<input type="hidden" value="${bookmarkCount}" id="total_bookmark">
 				<input type="hidden" value="${isBookMarkState}" id="isBookMarkState">
 				</div>
-				<div id="" class="col-sm-2 view_set">
+				<div id="" class="col-sm-2 view_set" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<a>보기설정</a>
 				</div>
 				
@@ -356,7 +482,7 @@
 				<!-- view content -->
 				<div class="viewer_container">
 				
-				<div class="page-header novel_title_header">
+				<div class="page-header novel_title_header" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			    <h1>${episode.episode_order}.${episode.episode_name}</h1>      
 			    <span class="date">2016.10.18</span>
 			  	</div>
@@ -369,17 +495,17 @@
 				</div>
 				 -->
 				
-				<div class="detail_view_content">
+				<div class="detail_view_content"  id="mouse_no" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<p>${episode.content}</p>					
 				</div>				
 				</div>
 				<!-- // view content -->
 				
 				
-			<div class="row star_row">
+			<div class="row star_row" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 		
 		
-			<div class="col-sm-6 score_block">
+			<div class="col-sm-6 score_block" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				<div class="num_info">
 					<span title="별점" class="icon_stargrade" id="stargradeIcon">별점</span>
 					<p class="CurrentStarScore" id="currentStarScore">${episode.total_star}</p>
@@ -387,7 +513,7 @@
 				</div>
 			</div>
 			
-			<div class="grade_insert col-sm-6">
+			<div class="grade_insert col-sm-6" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<div class="button_group">
 							<c:choose>
 									
@@ -406,7 +532,7 @@
 				
 								
 				<!-- view footer -->
-			<div class="viewer_footer">
+			<div class="viewer_footer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			
 			<!-- 별점주기 -->
 			
@@ -535,8 +661,8 @@
 
 
 	<!-- footer -->
-<footer class="page-footer text-center" id="main_footer">
-		<div class="container footer_container">
+<footer class="page-footer text-center" id="main_footer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+		<div class="container footer_container" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			<p class="text-center">
 			<h5>
 				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보

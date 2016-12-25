@@ -335,9 +335,9 @@ public class BookServiceImpl implements BookService{
 	}
 
 	@Override
-	public void updateBookHit(Buy buy) throws Exception {
+	public void updateBookHit(Book book) throws Exception {
 		try{
-			int result = sqlSession.update("BookMapper.updateBookHit",buy);
+			int result = sqlSession.update("BookMapper.updateBookHit",book);
 			if(result == 0){
 				throw new NullPointerException();
 			}
