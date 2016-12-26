@@ -119,12 +119,18 @@ public class ViewPage extends BaseController{
 		
 		//회원의 렌트 여부와 대여 기간 저장 변수
 		List<Rent> rentItem = new ArrayList<>();
-		try{
+		what : try{
 			//회원의 작품의 구매여부 확인
 			int buyCount = buyService.selectBuyCountByMemberId(paramBuy);
 			logger.debug("buyCount ------------>" + buyCount);
 			
 			boolean isBuyed = buyCount > 0;
+			
+			
+			//구매 한 회원
+			if(isBuyed){
+				break what;
+			}
 		
 			rentItem = rentService.selectRentCountByMemberId(paramRent);
 			boolean isRented = (rentItem.size() > 0);

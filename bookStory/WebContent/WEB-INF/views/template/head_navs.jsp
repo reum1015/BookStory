@@ -85,26 +85,7 @@
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<li><a href="${pageContext.request.contextPath}/login/login.do" class="visible-xs login_icon"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					<li>
-										
-		<form class="navbar-form navbar-left" 
-	    		action="${pageContext.request.contextPath}/book/BookSearch.do" method="post"
-	    		id="search-form">
-		    	<fieldset>	
-		    		
-						<div class="col-xs-10">
-							<div class="input-group">
-								<input type="text" class="form-control col-xs-10" placeholder="작품명 or 작가명" id="keyword" name="keyword"/>
-		                   <span class="input-group-btn">
-		                        <button class="btn btn-info" type="submit" style="background-color: #CD8F49; border-color:#CD8F49">
-		                        <i class="glyphicon glyphicon-search"></i>
-		                        </button>
-		                    </span>
-							</div>
-		    			</div>
-		    	</fieldset>
-	    	</form>
-	    	
+					<li>	
 						
 					</li>
 				</ul>
