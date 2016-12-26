@@ -107,6 +107,21 @@
 	/* 포인트 충전 후 모달 이미지 center*/
 	.modal-body > .img-responsive { display: block; margin-left: auto; margin-right: auto; }
 	
+	.rent_totallist {
+	min-height: 300px;
+	background-color: #fff;	
+	}
 	
+	.list-menu {
+	 color: green;
+	font-style: italic;
+	font-size: 20px;
+		}
+		
+		.content-menu {
+		font-style: oblique;
+		font-size: 15px;
+		 color: #8b0000;
+		}
 
 			

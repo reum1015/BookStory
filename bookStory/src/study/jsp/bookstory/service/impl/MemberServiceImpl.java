@@ -305,4 +305,22 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public void deleteMyPointByMemberId(Member member) throws Exception {
+		try{
+			int result = sqlSession.update("MemberMapper.deleteMyPointByMemberId", member);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("존재하지 포인트 정보에 대한 요청입니다.");
+		}catch (Exception e) {
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("회원의 포인트 변경에 실패했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+	}
 }

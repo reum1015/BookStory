@@ -45,31 +45,34 @@
 		</div>
 	</nav>
 
+	<div class="rent_totallist">
 	<div class="container" id="content">
-		<div class="table-responsive">
+	
 		<!-- 구매내역 리스트 뿌려지는 곳 책 + 페이지번호 --> 	  
-			<div class="rent_totallist col-lg-12">
+		
 			<table class="table">
-			<c:choose>
-			 <c:when test="${fn:length(rent_list) > 0}">
-			 <c:forEach var="rent" items="${rent_list}">
+		
+			
 					<thead>
 						<tr>
-							<th class="col-lg-3 col-md-3">구매일자</th>
-							<th class="col-lg-5 col-md-5">책 제목</th>
-							<th class="col-lg-2 col-md-2">대여 금액</th>
-							<th class="col-lg-2 col-md-2">대여 종료일자</th>
+							<th class="list-menu col-lg-3 col-md-3">구매일자</th>
+							<th class="list-menu col-lg-5 col-md-5">책 제목</th>
+							<th class="list-menu col-lg-2 col-md-2">대여 금액</th>
+							<th class="list-menu col-lg-2 col-md-2">대여 종료일자</th>
 						</tr>
 					</thead>
+					<c:choose>
+					 <c:when test="${fn:length(rent_list) > 0}">
+			 <c:forEach var="rent" items="${rent_list}">
 					<c:url var="readUrl" value="/mymenu/rent_list.do">
 		<c:param name="rent_id" value="${rent.id}" />
-	        </c:url>
+	        </c:url> 
 					<tbody>
 						<tr>
-							<td>${rent.rent_day}</td>
-							<td><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${rent.episode_id}&book_id=${rent.book_id}" >${rent.episode_name}</a></td>														
-							<td>${rent.rent_point}</td>
-							<td>${rent.rent_outday}</td>
+							<td class="content-menu">${rent.rent_day}</td>
+							<td class="content-menu"><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${rent.episode_id}&book_id=${rent.book_id}" >${rent.episode_name}</a></td>														
+							<td class="content-menu">${rent.rent_point}</td>
+							<td class="content-menu">${rent.rent_outday}</td>
 		<!-- <td><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${rent.episode_id}">{rent.episode_name}</a></td> -->
 						</tr>						
 					</tbody>
@@ -77,10 +80,7 @@
 					</c:when>
 					</c:choose>
 				</table>
-			
-			
-			
-			
+					
 			<!-- 페이지 번호 시작 -->
 	 <div id="pagination" class="paginations">
 	   <ul class="pagination"> 	 	 
@@ -100,9 +100,8 @@
 	     <!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
 	     <li class='disabled'><a href="#">&laquo;</a></li> 
 	  </c:otherwise>	  
-	 </c:choose>
-	 
-	 <!--  페이지 번호 -->
+	 </c:choose>	 	 
+			<!--  페이지 번호 -->
 	   <!-- 현재 그룹의 시작 페이지 ~끝페이지 사이를 1씩 증가하면서 반복 -->	   
 	   <c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
 	   
@@ -144,18 +143,17 @@
 	 </c:choose>	   
 	   </ul>
 	 </div>
+	
 	 <!-- 페이지 번호 끝 -->	 
-			</div>
+	 	</div>			
 			<!-- 구매내역 리스트 뿌려지는 곳 책 + 페이지번호끝  -->
 		</div>
-	</div>
-	<!-- 메인 화면 끝 -->
 	
-
+	<!-- 메인 화면 끝 -->
 
 
 <!-- footer -->
-		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
+			<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
 
 
 

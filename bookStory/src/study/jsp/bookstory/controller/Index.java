@@ -131,6 +131,13 @@ public class Index extends BaseController{
 						
 						String tempDay = temp.getDaily_date();
 						String tempGenre = temp.getGenre();
+						String imagePath = temp.getImagePath();
+						
+						if(imagePath != null){
+							String thumbPath = upload.createThumbnail(imagePath, 1160, 413, false);
+							temp.setImagePath(thumbPath);
+							logger.debug("thumbnail create ---------> " + temp.getImagePath());
+						}
 						
 						String day = commonUtils.genreOrDayConverter(tempDay);
 						String genre = commonUtils.genreOrDayConverter(tempGenre);
@@ -159,7 +166,7 @@ public class Index extends BaseController{
 						Book bookItem  = maleList.get(i);
 						String imagePath = bookItem.getImagePath();
 						if(imagePath != null){
-							String thumbPath = upload.createThumbnail(imagePath, 248, 240, true);
+							String thumbPath = upload.createThumbnail(imagePath, 248, 240, false);
 							bookItem.setImagePath(thumbPath);
 							logger.debug("thumbnail create ---------> " + bookItem.getImagePath());
 						}

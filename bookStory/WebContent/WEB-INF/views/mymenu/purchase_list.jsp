@@ -45,43 +45,45 @@
 			</div>
 		</div>
 	</nav>
-
+	
+	
+<div class="rent_totallist ">
 	<div class="container" id="content">
+	 
+	 
+	 
 		<div class="table-responsive">
 		<!-- 구매내역 리스트 뿌려지는 곳 책 + 페이지번호 --> 	  
-			<div class="rent_totallist col-lg-12">
+			
 			<table class="table">
-			<c:choose>
-			 <c:when test="${fn:length(purchase_list) > 0}">
-			 <c:forEach var="buy" items="${purchase_list}">
+			
 					<thead>
 						<tr>
-							<th class="col-lg-3 col-md-3">구매일자</th>
-							<th class="col-lg-2 col-md-2">구매 금액</th>
-							<th class="col-lg-5 col-md-5">에피소드제목</th>
-							<th class="col-lg-2 col-md-2">회원 포인트</th>							
+							<th class="list-menu col-lg-3 col-md-3">구매일자</th>
+							<th class="list-menu col-lg-2 col-md-2">구매 금액</th>
+							<th class="list-menu col-lg-5 col-md-5">에피소드제목</th>
+							<th class="list-menu col-lg-2 col-md-2">회원 포인트</th>							
 						</tr>
 					</thead>
+					<c:choose>
+			 <c:when test="${fn:length(purchase_list) > 0}">
+			 <c:forEach var="buy" items="${purchase_list}">
 					<c:url var="readUrl" value="/mymenu/purchase_list.do">
 		<c:param name="buy_id" value="${buy.id}" />
 	        </c:url> 
 					<tbody>
 						<tr>
-							<td>${buy.buy_day}</td>
-							<td>${buy.buy_point}</td>
-							<td><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${buy.episode_id}&book_id=${buy.book_id}" >${buy.episode_name}</a></td>														
-							<td>${point}	</td>							
+							<td class="content-menu">${buy.buy_day}</td>
+							<td class="content-menu">${buy.buy_point}</td>
+							<td class="content-menu"><a href="${pageContext.request.contextPath}/novelview/view_page.do?episode_id=${buy.episode_id}&book_id=${buy.book_id}" >${buy.episode_name}</a></td>														
+							<td class="content-menu">${point}</td>							
 						</tr>						
 					</tbody>
 					</c:forEach>
 					</c:when>
 					</c:choose>
-				</table>
-			
-			
-			
-			
-			<!-- 페이지 번호 시작 -->
+				</table>			
+	 				<!-- 페이지 번호 시작 -->
 	 <div id="pagination" class="paginations">
 	   <ul class="pagination"> 	 	 
 	 <!-- 이전 그룹으로 이동 -->
@@ -145,9 +147,12 @@
 	   </ul>
 	 </div>
 	 <!-- 페이지 번호 끝 -->	 
-			</div>
+	 
 			<!-- 구매내역 리스트 뿌려지는 곳 책 + 페이지번호끝  -->
-		</div>
+			</div>
+
+			</div>
+		
 	</div>
 	<!-- 메인 화면 끝 -->
 	
@@ -156,8 +161,8 @@
 
 
 <!-- footer -->
-		<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
-
+		
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"/>
 
 
 </body>

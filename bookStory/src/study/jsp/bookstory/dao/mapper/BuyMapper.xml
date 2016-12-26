@@ -37,7 +37,7 @@
 
 	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectBuyList" parameterType="study.jsp.bookstory.model.Buy" resultMap="buy">
-	SELECT b.id, b.buy_day, b.episode_id, b.book_id, e.episode_name, b.buy_point FROM buy as b, episode as e where b.member_id=#{member_id} and b.episode_id=e.id;
+	SELECT b.id, date_format(b.buy_day, '%Y-%b-%d %p%h:%i') AS buy_day , b.episode_id, b.book_id, e.episode_name, b.buy_point FROM buy as b, episode as e where b.member_id=#{member_id} and b.episode_id=e.id;
 	</select>
 	
   <!-- 전체 관심작품 수를 조회한다. 페이지 구현 위해서 -->

@@ -124,7 +124,7 @@
   <!-- 버튼들 : category값에 대한 상태유지 필요함 -->
   <div class="clearfix">
 
-
+	<input type="hidden" value="${member_level}" id="memVal">
 	<!-- 게시글 신고 버튼 -->
 	<c:if test="${count==0}">
   	<div class="pull-left" >
@@ -236,7 +236,7 @@
     <!-- 내용입력, 저장버튼 -->
     <div class="form-group">
       <div class="input-group">
-        <textarea class="form-control custom-control" name="content" style="resize:none; height: 80px"></textarea>
+        <textarea class="form-control custom-control" name="content" style="resize:none; height: 80px" id="reply_box"></textarea>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-warning" style="height: 80px">저장</button>
         </span>
@@ -432,6 +432,20 @@ $(function() {
 				return "";
 			}
 		});
+		
+		
+		$("#reply_box").on('focus',function(){
+			var member_level = $("#memVal").val();
+			if(member_level == null || member_level==""){
+				alert("로그인이 필요한 서비스입니다.");
+				$(this).blur();
+				return false;
+			}
+			
+		});
+		
+		
+		
 		
 		
 	});

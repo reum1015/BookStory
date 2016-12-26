@@ -145,6 +145,7 @@ public class BookList extends BaseController {
 		//회원의 작품에대한 대여 목록 조회
 		Rent rent = new Rent();
 		rent.setBook_id(book_id);
+		rent.setMember_id(member_id);
 		List<Rent> rentList = new ArrayList<Rent>();
 	
 		try{

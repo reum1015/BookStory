@@ -40,17 +40,49 @@
 			var point = $(":radio[name='point']:checked").val();
 			var name = $("#myPointAdd").find("#name").val();
 			
+			
 			$.get("${pageContext.request.contextPath}/mymenu/my_point_oK.do",{point:point, name:name},
 					function(data){
 							var myPoint = data.curPoint;
 							var nickName = data.nickName;
+						
 							
-							$("#nicKName").html(nickName+" 님");
-							
+							$("#nicKName").html(nickName+" 님");							
 							$("#myPointScore").text(myPoint + "POINT");
-							$("#myPointAdd").modal('hide');
+							$("#myPointAdd").modal('hide');													
 							$("#afterPoint").modal('show');
+							$("#afterPoint1").modal('show');
 						});
+			});//포인트 충전 끝
+			
+			
+			//포인트 환불
+			$(document).on("reset", "#point_form", function(e) {
+			e.preventDefault();
+			
+			var point = $(":radio[name='point']:checked").val();
+			var name = $("#myPointDelete").find("#name").val();
+			
+			
+			
+			$.get("${pageContext.request.contextPath}/mymenu/my_point_reset.do",{point:point},
+					function(data){
+							var myPoint = data.resetPoint;											
+							var nickName = data.nickName;						
+							
+							$("#nicKName").html(nickName+" 님");	
+							$("#myPointScore").text(myPoint + "POINT");							
+							$("#myPointDelete").modal('hide');	
+							
+							
+							$("#afterPoint").modal('show');
+							$("#afterPoint").modal('show');
+							
+						});
+			
+			
+
+			
 			});//포인트 충전 끝
 			
 			
@@ -65,8 +97,7 @@
 			$('.modal').on('show.bs.modal', centerModal);
 			$(window).on("resize", function () {
 			    $('.modal:visible').each(centerModal);
-			});
-			
+			});			
 		});
 		</script>		
 	</head>
@@ -89,11 +120,7 @@
 	              <div class="modal-body">
 	                <div class="section section_id">
 						<div class="box1" style="text-align: center">
-
-							<div class="form-group">
-								<label for="name" class="col-md-3">이름</label> <input type="text"
-									id="name" class="col-md-9" placeholder="본인 이름" />
-							</div>
+							
 						
 							<div class="btn-group btn-group-justified" role="group" aria-label="${pageContext.request.contextPath}.">
 							<div class="radioArea">
@@ -127,33 +154,40 @@
 	      </div>
           <!-- // 포인트 충전 모달 -->
           <!-- 포인트 환불 모달 -->
-	<div id="myModal" class="mymodal modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="myPointDelete" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	        <div class="modal-dialog">
 	          <div class="modal-content">
 	            <div class="modal-header">
 	              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	              <fieldset>
+	              <form id="point_form" method="post">
+	              
 	              <h4 class="modal-title" id="myModalLabel">포인트 환불하기</h4>
 	              <div class="modal-body">
 	                <div class="section section_id">
 						<div class="box1" style="text-align: center">
-
-							<div class="form-group">
-								<label for="user_pw" class="col-md-3">비밀번호</label> <input type="password"
-									id="user_pw" class="col-md-9" placeholder="비밀번호를 입력하세요." />
-							</div>
 							
-							<div class="form-group">
-								<label for="user_number" class="col-md-3">휴대전화</label> <input type="text"
-									id="user_number" class="col-md-9" placeholder="가입시 등록했던 전화번호" />
+						
+							<div class="btn-group btn-group-justified" role="group" aria-label="${pageContext.request.contextPath}.">
+							<div class="radioArea">
+							    <label for="point" class="col-md-3">환불 메세지</label>
+								<div class="col-md-9">
+                                  <label class="radio-inline">
+                                    <input type="radio" name="point" id="point0" value="0"/> point 전액 환불하시겠습니까?
+                                  </label>                                                                   
+                                </div>								
 							</div>
-
+							</div>
 						</div>
 					</div>
 	              </div>
 	              <div class="modal-footer">
 	                <button type="button" class="btn btn-default"  data-dismiss="modal">닫기</button>
-	                <button type="button" class="btn btn-primary" >포인트환불</button>
+	                <button type="reset" class="btn btn-primary" >네, 환불하겠습니다.</button>
 	              </div>
+	              
+	              </form>
+	              </fieldset>
 	            </div>
 	          </div>
 	        </div>
@@ -168,7 +202,7 @@
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	    	<div class="modal-header">
-	    		<h3 id="nicKName"></h3><p>충전이 완료 되었습니다. 감사합니다.</p>
+	    		<h3 id="nicKName"></h3><p>포인트가 변경 되었습니다. 감사합니다.</p>
 	    		<button type="button" class="btn btn-default"  data-dismiss="modal">닫기</button>
 	    	</div>
 	        <div class="modal-body">
@@ -177,6 +211,7 @@
 	    </div>
 	  </div>
 	</div>
+	
 	
 	
 			
@@ -224,7 +259,7 @@
 	          <span><a class="point_color2" id="myPointScore">${point} POINT</a></span>	          
 	   
 	          <a data-toggle="modal" href="#myPointAdd" class="btn btn-primary" id="pointbtn">포인트충전</a>
-	          <a data-toggle="modal" href=".mymodal" class="btn btn-danger">포인트환불</a>
+	          <a data-toggle="modal" href="#myPointDelete" class="btn btn-danger">포인트환불</a>
 	      
 	        </th>
 	      </tr>

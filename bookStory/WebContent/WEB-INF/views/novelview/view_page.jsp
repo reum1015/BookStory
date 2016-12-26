@@ -583,7 +583,7 @@
     <!-- 내용입력, 저장버튼 -->
     <div style="margin-top: 20px;" class="form-group">
       <div class="input-group">
-        <textarea class="form-control custom-control" name="content" style="resize:none; height: 80px"></textarea>
+        <textarea class="form-control custom-control" name="content" style="resize:none; height: 80px" id="reply_box"></textarea>
         <span class="input-group-btn">
           <button type="submit" class="btn btn-warning" style="height: 80px">저장</button>
         </span>
@@ -728,6 +728,9 @@
 var temp = document.getElementById("reportState_Y");
 
 console.log("temp" +  temp);
+
+
+
 </script>
 </body>
 </html>

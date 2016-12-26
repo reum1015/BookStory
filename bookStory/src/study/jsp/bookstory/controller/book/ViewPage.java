@@ -127,9 +127,12 @@ public class ViewPage extends BaseController{
 			boolean isBuyed = buyCount > 0;
 		
 			rentItem = rentService.selectRentCountByMemberId(paramRent);
-			boolean isRented = (rentItem != null);
+			boolean isRented = (rentItem.size() > 0);
 			
+			logger.debug("isBuyed -----------------------------> " + isBuyed);
 			logger.debug("isRented ----------------------------> " + isRented);
+			logger.debug("rentItem ----------------------------> " + rentItem);
+			
 			
 			//대여나 구매를 하지 않았다면
 			if(!isBuyed && !isRented){
@@ -138,7 +141,10 @@ public class ViewPage extends BaseController{
 				return null;
 			}
 			
-			if(rentItem != null){
+			logger.debug("**********************************************");
+			
+			if(isRented){
+				
 				String temp_date;
 				int rent_term = 0;
 				for(int i = 0; i < 1; i++){
@@ -155,7 +161,7 @@ public class ViewPage extends BaseController{
 					}
 			}
 		}catch (Exception e) {
-			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
+			web.redirect(null, "에피소드 번호가 지정되지 않았습니다 - 1.");
 			sqlSession.close();
 			return null;
 		}
@@ -232,7 +238,7 @@ public class ViewPage extends BaseController{
 				recentEpisodeService.insertAddRecentEpisode(recent);
 			}
 		}catch (Exception e) {
-			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
+			web.redirect(null, "에피소드 번호가 지정되지 않았습니다 - 2.");
 			return null;
 		}finally{
 			sqlSession.close();
