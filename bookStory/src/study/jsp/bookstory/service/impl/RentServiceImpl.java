@@ -1,5 +1,6 @@
 package study.jsp.bookstory.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -136,11 +137,11 @@ public class RentServiceImpl implements RentService{
 	 * 회원의 에피소드에 대한 대여 여부 확인, 남은기간 조회
 	 */
 	@Override
-	public Rent selectRentCountByMemberId(Rent rent) throws Exception {
+	public List<Rent> selectRentCountByMemberId(Rent rent) throws Exception {
 		// TODO Auto-generated method stub
-		Rent result = new Rent();
+		List<Rent> result = new ArrayList<Rent>();
 		try {
-			result = sqlSession.selectOne("RentMapper.selectRentCountByMemberId", rent);
+			result = sqlSession.selectList("RentMapper.selectRentCountByMemberId", rent);
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("에피소드에 대한 대여기간 조회에 실패했습니다.");

@@ -167,6 +167,18 @@ a:HOVER {
 
 
 /* ---------------------------------------------------------------------- */
+
+/* 에피소드 타이틀 제목*/
+.epi_title{
+	font-size: 24px;
+	text-align: center;
+	font-weight: bold;
+	margin: 0px;
+}
+.epi_title > a{
+	color: black;
+}
+
 .view {	
 	width: 80%;
 	height: 100%;

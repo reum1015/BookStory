@@ -40,7 +40,6 @@
 			var point = $(":radio[name='point']:checked").val();
 			var name = $("#myPointAdd").find("#name").val();
 			
-			
 			$.get("${pageContext.request.contextPath}/mymenu/my_point_oK.do",{point:point, name:name},
 					function(data){
 							var myPoint = data.curPoint;
@@ -170,6 +169,7 @@
 	    <div class="modal-content">
 	    	<div class="modal-header">
 	    		<h3 id="nicKName"></h3><p>충전이 완료 되었습니다. 감사합니다.</p>
+	    		<button type="button" class="btn btn-default"  data-dismiss="modal">닫기</button>
 	    	</div>
 	        <div class="modal-body">
 	            <img src="${pageContext.request.contextPath}/assets/imgs/popup/smile.jpeg" class="img-responsive"style="width: 500px; height: 500px;">

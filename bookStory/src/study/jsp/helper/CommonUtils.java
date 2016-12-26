@@ -1,5 +1,7 @@
 package study.jsp.helper;
 
+
+
 public class CommonUtils {
 	
 	private static CommonUtils current = null;
@@ -32,8 +34,6 @@ public class CommonUtils {
 		
 		if(msg.equals("Romance")){
 			result="로맨스";
-		}else if(msg.equals("Fantasy")){
-			result="판타지";
 		}else if(msg.equals("SF&Fantasy")){
 			result="SF&판타지";
 		}else if(msg.equals("Heroism")){
@@ -69,11 +69,7 @@ public class CommonUtils {
 	public int random(int min, int max) {
 		int num = (int) ((Math.random() * (max - min + 1)) + min);
 		return num;
-	}
-	
-	
-	
-	
+	}	
 	
 	
 }

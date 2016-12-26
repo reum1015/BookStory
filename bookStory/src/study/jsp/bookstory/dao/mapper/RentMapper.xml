@@ -18,6 +18,7 @@
 		<result property="book_id" column="book_id"/>
 		<result property="episode_name" column="episode_name"/>
 		<result property="rent_term" column="rent_term"/>
+		<result property="isrentEnd" column="isrentEnd"/>
 	</resultMap>
 	
 	<!-- 선택한 작품 대여-->
@@ -41,17 +42,19 @@
 	
 	<!-- 작품의 에피소드들의 남은 대여기간 조회 -->
 	<select id="selectEndRentTermForBook" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
-		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d')AS rent_term
+		SELECT episode_id,DATE_FORMAT(rent_outday,'%Y-%m-%d')AS rent_term, (date_format(rent_outday,'%Y%m%d%H')-date_format(now(),'%Y%m%d%H')) as isrentEnd
 		FROM rent
 		WHERE book_id=#{book_id}
 	</select>
 	
 	<!-- 회원의 에피소드에 대한 대여 여부 확인, 남은기간 조회 -->
 	<select id="selectRentCountByMemberId" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">
-	  SELECT id, (date_format(rent_outday,'%Y%m%d%H')-date_format(now(),'%Y%m%d%H')) as rent_term
+	  SELECT id,rent_outday,(date_format(rent_outday,'%Y%m%d%H')-date_format(now(),'%Y%m%d%H')) as rent_term
 	  FROM rent
 	  WHERE member_id =#{member_id} AND episode_id=#{episode_id}
+	  ORDER BY rent_outday DESC
 	</select>
+	
 
 	<!-- 대여 내역 조회 (이것만 제가 함. by윤식)-->
 	<select id="selectRentList" parameterType="study.jsp.bookstory.model.Rent" resultMap="rent">

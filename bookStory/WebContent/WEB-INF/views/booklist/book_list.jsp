@@ -163,13 +163,14 @@
 			var rentListLength = rentList.length;
 			
 			for(var i = 0; i <rentListLength ; i++){
-				var epid = rentList[i].episode_id;
-				$("#episode_" + epid).empty();
-				$("#episode_" + epid).append('<div class="buystate pull-right"><p>대여 만료일</p><p>'+ rentList[i].rent_term +'</p></div>')
+				var rentTerm = rentList[i].isrentEnd;
+				var isEnd = Number(rentTerm);
+				if(isEnd > 0){
+					var epid = rentList[i].episode_id;
+					$("#episode_" + epid).empty();
+					$("#episode_" + epid).append('<div class="buystate pull-right"><p>대여 만료일</p><p>'+ rentList[i].rent_term +'</p></div>')
+				}
 			};
-			
-			
-			
 			
 			/* 선택한 책 구입 */
 			$("#buy_confirm").on('click',function(){

@@ -4,14 +4,15 @@ public class Rent {
 
 	private int id;						// 대여번호
 	private String rent_day;			// 대여날짜
-	private String rent_outday;		// 대여끝나는 날짜
-	private int rent_point;			// n개의 총 대여가격
-	private int allrent_point;		// 책대여가격
+	private String rent_outday;			// 대여끝나는 날짜
+	private int rent_point;				// n개의 총 대여가격
+	private int allrent_point;			// 책대여가격
 	private int member_id;
 	private int episode_id;	
 	private String episode_name;	
 	private int book_id;
-	private String rent_term;		//남은 대여 기간
+	private String rent_term;			//남은 대여 기간
+	private String isrentEnd;
 	
 	// 페이지 구현을 위해서 추가된값
 	private int limitStart;
@@ -76,6 +77,12 @@ public class Rent {
 	public void setRent_term(String rent_term) {
 		this.rent_term = rent_term;
 	}
+	public String getIsrentEnd() {
+		return isrentEnd;
+	}
+	public void setIsrentEnd(String isrentEnd) {
+		this.isrentEnd = isrentEnd;
+	}
 	public int getLimitStart() {
 		return limitStart;
 	}
@@ -93,10 +100,8 @@ public class Rent {
 		return "Rent [id=" + id + ", rent_day=" + rent_day + ", rent_outday=" + rent_outday + ", rent_point="
 				+ rent_point + ", allrent_point=" + allrent_point + ", member_id=" + member_id + ", episode_id="
 				+ episode_id + ", episode_name=" + episode_name + ", book_id=" + book_id + ", rent_term=" + rent_term
-				+ ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
+				+ ", isrentEnd=" + isrentEnd + ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
 	}
-	
-	
 	
 	
 	

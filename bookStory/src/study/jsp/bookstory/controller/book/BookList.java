@@ -245,6 +245,7 @@ public class BookList extends BaseController {
 						}
 					}
 				}
+				
 		
 		JSONArray buyState = new JSONArray();
 		JSONArray rentState = new JSONArray();

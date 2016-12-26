@@ -1,6 +1,7 @@
 package study.jsp.bookstory.controller.book;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -117,7 +118,7 @@ public class ViewPage extends BaseController{
 		paramRent.setEpisode_id(episode_id);
 		
 		//회원의 렌트 여부와 대여 기간 저장 변수
-		Rent rentItem = new Rent();
+		List<Rent> rentItem = new ArrayList<>();
 		try{
 			//회원의 작품의 구매여부 확인
 			int buyCount = buyService.selectBuyCountByMemberId(paramBuy);
@@ -128,6 +129,8 @@ public class ViewPage extends BaseController{
 			rentItem = rentService.selectRentCountByMemberId(paramRent);
 			boolean isRented = (rentItem != null);
 			
+			logger.debug("isRented ----------------------------> " + isRented);
+			
 			//대여나 구매를 하지 않았다면
 			if(!isBuyed && !isRented){
 				web.redirect(null, "작품을 볼 권한이 없습니다.");
@@ -136,8 +139,13 @@ public class ViewPage extends BaseController{
 			}
 			
 			if(rentItem != null){
-				String temp_date = rentItem.getRent_term();
-				int rent_term = Integer.parseInt(temp_date);
+				String temp_date;
+				int rent_term = 0;
+				for(int i = 0; i < 1; i++){
+					temp_date = rentItem.get(i).getRent_term();
+					rent_term = Integer.parseInt(temp_date);
+				}
+				
 				logger.debug("rent_term ----------------> " + rent_term);
 				
 					if(rent_term <= 0){

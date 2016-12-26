@@ -443,22 +443,26 @@
 				<div class="row view_header" id="titlebar_header" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				
                 <div id="" class="col-sm-3 novel_title" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-					<h4><a href="#">${book.book_name}</a></h4>
+					
+					<c:url var="readUrl" value="/booklist/book_list.do">
+						<c:param name="book_id" value="${book_id}" />
+	        		</c:url>
+					<h4 class="epi_title"><a href="${readUrl}">${book.book_name}</a></h4>
 				</div>
 				
 				
 				<div id="" class="col-sm-6 episode_list" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-			
-				<button type="button" class="prevpage btn-default">&lt;</button>
-				
-				<select name="epList_selectBox" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-				<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
-					<option value="${title.id}"><a href="#">${title.episode_order}화. ${title.episode_name}
-					</a>
-					</option>
-				</c:forEach>
-				</select>
-				<button type="button" class="nextpage btn-default">&gt;</button>
+					<div class="">
+						<button type="button" class="prevpage btn-default">&lt;</button>
+						<select name="epList_selectBox" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+						<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
+							<option value="${title.id}"><a href="#">${title.episode_order}화. ${title.episode_name}
+							</a>
+							</option>
+						</c:forEach>
+						</select>
+						<button type="button" class="nextpage btn-default">&gt;</button>
+					</div>
 				</div>
 				
 				<div id="" class="col-sm-1 episode_bookmark">
@@ -516,8 +520,6 @@
 			<div class="grade_insert col-sm-6" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<div class="button_group">
 							<c:choose>
-									
-									
 									<c:when test="${isStarAdd==true}">
 										<button type="button" class="btn btn-warning star_rate_in" id="star_rate_in">참여 완료</button>
 									</c:when>

@@ -71,6 +71,6 @@
 	
 	<!-- 최근 본작품 Insert 전에 이미 존재 하는 판별 -->
 	<select id="selectRecentEpisodeIsCount" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
-	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id}	 AND episode_id=#{episode_id}
+	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id} AND episode_id=#{episode_id}
 	</select>
 </mapper>

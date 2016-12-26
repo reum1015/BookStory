@@ -63,7 +63,7 @@
 					</thead>
 					<c:url var="readUrl" value="/mymenu/rent_list.do">
 		<c:param name="rent_id" value="${rent.id}" />
-	        </c:url> 
+	        </c:url>
 					<tbody>
 						<tr>
 							<td>${rent.rent_day}</td>

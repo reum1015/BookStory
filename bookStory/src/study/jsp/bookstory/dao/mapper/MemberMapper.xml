@@ -126,5 +126,5 @@
 	<update id="updateMyPointByBuyBook" parameterType="study.jsp.bookstory.model.Member">
 	UPDATE member SET point = #{point} WHERE id=#{id} 
 	</update>
-	
+
 </mapper>

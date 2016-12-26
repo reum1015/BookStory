@@ -166,8 +166,6 @@ public class Index extends BaseController{
 					}
 				}		
 				
-
-				
 		request.setAttribute("selectGenre", selectGenre);
 		request.setAttribute("mainGenrelList", mainGenrelList);
 		request.setAttribute("carouselList", carouselList);

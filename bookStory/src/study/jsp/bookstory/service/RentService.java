@@ -60,6 +60,6 @@ public interface RentService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Rent selectRentCountByMemberId(Rent rent) throws Exception;
+	public List<Rent> selectRentCountByMemberId(Rent rent) throws Exception;
 	
 }
