@@ -338,8 +338,6 @@ public class ReportServiceImpl implements ReportService{
 		
 	}
 
-	
-
 	//------------------------------------------------------------------------ 덧글 관리 서비스 레이어 끝
 	
 	

@@ -369,6 +369,9 @@ $(function() {
 		});
 		
 		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		
+		
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
 		$(document).on('submit', "#comment_delete_form", function(e) {
 			e.preventDefault();
 
