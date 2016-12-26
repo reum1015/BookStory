@@ -19,6 +19,7 @@
 		<result property="comment_id" column="comment_id"/>					<!-- 덧글 번호 (외래키) -->
 		<result property="nick_name" column="nick_name"/>
 		<result property="user_nickname" column="user_nickname"/>
+		<result property="comment_content" column="comment_content"/>
 	</resultMap>
 	
 	<!-- 신고된 게시글 등록 -->
@@ -61,7 +62,7 @@
 	<!-- (1.1) 삭제하려는 덧글의 존재 유/무를 파악하기위한 쿼리 -->
 	<select id="selectCommentCount" parameterType="study.jsp.bookstory.model.Comment" resultType="int">
 		SELECT count(id) FROM comment WHERE article_id=#{article_id}
-	</select> 
+	</select>
 	
 	<!-- (1.2) 게시글을 강제삭제 하기위한 관리자 권한으로 해당 게시글의 덧글 삭제 -->
 	<delete id="deleteAdminComment" parameterType="study.jsp.bookstory.model.Comment">

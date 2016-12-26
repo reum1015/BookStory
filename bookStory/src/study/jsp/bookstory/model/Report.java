@@ -19,6 +19,8 @@ public class Report {
 	// nick_name을 가져오기위한 가상 컬럼
 	String nick_name;
 	String user_nickname;
+	String comment_content;
+	
 	public String getReg_date() {
 		return reg_date;
 	}
@@ -91,16 +93,20 @@ public class Report {
 	public void setUser_nickname(String user_nickname) {
 		this.user_nickname = user_nickname;
 	}
+	public String getComment_content() {
+		return comment_content;
+	}
+	public void setComment_content(String comment_content) {
+		this.comment_content = comment_content;
+	}
+	
 	@Override
 	public String toString() {
 		return "Report [reg_date=" + reg_date + ", blind=" + blind + ", member_id=" + member_id + ", target_member_id="
 				+ target_member_id + ", report_subject=" + report_subject + ", report_content=" + report_content
 				+ ", article_id=" + article_id + ", comment_id=" + comment_id + ", limitStart=" + limitStart
-				+ ", listCount=" + listCount + ", nick_name=" + nick_name + ", user_nickname=" + user_nickname + "]";
+				+ ", listCount=" + listCount + ", nick_name=" + nick_name + ", user_nickname=" + user_nickname
+				+ ", comment_content=" + comment_content + "]";
 	}
 	
-	
-	
-
-
 }
