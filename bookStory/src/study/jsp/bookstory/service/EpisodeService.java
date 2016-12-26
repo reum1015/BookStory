@@ -120,6 +120,21 @@ public interface EpisodeService {
 	 * @throws Exception
 	 */
 	public void updateEpisodeHit(Episode episode)throws Exception;
+	
+	/**
+	 * 현재 에피소드 기준으로 이전 에피소드 읽어옮
+	 * @param episode - 현재Episode에 대한 정보가 저장된 Beans
+	 * @return
+	 * @throws Exception
+	 */
+	public Episode selectPreEpisode(Episode episode)throws Exception;
 
 
+	/**
+	 * 현재 에피소드 기준으로 다음 에피소드 읽어옮
+	 * @param episode - 현재Episode에 대한 정보가 저장된 Beans
+	 * @return
+	 * @throws Exception
+	 */
+	public Episode selectNextEpisode(Episode episode)throws Exception;
 }

@@ -166,7 +166,7 @@ public class Index extends BaseController{
 						Book bookItem  = maleList.get(i);
 						String imagePath = bookItem.getImagePath();
 						if(imagePath != null){
-							String thumbPath = upload.createThumbnail(imagePath, 248, 240, false);
+							String thumbPath = upload.createThumbnail(imagePath, 248, 240, true);
 							bookItem.setImagePath(thumbPath);
 							logger.debug("thumbnail create ---------> " + bookItem.getImagePath());
 						}

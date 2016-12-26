@@ -377,6 +377,7 @@
 				<c:url var="episodeReadUrl" value="/novelview/view_page.do">
 					<c:param name="episode_id" value="${episode.id}" />
 			 		<c:param name="book_id" value="${bookitem.id}" />
+			 		<c:param name="episodeOrder" value="${episode.episode_order}" />
 				</c:url>
 				
 				<a href="${episodeReadUrl}">
