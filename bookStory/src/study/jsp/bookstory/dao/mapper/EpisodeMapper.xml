@@ -74,6 +74,20 @@
 		FROM episode WHERE id=#{id}
 	</select>
 	
+	<!-- 이전 에피소드 조회 -->
+	<select id="selectPreEpisode" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id,episode_order FROM episode WHERE book_id=#{book_id} AND episode_order &lt; #{episode_order}
+		ORDER BY id DESC
+		LIMIT 0,1
+	</select>
+	
+	<!-- 다음 에피소드 조회 -->
+	<select id="selectNextEpisode" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
+		SELECT id,episode_order FROM episode WHERE book_id=#{book_id} AND episode_order &gt; #{episode_order}
+		ORDER BY id ASC
+		LIMIT 0,1
+	</select>
+	
 	<!-- 에피소드 제목 불러오기(셀렉트 박스용) -->
 	<select id="selectAllEpisodeTitle" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
 		SELECT id, episode_name, episode_order FROM episode WHERE book_id=#{book_id} ORDER BY episode_order DESC

@@ -43,11 +43,7 @@
 	
 	<!-- ajaxForm -->
 	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script> 
-	<style type="text/css">
-	
-	</style>
-	
-	
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 	<script type="text/javascript">
 	$(function(){		
 		
@@ -292,6 +288,8 @@
 	position: fixed;
 	top: 0;
 	width: 1026px !important;
+	left: 0;
+	right: 0;
 
 }
 
@@ -453,7 +451,30 @@
 				
 				<div id="" class="col-sm-6 episode_list" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<div class="">
-						<button type="button" class="prevpage btn-default">&lt;</button>
+						<div>
+						<!-- 이전 에피소드 -->
+						<c:choose>
+							<c:when test="${preEpisode != null }">
+								<c:url var="preEpisode" value="/novelview/view_page.do">
+									<c:param name="episode_id" value="${preEpisode.id}" />
+							 		<c:param name="book_id" value="${book_id}" />
+							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+								</c:url>
+							</c:when>
+							<c:otherwise>
+								<c:url var="preEpisode" value="/novelview/view_page.do">
+									<c:param name="episode_id" value="${preEpisode.id}" />
+							 		<c:param name="book_id" value="${book_id}" />
+							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+							 		<c:param name="episodeLast" value="first" />
+								</c:url>
+							</c:otherwise>
+						</c:choose>
+						<a href="${preEpisode}"><i class="fa fa-hand-o-left fa-2x" aria-hidden="true" style="color:#000"></i></a>
+						
+						
+						<span>${episode.episode_name }</span>
+						<!-- 
 						<select name="epList_selectBox" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 						<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
 							<option value="${title.id}"><a href="#">${title.episode_order}화. ${title.episode_name}
@@ -461,7 +482,29 @@
 							</option>
 						</c:forEach>
 						</select>
-						<button type="button" class="nextpage btn-default">&gt;</button>
+						 -->
+						
+						<!-- 다음 에피소드 -->
+						
+						<c:choose>
+							<c:when test="${nextEpisode != null }">
+								<c:url var="nextEpisode" value="/novelview/view_page.do">
+									<c:param name="episode_id" value="${nextEpisode.id}" />
+							 		<c:param name="book_id" value="${book_id}" />
+							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+								</c:url>
+							</c:when>
+							<c:otherwise>
+								<c:url var="nextEpisode" value="/novelview/view_page.do">
+									<c:param name="episode_id" value="${nextEpisode.id}" />
+							 		<c:param name="book_id" value="${book_id}" />
+							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+							 		<c:param name="episodeLast" value="last" />
+								</c:url>
+							</c:otherwise>
+						</c:choose>
+						<a href="${nextEpisode }"><i class="fa fa-hand-o-right fa-2x" aria-hidden="true" style="color:#000"></i></a>
+						</div>
 					</div>
 				</div>
 				

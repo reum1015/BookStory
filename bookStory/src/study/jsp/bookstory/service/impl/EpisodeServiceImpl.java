@@ -339,4 +339,30 @@ public class EpisodeServiceImpl implements EpisodeService {
 		}
 	}
 
+	@Override
+	public Episode selectPreEpisode(Episode episode) throws Exception {
+		Episode result = null;
+		try {
+			result = sqlSession.selectOne("EpisodeMapper.selectPreEpisode", episode);
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 이전화 조회에 실패했습니다.");
+		}
+		
+		
+		return result;
+	}
+
+	@Override
+	public Episode selectNextEpisode(Episode episode) throws Exception {
+		Episode result = null;
+		try {
+			result = sqlSession.selectOne("EpisodeMapper.selectNextEpisode", episode);
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 다음화 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

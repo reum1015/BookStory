@@ -80,7 +80,18 @@ public class ViewPage extends BaseController{
 		
 		int episode_id = web.getInt("episode_id");
 		int book_id = web.getInt("book_id");
+		int episode_order = web.getInt("episodeOrder");
+		String last = web.getString("episodeLast");
 		
+		if(last != null){
+			if(last.equals("last")){
+				web.redirect(null, "가장 최근에피소드 입니다.");
+				return null;
+			}else if(last.equals("first")){
+				web.redirect(null, "더이상 에피소드가 존재 하지 않습니다.");
+				return null;
+			}
+		}
 		logger.debug("episode_id ------------------> " + episode_id);
 		logger.debug("book_id ------------------> " + book_id);
 		
@@ -119,12 +130,18 @@ public class ViewPage extends BaseController{
 		
 		//회원의 렌트 여부와 대여 기간 저장 변수
 		List<Rent> rentItem = new ArrayList<>();
-		try{
+		what : try{
 			//회원의 작품의 구매여부 확인
 			int buyCount = buyService.selectBuyCountByMemberId(paramBuy);
 			logger.debug("buyCount ------------>" + buyCount);
 			
 			boolean isBuyed = buyCount > 0;
+			
+			
+			//구매 한 회원
+			if(isBuyed){
+				break what;
+			}
 		
 			rentItem = rentService.selectRentCountByMemberId(paramRent);
 			boolean isRented = (rentItem.size() > 0);
@@ -170,6 +187,7 @@ public class ViewPage extends BaseController{
 		Episode episode = new Episode();
 		episode.setId(episode_id);
 		episode.setBook_id(book_id);
+		episode.setEpisode_order(episode_order);
 		
 		Book book = new Book();
 		book.setId(book_id);
@@ -181,9 +199,14 @@ public class ViewPage extends BaseController{
         bookmark.setMember_id(member_id);
         bookmark.setEpisode_id(episode_id);
 		
-     // 작품 정보 담을 빈즈
+        // 작품 정보 담을 빈즈
 		Episode episodeItem = new Episode();
 		Book bookItem = new Book();		
+		//이전 에피소드가 저장될 빈즈
+		Episode preEpisode = new Episode();
+		//다음 에피소드가 저장될 빈즈
+		Episode nextEpisode = new Episode();
+		
 		
 		/** 별점 등록 확인 여부 */ 
 		int resultaddStarCount = 0;
@@ -225,6 +248,12 @@ public class ViewPage extends BaseController{
 			/** 한개의 에피소드 가져오기 */
 			episodeItem = episodeService.selectOneEpisodeItem(episode);
 			
+			/** 다음화 에피소드 가져오기 */
+			nextEpisode = episodeService.selectNextEpisode(episode);
+			
+			/** 이전화 에피소드 가져오기 */
+			preEpisode = episodeService.selectPreEpisode(episode);
+			
 			/** 한개의 작품 정보 가져오기 */
 			bookItem = bookService.selectOneBookItem(book);
 			
@@ -262,6 +291,8 @@ public class ViewPage extends BaseController{
         request.setAttribute("bookmarkCount", bookmarkCount);
 		request.setAttribute("member_id", member_id);
 		request.setAttribute("book_id", book_id);
+		request.setAttribute("nextEpisode", nextEpisode);
+		request.setAttribute("preEpisode", preEpisode);
 		
 		return view;
 	}
