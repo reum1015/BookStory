@@ -7,7 +7,7 @@
 <head>
 		
 	<jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 		
 		<!-- 반응형 웹을 지원하지 않을 경우 -->
 		<!-- <link rel="stylesheet" type="text/css" href="assets/css/non-responsive.css"/> -->

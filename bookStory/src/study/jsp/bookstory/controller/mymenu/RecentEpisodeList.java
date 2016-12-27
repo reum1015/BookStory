@@ -55,6 +55,14 @@ public class RecentEpisodeList extends BaseController {
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
 		
+		// 관리자에게만 admin버튼 활성화
+		String member_level = "AA";
+				
+		if(web.getSession("loginInfo") != null){
+			Member LoginInfo = (Member) web.getSession("loginInfo");
+			member_level = LoginInfo.getMember_level();
+		}
+		
 		/** (3) 비로그인 여부 검사 */
 		// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
 		if(web.getSession("loginInfo") ==null){
@@ -115,6 +123,7 @@ public class RecentEpisodeList extends BaseController {
 			}
 		}
 		
+		request.setAttribute("member_level", member_level);
 		/** (6) 조회 결과를 View에 전달 */
 		request.setAttribute("recentepisode_list", recentepisodeList);
 		// 페이지 번호 계산 결과를 View에 전달

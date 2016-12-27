@@ -57,6 +57,14 @@ public class FavoriteList extends BaseController {
 		pageHelper = PageHelper.getInstance();
 		upload = UploadHelper.getInstance();
 		
+		// 관리자에게만 admin버튼 활성화
+		String member_level = "AA";
+						
+		if(web.getSession("loginInfo") != null){
+			Member LoginInfo = (Member) web.getSession("loginInfo");
+			member_level = LoginInfo.getMember_level();
+		}
+		
 		/** (3) 비로그인 여부 검사 */
 		// 비로그인 중이라면 이페이지를 동작시켜서는 안된다.
 		if(web.getSession("loginInfo") ==null){
@@ -104,8 +112,6 @@ public class FavoriteList extends BaseController {
 			sqlSession.close();
 		}
 		
-		System.out.println("************************************");
-		
 		// 조회결과가 존재할 경우 --> 갤러리라면 이미지 경로를 썸네일로 교체
 		if (favoriteList !=null) {
 			for ( int i = 0; i < favoriteList.size(); i++) {
@@ -121,6 +127,7 @@ public class FavoriteList extends BaseController {
 			}
 		}
 				
+		request.setAttribute("member_level",member_level);
 		/** (6) 조회 결과를 View에 전달 */
 		request.setAttribute("favorite_list", favoriteList);
 		// 페이지 번호 계산 결과를 View에 전달

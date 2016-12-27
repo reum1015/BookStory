@@ -8,7 +8,7 @@
 <html lang='ko'>
 	<head>
 			<jsp:include page="/WEB-INF/views/template/head.jsp"/>
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"/>
 		
 		<!-- 스타일 sheet -->
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/mymenu/mymenu.css" />

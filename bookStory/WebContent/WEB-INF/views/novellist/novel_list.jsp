@@ -89,7 +89,7 @@
 	<body>
 
 		<!-- 메인 헤더 -->
-		<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 
 <!-- 
     				<div class="container main_navi_sub_list">

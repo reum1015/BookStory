@@ -51,8 +51,12 @@ public class MyPoint extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		memberService = new MemberServiceImpl(sqlSession, logger);		
 		
+		String member_level = "AA";
 		
-		
+		if(web.getSession("loginInfo") != null){
+			Member LoginInfo = (Member) web.getSession("loginInfo");
+			member_level = LoginInfo.getMember_level();
+		}
 		
 		/** (3) 비로그인 여부 검사 */
 		// 로그인중인 회원 정보 가져오기
@@ -80,6 +84,7 @@ public class MyPoint extends BaseController {
 		}
 		
 		/** (6) 조회 결과를 View에 전달 */
+		request.setAttribute("member_level", member_level);
 		request.setAttribute("point", point);
 		request.setAttribute("member_id", member_id);
 		String view = "mymenu/my_point";

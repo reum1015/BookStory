@@ -17,7 +17,7 @@
 <body>
 
 	<!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"/>
 		
 
 

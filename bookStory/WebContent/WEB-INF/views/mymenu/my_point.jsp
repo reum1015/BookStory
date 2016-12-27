@@ -104,7 +104,7 @@
 	<body>
 	
 		<!-- 메인 헤더 -->
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"/>
 	
 	<input type="hidden" name="member_id" value="${member_id}" id="member_id">
 	<!-- 포인트 충전 모달 -->

@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.ArticleService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
 import study.jsp.helper.BaseController;
@@ -50,6 +51,15 @@ public class ArticleList extends BaseController {
 		
 		Article article = new Article();
 		
+		String member_level = "AA";
+		
+		if(web.getSession("loginInfo") != null){
+			Member LoginInfo = (Member) web.getSession("loginInfo");
+			member_level = LoginInfo.getMember_level();
+		}
+		
+		
+		
 		
 		// 현재 페이지 수 --> 기본값은 1페이지로 설정
 		int page = web.getInt("page", 1);
@@ -83,6 +93,7 @@ public class ArticleList extends BaseController {
 		}
 		
 		/** (5) 조회 결과를 View에 전달 */
+		request.setAttribute("member_level", member_level);
 		request.setAttribute("articleList", articleList);
 		request.setAttribute("keywrod", keyword);
 		request.setAttribute("pageHelper", pageHelper);
