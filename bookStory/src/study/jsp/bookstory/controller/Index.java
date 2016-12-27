@@ -15,21 +15,19 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.CommonUtils;
-import study.jsp.helper.TextConverter;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
 
 @WebServlet("/index.do")
 public class Index extends BaseController{
-	
-
 	/**
 	 *  시리얼 재발급 
 	 */
@@ -41,7 +39,7 @@ public class Index extends BaseController{
 	BookService bookService;
 	ImageFileService imageFileService;
 	UploadHelper upload;
-	CommonUtils commonUtils; 
+	CommonUtils commonUtils;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,6 +54,14 @@ public class Index extends BaseController{
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		upload = UploadHelper.getInstance();
 		commonUtils = CommonUtils.getInstance();
+		
+		// 관리자에게만 admin버튼 활성화
+		String member_level = "AA";
+		
+		if(web.getSession("loginInfo") != null){
+			Member LoginInfo = (Member) web.getSession("loginInfo");
+			member_level = LoginInfo.getMember_level();
+		}
 		
 		//메인 케러셀용 작품 리스트(랜덤 3개)
 		List<Book> carouselList = new ArrayList<>();
@@ -173,6 +179,7 @@ public class Index extends BaseController{
 					}
 				}		
 				
+		request.setAttribute("member_level", member_level);
 		request.setAttribute("selectGenre", selectGenre);
 		request.setAttribute("mainGenrelList", mainGenrelList);
 		request.setAttribute("carouselList", carouselList);

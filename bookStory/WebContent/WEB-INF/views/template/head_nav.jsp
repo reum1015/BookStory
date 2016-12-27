@@ -78,9 +78,11 @@
 						href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
 					<li class="mymenu"><a
 						href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
-					<li class="main_admin"><a
-						href="${pageContext.request.contextPath}/admin/admin_main.do"
-						class="main_navi_admin active">administrator</a></li>
+					<c:if test="${member_level == 'BB'}">
+						<li class="main_admin"><a
+							href="${pageContext.request.contextPath}/admin/admin_main.do"
+							class="main_navi_admin active">administrator</a></li>
+					</c:if>
 					<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do" class="visible-xs signup_icon"><span
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<li><a href="${pageContext.request.contextPath}/login/login.do" class="visible-xs login_icon"><span
