@@ -79,14 +79,22 @@ public class RentEpisode extends BaseController {
 		logger.debug("buyItem --------------------->" + Arrays.toString(buyItem));
 
 		// 회원의 현재 포인트 조회
-		Member member = (Member) web.getSession("loginInfo");
+		Member member = new Member();
+		member.setId(member_id);
+		
 		// 회원 포인트 저장 변수
 		int memberPoint = 0;
-
-		if (member != null) {
-			memberPoint = member.getPoint();
+		
+		
+		try{
+			memberPoint = memberService.selectMyPointByMemberId(member);
+			logger.debug("memberPoint -------------------------> " + memberPoint);
+		}catch (Exception e) {
+			// TODO: handle exception
+			web.printJsonRt(e.getLocalizedMessage());
+			sqlSession.close();
+			return null;
 		}
-
 		/** 회원이 선택한 에피소드의 총 가격 조회 */
 		// 받은 파라미터 int로 변환
 		int[] rentEpisodeItem = null;

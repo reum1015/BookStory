@@ -92,7 +92,7 @@ public class RegexHelper {
 	public boolean isEngNum(String str) {
 		boolean result = false;
 		if (isValue(str)) {
-			result = Pattern.matches("^[a-zA-Z0-9]*$", str);
+			result = Pattern.matches("^[a-zA-Z0-9]{5,20}$", str);
 		}
 		return result;
 	}
@@ -111,10 +111,6 @@ public class RegexHelper {
 		}
 		return result;
 	}
-
-	
-	
-	
 
 	/**
 	 * 한글과 숫자로만 구성되었는지에 대한 형식 검사
