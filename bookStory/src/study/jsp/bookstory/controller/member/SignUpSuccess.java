@@ -146,6 +146,12 @@ public class SignUpSuccess extends BaseController {
 			return null;
 		}
 		
+		if(user_pw.length()<4){
+			sqlSession.close();
+			web.redirect(null, "비밀번호는 숫자와 영문의 조합으로 5자 이상 가능합니다.");
+			return null;
+		}
+		
 		// 비밀번호 확인
 		if(!user_pw.equals(user_pw_re)){
 			sqlSession.close();
@@ -191,9 +197,6 @@ public class SignUpSuccess extends BaseController {
 			web.redirect(null, "생년월일을 입력하세요.");
 			return null;
 		}
-				
-
-		
 		// 이메일 검사
 		if(!regex.isValue(email)){
 			sqlSession.close();
@@ -220,8 +223,6 @@ public class SignUpSuccess extends BaseController {
 			return null;
 		}
 		
-		
-		
 		/** (7) 전달받은 파라미터를 Beans 객체에 담는다. */
 		Member member = new Member();
 		member.setUser_id(user_id);
@@ -234,29 +235,19 @@ public class SignUpSuccess extends BaseController {
 		member.setTel(tel);
 		member.setPoint(point);
 		member.setMember_level(member_level);
-		
-		System.out.println("1111111**************************************");
-		
-		
+
 		/** (8) Service를 통한 데이터베이스 저장 처리 */
 		try{
-			
-			
-			
-				
-			
-			
-				memberService.insertMember(member);
+			memberService.insertMember(member);
 		}catch(Exception e){
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
 			// 예외가 발생한 경우이므로, 더이상 진행하지 않는다.
 			return null;
 		}
-		System.out.println("22222222**************************************");
 		/** (9) 가입이 완료되었으므로 메인페이지로 이동 */
 		sqlSession.close();
-		web.redirect(web.getRootPath() + "/index.do", "회원가입이 완료되었습니다. 보너스 1000포인트 지급되었습니다.");
+		web.redirect(web.getRootPath() + "/index.do", "회원가입이 완료되었습니다. 보너스 10000포인트 지급되었습니다.");
 			
 		return null;
 	}
