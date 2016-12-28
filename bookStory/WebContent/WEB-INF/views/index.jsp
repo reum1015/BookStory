@@ -39,7 +39,6 @@
 				//장르선택 드롭다운 버튼
 				//페이지가 시작되면서 장르로 선택되어짐
 				var genre = $("#genreForDrop").val();
-
 				 $("#genre_button").text(jenreTextChange(genre));
 				
 				
@@ -47,7 +46,6 @@
 				 //장르별 드롭다운 선택시 ajax
 				 $(document).on("click","#genreList a",function(e){
 					 e.preventDefault();							 
-
 					 var genre = $(this).attr("data-value");
 					 var aa = jenreTextChange(genre);
 					 $("#genre_button").text(aa);
