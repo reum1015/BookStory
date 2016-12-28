@@ -92,32 +92,21 @@
 	
 	<!-- 관리자가 게시글 강제 삭제 하기위한 mapper 끝-->
 	
-	<!--  -->
+	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 시작 -->
+	<!-- 회원 리스트를 출력한다. -->
+	<select id="selectMemberList" parameterType="study.jsp.bookstory.model.Member" resultMap="member">
+		SELECT id, name, nick_name, birthdate, email, DATE_FORMAT(reg_date, '%Y-%m-%d'), point
+		FROM article
+		ORDER BY id DESC
+	</select>
 	
-	<!-- 삭제하는 순간 report테이블이 참조한 aticle_id = null값 적용 -->
-	<update id="updateReportArticleid" parameterType="study.jsp.bookstory.model.Report">
-	UPDATE report SET comment_id = null, article_id = null
-	WHERE member_id = #{member_id}
-	</update>
-	
-	<!-- 문제 쿼리 -->
-	<!-- report게시글을 삭제한뒤 경로의 게시글을 삭제 
-	<delete id="deleteReportArticle" parameterType="study.jsp.bookstory.model.report">
-	DELETE FROM report
-	WHERE article_id = #{article_id}
-	</delete>-->
-	
-	<!-- 문제의 쿼리 -->
-	<!-- 신고된 게시글을 삭제한다. -->
-	<delete id="deleteArticle" parameterType="study.jsp.bookstory.model.Article">
-	DELETE FROM article 
-	WHERE article_id = #{article_id}
+	<!-- 회원을 강제 삭제한다. -->
+	<delete id="deleteMemberId" parameterType="study.jsp.bookstory.model.Member">
+		DELETE FROM member WHERE id=#{id}
 	</delete>
 	
-	<!-- 특정 회원과의 신고 게시물 참조 해제하기 -->
-	<update id="updateReportMemberOut" parameterType="study.jsp.bookstory.model.Report">
-	  UPDATE report SET member_id=NULL WHERE member_id=#{member_id}
-	</update>
+	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 끝 -->
+	
 	
 	
 </mapper>

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Comment;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ReportService;
 
@@ -338,7 +339,47 @@ public class ReportServiceImpl implements ReportService{
 		
 	}
 
+
+
 	//------------------------------------------------------------------------ 덧글 관리 서비스 레이어 끝
 	
+	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
 	
+	@Override
+	public List<Member> selectMemberList(Member member) throws Exception {
+		List<Member> result = null;
+		try{
+			result = sqlSession.selectList("ReportMapper.", member);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		} catch(NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("회원 리스트를 출력하기 위한 회원이 없습니다.");
+		} catch(Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("회원 리스트를 출력하기 위한 sql문이 실패 하였습니다.");
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public void deleteMemberId(Member member) throws Exception {
+		int result;
+		try{
+			result = sqlSession.delete("ReportMapper.", member);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제하기위한 회원이 존재하지 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("삭제하기 위한 회원이 존재하지 않습니다.");
+		}
+	}
+	
+	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Comment;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Report;
 
 public interface ReportService {
@@ -60,6 +61,15 @@ public interface ReportService {
 	public void updateArticleReported(Article article) throws Exception;
 	
 	// 게시물을 강제 삭제하기 or report게시물만 삭제하기 위한 서비스 구축 끝
+	
+	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어
+	// 회원가입된 회원들의 리스트를 출력한다.
+	public List<Member> selectMemberList(Member member) throws Exception;
+	// 회원을 강제 삭제한다.
+	public void deleteMemberId(Member member) throws Exception;
+	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어 끝
+	
+	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어
 	
 	//----------------------------------------------------덧글 서비스 레이어 시작
 	// 덧글을 report테이블에 저장하기
