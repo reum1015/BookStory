@@ -16,6 +16,7 @@ public class Book {
 	private double total_star;					// 별점 평균
 	private int total_favorite;					// 총 관심등록 
 	private String book_end;						// 작품 완결 여부
+	private String totalEpisodeCount;
 	
 	//이미지 구현을 위해서 추가된 값
 	private String imagePath;
@@ -132,6 +133,14 @@ public class Book {
 		this.book_end = book_end;
 	}
 
+	public String getTotalEpisodeCount() {
+		return totalEpisodeCount;
+	}
+
+	public void setTotalEpisodeCount(String totalEpisodeCount) {
+		this.totalEpisodeCount = totalEpisodeCount;
+	}
+
 	public String getImagePath() {
 		return imagePath;
 	}
@@ -146,10 +155,10 @@ public class Book {
 				+ daily_date + ", total_hit=" + total_hit + ", intro=" + intro + ", genre=" + genre + ", reg_date="
 				+ reg_date + ", edit_date=" + edit_date + ", total_point=" + total_point + ", rent_point=" + rent_point
 				+ ", total_star=" + total_star + ", total_favorite=" + total_favorite + ", book_end=" + book_end
-				+ ", imagePath=" + imagePath + "]";
+				+ ", totalEpisodeCount=" + totalEpisodeCount + ", imagePath=" + imagePath + "]";
 	}
 
-	
+
 	
 	
 	

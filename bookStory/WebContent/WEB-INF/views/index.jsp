@@ -204,7 +204,7 @@
 						
 						<span class="author_info"> 
 							 <span class="author v2">${mainGenrelList.book_author}</span>
-						  <span class="num_total">총 5회</span>
+						  <span class="num_total">총 ${mainGenrelList.totalEpisodeCount} 회</span>
 						</span>
 						<span class="text ellipsis">							
 								<span class="summary">
@@ -251,7 +251,7 @@
 						
 						<span class="author_info"> 
 							 <span class="author v2">{{book_author}}</span>
-						  <span class="num_total">총 5회</span>
+						  <span class="num_total">총 {{totalEpisodeCount}} 회</span>
 						</span>
 						<span class="text ellipsis">							
 								<span class="summary">
@@ -390,70 +390,23 @@
 					<div class="tab-content total_ranking_tab">
 						<div id="home" class="tab-pane fade in active">
 							<ul class="list-group listgroup_rank">
-								<li class="list-group-item text-"><a href="#">[판타지]마왕군
-										네크로맨서</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]정령의 왕</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]위험한 신혼부부</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]조선 연애 실록</a></li>
-								<li class="list-group-item"><a href="#">[무협]낙향문 사건</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]12시의 신데렐라</a></li>
-								<li class="list-group-item"><a href="#">[SF&amp;스릴러]붉은
-										장미 아가씨</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
+								<li class="list-group-item"><a href="#">공사중.....</a></li>
 							</ul>
 						</div>
 						<div id="menu1" class="tab-pane fade">
 							<ul class="list-group listgroup_rank">
-								<li class="list-group-item text-"><a href="#">[판타지]마왕군
-										네크로맨서</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]정령의 왕</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]위험한 신혼부부</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]조선 연애 실록</a></li>
-								<li class="list-group-item"><a href="#">[무협]낙향문 사건</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]12시의 신데렐라</a></li>
-								<li class="list-group-item"><a href="#">[SF&amp;스릴러]붉은
-										장미 아가씨</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
+								<li class="list-group-item"><a href="#">공사중.....</a></li>
 							</ul>
 						</div>
 						<div id="menu2" class="tab-pane fade">
 							<ul class="list-group listgroup_rank">
-								<li class="list-group-item text-"><a href="#">[판타지]마왕군
-										네크로맨서</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]정령의 왕</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]위험한 신혼부부</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]조선 연애 실록</a></li>
-								<li class="list-group-item"><a href="#">[무협]낙향문 사건</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]12시의 신데렐라</a></li>
-								<li class="list-group-item"><a href="#">[SF&amp;스릴러]붉은
-										장미 아가씨</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
+								<li class="list-group-item"><a href="#">공사중.....</a></li>
 							</ul>
 						</div>
 						<div id="menu3" class="tab-pane fade">
 							<ul class="list-group listgroup_rank">
-								<li class="list-group-item text-"><a href="#">[판타지]마왕군
-										네크로맨서</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]정령의 왕</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]위험한 신혼부부</a></li>
-								<li class="list-group-item"><a href="#">[로맨스]조선 연애 실록</a></li>
-								<li class="list-group-item"><a href="#">[무협]낙향문 사건</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]12시의 신데렐라</a></li>
-								<li class="list-group-item"><a href="#">[SF&amp;스릴러]붉은
-										장미 아가씨</a></li>
-								<li class="list-group-item"><a href="#">[미스테리]그리고 아무도
-										없었다</a></li>
+								<li class="list-group-item"><a href="#">공사중.....</a></li>
+								
 							</ul>
 						</div>
 					</div>

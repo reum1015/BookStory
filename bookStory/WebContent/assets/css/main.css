@@ -150,7 +150,7 @@ body, html{height: 100%;}
 
 
 		
-			/*이미지 속 new 이미지*/
+			/*
 			.icon_new{
 				display: block;
 				width: 42px;
@@ -162,7 +162,7 @@ body, html{height: 100%;}
 				left: 10px;
 				z-index: 10;
 			}
-			
+			이미지 속 new 이미지*/
 			/*이미지 속 완결 이미지*/
 			.icon_com{
 				display: block;
