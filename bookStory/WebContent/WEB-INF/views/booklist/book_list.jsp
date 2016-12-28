@@ -112,10 +112,19 @@
 			$("#favorite_button").on('click',function(e){
 				e.preventDefault();
 				if(member_id == 0){
-					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
 					
+					
+					var root = getContextPath();
+					var host = location.host;
+					
+					console.log(root);
+					console.log(host);
+					
+					var result = confirm("로그인이 필요한 서비스 입니다. 로그인 창으로 이동하시겠습니까?");
+				
 					if(result){
-						location.replace('/bookStory/login/login.do?book_id=' + book_id );
+						location.replace('/login/login.do?book_id=' + book_id );
+						
 						return false;
 					}else{
 						return false;
@@ -258,6 +267,13 @@
 			});
 	});
 
+	function getContextPath(){
+	    var offset=location.href.indexOf(location.host)+location.host.length;
+	    var ctxPath=location.href.substring(offset,location.href.indexOf('/',offset+1));
+	    return ctxPath;
+	}
+	
+	
 	</script>
 </head>
 
