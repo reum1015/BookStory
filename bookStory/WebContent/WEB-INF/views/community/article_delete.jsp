@@ -41,8 +41,18 @@
 <body>
 	<!-- 게시글 삭제 -->
 	<div class="container">
-  <h1><small>글 삭제하기</small></h1>
-  
+	<c:choose>
+		<c:when test="${report_delete != 1}">
+			<h1>
+				<small>글 삭제하기</small>
+			</h1>
+		</c:when>
+		<c:otherwise>
+			<h1>
+				<small>Report에 등록된글 삭제하기</small>
+			</h1>
+		</c:otherwise>
+  	</c:choose>
   <form name="myform" method="post" action="${pageContext.request.contextPath}/community/article_delete_ok.do">
     <!-- 카테고리와 게시글 번호 상태유지 -->
     <input type="hidden" name="article_id" value="${article_id}"/>
