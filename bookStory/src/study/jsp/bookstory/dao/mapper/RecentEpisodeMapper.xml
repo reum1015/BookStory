@@ -43,9 +43,9 @@
 	<select id="selectRecentEpisodeList" parameterType="study.jsp.bookstory.model.RecentEpisode" resultMap="recentepisode">
     
  SELECT  r.episode_id, r.book_id, k.book_name, e.reg_date, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
-      FROM MEMBER as m 
+      FROM member as m 
       LEFT JOIN recentepisode as r ON m.id = r.member_id
-      LEFT JOIN EPISODE as e ON r.episode_id = e.id
+      LEFT JOIN episode as e ON r.episode_id = e.id
       LEFT JOIN imagefile as i ON e.id = i.episode_id 
       LEFT JOIN book as k ON e.book_id = k.id
         where i.content_type LIKE ('image/%') AND image_type="episode" AND member_id=#{member_id}
