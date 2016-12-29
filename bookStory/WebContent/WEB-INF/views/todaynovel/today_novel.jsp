@@ -66,14 +66,15 @@
 							//메뉴의 오늘 요일에 클래스 On
 							addClassToday(day);
 							
-						
-							
 		    			});
 		    	
-		    		
+		    	var selected_day;
+		    			
 		    	$(document).on("click","#todaytab a",function(e){
-		    		var selected_day = $(this).data("today");
+		    		 selected_day = $(this).data("today");
 		    		
+		    		 console.log(selected_day);
+		    		 
 		    		$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:selected_day},function(data){
 			    		var day = selected_day
 			    		
@@ -89,22 +90,15 @@
 						
 						//메뉴의 오늘 요일에 클래스 On
 						addClassToday(day);
-		    
-		    			
 		   		 }); 
 	
 			});
 	    	
 	    	})
 			function addClassToday(xid){
-	    		
 	    		$('#'+xid).addClass("day_active");
 	    		$('#'+xid+'>a').attr("href","#");
-	    		
 	    	}
-		    	
-
-	    
 	    </script>
 		
 	</head>
@@ -171,7 +165,7 @@
      					
      					<!-- 버튼 그룹 -->
 						<div class="pull-right">
-							<!-- 장르선택 버튼 -->
+							<!-- 장르선택 버튼 
     					  <div class="btn-group check_button">
 								<button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="genre_button">전체 <span class="caret"></span></button>
 									<ul class="dropdown-menu">
@@ -183,15 +177,14 @@
 										     <li ><a href="#">퓨전</a> </li>
 									</ul>
 							</div>
-							<!--// 장르선택 버튼 -->	
+							 장르선택 버튼 -->	
 							<!-- 조회순 버튼 -->
     					  <div class="btn-group check_button">
 								<button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="genre_button">조회순 <span class="caret"></span></button>
 									<ul class="dropdown-menu">
-											<li ><a href="#">조회순</a> </li>
-											<li><a href="#">별점순</a></li>
-										   <li><a href="#">제목순</a></li>
-										     <li><a href="#">관심등록순</a></li>
+											<li><a href="#" data-order="book_name">제목순</a></li>
+											<li><a href="#" data-order="total_star">별점순</a></li>
+										    <li><a href="#" data-order="total_favorite">관심등록순</a></li>
 									</ul>
 							</div>
 							<!--// 조회순 버튼 -->	
@@ -221,7 +214,7 @@
 				                    	
 				                    	<span>
 				                    		<span class="author v2">{{book_author}}</span> 
-				                    
+				                    		<span class="num_total">총 {{totalEpisodeCount}} 회</span>
 				                    	</span>
 				                    	<span class="score_area">
 											<span class="icon_star"></span>
