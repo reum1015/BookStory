@@ -42,9 +42,9 @@
 		<!-- 북마크 목록을 조회한다. -->
 	<select id="selectBookMarkList" parameterType="study.jsp.bookstory.model.BookMark" resultMap="bookmark">
     SELECT b.episode_id, b.book_id, k.book_name, e.episode_order, e.episode_name, concat(i.file_dir, '/', i.file_name) as imagePath 
-      FROM MEMBER as m 
-      LEFT JOIN BOOKMARK as b ON m.id = b.member_id
-      LEFT JOIN EPISODE as e ON b.episode_id = e.id
+      FROM member as m 
+      LEFT JOIN bookmark as b ON m.id = b.member_id
+      LEFT JOIN episode as e ON b.episode_id = e.id
       LEFT JOIN imagefile as i ON e.id = i.episode_id 
       LEFT JOIN book as k ON e.book_id = k.id
         where i.content_type LIKE ('image/%') AND image_type="episode" AND member_id=#{member_id}
