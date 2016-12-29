@@ -87,7 +87,6 @@ public class TodayList extends BaseController{
 			for(int i = 0 ; i < todayList.size(); i++){
 				temp = todayList.get(i);
 				
-	
 				String tempGenre = temp.getGenre();
 				
 				String genre = commonUtils.genreOrDayConverter(tempGenre);

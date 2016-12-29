@@ -39,6 +39,7 @@
 	    </style>
 	    
 	    <script type="text/javascript">
+	    var current_day	//요일 저장 전역 변수
 	    	$(function() {
 	    		/* 오늘 요일 구하기 */
 		    	var d = new Date();
@@ -47,7 +48,7 @@
 		    	
 		    	var today = week[d.getDay()];
 		    
-		    			var current_day = $(this).data("today")
+		    	current_day = $(this).data("today");
 		    	
 				    	$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:today},function(data){
 				    		var day = today
@@ -65,18 +66,15 @@
 							
 							//메뉴의 오늘 요일에 클래스 On
 							addClassToday(day);
-							
 		    			});
-		    	
-		    	var selected_day;
-		    			
+		    			    			
 		    	$(document).on("click","#todaytab a",function(e){
-		    		 selected_day = $(this).data("today");
+		    		current_day = $(this).data("today");
 		    		
-		    		 console.log(selected_day);
+		    		 console.log(current_day);
 		    		 
-		    		$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:selected_day},function(data){
-			    		var day = selected_day
+		    		$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:current_day},function(data){
+			    		var day = current_day
 			    		
 			    		$("#todayNovel").empty();
 			    		$("#todaytab > li").removeClass("day_active");
@@ -93,12 +91,58 @@
 		   		 }); 
 	
 			});
+		    	
+		    	
+		    	
+		    var day;	
+		    //	정렬 종류 버튼 클릭
+		    $(document).on("click","#orderList a",function(e){	
+		    		console.log("클릭 실행");
+		    		var day = current_day
+					var order =  $(this).attr("data-order");
+					var chText = orderTextChange(order);
+					$("#order_button").text(chText);
+		    		 console.log('current_day --> ' + day);
+		    		 
+		    		$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:day,order:order},function(data){
+			    		var day = current_day
+			    		
+			    		$("#todayNovel").empty();
+			    		
+			    		// 템플릿 HTML을 로드한다.
+						var template = Handlebars.compile($("#entry-template").html());
+						// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+						var html = template(data);
+						// 결합된 결과를 목록에 추가한다.
+						$("#todayNovel").append(html);
+						
+						//메뉴의 오늘 요일에 클래스 On
+		   		 }); 
+	
+			});	
+		    	
+		    	
 	    	
 	    	})
 			function addClassToday(xid){
 	    		$('#'+xid).addClass("day_active");
 	    		$('#'+xid+'>a').attr("href","#");
 	    	}
+	    	
+	    	 function orderTextChange(e){
+				 var order = e;
+				 
+				 if(order=='read'){
+					 order='조회순';
+				 }else if(order=='title'){
+					 order='제목순';
+				 }else if(order=='star'){
+					 order='별점순';
+				 }else if(order=='like'){
+					 order='관심등록순';
+				 }
+				 return order;
+			 }
 	    </script>
 		
 	</head>
@@ -179,12 +223,14 @@
 							</div>
 							 장르선택 버튼 -->	
 							<!-- 조회순 버튼 -->
-    					  <div class="btn-group check_button">
-								<button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="genre_button">조회순 <span class="caret"></span></button>
-									<ul class="dropdown-menu">
-											<li><a href="#" data-order="book_name">제목순</a></li>
-											<li><a href="#" data-order="total_star">별점순</a></li>
-										    <li><a href="#" data-order="total_favorite">관심등록순</a></li>
+    					  <div class="btn-group check_button" style="margin-top: 6.5px;">
+								<button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="order_button">
+									조회순 <span class="caret"></span></button>
+									<ul class="dropdown-menu" id="orderList">
+											<li><a href="#" data-order="read">조회순</a></li>
+											<li><a href="#" data-order="title">제목순</a></li>
+											<li><a href="#" data-order="star">별점순</a></li>
+										    <li><a href="#" data-order="like">관심등록순</a></li>
 									</ul>
 							</div>
 							<!--// 조회순 버튼 -->	

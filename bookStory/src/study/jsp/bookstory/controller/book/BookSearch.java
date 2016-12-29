@@ -104,8 +104,6 @@ public class BookSearch extends BaseController {
 		
 		request.setAttribute("bookitem", list);
 		
-		
-		
 		String view = "booklist/book_search";
 		
 		return view;
