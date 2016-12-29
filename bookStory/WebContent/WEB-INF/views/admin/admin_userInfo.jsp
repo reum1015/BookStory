@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
@@ -176,227 +178,22 @@
 		            </tr>
 		        </tfoot>
 		        <tbody>
-		            <tr>
-		                <td>1</td>
-		                <td>장국영</td>
-		                <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>jang@gmail.com</td>
-		                 <td>2015-05-10</td>
-		               <td>5000</td>
-		                <td><button class="btn btn-danger btn-xs"data-toggle="modal" data-target="#myModal">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		                 <td>2</td>
-		                 <td>유덕화</td>
-		                 <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>yoo@gmail.com</td>
-		                 <td>2014-10-10</td>
-		                 <td>6000</td>
-		                <td><button class="btn btn-danger btn-xs"data-toggle="modal" data-target="#myModal">강제 탈퇴</button></td>
-		            </tr>
-		            <tr>
-		               <td>3</td>
-		               <td>주윤발</td>
-		                <td>영운 본색</td>
-		                <td>1958-06-15</td>
-		                <td>joo@yahoo.com</td>
-		                <td>1990-05-10</td>
-		               <td>6000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>4</td>
-		               <td>금성무</td>
-		                <td>천장지구</td>
-		                <td>1972-03-15</td>
-		                <td>keum@naver.com</td>
-		                <td>2010-05-10</td>
-		               <td>3666</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>5</td>
-		               <td>이연걸</td>
-		                <td>황비홍</td>
-		                <td>1972-03-15</td>
-		                <td>hwang@daum.net</td>
-		                <td>2010-05-10</td>
-		               <td>362944</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>
-		            <tr>
-		                 <td>7</td>
-		                 <td>유덕화</td>
-		                 <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>yoo@gmail.com</td>
-		                 <td>2014-10-10</td>
-		                 <td>6000</td>
-		                 <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>
-		            <tr>
-		               <td>8</td>
-		               <td>주윤발</td>
-		                <td>영운 본색</td>
-		                <td>1958-06-15</td>
-		                <td>joo@yahoo.com</td>
-		                <td>1990-05-10</td>
-		               <td>6000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>9</td>
-		               <td>금성무</td>
-		                <td>천장지구</td>
-		                <td>1972-03-15</td>
-		                <td>keum@naver.com</td>
-		                <td>2010-05-10</td>
-		               <td>3666</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>10</td>
-		               <td>이연걸</td>
-		                <td>황비홍</td>
-		                <td>1972-03-15</td>
-		                <td>hwang@daum.net</td>
-		                <td>2010-05-10</td>
-		               <td>362944</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>         
-		            <tr>
-		                <td>11</td>
-		                <td>장국영</td>
-		                <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>jang@gmail.com</td>
-		                 <td>2015-05-10</td>
-		               <td>5000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		                 <td>12</td>
-		                 <td>유덕화</td>
-		                 <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>yoo@gmail.com</td>
-		                 <td>2014-10-10</td>
-		                 <td>6000</td>
-		                 <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>
-		            <tr>
-		               <td>13</td>
-		               <td>주윤발</td>
-		                <td>영운 본색</td>
-		                <td>1958-06-15</td>
-		                <td>joo@yahoo.com</td>
-		                <td>1990-05-10</td>
-		               <td>6000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>14</td>
-		               <td>금성무</td>
-		                <td>천장지구</td>
-		                <td>1972-03-15</td>
-		                <td>keum@naver.com</td>
-		                <td>2010-05-10</td>
-		               <td>3666</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>15</td>
-		               <td>이연걸</td>
-		                <td>황비홍</td>
-		                <td>1972-03-15</td>
-		                <td>hwang@daum.net</td>
-		                <td>2010-05-10</td>
-		               <td>362944</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>         
-		            <tr>
-		                <td>16</td>
-		                <td>장국영</td>
-		                <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>jang@gmail.com</td>
-		                 <td>2015-05-10</td>
-		               <td>5000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		                 <td>17</td>
-		                 <td>유덕화</td>
-		                 <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>yoo@gmail.com</td>
-		                 <td>2014-10-10</td>
-		                 <td>6000</td>
-		                 <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>
-		            <tr>
-		               <td>18</td>
-		               <td>주윤발</td>
-		                <td>영운 본색</td>
-		                <td>1958-06-15</td>
-		                <td>joo@yahoo.com</td>
-		                <td>1990-05-10</td>
-		               <td>6000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>19</td>
-		               <td>금성무</td>
-		                <td>천장지구</td>
-		                <td>1972-03-15</td>
-		                <td>keum@naver.com</td>
-		                <td>2010-05-10</td>
-		               <td>3666</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>         
-		             <tr>
-		               <td>21</td>
-		               <td>금성무</td>
-		                <td>천장지구</td>
-		                <td>1972-03-15</td>
-		                <td>keum@naver.com</td>
-		                <td>2010-05-10</td>
-		               <td>3666</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		            <tr>
-		               <td>22</td>
-		               <td>이연걸</td>
-		                <td>황비홍</td>
-		                <td>1972-03-15</td>
-		                <td>hwang@daum.net</td>
-		                <td>2010-05-10</td>
-		               <td>362944</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>
-		             <tr>
-		               <td>15</td>
-		               <td>이연걸</td>
-		                <td>황비홍</td>
-		                <td>1972-03-15</td>
-		                <td>hwang@daum.net</td>
-		                <td>2010-05-10</td>
-		               <td>362944</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr>         
-		            <tr>
-		                <td>16</td>
-		                <td>장국영</td>
-		                <td>지존무상</td>
-		                 <td>1960-06-15</td>
-		                 <td>jang@gmail.com</td>
-		                 <td>2015-05-10</td>
-		               <td>5000</td>
-		                <td><button class="btn btn-danger btn-xs">강제 탈퇴</button></td>
-		            </tr> 
-		                                                      
+		        	<c:choose>
+		        		<c:when test="${fn:length(memberlist) > 0}">
+		        			<c:forEach var="member" items="${memberlist}">
+		            			<tr>
+		               				<td>${member.id}</td>
+		                			<td>${member.name}</td>
+		                			<td>${member.nick_name}</td>
+		                			<td>${member.birthdate}</td>
+		                			<td>${member.email}</td>
+		                			<td>${member.reg_date}</td>
+		            				<td>${member.point}</td>
+		            				<td><button class="btn btn-danger btn-xs"data-toggle="modal" data-target="#myModal">강제 탈퇴</button></td>
+		            			</tr>
+		            		</c:forEach>
+		            	</c:when>
+		            </c:choose>                                
 		        </tbody>
     		</table>
 			

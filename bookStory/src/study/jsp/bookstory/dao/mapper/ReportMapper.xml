@@ -93,12 +93,6 @@
 	<!-- 관리자가 게시글 강제 삭제 하기위한 mapper 끝-->
 	
 	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 시작 -->
-	<!-- 회원 리스트를 출력한다. -->
-	<select id="selectMemberList" parameterType="study.jsp.bookstory.model.Member" resultMap="member">
-		SELECT id, name, nick_name, birthdate, email, DATE_FORMAT(reg_date, '%Y-%m-%d'), point
-		FROM article
-		ORDER BY id DESC
-	</select>
 	
 	<!-- 회원을 강제 삭제한다. -->
 	<delete id="deleteMemberId" parameterType="study.jsp.bookstory.model.Member">

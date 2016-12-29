@@ -1,6 +1,8 @@
 package study.jsp.bookstory.controller.admin;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
@@ -35,7 +38,18 @@ public class AdminUserInfo extends BaseController{
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		reportService = new ReportServiceImpl(sqlSession, logger);
 		
+		List<Member> memberlist = new ArrayList<Member>();
 		
+		try{
+			memberlist = reportService.selectMemberList(null);
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			web.redirect(null, e.getLocalizedMessage());
+		}finally {
+			sqlSession.close();
+		}
+		
+		request.setAttribute("memberlist", memberlist);
 		
 		String view = "admin/admin_userInfo";
 		
