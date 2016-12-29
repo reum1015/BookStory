@@ -89,16 +89,14 @@
 		UPDATE article SET reported = "N"
 		WHERE reported = "Y" and id = #{id} and member_id = #{member_id}
 	</update>
-	
 	<!-- 관리자가 게시글 강제 삭제 하기위한 mapper 끝-->
 	
-	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 시작 -->
 	
+	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 시작 -->
 	<!-- 회원을 강제 삭제한다. -->
 	<delete id="deleteMemberId" parameterType="study.jsp.bookstory.model.Member">
 		DELETE FROM member WHERE id=#{id}
 	</delete>
-	
 	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 끝 -->
 	
 	
