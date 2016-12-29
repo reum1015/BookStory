@@ -193,7 +193,7 @@
 
 
 		<!--덧글 신고 모달 -->
-		<div class="modal fade" id="comment_report_modal"" tabindex="-1" role="dialog"
+		<div class="modal fade" id="comment_report_modal" tabindex="-1" role="dialog"
 			aria-labelledby="edit" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">

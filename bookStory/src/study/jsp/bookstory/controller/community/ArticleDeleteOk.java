@@ -107,7 +107,7 @@ public class ArticleDeleteOk extends BaseController {
 						if(Count2 > 0) {						
 							reportService.deleteReportArticle(report);
 						}
-				reportService.deleteAdminArticle(article);
+				reportService.deleteAdminArticle(article); 
 				}
 			}catch(Exception e){
 				web.redirect(null, e.getLocalizedMessage());

@@ -349,7 +349,7 @@ public class ReportServiceImpl implements ReportService{
 	public List<Member> selectMemberList(Member member) throws Exception {
 		List<Member> result = null;
 		try{
-			result = sqlSession.selectList("ReportMapper.", member);
+			result = sqlSession.selectList("MemberMapper.selectMemberList", member);
 			if(result == null){
 				throw new NullPointerException();
 			}
@@ -361,14 +361,14 @@ public class ReportServiceImpl implements ReportService{
 			throw new Exception("회원 리스트를 출력하기 위한 sql문이 실패 하였습니다.");
 		}
 		
-		return null;
+		return result;
 	}
 	
 	@Override
 	public void deleteMemberId(Member member) throws Exception {
 		int result;
 		try{
-			result = sqlSession.delete("ReportMapper.", member);
+			result = sqlSession.delete("ReportMapper.deleteMemberId", member);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -378,6 +378,8 @@ public class ReportServiceImpl implements ReportService{
 		} catch (Exception e) {
 			sqlSession.rollback();
 			throw new Exception("삭제하기 위한 회원이 존재하지 않습니다.");
+		} finally {
+			sqlSession.commit();
 		}
 	}
 	
