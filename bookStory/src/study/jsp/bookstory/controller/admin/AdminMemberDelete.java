@@ -28,9 +28,6 @@ public class AdminMemberDelete extends BaseController {
 		int memberId = web.getInt("Id");
 		String nick_name = web.getString("nick_name");
 		
-		System.out.println("-------------------------memberId : " + memberId);
-		System.out.println("==========================nick_name : " + nick_name);
-		
 		Member member = new Member();
 		member.setId(memberId);
 		member.setNick_name(nick_name);
