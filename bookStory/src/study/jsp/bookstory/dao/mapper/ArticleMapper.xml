@@ -150,4 +150,22 @@
 	SELECT count(id) FROM report WHERE article_id=#{article_id} AND member_id=#{member_id}		
 	</select>
 	
+	<!-- 공지사항 글 올리기 위한 mapper -->
+	<!-- 공지 사항 게시글 정보 저장하기 -->
+	<insert id="insertNoticeArticle" parameterType="study.jsp.bookstory.model.Article" useGeneratedKeys="true" keyProperty="id">
+	  INSERT INTO article (
+	    category, subject, content, hit, reg_date, edit_date, ip_address, user_nickname, 
+	    member_id, reported
+	  ) VALUES (
+	    "notice", #{subject}, #{content}, 0, now(), now(), #{ip_address}, #{user_nickname}, #{member_id}, "N"
+	  )
+	</insert>
+	
+	<!-- 공지사항 게시글 삭제하기
+	<delete id="deleteNoticeArticle" parameterType="study.jsp.bookstory.model.Article">
+		DELETE FROM article WHERE id=#{id} and category=#{notice}
+	</delete> -->
+	
+	<!-- 공지사항 글 올리기 위한 mapper 끝 -->
+	
 </mapper>

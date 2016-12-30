@@ -43,7 +43,6 @@ public class ArticleWriteOk extends BaseController {
 		articleService = new ArticleserviceImpl(sqlSession, logger);
 		
 		/** (4) 텍스트 형식의 값을 추출 */
-		String category = web.getString("category");
 		String subject = web.getString("subject");
 		String content = web.getString("content");
 		String user_nickname = web.getString("user_nickname");
@@ -58,7 +57,6 @@ public class ArticleWriteOk extends BaseController {
 			user_nickname = loginInfo.getNick_name();
 		}
 		// 전달된 파라미터는 로그로 확인한다.
-		logger.debug("category=" + category);
 		logger.debug("subject=" + subject);
 		logger.debug("content=" + content);
 		logger.debug("ipAddress=" + ip_address);
@@ -81,7 +79,6 @@ public class ArticleWriteOk extends BaseController {
 		
 		/** (6) 입력 받은 파라미터를 Beans로 묶기*/
 		Article article = new Article();
-		article.setCategory(category);
 		article.setSubject(subject);
 		article.setContent(content);
 		article.setIp_address(ip_address);

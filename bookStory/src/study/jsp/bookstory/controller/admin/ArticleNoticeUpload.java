@@ -30,6 +30,12 @@ public class ArticleNoticeUpload extends BaseController{
 			Member LoginInfo = (Member) web.getSession("loginInfo");
 			member_level = LoginInfo.getMember_level();
 		}
+
+		Member LoginInfo = (Member) web.getSession("loginInfo");
+		if(LoginInfo == null){
+			web.redirect(web.getRootPath() + "/community/admin_main.do", "관리자 로그인후 이용가능합니다.");
+			return null;
+		}
 		
 		request.setAttribute("member_level", member_level);
 		

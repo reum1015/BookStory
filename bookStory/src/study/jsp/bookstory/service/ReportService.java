@@ -51,7 +51,7 @@ public interface ReportService {
 	 */
 	public void updateReportMemberOut(Report report) throws Exception;
 	
-	// 게시물을 강제 삭제하기 or report게시물만 삭제하기 위한 서비스 구축
+	// 게시물을 강제 삭제하기 또는 report게시물만 삭제하기 위한 서비스 구축
 	
 	public int selectCommentCount(Comment comment) throws Exception;
 	public void deleteAdminComment(Comment comment) throws Exception;
@@ -60,7 +60,7 @@ public interface ReportService {
 	public int selectReportCountArticle(Report report) throws Exception;
 	public void updateArticleReported(Article article) throws Exception;
 	
-	// 게시물을 강제 삭제하기 or report게시물만 삭제하기 위한 서비스 구축 끝
+	// 게시물을 강제 삭제하기 또는 report게시물만 삭제하기 위한 서비스 구축 끝
 	
 	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어
 	// 회원가입된 회원들의 리스트를 출력한다.
@@ -69,7 +69,11 @@ public interface ReportService {
 	public void deleteMemberId(Member member) throws Exception;
 	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어 끝
 	
-	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어
+	//----------------------------------------------------공지사항 업로드
+	public void insertNoticeArticle(Article article) throws Exception;
+	
+	
+	//----------------------------------------------------공지사항 업로드 끝
 	
 	//----------------------------------------------------덧글 서비스 레이어 시작
 	// 덧글을 report테이블에 저장하기
@@ -84,6 +88,5 @@ public interface ReportService {
 	public void deleteComment(Comment comment)throws Exception;
 	// 신고 덧글을 reoprt에서만 삭제하기
 	public void deleteReportComment(Report report) throws Exception;
-	
 	//----------------------------------------------------덧글 서비스 레이어 끝
 }
