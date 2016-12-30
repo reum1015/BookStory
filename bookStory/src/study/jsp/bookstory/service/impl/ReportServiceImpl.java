@@ -343,6 +343,29 @@ public class ReportServiceImpl implements ReportService{
 
 	//------------------------------------------------------------------------ 덧글 관리 서비스 레이어 끝
 	
+	//--------------------------------------------------------공지 업로드
+	
+	@Override
+	public void insertNoticeArticle(Article article) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.insert("ArticleMapper.insertNoticeArticle", article);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("공지사항 inser를 하기위한 데이터가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("공지사항 insert SQL쿼리문의 오류입니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+	
+	//--------------------------------------------------------공지 업로드 끝 
+	
 	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
 	
 	@Override

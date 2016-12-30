@@ -34,11 +34,8 @@
 					$.post('${pageContext.request.contextPath}/admin/admin_member_delete_Ok.do',
 							{memberId : memberId.val()},
 							function(data){
-								
 								var member_id = data.memberId;
 								
-								
-							
 					});
 					
 				});
@@ -238,17 +235,19 @@
 						<c:choose>
 							<c:when test="${fn:length(memberlist) > 0}">
 								<c:forEach var="member" items="${memberlist}">
-									<tr>
-										<td>${member.id}</td>
-										<td>${member.name}</td>
-										<td>${member.nick_name}</td>
-										<td>${member.birthdate}</td>
-										<td>${member.email}</td>
-										<td>${member.reg_date}</td>
-										<td>${member.point}</td>
-										<td><a href="${pageContext.request.contextPath}/admin/admin_member_delete.do?Id=${member.id}&nick_name=${member.nick_name}" class="btn btn-danger btn-xs"
-													data-toggle="modal" data-target="#myModal">강제 탈퇴</a></td>
-									</tr>
+									<c:if test="${member.member_level == 'AA'}">
+										<tr>
+											<td>${member.id}</td>
+											<td>${member.name}</td>
+											<td>${member.nick_name}</td>
+											<td>${member.birthdate}</td>
+											<td>${member.email}</td>
+											<td>${member.reg_date}</td>
+											<td>${member.point}</td>
+											<td><a href="${pageContext.request.contextPath}/admin/admin_member_delete.do?Id=${member.id}&nick_name=${member.nick_name}" class="btn btn-danger btn-xs"
+														data-toggle="modal" data-target="#myModal">강제 탈퇴</a></td>
+										</tr>
+									</c:if>
 								</c:forEach>
 							</c:when>
 						</c:choose>

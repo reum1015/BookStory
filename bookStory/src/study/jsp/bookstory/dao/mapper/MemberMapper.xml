@@ -132,11 +132,13 @@
 	UPDATE member SET point = #{point} WHERE id=#{id} 
 	</update>
 	
+	<!-- 관리자 페이지에서 회원리스트를 출력하기 위한 mapper -->
 	<!-- 회원 리스트를 출력한다. -->
 	<select id="selectMemberList" parameterType="study.jsp.bookstory.model.Member" resultMap="member">
-		SELECT id, name, nick_name, DATE_FORMAT(birthdate, '%Y-%m-%d') as birthdate, email, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, point
+		SELECT member_level, id, name, nick_name, DATE_FORMAT(birthdate, '%Y-%m-%d') as birthdate, email, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, point
 		FROM member
 		ORDER BY id DESC
 	</select>
+	<!-- 관리자 페이지에서 회원리스트를 출력하기 위한 mapper 끝 -->
 
 </mapper>

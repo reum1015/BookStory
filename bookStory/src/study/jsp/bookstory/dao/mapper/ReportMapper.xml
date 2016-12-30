@@ -66,17 +66,17 @@
 	
 	<!-- (1.2) 게시글을 강제삭제 하기위한 관리자 권한으로 해당 게시글의 덧글 삭제 -->
 	<delete id="deleteAdminComment" parameterType="study.jsp.bookstory.model.Comment">
-		DELETE from Comment WHERE article_id=#{article_id}
+		DELETE from comment WHERE article_id=#{article_id}
 	</delete>
 	
 	<!-- (2) 게시글을 강제삭제 하기위한 신고된 report 게시글 삭제 -->
 	<delete id="deleteReportArticle" parameterType="study.jsp.bookstory.model.Report">
-		DELETE from Report WHERE article_id=#{article_id}
+		DELETE from report WHERE article_id=#{article_id}
 	</delete>
 	
 	<!-- (3) 게시글을 강제삭제 하기위한 관리자 권한으로 강제 삭제 -->
 	<delete id="deleteAdminArticle" parameterType="study.jsp.bookstory.model.Article">
-		DELETE from Article WHERE id=#{id}
+		DELETE from article WHERE id=#{id}
 	</delete>
 	
 	<!-- (4.1) report만 삭제 버튼 표시처리 -->
@@ -107,4 +107,7 @@
 	
 	
 	
+	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 -->
+	
+	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 끝 -->
 </mapper>
