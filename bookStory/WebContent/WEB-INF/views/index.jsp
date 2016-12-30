@@ -41,8 +41,6 @@
 				var genre = $("#genreForDrop").val();
 				 $("#genre_button").text(jenreTextChange(genre));
 				
-				
-				 
 				 //장르별 드롭다운 선택시 ajax
 				 $(document).on("click","#genreList a",function(e){
 					 e.preventDefault();							 
@@ -57,8 +55,6 @@
 								alert(json.rt);
 								return false;
 							}
-						 
-						 
 						 //통신 성공시에 원래 있던 작품 리스트 삭제
 						 	$(".genre_row").empty();
 						
@@ -155,7 +151,6 @@
 				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 				<span class="sr-only">Next</span>
 			</a>
-			
 		</div>
 		<!-- 캐러셀 끝 -->
 

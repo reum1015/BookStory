@@ -60,11 +60,12 @@ public class TodayList extends BaseController{
 		
 		//오늘 요일 받기
 		String today = web.getString("today");
-
+		String order = web.getString("order");
+		
 		//오늘 요일 파라미터 셋팅
 		Book book = new Book();
 		book.setDaily_date(today);
-		
+		book.setOrder(order);
 
 		List<Book> todayList = new ArrayList<Book>();
 		
@@ -86,7 +87,6 @@ public class TodayList extends BaseController{
 			for(int i = 0 ; i < todayList.size(); i++){
 				temp = todayList.get(i);
 				
-	
 				String tempGenre = temp.getGenre();
 				
 				String genre = commonUtils.genreOrDayConverter(tempGenre);
@@ -100,6 +100,7 @@ public class TodayList extends BaseController{
 		data.put("rt", "OK");
 		data.put("todayList",todayList);
 		data.put("today",today);
+		data.put("order",order);
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getWriter(), data);

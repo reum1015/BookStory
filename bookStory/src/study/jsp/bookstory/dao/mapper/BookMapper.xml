@@ -26,6 +26,7 @@
 		<result property="total_star" column="total_star"/>
 		<result property="imagePath" column="imagePath"/>
 		<result property="totalEpisodeCount" column="totalEpisodeCount"/>
+		<result property="order" column="order"/>
 	</resultMap>
 
 
@@ -129,13 +130,32 @@
 			limit 0,5;
 	</select>
 	
-	<!-- TodayNovel 오늘날짜 작품 리스트 불러오기 -->
+	<!-- TodayNovel 오늘요일 작품 리스트 불러오기 -->
 	<select id="selectNovelListByDay" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
-	SELECT id, book_name, book_author, daily_date, intro, genre, total_point, intro,
+	SELECT id, book_name, book_author, daily_date, intro, genre, total_hit,
 			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
-			ORDER BY id ASC LIMIT 0, 1) AS imagePath
+			ORDER BY id ASC LIMIT 0, 1) AS imagePath,
+			(SELECT COUNT(id) FROM episode WHERE book.id=book_id) AS totalEpisodeCount
 	FROM book
 	WHERE daily_date = #{daily_date}
+	ORDER BY
+	<choose>
+		<when test="order == 'title'">
+			book_name
+		</when>
+		<when test="order == 'star'">
+			total_star DESC
+		</when>
+		<when test="order == 'like'">
+			total_favorite DESC
+		</when>
+		<when test="order == 'read'">
+			total_hit DESC
+		</when>
+		<otherwise>
+			total_hit DESC
+		</otherwise>
+	</choose>
 	</select>
 	
 	<!-- 에피소드 올릴때 마다 총 대여 포인트 총 구매 포인트 합계 누적 -->

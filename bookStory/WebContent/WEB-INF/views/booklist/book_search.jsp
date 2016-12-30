@@ -68,7 +68,7 @@
 	 <div class="block_bookmark_list col-md-8 col-lg-11">
 		<c:choose>		
 	<c:when test="${fn:length(bookitem) > 0}">
-	<c:forEach var="search" items="${bookitem}">
+	<c:forEach var="book" items="${bookitem}">
 		
 
 	<c:url var="readUrl" value="/book/book_list.do">
