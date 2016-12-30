@@ -178,9 +178,9 @@
 								<option value="THU">목요일</option>
 								<option value="FRI">금요일</option>
 								<option value="SAT">토요일</option>
-								<option value="MON">일요일</option>							
+								<option value="SUN">일요일</option>							
 							</select>
-						</div>						
+						</div>
 				</div>
 				
 				<!-- 작품 내용 -->

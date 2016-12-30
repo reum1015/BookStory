@@ -28,18 +28,38 @@
 	
 	    
 	    <script type="text/javascript">
-	    	$(function() {
-	    		
-	    		
-		    		
-
+	    
+	    var current_genre	//현재 장르 저장 전역 변수
+	   
+	    $(function() {
+	    	
+	    	//페이지 시작시에 로맨스 리스트 출력
+	    	 $.get('${pageContext.request.contextPath}/novellist/genre_novel.do',{genre:'Romance'},function(data){
+	     		
+	    		 current_genre = "Romance";
+	    		 
+	     		$("#genreNovel").empty();
+	     		$("#genretab > li").removeClass("genre_active");
+	     		
+	     		// 템플릿 HTML을 로드한다.
+	 			var template = Handlebars.compile($("#entry-template").html());
+	 			// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+	 			var html = template(data);
+	 			// 결합된 결과를 목록에 추가한다.
+	 			$("#genreNovel").append(html);
+	 			addClassGenre('Romance');
+	 			
+	 			
+	 		});
+	    	
+	    	//장르 탭 클릭시
 		    	$(document).on("click","#genretab a",function(e){
-		    		var selected_gen = $(this).data("value");
+		    		current_genre = $(this).data("value");
 		    		
-		    		console.log(selected_gen);
+		    		console.log(current_genre);
 		    		
-		    		$.get('${pageContext.request.contextPath}/novellist/genre_novel.do',{genre:selected_gen},function(data){
-			    		var gen = selected_gen
+		    		$.get('${pageContext.request.contextPath}/novellist/genre_novel.do',{genre:current_genre},function(data){
+			    		var gen = current_genre
 			    		
 			    		$("#genreNovel").empty();
 			    		$("#genretab > li").removeClass("genre_active");
@@ -57,31 +77,50 @@
 	
 			});
 	    	
+		    	 var day;	
+				    //	정렬 종류 버튼 클릭
+				    $(document).on("click","#orderList a",function(e){	
+				    		console.log("클릭 실행");
+				    		var genre = current_genre
+							var order =  $(this).attr("data-order");
+							var chText = orderTextChange(order);
+							$("#order_button").text(chText);
+				    		 console.log('current_day --> ' + genre);
+				    		 
+				    		$.get('${pageContext.request.contextPath}/novellist/genre_novel.do',{genre:current_genre,order:order},function(data){
+					    		var genre = current_genre
+					    		
+					    		$("#genreNovel").empty();
+					    		
+					    		// 템플릿 HTML을 로드한다.
+								var template = Handlebars.compile($("#entry-template").html());
+								// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
+								var html = template(data);
+								// 결합된 결과를 목록에 추가한다.
+								$("#genreNovel").append(html);
+				   		 }); 
+					});	
 	    	})
-			
-	    	
-	    	$.get('${pageContext.request.contextPath}/novellist/genre_novel.do',{genre:'Romance'},function(data){
-	    		
-	    		
-	    		$("#genreNovel").empty();
-	    		$("#genretab > li").removeClass("genre_active");
-	    		
-	    		// 템플릿 HTML을 로드한다.
-				var template = Handlebars.compile($("#entry-template").html());
-				// JSON에 포함된 작성 결과 데이터를 템플릿에 결합한다.
-				var html = template(data);
-				// 결합된 결과를 목록에 추가한다.
-				$("#genreNovel").append(html);
-				addClassGenre('Romance');
-				
-				
-    		});
+		
 			function addClassGenre(xid){
-	    		
 	    		$('#'+xid).addClass("genre_active");
 	    		$('#'+xid+'>a').attr("href","#");
-	    		
 	    	}
+			
+			 function orderTextChange(e){
+				 var order = e;
+				 
+				 if(order=='read'){
+					 order='조회순';
+				 }else if(order=='title'){
+					 order='제목순';
+				 }else if(order=='star'){
+					 order='별점순';
+				 }else if(order=='like'){
+					 order='관심등록순';
+				 }
+				 return order;
+			 }
 	    
 	    </script>
 		
@@ -149,13 +188,14 @@
 						<div class="pull-right">
 							
 							<!-- 조회순 버튼 -->
-    					  <div class="btn-group check_button">
-								<button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="genre_button">조회순 <span class="caret"></span></button>
-									<ul class="dropdown-menu">
-											<li ><a href="#">조회순</a> </li>
-											<li><a href="#">별점순</a></li>
-										   <li><a href="#">제목순</a></li>
-										     <li><a href="#">관심등록순</a></li>
+    					  <div class="btn-group check_button" style="margin-top: 6.5px;">
+								<button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="order_button">
+									조회순 <span class="caret"></span></button>
+									<ul class="dropdown-menu" id="orderList">
+											<li><a href="#" data-order="read">조회순</a></li>
+											<li><a href="#" data-order="title">제목순</a></li>
+											<li><a href="#" data-order="star">별점순</a></li>
+										    <li><a href="#" data-order="like">관심등록순</a></li>
 									</ul>
 							</div>
 							<!--// 조회순 버튼 -->	

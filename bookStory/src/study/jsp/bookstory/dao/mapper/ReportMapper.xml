@@ -100,5 +100,11 @@
 	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 끝 -->
 	
 	
+	<!-- 특정 회원과의 신고 게시물 참조 해제하기 -->
+	<update id="updateReportMemberOut" parameterType="study.jsp.bookstory.model.Report">
+	  UPDATE report SET member_id=NULL WHERE member_id=#{member_id}
+	</update>
+	
+	
 	
 </mapper>

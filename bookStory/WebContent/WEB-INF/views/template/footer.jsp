@@ -6,8 +6,10 @@
 		<div class="container footer_container">
 			<p class="text-center">
 			<h5>
-				<a href="#">이용약관</a> / <a href="#">운영원칙</a> / <a href="#">개인정보
-					취급방침</a> / <a href="#">책임의 한계와 법적고지</a>
+				<a href="${pageContext.request.contextPath}/agreement/agreement1.do">이용약관</a> / 
+				<a href="${pageContext.request.contextPath}/agreement/agreement2.do">운영원칙</a> / 
+				<a href="${pageContext.request.contextPath}/agreement/agreement3.do">개인정보	취급방침</a> / 
+				<a href="${pageContext.request.contextPath}/agreement/agreement4.do">책임의 한계와 법적고지</a>
 			</h5>
 
 			<address>

@@ -87,6 +87,34 @@
 		limit 0,4;
 	</select>
 	
+	<!-- 장르별 List-->
+	<select id="selectListByGenre" resultMap="book">
+	SELECT id, book_name, book_author, daily_date, genre, total_hit,intro,total_star,total_favorite,
+		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+		ORDER BY id ASC LIMIT 0, 1) as imagePath,
+		(SELECT COUNT(id) FROM episode WHERE book.id=book_id) AS totalEpisodeCount
+		FROM book 
+		WHERE genre=#{genre}
+		ORDER BY
+	<choose>
+		<when test="order == 'title'">
+			book_name
+		</when>
+		<when test="order == 'star'">
+			total_star DESC
+		</when>
+		<when test="order == 'like'">
+			total_favorite DESC
+		</when>
+		<when test="order == 'read'">
+			total_hit DESC
+		</when>
+		<otherwise>
+			book_name
+		</otherwise>
+	</choose>
+	</select>
+	
 	
 	
 	<!-- 관심등록 회원 수 +1 -->

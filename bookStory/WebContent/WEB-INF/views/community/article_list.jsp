@@ -56,29 +56,30 @@
 			</thead>
 			<tbody>
 				<c:choose>
-          <c:when test="${fn:length(articleList) > 0}">
-            <c:forEach var="article" items="${articleList}">
-              <tr>
-                <td class="text-center">${article.id}</td>
-                <td class="text-center">
-                  <c:url var="readUrl" value="/community/article_read.do">
-                    <c:param name="article_id" value="${article.id}"/>
-                  </c:url>
-                  <a href="${readUrl}">${article.subject}</a>
-                </td>
-                <td class="text-center">${article.user_nickname}</td>
-                <td class="text-center">${article.hit}</td>
-                <td class="text-center">${article.reg_date}</td>
-              </tr>
-            </c:forEach>
-          </c:when>
-          <c:otherwise>
-            <tr>
-              <td colspan="5" class="text-center" style="line-height: 100px">조회된 글이 없습니다.</td>
-            </tr>
-          </c:otherwise>
-        </c:choose>
+		          <c:when test="${fn:length(articleList) > 0}">
+		            <c:forEach var="article" items="${articleList}">
+		              <tr>
+		                <td class="text-center">${article.id}</td>
+		                <td class="text-center">
+		                  <c:url var="readUrl" value="/community/article_read.do">
+		                    <c:param name="article_id" value="${article.id}"/>
+		                  </c:url>
+		                  <a href="${readUrl}">${article.subject}</a>
+		                </td>
+		                <td class="text-center">${article.user_nickname}</td>
+		                <td class="text-center">${article.hit}</td>
+		                <td class="text-center">${article.reg_date}</td>
+		              </tr>
+		            </c:forEach>
+		          </c:when>
+		          <c:otherwise>
+		            <tr>
+		              <td colspan="5" class="text-center" style="line-height: 100px">조회된 글이 없습니다.</td>
+		            </tr>
+		          </c:otherwise>
+		        </c:choose>
 			</tbody>
+			
 		</table>
 			<!-- 검색폼 + 글 쓰기 버튼 시작 -->
 <div class="clearfix">

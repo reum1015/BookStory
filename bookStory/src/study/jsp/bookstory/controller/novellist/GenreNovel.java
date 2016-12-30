@@ -57,6 +57,7 @@ public class GenreNovel extends BaseController {
 		commonUtils = CommonUtils.getInstance();
 		
         String genre = web.getString("genre");
+        String order = web.getString("order");
         
         if(genre.equals("SFFantasy")){
         	genre="SF&Fantasy";
@@ -67,12 +68,13 @@ public class GenreNovel extends BaseController {
         
         Book book = new Book();
         book.setGenre(genre);
+        book.setOrder(order);
 		
 		
 		List<Book> ggenreList = new ArrayList<Book>();
 		
 		try{
-			ggenreList = bookService.selectListMainByGenre(book);
+			ggenreList = bookService.selectListByGenre(book);
 		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			web.redirect(null, e.getLocalizedMessage());
