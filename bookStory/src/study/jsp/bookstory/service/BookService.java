@@ -138,7 +138,13 @@ public interface BookService {
 	public List<Book> selectListByGenre(Book book)throws Exception;
 	
 	
-	
+	/**
+	 *  연령대 별 순위
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectRankListByAge(int age)throws Exception;
 
 	
 	

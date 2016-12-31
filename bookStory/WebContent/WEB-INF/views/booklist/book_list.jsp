@@ -300,14 +300,15 @@
 		
 		<!--  작품 정보 -->
 		<div class="row book_infoBox">
-			<div class="col-xs-12 col-sm-12">
+			<div class="col-md-4 col-sm-12">
 			<c:url var="downloadUrl" value="/download.do">
 				 <c:param name="file" value="${bookitem.imagePath}" />
 			</c:url>
-				<img class="col-xs-5 col-sm-5 img-response"
+				<img class=""
 					src="${downloadUrl}"
 					alt="그림" style="width: 320px; height: 220px;">
-				<div class="col-xs-7 col-sm-7 pull-left">
+			</div>
+			<div class="col-md-8 col-sm-12">
 					<span class="grade_area"> <span class="stargrade"></span> <em>${bookitem.total_star}</em>
 					</span>
 					<p class="info_book">
@@ -348,7 +349,7 @@
 				</div>
 				
 		
-			</div>
+	
 		</div>
 		
 		<div class="row">
@@ -383,25 +384,22 @@
 		<c:choose>
 			<c:when test="${fn:length(episodeList) > 0}">
 			<c:forEach var="episode" items="${episodeList}" varStatus="status">
-		
+			
+			<c:url var="episodeReadUrl" value="/novelview/view_page.do">
+					<c:param name="episode_id" value="${episode.id}" />
+			 		<c:param name="book_id" value="${bookitem.id}" />
+			 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+				</c:url>
+			
+			<a href="${episodeReadUrl}" class="episode_list_a">
 			<div class="col-xs-12 col-sm-12 block_12_2">
 			
 				<c:url var="downloadUrl" value="/download.do">
 			 		<c:param name="file" value="${episode.imagePath}" />
 				</c:url>
 				
-				<c:url var="episodeReadUrl" value="/novelview/view_page.do">
-					<c:param name="episode_id" value="${episode.id}" />
-			 		<c:param name="book_id" value="${bookitem.id}" />
-			 		<c:param name="episodeOrder" value="${episode.episode_order}" />
-				</c:url>
-				
-				<a href="${episodeReadUrl}">
-				<img class="col-xs-4"
-					src="${downloadUrl}"
-					alt="에피소드 리스트그림" style="width: 200px; height: 170px;"/>
-				</a>
-				<div class="col-xs-5">
+				<img class="col-xs-4" src="${downloadUrl}" alt="에피소드 리스트그림" style="width: 200px; height: 170px;"/>
+				<div class="col-xs-5 epi_info">
 					<div class="episode_size">
 						${episode.episode_order}. ${episode.episode_name}
 					</div>
@@ -411,12 +409,9 @@
 					<p>${episode.reg_date}</p>
 				</div>
 					
-					
-					
 					<c:choose>
 						<c:when test="${loginInfo == null }">
-						
-						
+							
 						</c:when>
 						<c:otherwise>
 					
@@ -438,7 +433,7 @@
 						</c:otherwise>
 					</c:choose>	
 			</div>
-		
+			</a>
 					</c:forEach>
 				</c:when>
 			</c:choose>
@@ -512,16 +507,8 @@
 		</nav>
 		</div>
 		<!--// 페이지 번호 끝 -->
-			
-			
-			
-
-			
-			
 	</div>
 	<!-- 컨테이너 영역 끝 -->
-	
-	
 	
 		<!-- 전체 대여 모달 -->
 			<div class="modal fade" id="book_all_rent">

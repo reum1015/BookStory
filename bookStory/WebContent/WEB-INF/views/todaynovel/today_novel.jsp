@@ -48,9 +48,11 @@
 		    	
 		    	var today = week[d.getDay()];
 		    
-		    	current_day = $(this).data("today");
+		    	current_day = today
 		    	
 				    	$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:today},function(data){
+				    		console.log(today);
+				    		
 				    		var day = today
 				    		
 				    		$("#todayNovel").empty();
@@ -70,7 +72,6 @@
 		    			    			
 		    	$(document).on("click","#todaytab a",function(e){
 		    		current_day = $(this).data("today");
-		    		
 		    		 console.log(current_day);
 		    		 
 		    		$.get('${pageContext.request.contextPath}/todaynovel/todayList.do',{today:current_day},function(data){

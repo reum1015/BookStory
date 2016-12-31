@@ -451,21 +451,21 @@
 				
 				<div id="" class="col-sm-6 episode_list" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 					<div class="">
-						<div>
+						<div class="epi_title_top">
 						<!-- 이전 에피소드 -->
 						<c:choose>
 							<c:when test="${preEpisode != null }">
 								<c:url var="preEpisode" value="/novelview/view_page.do">
 									<c:param name="episode_id" value="${preEpisode.id}" />
 							 		<c:param name="book_id" value="${book_id}" />
-							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+							 		<c:param name="episodeOrder" value="${preEpisode.episode_order}" />
 								</c:url>
 							</c:when>
 							<c:otherwise>
 								<c:url var="preEpisode" value="/novelview/view_page.do">
 									<c:param name="episode_id" value="${preEpisode.id}" />
 							 		<c:param name="book_id" value="${book_id}" />
-							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+							 		<c:param name="episodeOrder" value="${preEpisode.episode_order}" />
 							 		<c:param name="episodeLast" value="first" />
 								</c:url>
 							</c:otherwise>
@@ -473,7 +473,7 @@
 						<a href="${preEpisode}"><i class="fa fa-hand-o-left fa-2x" aria-hidden="true" style="color:#000"></i></a>
 						
 						
-						<span>${episode.episode_name }</span>
+						<span class="epi_title_fortop">${episode.episode_name }</span>
 						<!-- 
 						<select name="epList_selectBox" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 						<c:forEach var="title" items="${episodeTitleList}"  varStatus="status">
@@ -491,14 +491,14 @@
 								<c:url var="nextEpisode" value="/novelview/view_page.do">
 									<c:param name="episode_id" value="${nextEpisode.id}" />
 							 		<c:param name="book_id" value="${book_id}" />
-							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+							 		<c:param name="episodeOrder" value="${nextEpisode.episode_order}" />
 								</c:url>
 							</c:when>
 							<c:otherwise>
 								<c:url var="nextEpisode" value="/novelview/view_page.do">
 									<c:param name="episode_id" value="${nextEpisode.id}" />
 							 		<c:param name="book_id" value="${book_id}" />
-							 		<c:param name="episodeOrder" value="${episode.episode_order}" />
+							 		<c:param name="episodeOrder" value="${nextEpisode.episode_order}" />
 							 		<c:param name="episodeLast" value="last" />
 								</c:url>
 							</c:otherwise>

@@ -208,7 +208,7 @@ public class BookList extends BaseController {
 				if(day != null){
 					if(day.equals("MON")){
 						day = "월요일";
-					}else if(day.equals("TUE")){
+					}else if(day.equals("THE")){
 						day = "화요일";
 					}else if(day.equals("WEN")){
 						day = "수요일";

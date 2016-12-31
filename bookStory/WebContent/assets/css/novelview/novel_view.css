@@ -178,6 +178,17 @@ a:HOVER {
 .epi_title > a{
 	color: black;
 }
+.epi_title{
+	padding-left: 30px;
+}
+
+.epi_title_top a,span{
+	display: inline-block;
+}
+
+.epi_title_fortop{
+	font-size: 20px;	
+}
 
 .view {	
 	width: 80%;

@@ -110,7 +110,7 @@
 			total_hit DESC
 		</when>
 		<otherwise>
-			book_name
+			total_hit
 		</otherwise>
 	</choose>
 	</select>
@@ -202,5 +202,20 @@
 	<update id="updateBookHit" parameterType="study.jsp.bookstory.model.Book">
 		UPDATE book SET total_hit=total_hit+1 WHERE id=#{id}
 	</update>
+	
+	<!-- 연령대 별 랭킹(메인) -->
+	<select id="selectRankListByAge" parameterType="int" resultMap="book">
+		SELECT id,book_name,genre FROM book
+		WHERE id in(
+		SELECT book_id FROM favorite
+					WHERE if(date_format(now(),'%Y')-substring(birthdate,1,4)between #{age} and (#{age}+9),1,0)
+					GROUP BY book_id
+					ORDER BY count(book_id) DESC
+		)
+		limit 0,9;
+	</select>
+	
+	
+	
 	
 </mapper>
