@@ -167,7 +167,7 @@
 	<div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
 			<!-- 어드민 슬라이드 메뉴 영역 -->
-			<div class="col-md-2 amdin_main_slider">
+			<div class="col-xs-2 amdin_main_slider">
 				<ul class="nav main_slider_nav" id="admin_main_menu">
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
 	    				<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a>
@@ -197,56 +197,55 @@
 	    				<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a>
 	    			</li>
 	    		</ul>
+	   
 			</div>
 			<!-- //어드민 슬라이드 메뉴 영역 -->
 
 			<!-- 어드민 컨텐트 영역 -->
-			<div class="col-sm-10 admin_content admin_userInfo_container">
-				<h1 class="page-header">회원 관리</h1>
+			<div class="col-xs-10 admin_content admin_userInfo_container">
+				<h1 class="page-header">작품 관리(작품 목록)</h1>
 				<table id="example"
 					class="table table-hover table-bordered table-responsive user_info_table"
 					cellspacing="0" width="100%">
 					<thead>
 						<tr>
-							<th style="width: 30px;">번호</th>
-							<th>이름</th>
-							<th>닉네임</th>
-							<th>생년월일</th>
-							<th>이메일</th>
-							<th>가입일</th>
-							<th>포인트</th>
-							<th>강제 탈퇴</th>
+							<th>번호</th>
+							<th>작품 제목</th>
+							<th>작가이름</th>
+							<th>등록일</th>
+							<th>관심등록</th>
+							<th>총 별점</th>
+							<th>에피소드 수</th>
+							<th>수정</th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
 							<th>번호</th>
-							<th>이름</th>
-							<th>닉네임</th>
-							<th>생년월일</th>
-							<th>이메일</th>
-							<th>가입일</th>
-							<th>포인트</th>
-							<th>강제 탈퇴</th>
+							<th>작품 제목</th>
+							<th>작가이름</th>
+							<th>등록일</th>
+							<th>관심등록</th>
+							<th>총 별점</th>
+							<th>에피소드 수</th>
+							<th>수정</th>
 						</tr>
 					</tfoot>
 					<tbody>
 						<c:choose>
-							<c:when test="${fn:length(memberlist) > 0}">
-								<c:forEach var="member" items="${memberlist}">
-									<c:if test="${member.member_level == 'AA'}">
+							<c:when test="${fn:length(bookList) > 0}">
+								<c:forEach var="bookList" items="${bookList}">
 										<tr>
-											<td>${member.id}</td>
-											<td>${member.name}</td>
-											<td>${member.nick_name}</td>
-											<td>${member.birthdate}</td>
-											<td>${member.email}</td>
-											<td>${member.reg_date}</td>
-											<td>${member.point}</td>
-											<td><a href="${pageContext.request.contextPath}/admin/admin_member_delete.do?Id=${member.id}&nick_name=${member.nick_name}" class="btn btn-danger btn-xs"
-														data-toggle="modal" data-target="#myModal">강제 탈퇴</a></td>
+											<td>${bookList.id}</td>
+											<td>${bookList.book_name}</td>
+											<td>${bookList.book_author}</td>
+											<td>${fn:substring(bookList.reg_date, 0, 11)}</td>
+											<td>${bookList.total_favorite}</td>
+											<td>${bookList.total_star}</td>
+											<td>${bookList.totalEpisodeCount}</td>
+											<td><a href="${pageContext.request.contextPath}/admin/book_updateList.do?book_id=${bookList.id}" 
+													class="btn btn-danger btn-xs">작품 상세</a></td>
 										</tr>
-									</c:if>
 								</c:forEach>
 							</c:when>
 						</c:choose>

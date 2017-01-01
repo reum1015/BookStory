@@ -56,8 +56,15 @@
 				(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE episode_id=episode.id AND content_type LIKE ('image/%') AND image_type='episode'
 				ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM episode WHERE book_id=#{book_id}
-		ORDER BY episode_order DESC
-		LIMIT #{limitStart},#{listCount}
+		<choose>
+			<when test="limitStart == 0 and listCount == 0">
+			ORDER BY episode_order DESC
+			</when>
+			<otherwise>
+			ORDER BY episode_order DESC
+			LIMIT #{limitStart},#{listCount}
+			</otherwise>
+		</choose>
 	</select>
 	
 	

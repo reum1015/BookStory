@@ -381,4 +381,18 @@ public class BookServiceImpl implements BookService{
 		}
 		return bookList;
 	}
+
+	@Override
+	public List<Book> selectAllBookList(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectAllBookList",book);
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품 리스트 불러오기 실패했습니다.");
+			
+		}
+		return bookList;
+	}
 }

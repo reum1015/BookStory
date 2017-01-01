@@ -145,6 +145,14 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public List<Book> selectRankListByAge(int age)throws Exception;
+	
+	/**
+	 *  작품 리스트
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectAllBookList(Book book)throws Exception;
 
 	
 	

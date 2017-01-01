@@ -215,6 +215,14 @@
 		limit 0,9;
 	</select>
 	
+	<!-- 모든 작품 리스트 -->
+	<select id="selectAllBookList" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
+	SELECT id,book_name, book_author, daily_date, intro, genre, total_point, 
+			rent_point, book_end, total_favorite, total_star, reg_date,
+			(SELECT COUNT(id) FROM episode WHERE book.id=book_id) AS totalEpisodeCount
+	FROM book
+	</select>
+	
 	
 	
 	

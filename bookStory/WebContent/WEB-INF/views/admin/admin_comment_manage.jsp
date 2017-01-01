@@ -18,7 +18,6 @@
 		            $("#mytable input[type=checkbox]").each(function () {
 		                $(this).prop("checked", true);
 		            });
-
 		        } else {
 		            $("#mytable input[type=checkbox]").each(function () {
 		                $(this).prop("checked", false);
@@ -153,15 +152,32 @@
 			<div class="col-md-2 amdin_main_slider">
 	    		<ul class="nav main_slider_nav" id="admin_main_menu">
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
-	    			<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a></li>
+	    				<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a>
+	    			</li>
+	    			
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/notice_upload.do">
-	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>공지 사항 업로드</a></li>
+	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>공지 사항 업로드</a>
+	    			</li>
+	    			
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/novel_upload.do">
-	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>신규 작품 업로드</a></li>
+	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>신규 작품 업로드</a>
+	    			</li>
+	    			
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/episode_upload.do">
-	    			<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>에피소드 업로드</a></li>
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/article_manage.do"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a></li>
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/comment_manage.do"><span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a></li>
+	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>에피소드 업로드</a>
+	    			</li>
+	    			
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/book_manage.do">
+	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>작품 관리</a>
+	    			</li>
+	    			
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/article_manage.do">
+	    				<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a>
+	    			</li>
+	    			
+	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/comment_manage.do">
+	    				<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a>
+	    			</li>
 	    		</ul>
     		</div>
     	<!-- //어드민 슬라이드 메뉴 영역 -->
@@ -385,7 +401,7 @@
         </div>
       </div>
           <div class="modal-footer ">
-        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+        <button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
       </div>
         </div>
     <!-- /.modal-content --> 
@@ -408,8 +424,8 @@
        
       </div>
         <div class="modal-footer ">
-        <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+        <button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
       </div>
         </div>
     <!-- /.modal-content --> 
@@ -423,4 +439,4 @@
 	<script src="${pageContext.request.contextPath}/assets/js/admin/jquery.dataTables.min.js"></script>
 	<script src="${pageContext.request.contextPath}/assets/js/admin/dataTables.bootstrap.min.js"></script>
 	</body>
-</html>
+</html>ㄴ
