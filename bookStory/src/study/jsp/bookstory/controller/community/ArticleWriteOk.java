@@ -45,7 +45,7 @@ public class ArticleWriteOk extends BaseController {
 		/** (4) 텍스트 형식의 값을 추출 */
 		String subject = web.getString("subject");
 		String content = web.getString("content");
-		String user_nickname = web.getString("user_nickname");
+		String user_nickname = web.getString("user_nickname");	
 		// 작성자 아이피 주소 가져오기
 		String ip_address = web.getClientIP();
 		// 회원 일련번호 --> 비 로그인인 경우 0

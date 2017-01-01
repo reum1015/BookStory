@@ -20,7 +20,7 @@
 	<!-- 메인 화면 시작 -->
 	
 		<div class="container mid">
-			<div class="container login_form">
+			<div class="login_form">
 				<form role="form" method="post" action="${pageContext.request.contextPath}/login/login_ok.do">
 					<fieldset>
 						<legend>로그인</legend>
@@ -43,7 +43,7 @@
 						<br>
 					<input type="hidden" value="${book_id}" name="book_id">
 						
-					<div class="container login_button" style="text-align: center;">					
+					<div class="login_button" style="text-align: center; width: 100%;">					
 						<ol class="list-inline">
 							<li><a href="${pageContext.request.contextPath}/login/forget_id.do">아이디찾기  /</a></li>
 							<li><a href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기  /</a></li>

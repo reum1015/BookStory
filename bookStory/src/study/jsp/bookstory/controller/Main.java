@@ -25,6 +25,7 @@ import study.jsp.helper.CommonUtils;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
+
 public class Main extends BaseController{
 	private static final long serialVersionUID = 3971889981166604106L;
 	
@@ -50,7 +51,7 @@ public class Main extends BaseController{
 		upload = UploadHelper.getInstance();
 		commonUtils = CommonUtils.getInstance();
 		
-		
+		web.redirect(web.getRootPath() + "/index.do", null);
 		
 		
 		return null;

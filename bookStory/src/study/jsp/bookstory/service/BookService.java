@@ -129,5 +129,25 @@ public interface BookService {
 	 */
 	public void updateBookHit(Book book)throws Exception;
 	
+	/**
+	 * 장르별 List
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectListByGenre(Book book)throws Exception;
+	
+	
+	/**
+	 *  연령대 별 순위
+	 * @param book
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Book> selectRankListByAge(int age)throws Exception;
+
+	
+	
+	
 	
 }

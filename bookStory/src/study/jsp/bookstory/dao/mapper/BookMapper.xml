@@ -87,6 +87,34 @@
 		limit 0,4;
 	</select>
 	
+	<!-- 장르별 List-->
+	<select id="selectListByGenre" resultMap="book">
+	SELECT id, book_name, book_author, daily_date, genre, total_hit,intro,total_star,total_favorite,
+		(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
+		ORDER BY id ASC LIMIT 0, 1) as imagePath,
+		(SELECT COUNT(id) FROM episode WHERE book.id=book_id) AS totalEpisodeCount
+		FROM book 
+		WHERE genre=#{genre}
+		ORDER BY
+	<choose>
+		<when test="order == 'title'">
+			book_name
+		</when>
+		<when test="order == 'star'">
+			total_star DESC
+		</when>
+		<when test="order == 'like'">
+			total_favorite DESC
+		</when>
+		<when test="order == 'read'">
+			total_hit DESC
+		</when>
+		<otherwise>
+			total_hit
+		</otherwise>
+	</choose>
+	</select>
+	
 	
 	
 	<!-- 관심등록 회원 수 +1 -->
@@ -174,5 +202,20 @@
 	<update id="updateBookHit" parameterType="study.jsp.bookstory.model.Book">
 		UPDATE book SET total_hit=total_hit+1 WHERE id=#{id}
 	</update>
+	
+	<!-- 연령대 별 랭킹(메인) -->
+	<select id="selectRankListByAge" parameterType="int" resultMap="book">
+		SELECT id,book_name,genre FROM book
+		WHERE id in(
+		SELECT book_id FROM favorite
+					WHERE if(date_format(now(),'%Y')-substring(birthdate,1,4)between #{age} and (#{age}+9),1,0)
+					GROUP BY book_id
+					ORDER BY count(book_id) DESC
+		)
+		limit 0,9;
+	</select>
+	
+	
+	
 	
 </mapper>

@@ -194,7 +194,7 @@ body, html{height: 100%;}
 		
 		.main_thumbbox:hover{
 			border-radius: 0;
-			border : 1px solid #00BFFF;
+			border : 1px solid #CD8F49;
 			text-decoration: none;
 		}
 		
@@ -286,7 +286,7 @@ body, html{height: 100%;}
 			}
 			/* 제목*/
 			.list_info .subj{
-				font-size: 16px;
+				font-size: 19px;
 				vertical-align: top;
 				white-space : nowrap;
 				overflow: hidden;

@@ -353,4 +353,32 @@ public class BookServiceImpl implements BookService{
 		}
 		
 	}
+
+	@Override
+	public List<Book> selectListByGenre(Book book) throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectListByGenre",book);
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("장르별 작품 리스트 불러오기 실패했습니다.");
+			
+		}
+		return bookList;
+	}
+
+	@Override
+	public List<Book> selectRankListByAge(int age) throws Exception {
+		// TODO Auto-generated method stub
+		List<Book> bookList = null;
+		try{
+			bookList = sqlSession.selectList("BookMapper.selectRankListByAge",age);
+		}catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("연령대별 순위 리스트 불러오기 실패했습니다.");
+			
+		}
+		return bookList;
+	}
 }

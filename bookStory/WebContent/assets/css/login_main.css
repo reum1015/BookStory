@@ -41,6 +41,7 @@ a:HOVER {
 	border: 1px solid #DCDCDC;
 }
 
+
 /*---------------------------header(메인 헤더) area----------------------------*/
 /*메인 헤더영역*/
 .main_header {
@@ -146,21 +147,40 @@ body{
 }
 
 
+@media (min-width: 992px){
+
+	
+.login_form {
+    width: 80%; !imporant;
+	}
+.login_forms {
+    width: 80%; !imporant;
+	}
+}
+@media (min-width: 1200px){
+
+.login_form {
+    width: 80% !important;
+	}
+.login_forms {
+    width: 80% !important;
+	}
+}
 .login_form {
 	background: #F5F5F5;
 	hegith: 100%;
-	width: 60%;
+	width: 100%;
 	margin: auto;
-	padding-top: 100px;
+	padding-top: 150px;
 	padding-bottom: 10px;
 }
 
 .login_forms {
 	background: #F5F5F5;
 	hegith: 100%;
-	width: 60%;
+	width: 100%;
 	margin: auto;
-	padding-top: 30px;
+	padding-top: 100px;
 	padding-bottom: 10px;
 }
 

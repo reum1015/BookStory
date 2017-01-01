@@ -38,6 +38,14 @@ body .content{
 	
 }
 
+.episode_list{
+	margin-top: 20px;
+}
+.episode_list > :FIRST-CHILD .block_12_2{
+	    border-top: solid 1px #CCC;
+}
+
+
 
 .stargrade{
 	
@@ -127,12 +135,30 @@ body .content{
 
 .block_12_2{
 	border-bottom: solid 1px #CCC;
+	border-left: solid 1px #CCC;
+	border-right: solid 1px #CCC;
+	padding: 0;
+}
+
+.block_12_2   img{
+	padding-left: 0px;
 }
 
 .episode_size{
 	margin-top: 20px;
 	font-size: large;
 	font-style: black;
+}
+
+/* 에피소드 정보 */
+.epi_info{
+	    margin-top: 25px;
+}
+
+.episode_list >a:HOVER{
+
+color:  #CD8F49;
+
 }
 
 .score_area{

@@ -69,6 +69,28 @@
 				
 				 }); 
 				 
+				 /* 메인 연령대 랭킹 탭 */
+				 
+				 $('#age_tab a').on('shown.bs.tab',function(e){
+					 //data - age 속성값 취득
+					 var current_age = $(this).data("age");
+					 
+					 console.log(current_age);
+					 
+					 //Ajax요청을 통한 나이대별 순위(관심 등록순)
+					 $.get('${pageContext.request.contextPath}/main/ageRankList.do',{age:current_age},
+							 function (data) {
+								var aa = data.age;
+								
+								var template = Handlebars.compile($("#age-rank-template").html());
+								var html = template(data);
+								$("#age_rank").empty().append(html);
+							});
+					 
+				 });
+				 
+				 $('#age_tab a:eq(0)').tab('show');
+				 
 				 function jenreTextChange(e){
 					 var genre = e;
 					 
@@ -366,48 +388,41 @@
 				
 			</div>
 			<!-------- 연령별 선호작  ---------->
-			<div
-				class="col-xs-12 col-sm-4 text-center section_area list_rank box">
+			<div class="col-xs-12 col-sm-4 text-center section_area list_rank box">
 				<h4 class="text-left">연령별 선호작품</h4>
 				<div class="row empty_box_rank"></div>
 
 				<!-- tab-x -->
 				<div id="btn-group-justified">
-					<ul class="nav nav-tabs nav-justified">
-						<li class="active"><a data-toggle="tab" href="#home">10대</a></li>
-						<li><a data-toggle="tab" href="#menu1">20대</a></li>
-						<li><a data-toggle="tab" href="#menu2">30대</a></li>
-						<li><a data-toggle="tab" href="#menu3">40대</a></li>
+					<ul class="nav nav-tabs nav-justified" id="age_tab">
+						<li><a data-toggle="tab" href="#age_rank" data-age="10">10대</a></li>
+						<li><a data-toggle="tab" href="#age_rank" data-age="20">20대</a></li>
+						<li><a data-toggle="tab" href="#age_rank" data-age="30">30대</a></li>
+						<li><a data-toggle="tab" href="#age_rank" data-age="40">40대</a></li>
 					</ul>
 
 					<div class="tab-content total_ranking_tab">
-						<div id="home" class="tab-pane fade in active">
-							<ul class="list-group listgroup_rank">
-								<li class="list-group-item"><a href="#">공사중.....</a></li>
+						
+						<div class="tab-pane fade in active" role="tabpanel" >
+							<ul class="list-group listgroup_rank" id="age_rank">
+							
 							</ul>
 						</div>
-						<div id="menu1" class="tab-pane fade">
-							<ul class="list-group listgroup_rank">
-								<li class="list-group-item"><a href="#">공사중.....</a></li>
-							</ul>
-						</div>
-						<div id="menu2" class="tab-pane fade">
-							<ul class="list-group listgroup_rank">
-								<li class="list-group-item"><a href="#">공사중.....</a></li>
-							</ul>
-						</div>
-						<div id="menu3" class="tab-pane fade">
-							<ul class="list-group listgroup_rank">
-								<li class="list-group-item"><a href="#">공사중.....</a></li>
-								
-							</ul>
-						</div>
+						
+						
 					</div>
+					
+					
 				</div>
-
-
-				<!-- //tab-x end -->
-
+					<!-- 메인 연령대 순위 리스트 동적으로 생성될 화면 -->	
+					<script id="age-rank-template" type="text/x-handlebars-template">
+						{{#mainAgeList}}
+							<li class="list-group-item"><a href="${pageContext.request.contextPath}/booklist/book_list.do?book_id={{id}}">
+							[{{genre}}] {{book_name}}</a>
+							</li>
+						{{/mainAgeList}}
+					</script>
+	
 			</div>
 			<!-- 연령별 선호작 끝 -->
 
@@ -417,8 +432,11 @@
 	</div>
 	<!-- 메인 섹션 끝 -->
 
-	<!-- footer include -->
 
+
+
+
+	<!-- footer include -->
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 
 </body>
