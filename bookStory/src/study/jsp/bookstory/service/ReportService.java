@@ -3,9 +3,15 @@ package study.jsp.bookstory.service;
 import java.util.List;
 
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.BookMark;
+import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Comment;
+import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.RecentEpisode;
+import study.jsp.bookstory.model.Rent;
 import study.jsp.bookstory.model.Report;
+import study.jsp.bookstory.model.StarMark;
 
 public interface ReportService {
 	
@@ -65,15 +71,38 @@ public interface ReportService {
 	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어
 	// 회원가입된 회원들의 리스트를 출력한다.
 	public List<Member> selectMemberList(Member member) throws Exception;
+	
+	// 회원을 강제 삭제 시키기전 특정회원을 다른 테이블에 대한 관계를 전부 끊어주기.
+	public int selectAdminCountArticle(Article article) throws Exception;
+	public void updateAdminArticle(Article Article) throws Exception;
+	public int selectAdminCountCommment(Comment comment) throws Exception;
+	public void updateAdminComment(Comment comment) throws Exception;
+	public int selectAdminCountBuy(Buy buy)throws Exception;
+	public void deleteAdminBuy(Buy buy) throws Exception;
+	public int selectAdminCountRent(Rent rent) throws Exception;
+	public void deleteAdminRent(Rent rent) throws Exception;
+	public int selectAdminCountReport(Report report) throws Exception;
+	public void deleteAdminReport(Report report) throws Exception;
+	public int selectAdminCountRecentEpisode(RecentEpisode recentEpisode) throws Exception;
+	public void deleteAdminRecentEpisode(RecentEpisode recentEpisode) throws Exception;
+	public int selectAdminCountFavorite(Favorite favorite) throws Exception;
+	public void deleteAdminFavorite(Favorite favorite) throws Exception;
+	public int selectAdminCountBookMark(BookMark bookMark) throws Exception;
+	public void deleteAdminBookMark(BookMark bookMark) throws Exception;
+	public int selectAdminCountStarMark(StarMark starMark) throws Exception;
+	public void deleteAdminStarMark(StarMark starMark) throws Exception;
+	// 회원을 강제 삭제 시키기전 특정회원을 다른 테이블에 대한 관계를 전부 끊어주기 끝.
 	// 회원을 강제 삭제한다.
 	public void deleteMemberId(Member member) throws Exception;
 	//----------------------------------------------------회원 강제 탈퇴 시키기위한 서비스 레이어 끝
 	
+	
+	
 	//----------------------------------------------------공지사항 업로드
 	public void insertNoticeArticle(Article article) throws Exception;
-	
-	
 	//----------------------------------------------------공지사항 업로드 끝
+	
+	
 	
 	//----------------------------------------------------덧글 서비스 레이어 시작
 	// 덧글을 report테이블에 저장하기

@@ -16,7 +16,16 @@ import org.apache.logging.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.BookMark;
+import study.jsp.bookstory.model.Buy;
+import study.jsp.bookstory.model.Comment;
+import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.RecentEpisode;
+import study.jsp.bookstory.model.Rent;
+import study.jsp.bookstory.model.Report;
+import study.jsp.bookstory.model.StarMark;
 import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
@@ -51,12 +60,84 @@ public class AdminMemberDeleteOk extends BaseController {
 		
 		logger.debug("memberId + " + memberId);
 		
+		int articleNull = 0;
+		int commentNull = 0;
+		int buyNull = 0;
+		int rentNull = 0;
+		int reportNull = 0;
+		int recentepisodeNull = 0;
+		int favoriteNull = 0;
+		int bookmarkNull = 0;
+		int starmarkNull = 0;
 		
+		Article article = new Article();
+		article.setMember_id(memberId);
+		
+		Comment comment = new Comment();
+		comment.setMember_id(memberId);
+		
+		Buy buy = new Buy();
+		buy.setMember_id(memberId);
+		
+		Rent rent = new Rent();
+		rent.setMember_id(memberId);
+		
+		Report report = new Report();
+		report.setMember_id(memberId);
+		report.setTarget_member_id(memberId);
+		
+		RecentEpisode recentEpisode = new RecentEpisode();
+		recentEpisode.setMember_id(memberId);
+		
+		Favorite favorite = new Favorite();
+		favorite.setMember_id(memberId);
+		
+		BookMark bookMark = new BookMark();
+		bookMark.setMember_id(memberId);
+		
+		StarMark starMark = new StarMark();
+		starMark.setMember_id(memberId);
 		
 		Member member = new Member();
 		member.setId(memberId);
 		
 		try{
+			articleNull = reportService.selectAdminCountArticle(article);
+			if(articleNull > 0) {
+				reportService.updateAdminArticle(article);
+			}
+			commentNull = reportService.selectAdminCountCommment(comment);
+			if(commentNull > 0) {
+				reportService.updateAdminComment(comment);
+			}
+			buyNull = reportService.selectAdminCountBuy(buy);
+			if(buyNull > 0) {
+				reportService.deleteAdminBuy(buy);
+			}
+			rentNull = reportService.selectAdminCountRent(rent);
+			if(rentNull > 0) {
+				reportService.deleteAdminRent(rent);
+			}
+			reportNull = reportService.selectAdminCountReport(report);
+			if(reportNull > 0) {
+				reportService.deleteAdminReport(report);
+			}
+			recentepisodeNull = reportService.selectAdminCountRecentEpisode(recentEpisode);
+			if(recentepisodeNull > 0) {
+				reportService.deleteAdminRecentEpisode(recentEpisode);
+			}
+			favoriteNull = reportService.selectAdminCountFavorite(favorite);
+			if(favoriteNull > 0) {
+				reportService.deleteAdminFavorite(favorite);
+			}
+			bookmarkNull = reportService.selectAdminCountBookMark(bookMark);
+			if(bookmarkNull > 0) {
+				reportService.deleteAdminBookMark(bookMark);
+			}
+			starmarkNull = reportService.selectAdminCountStarMark(starMark);
+			if(starmarkNull > 0) {
+				reportService.deleteAdminStarMark(starMark);
+			}
 			reportService.deleteMemberId(member);
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());

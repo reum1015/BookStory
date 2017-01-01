@@ -34,6 +34,7 @@
 					$.post('${pageContext.request.contextPath}/admin/admin_member_delete_Ok.do',
 							{memberId : memberId.val()},
 							function(data){
+								
 								var member_id = data.memberId;
 								
 					});

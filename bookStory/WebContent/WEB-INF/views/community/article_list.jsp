@@ -74,14 +74,14 @@ $(function() {
 						<c:forEach var="article" items="${articleList}">
 							<c:if test="${article.category == 'notice'}">
 								<tr id="notice">
-									<td class="text-center" id="notice">${article.id}</td>
-									<td class="text-center" id="notice"><c:url var="readUrl"
+									<td class="text-center">${article.id}</td>
+									<td class="text-center"><c:url var="readUrl"
 											value="/community/article_read.do">
 											<c:param name="article_id" value="${article.id}" />
 										</c:url> <a href="${readUrl}">${article.subject}</a></td>
-									<td class="text-center" id="notice">${article.user_nickname}</td>
-									<td class="text-center" id="notice">${article.hit}</td>
-									<td class="text-center" id="notice">${article.reg_date}</td>
+									<td class="text-center">${article.user_nickname}</td>
+									<td class="text-center">${article.hit}</td>
+									<td class="text-center">${article.reg_date}</td>
 								</tr>
 							</c:if>
 						</c:forEach>

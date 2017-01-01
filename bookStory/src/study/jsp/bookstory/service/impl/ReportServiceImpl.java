@@ -6,9 +6,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.model.Article;
+import study.jsp.bookstory.model.BookMark;
+import study.jsp.bookstory.model.Buy;
 import study.jsp.bookstory.model.Comment;
+import study.jsp.bookstory.model.Favorite;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.RecentEpisode;
+import study.jsp.bookstory.model.Rent;
 import study.jsp.bookstory.model.Report;
+import study.jsp.bookstory.model.StarMark;
 import study.jsp.bookstory.service.ReportService;
 
 public class ReportServiceImpl implements ReportService{
@@ -387,6 +393,318 @@ public class ReportServiceImpl implements ReportService{
 		return result;
 	}
 	
+	//-----------------------------------------------------회원을 강제 삭제하기 위한 사전 작업
+	
+
+	@Override
+	public int selectAdminCountArticle(Article article) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("ArticleMapper.selectAdminCountArticle", article);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 게시물의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateAdminArticle(Article article) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("ArticleMapper.updateAdminArticle", article);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 수정하기위한 게시물이 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 게시물 수정 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountCommment(Comment comment) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("CommentMapper.selectAdminCountComment", comment);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 덧글의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateAdminComment(Comment comment) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("CommentMapper.updateAdminComment", comment);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 수정하기위한 덧글이 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 덧글 수정 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountBuy(Buy buy) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("BuyMapper.selectAdminCountBuy", buy);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 Buy의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminBuy(Buy buy) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("BuyMapper.deleteBuyAll", buy);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 Buy가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 Buy를 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountRent(Rent rent) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("RentMapper.selectRentCount", rent);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 Rent의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminRent(Rent rent) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("RentMapper.deleteRentAll", rent);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 Rent가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 Rent를 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountReport(Report report) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("ReportMapper.selectAdminCountReport", report);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 Report의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminReport(Report report) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("ReportMapper.deleteAdminMemberReport", report);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 Report가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 Report를 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+		
+	}
+
+	@Override
+	public int selectAdminCountRecentEpisode(RecentEpisode recentEpisode) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("RecentEpisodeMapper.selectAdminCountRecentEpisode", recentEpisode);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 RecentEpisode의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminRecentEpisode(RecentEpisode recentEpisode) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("RecentEpisodeMapper.deleteRecentEpisodeAll", recentEpisode);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 RecentEpisode가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 RecentEpisode를 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountFavorite(Favorite favorite) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("FavoriteMapper.selectFavoriteCount", favorite);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 Favorite의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminFavorite(Favorite favorite) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("FavoriteMapper.deleteFavoriteAll", favorite);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 Favorite가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 Favorite을 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountBookMark(BookMark bookMark) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("BookMarkMapper.selectBookMarkCount", bookMark);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 BookMark의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminBookMark(BookMark bookMark) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("BookMarkMapper.deleteBookMarkAll", bookMark);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 BookMark가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 BookMark을 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+
+	@Override
+	public int selectAdminCountStarMark(StarMark starMark) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("StarMarkMapper.selectCountAddStarById", starMark);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("특정 회원의 StarMark의 count조회가 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteAdminStarMark(StarMark starMark) throws Exception {
+		int result = 0;
+		try{
+			result = sqlSession.update("StarMarkMapper.deleteStarMarkAll", starMark);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("특정회원을 삭제하기위한 StarMark가 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("특정 회원의 StarMark을 삭제하기 위한 SQL문의 에러입니다."); 
+		}
+			sqlSession.commit();
+	}
+	
+	//-----------------------------------------------------회원을 강제 삭제하기 위한 사전 작업 끝
+	
 	@Override
 	public void deleteMemberId(Member member) throws Exception {
 		int result;
@@ -405,6 +723,7 @@ public class ReportServiceImpl implements ReportService{
 			sqlSession.commit();
 		}
 	}
+
 	
 	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
 }

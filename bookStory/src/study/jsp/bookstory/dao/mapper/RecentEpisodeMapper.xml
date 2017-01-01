@@ -73,4 +73,10 @@
 	<select id="selectRecentEpisodeIsCount" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
 	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id} AND episode_id=#{episode_id}
 	</select>
+	
+	<!-- 회원 강제 삭제를 위한 recentEpisode에 대한 외래키 참조확인 -->
+	<select id="selectAdminCountRecentEpisode" parameterType="study.jsp.bookstory.model.RecentEpisode" resultType="int">
+	SELECT COUNT(id) FROM recentepisode WHERE member_id =#{member_id}
+	</select>
+	
 </mapper>

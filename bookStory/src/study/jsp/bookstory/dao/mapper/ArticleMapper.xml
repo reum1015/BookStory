@@ -161,11 +161,15 @@
 	  )
 	</insert>
 	
-	<!-- 공지사항 게시글 삭제하기
-	<delete id="deleteNoticeArticle" parameterType="study.jsp.bookstory.model.Article">
-		DELETE FROM article WHERE id=#{id} and category=#{notice}
-	</delete> -->
+	<!-- 관리자가 회원 탈퇴 시키기위한 sql문 -->
+	<!-- 탈퇴시키기위한 회원의 게시물이 존재하는지에 대한 쿼리문 -->
+	<select id="selectAdminCountArticle" parameterType="study.jsp.bookstory.model.Article" resultType="int">
+	SELECT count(id) FROM article WHERE member_id=#{member_id}
+	</select>
 	
-	<!-- 공지사항 글 올리기 위한 mapper 끝 -->
+	<update id="updateAdminArticle" parameterType="study.jsp.bookstory.model.Article">
+	 UPDATE article SET member_id=NULL WHERE member_id=#{member_id}
+	</update>
+	<!-- 관리자가 회원 탈퇴 시키기위한 sql문 끝-->
 	
 </mapper>

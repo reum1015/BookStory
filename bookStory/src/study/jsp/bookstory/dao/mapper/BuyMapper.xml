@@ -61,5 +61,10 @@
 	<select id="selectCountAllBuyEpisode" parameterType="study.jsp.bookstory.model.Buy" resultType="int">		
  		SELECT COUNT(id) FROM buy WHERE member_id=#{member_id} AND book_id=#{book_id}
  	</select>
+ 	
+ 	<!-- 회원 강제삭제를 위한 구매 내역 조회 -->
+ 	<select id="selectAdminCountBuy" parameterType="study.jsp.bookstory.model.Buy" resultType="int">		
+ 		SELECT COUNT(id) FROM buy WHERE member_id=#{member_id}
+ 	</select>
 	
 </mapper>

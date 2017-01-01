@@ -15,8 +15,7 @@
 	</div>
 	<div class="modal-body">
 
-		<div class="alert alert-danger">
-			<span class="glyphicon glyphicon-warning-sign"></span>${nick_name}님 을 강제로
+		<div class="alert alert-danger">${nick_name}님 을 강제로
 			탈퇴시키겠습니까?
 		</div>
 
