@@ -25,6 +25,7 @@
 		<result property="total_favorite" column="total_favorite"/>
 		<result property="total_star" column="total_star"/>
 		<result property="imagePath" column="imagePath"/>
+		<result property="imagePathCarousel" column="imagePathCarousel"/>
 		<result property="totalEpisodeCount" column="totalEpisodeCount"/>
 		<result property="order" column="order"/>
 	</resultMap>
@@ -35,7 +36,9 @@
 	<select id="selectOneBookItem" parameterType="study.jsp.bookstory.model.Book" resultMap="book">
 	SELECT id,book_name, book_author, daily_date, intro, genre, total_point, 
 			rent_point, book_end, total_favorite, total_star, (SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='main'
-			ORDER BY id ASC LIMIT 0, 1) AS imagePath
+			ORDER BY id ASC LIMIT 0, 1) AS imagePath,
+			(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE book_id=book.id AND content_type LIKE ('image/%') AND image_type='carousel'
+			ORDER BY id ASC LIMIT 0, 1) AS imagePathCarousel
 	FROM book
 	WHERE id = #{id}
 	</select>

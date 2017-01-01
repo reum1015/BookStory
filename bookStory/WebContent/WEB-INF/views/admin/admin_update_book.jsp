@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang='ko'>
 	<head>
@@ -153,20 +155,22 @@
     		
 	    	<!-- 어드민 컨텐트 영역 -->
 			<div class="col-md-10 admin_content">
+			
+			
 	    		
 			
-				<h1 class="page-header" id="upload_title">작품업로드</h1>
+				<h1 class="page-header" id="upload_title">작품 수정</h1>
 			
 			
 			<!-- 신규작품 Article Upload 폼 시작 -->
 			<form class="form-horizontal new_upload" enctype="multipart/form-data" 
 			action="${pageContext.request.contextPath}/admin/novel_upload_ok.do" id="novel_upload" method="post">
 				<fieldset>
-					<legend>신규작품</legend>
+					<legend>작품 수정</legend>
 				<div class="form-group">
-					<label class="control-label col-xs-2" for="book_author">작가명 </label>
+					<label class="control-label col-xs-2" for="book_author">작가명</label>
 					<div class="col-xs-10">
-						<input type="text" class="form-control" id="book_author" name="book_author" placeholder="작가명을 입력해 주세요">
+						<input type="text" class="form-control" id="book_author" name="book_author" value="${bookItem.book_author}">
 					</div>
 				</div>
 							
@@ -175,27 +179,27 @@
 			
 						<label for="genre" class="control-label col-xs-2">장르선택</label>
 						<div class="col-xs-4 ">							
-								<select class="form-control" id="genre" name="genre" >
+							<select class="form-control" id="genre" name="genre" >
 								<option value="">-----장르 선택-----</option>
-								<option value="Romance">로맨스</option>
-								<option value="SF&Fantasy">SF&amp;판타지</option>
-								<option value="Heroism">무협</option>
-								<option value="Mystery">미스테리</option>
-								<option value="Fusion">퓨전</option>
+								<option value="Romance" <c:if test="${bookItem.genre == 'Romance'}"> selected </c:if>>로맨스</option>
+								<option value="SF&Fantasy" <c:if test="${bookItem.genre == 'SF&Fantasy'}"> selected </c:if>>SF&amp;판타지</option>
+								<option value="Heroism" <c:if test="${bookItem.genre == 'Heroism'}"> selected </c:if>>무협</option>
+								<option value="Mystery" <c:if test="${bookItem.genre == 'Mystery'}"> selected </c:if>>미스테리</option>
+								<option value="Fusion" <c:if test="${bookItem.genre == 'Fusion'}"> selected </c:if>>퓨전</option>
 							</select>
 						</div>
 						
 						<label for="dayby" class="control-label col-xs-2">요일선택</label>
 						<div class="col-xs-4 ">							
-								<select class="form-control" id="daily_date" name="daily_date">
+							<select class="form-control" id="daily_date" name="daily_date">
 								<option value="">-----요일 선택-----</option>
-								<option value="MON">월요일</option>
-								<option value="THE">화요일</option>
-								<option value="WEN">수요일</option>
-								<option value="THU">목요일</option>
-								<option value="FRI">금요일</option>
-								<option value="SAT">토요일</option>
-								<option value="SUN">일요일</option>							
+								<option value="MON" <c:if test="${bookItem.daily_date == 'MON'}"> selected </c:if>>월요일</option>
+								<option value="THE" <c:if test="${bookItem.daily_date == 'THE'}"> selected </c:if>>화요일</option>
+								<option value="WEN" <c:if test="${bookItem.daily_date == 'WEN'}"> selected </c:if>>수요일</option>
+								<option value="THU" <c:if test="${bookItem.daily_date == 'THU'}"> selected </c:if>>목요일</option>
+								<option value="FRI" <c:if test="${bookItem.daily_date == 'FRI'}"> selected </c:if>>금요일</option>
+								<option value="SAT" <c:if test="${bookItem.daily_date == 'SAT'}"> selected </c:if>>토요일</option>
+								<option value="SUN" <c:if test="${bookItem.daily_date == 'SUN'}"> selected </c:if>>일요일</option>
 							</select>
 						</div>
 				</div>
@@ -204,7 +208,7 @@
 				<div class="form-group">
 					<label class="control-label col-xs-2" for="book_name">작품 제목 </label>
 					<div class="col-xs-10">
-						<input type="text" class="form-control" id="book_name" name="book_name" placeholder="작품 제목을 입렵해 주세요 ">
+						<input type="text" class="form-control" id="book_name" name="book_name" value="${bookItem.book_name}">
 					</div>
 				</div>
 				
@@ -212,7 +216,9 @@
 				<div class="form-group">
 					<label class="control-label col-xs-2" for="intro">시놉시스</label>
 					<div class="col-xs-10">
-						<textarea class="ckeditor form-control" rows="3" id="intro" name="intro"></textarea>
+						<textarea class="ckeditor form-control" rows="3" id="intro" name="intro">
+							${bookItem.intro}
+						</textarea>
 					</div>
 				</div>
 				
@@ -225,6 +231,22 @@
 					<img id="carousel_img" src="#" alt="your image" style="width: 100%; display: none;"/>
 				</div>
 			</div>
+			
+			<!-- 이미지 캐러셀 -->
+			<div class="form-group">
+					<div class="col-xs-10 col-xs-offset-2">
+						<c:url var="image_url" value="/download.do">
+							<c:param name="file" value="${bookItem.imagePathCarousel}" />
+						</c:url>
+						
+						<p>
+							<img src="${image_url}" alt="${bookItem.book_name}" style="width: 1159px; height: 367px;"/>
+						
+						</p>
+					
+					</div>
+			</div>
+			
 			<!-- 파일 업로드 -->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
@@ -239,7 +261,7 @@
 				
 				    <div class="form-group">
 			      <div class="col-xs-offset-2 col-xs-10">
-			        <button type="submit" class="btn btn-success">작품 등록</button>
+			        <button type="submit" class="btn btn-success">작품 수정</button>
 			        <button type="button" class="btn btn-danger" onclick="history.back();">
 					작성취소</button> 
 			      </div>

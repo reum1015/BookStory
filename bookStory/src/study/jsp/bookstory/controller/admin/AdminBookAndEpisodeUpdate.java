@@ -42,7 +42,7 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String view = "admin/admin_bookAndEpisodeUpdate";
+		String view = "";
 		
 		/** (2)사용하고자 하는 Helper + Serive 객체 선언*/
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
@@ -74,6 +74,8 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 			
 			try{
 				bookItem = bookService.selectOneBookItem(bookParam);
+				
+				view = "admin/admin_update_book";
 			}catch (Exception e) {
 				// TODO: handle exception
 				web.redirect(null, e.getLocalizedMessage());
@@ -87,6 +89,7 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 			
 			try{
 				epiItem = episodeService.selectOneEpisodeItem(epiParam);
+				view = "admin/admin_update_episode";
 			}catch (Exception e) {
 				// TODO: handle exception
 				web.redirect(null, e.getLocalizedMessage());
