@@ -14,29 +14,35 @@
 	href="${pageContext.request.contextPath}/assets/css/admin/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/naviStateColor/adminCommon.css" />
-
+<!-- ajaxForm -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 <script type="text/javascript">
 			$(document).ready(function() {
 			    $('#example').DataTable();
 			} );
 
+			/** 모든 모달창의 캐시방지 처리 */
 			$(function(){
 				$('.modal').on("hidden.bs.modal", function(e){
-					$(this).removeDate('bs.modal');
+					$(this).removeData('bs.modal');
 				});
+			/** 모든 모달창의 캐시방지 처리 끝 */
 				
-				
-				$(document).on('submit',"#comment_delete_form", function(e){
+				$(document).on('submit',"#member_delete_form", function(e){
 					e.preventDefault();
 					
-					var memberId = $(this).find("#memberId");
-					
-					$.post('${pageContext.request.contextPath}/admin/admin_member_delete_Ok.do',
-							{memberId : memberId.val()},
-							function(data){
-								
-								var member_id = data.memberId;
-								
+					$(this).ajaxSubmit(function(json) {
+						if(json.rt != "OK") {
+							alert(json.rt);
+							return false;
+						}
+						
+						alert("삭제되었습니다.");
+						// modal 강제로 닫기
+						$("#myModal").modal('hide');
+						
+						var member_id = json.memberId;
+						$("#member_id" + member_id).remove();
 					});
 					
 				});
