@@ -227,6 +227,15 @@
 	</select>
 	
 	
+	<!-- 작품 수정 -->
+	<update id="updateBook" parameterType="study.jsp.bookstory.model.Book">
+	UPDATE book SET
+		book_name=#{book_name}, book_author=#{book_author}, genre=#{genre}, daily_date=#{daily_date},
+		intro=#{intro}
+	WHERE id=#{id}
+	</update>
+	
+	
 	
 	
 </mapper>

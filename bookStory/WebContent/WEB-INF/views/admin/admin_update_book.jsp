@@ -62,6 +62,8 @@
 			});
 			
 			
+			
+			
 			 $("#carousel").change(function(){
 			        readURL(this);
 			        var carousel_value = document.getElementById('carousel').value
@@ -101,7 +103,6 @@
 			            	$('#main_img').css('display','block')
 			                $('#main_img').attr('src', e.target.result);
 			            }
-			            
 			            reader.readAsDataURL(input.files[0]);
 			        }
 			    }
@@ -164,9 +165,10 @@
 			
 			<!-- 신규작품 Article Upload 폼 시작 -->
 			<form class="form-horizontal new_upload" enctype="multipart/form-data" 
-			action="${pageContext.request.contextPath}/admin/novel_upload_ok.do" id="novel_upload" method="post">
+			action="${pageContext.request.contextPath}/admin/bookUpdate_ok.do" id="novel_upload" method="post">
 				<fieldset>
 					<legend>작품 수정</legend>
+					<input type="hidden" value="${bookItem.id}" name="book_id" id="book_id">
 				<div class="form-group">
 					<label class="control-label col-xs-2" for="book_author">작가명</label>
 					<div class="col-xs-10">
@@ -227,8 +229,8 @@
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="carousel" id="carousel" multiple/>
-					<img id="carousel_img" src="#" alt="your image" style="width: 100%; display: none;"/>
+					<input type="file" class="form-control" name="carousel" id="carousel" multiple value="${bookItem.imagePathCarousel}"/>
+					<img src="#" alt="your image" style="width: 100%; display: none;"/>
 				</div>
 			</div>
 			
@@ -238,12 +240,14 @@
 						<c:url var="image_url" value="/download.do">
 							<c:param name="file" value="${bookItem.imagePathCarousel}" />
 						</c:url>
-						
 						<p>
-							<img src="${image_url}" alt="${bookItem.book_name}" style="width: 1159px; height: 367px;"/>
-						
+							<img src="${image_url}" alt="${bookItem.book_name}" style="width: 100%; height: 367px;"  id="carousel_img"/>
+							
+							<label class="checkbox-inline">
+								<input type="checkbox" name="img_del1" id="img_del1" value="Y"/>
+								이미지 삭제
+							</label>
 						</p>
-					
 					</div>
 			</div>
 			
@@ -251,14 +255,46 @@
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="main" id="main" multiple/>
-					<img id="main_img" src="#" alt="your image" style="width: 320px; height: 220px; display: none;"/>
+					<input type="file" class="form-control" name="main" id="main" multiple value="${bookItem.imagePath}"/>
+					<img  src="#" alt="your image" style="width: 320px; height: 220px; display: none;"/>
 				</div>
 			</div>
 			
-				<!-- 작가 코멘트 -->
+						<!-- 이미지 캐러셀 -->
+			<div class="form-group">
+					<div class="col-xs-10 col-xs-offset-2">
+						<c:url var="image_url" value="/download.do">
+							<c:param name="file" value="${bookItem.imagePath}" />
+						</c:url>
+						
+						<p>
+							<img src="${image_url}" alt="${bookItem.book_name}" id="main_img"/>
+							
+							<label class="checkbox-inline" style="display: block;">
+								<input type="checkbox" name="img_del2" id="img_del2" value="Y"/>
+								이미지 삭제
+							</label>
+						</p>
+						
 
-				
+					</div>
+			</div>
+			<script type="text/javascript">
+							$(function(){
+								//이미지가 등록된 상태이므로, 파일의 신규 등록을 방지
+								$("#carousel").prop("disabled",true);
+								$("#img_del1").change(function(){
+									$("#carousel").prop("disabled",!$(this).is(":checked"));
+								});
+								
+								$("#main").prop("disabled",true);
+								$("#img_del2").change(function(){
+									$("#main").prop("disabled",!$(this).is(":checked"));
+								});
+							});
+						</script>
+			
+			
 				    <div class="form-group">
 			      <div class="col-xs-offset-2 col-xs-10">
 			        <button type="submit" class="btn btn-success">작품 수정</button>
