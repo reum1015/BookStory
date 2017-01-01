@@ -122,4 +122,14 @@
 	  DELETE FROM comment WHERE episode_id=#{episode_id}
 	</delete>
 	
+	<!-- 관리자가 회원 탈퇴 시키기위한 sql문 -->
+	<!-- 탈퇴시키기위한 회원의 덧글이 존재하는지에 대한 쿼리문 -->
+	<select id="selectAdminCountComment" parameterType="study.jsp.bookstory.model.Comment" resultType="int">
+	SELECT count(id) FROM comment WHERE member_id=#{member_id}
+	</select>
+	
+	<update id="updateAdminComment" parameterType="study.jsp.bookstory.model.Comment">
+	UPDATE comment SET member_id=null where member_id=#{member_id}
+	</update>
+	<!-- 관리자가 회원 탈퇴 시키기위한 sql문 끝-->
 </mapper>

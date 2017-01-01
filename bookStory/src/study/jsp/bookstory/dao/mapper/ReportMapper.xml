@@ -91,23 +91,24 @@
 	</update>
 	<!-- 관리자가 게시글 강제 삭제 하기위한 mapper 끝-->
 	
-	
-	
 	<!-- 회원을 강제 삭제한다. -->
+	<!-- 회원을 강제 삭제하기 전에 report테이블에 참조되어 있는지에 대한 검사 -->
+	<select id="selectAdminCountReport" parameterType="study.jsp.bookstory.model.Report" resultType="int">
+		SELECT count(id) FROM report WHERE member_id=#{member_id} or target_member_id=#{member_id}
+	</select>
+	
+	<!-- report테이블에 자신의 id가 하나로 참조되 있다면 관계를 끊어준다. -->
+	<delete id="deleteAdminMemberReport" parameterType="study.jsp.bookstory.model.Report">
+		DELETE FROM report WHERE member_id=#{member_id} or target_member_id=#{member_id}
+	</delete>
+	
 	<delete id="deleteMemberId" parameterType="study.jsp.bookstory.model.Member">
 		DELETE FROM member WHERE id=#{id}
 	</delete>
 	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 끝 -->
 	
-	
-	<!-- 특정 회원과의 신고 게시물 참조 해제하기 -->
-	<update id="updateReportMemberOut" parameterType="study.jsp.bookstory.model.Report">
-	  UPDATE report SET member_id=NULL WHERE member_id=#{member_id}
-	</update>
-	
-	
-	
 	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 -->
+	<!-- 덧글을 강제 삭제하기위한 사전 작업 -->
 	
 	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 끝 -->
 </mapper>
