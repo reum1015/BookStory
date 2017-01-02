@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ReportServiceImpl;
@@ -40,6 +41,14 @@ public class AdminArticleManage extends BaseController{
 		reportService = new ReportServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		
+		Member LoginInfo = (Member) web.getSession("loginInfo");
+		
+		String member_level = null;
+		
+		if(LoginInfo != null) {
+			member_level = LoginInfo.getMember_level();
+		}
+		
 		Report report = new Report();
 		
 		int page = web.getInt("page", 1);
@@ -64,6 +73,7 @@ public class AdminArticleManage extends BaseController{
 			sqlSession.close();
 		}
 		
+		request.setAttribute("member_level", member_level);
 		request.setAttribute("reportList", reportList);
 		request.setAttribute("pageHelper", pageHelper);
 		

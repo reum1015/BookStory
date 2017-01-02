@@ -38,6 +38,14 @@ public class AdminUserInfo extends BaseController{
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		reportService = new ReportServiceImpl(sqlSession, logger);
 		
+		Member LoginInfo = (Member) web.getSession("loginInfo");
+		
+		String member_level = null;
+		
+		if(LoginInfo != null) {
+			member_level = LoginInfo.getMember_level();
+		}
+		
 		List<Member> memberlist = new ArrayList<Member>();
 		
 		try{
@@ -50,6 +58,7 @@ public class AdminUserInfo extends BaseController{
 		}
 		
 		// 회원가입된 리스트 출력
+		request.setAttribute("member_level", member_level);
 		request.setAttribute("memberlist", memberlist);
 		
 		String view = "admin/admin_userInfo";

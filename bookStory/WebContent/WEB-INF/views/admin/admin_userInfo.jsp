@@ -15,160 +15,46 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/assets/css/naviStateColor/adminCommon.css" />
 <!-- ajaxForm -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/assets/js/ajax-form/jquery.form.min.js"></script>
 <script type="text/javascript">
-			$(document).ready(function() {
-			    $('#example').DataTable();
-			} );
+	$(document).ready(function() {
+		$('#example').DataTable();
+	});
 
-			/** 모든 모달창의 캐시방지 처리 */
-			$(function(){
-				$('.modal').on("hidden.bs.modal", function(e){
-					$(this).removeData('bs.modal');
-				});
-			/** 모든 모달창의 캐시방지 처리 끝 */
-				
-				$(document).on('submit',"#member_delete_form", function(e){
-					e.preventDefault();
-					
-					$(this).ajaxSubmit(function(json) {
-						if(json.rt != "OK") {
-							alert(json.rt);
-							return false;
-						}
-						
-						alert("삭제되었습니다.");
-						// modal 강제로 닫기
-						$("#myModal").modal('hide');
-						
-						var member_id = json.memberId;
-						$("#member_id" + member_id).remove();
-					});
-					
-				});
+	/** 모든 모달창의 캐시방지 처리 */
+	$(function() {
+		$('.modal').on("hidden.bs.modal", function(e) {
+			$(this).removeData('bs.modal');
+		});
+		/** 모든 모달창의 캐시방지 처리 끝 */
+
+		$(document).on('submit', "#member_delete_form", function(e) {
+			e.preventDefault();
+
+			$(this).ajaxSubmit(function(json) {
+				if (json.rt != "OK") {
+					alert(json.rt);
+					return false;
+				}
+
+				alert("삭제되었습니다.");
+				// modal 강제로 닫기
+				$("#myModal").modal('hide');
+
+				var member_id = json.memberId;
+				$("#member_id" + member_id).remove();
 			});
-			
-			
-		
-		</script>
+
+		});
+	});
+</script>
 </head>
 <body>
 
 	<!-- 메인 헤더 -->
-	<header class="main_header clearfix page-header hidden-xs">
-
-		<!-- 메인 wrapper div -->
-		<div class="container clearfix main_header_wrapperdiv">
-
-			<!-- 메인 헤더 로그인 회원가입 화면-->
-			<ul class="nav navbar-nav navbar-right hidden-xs">
-				<li><a
-					href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span
-						class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				<li><a href="${pageContext.request.contextPath}/login/login.do"><span
-						class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			</ul>
-
-			<!-- 메인 헤더 이미지 -->
-			<div class="container main_header_image">
-				<h1 class="main_h1">
-					<a href="${pageContext.request.contextPath}/index.do"
-						id="main_image_link"></a>
-				</h1>
-				<p class="sr-only">북스토리 메인 헤더영역</p>
-			</div>
-
-		</div>
-		<div id="top_mar"></div>
-
-
-
-	</header>
-
-	<!-- 네비게이션 바 (메뉴 영역) -->
-	<nav class="navbar navbar-default main_navi">
-		<div class="container">
-			<div class="navbar-header clearfix">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a href="${pageContext.request.contextPath}/index.do"
-					class="navbar-brand bookstoryhome">BookStory</a>
-			</div>
-			<div class="container">
-				<div class="collapse navbar-collapse" id="myNavbar">
-					<ul class="nav navbar-nav">
-						<li class="todayNovel"><a
-							href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
-						<li class="novelList"><a
-							href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
-						<li class="community"><a
-							href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
-						<li class="mymenu"><a
-							href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
-						<li class="main_admin"><a
-							href="${pageContext.request.contextPath}/admin/admin_main.do"
-							class="main_navi_admin active">administrator</a></li>
-						<li><a href="#" class="visible-xs signup_icon"><span
-								class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="#" class="visible-xs login_icon"><span
-								class="glyphicon glyphicon-log-in"></span> Login</a></li>
-						<li>
-							<form
-								class="navbar-form navbar-left pull-left search_form visible-xs"
-								role="search">
-								<fieldset>
-									<div class="input-group form-group">
-
-										<label class="sr-only" for="total_search">통합검색</label> <input
-											type="text" class="form-control" placeholder="통합검색"
-											id="total_search"> <span class="input-group-btn">
-											<button type="submit" class="btn btn-default">검색</button>
-										</span>
-
-									</div>
-								</fieldset>
-							</form>
-
-
-						</li>
-					</ul>
-
-					<div class="main_login">
-						<form
-							class="navbar-form navbar-left pull-right hidden-xs form-inline"
-							role="search">
-							<fieldset>
-								<div class="input-group input-group-sm">
-									<input type="text" class="form-control" placeholder="통합검색">
-									<span class="input-group-btn">
-										<button type="submit" class="btn btn-default">검색</button>
-									</span>
-								</div>
-							</fieldset>
-						</form>
-					</div>
-
-				</div>
-			</div>
-		</div>
-	</nav>
-
-
-	<!-- Trigger the modal with a button -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="edit" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				
-			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
-	</div>
-
+	<jsp:include
+		page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 
 	<!-- 메인 화면 시작 -->
 	<div class="container-fluid admin_main_container hidden-xs">
@@ -176,34 +62,48 @@
 			<!-- 어드민 슬라이드 메뉴 영역 -->
 			<div class="col-md-2 amdin_main_slider">
 				<ul class="nav main_slider_nav" id="admin_main_menu">
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
-	    				<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a>
-	    			</li>
-	    			
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/notice_upload.do">
-	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>공지 사항 업로드</a>
-	    			</li>
-	    			
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/novel_upload.do">
-	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>신규 작품 업로드</a>
-	    			</li>
-	    			
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/episode_upload.do">
-	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>에피소드 업로드</a>
-	    			</li>
-	    			
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/book_manage.do">
-	    				<span class="glyphicon glyphicon-upload pull-left icon_color" aria-hidden="true"></span>작품 관리</a>
-	    			</li>
-	    			
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/article_manage.do">
-	    				<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>게시물 관리</a>
-	    			</li>
-	    			
-	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/comment_manage.do">
-	    				<span class="glyphicon glyphicon-sunglasses pull-left icon_color" aria-hidden="true"></span>댓글 관리</a>
-	    			</li>
-	    		</ul>
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
+							<span class="glyphicon glyphicon-user pull-left icon_color"
+							aria-hidden="true"></span>회원 정보
+					</a></li>
+
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/notice_upload.do">
+							<span class="glyphicon glyphicon-upload pull-left icon_color"
+							aria-hidden="true"></span>공지 사항 업로드
+					</a></li>
+
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/novel_upload.do">
+							<span class="glyphicon glyphicon-upload pull-left icon_color"
+							aria-hidden="true"></span>신규 작품 업로드
+					</a></li>
+
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/episode_upload.do">
+							<span class="glyphicon glyphicon-upload pull-left icon_color"
+							aria-hidden="true"></span>에피소드 업로드
+					</a></li>
+
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/book_manage.do">
+							<span class="glyphicon glyphicon-upload pull-left icon_color"
+							aria-hidden="true"></span>작품 관리
+					</a></li>
+
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/article_manage.do">
+							<span class="glyphicon glyphicon-sunglasses pull-left icon_color"
+							aria-hidden="true"></span>게시물 관리
+					</a></li>
+
+					<li class="search_list"><a
+						href="${pageContext.request.contextPath}/admin/comment_manage.do">
+							<span class="glyphicon glyphicon-sunglasses pull-left icon_color"
+							aria-hidden="true"></span>댓글 관리
+					</a></li>
+				</ul>
 			</div>
 			<!-- //어드민 슬라이드 메뉴 영역 -->
 
@@ -250,8 +150,10 @@
 											<td>${member.email}</td>
 											<td>${member.reg_date}</td>
 											<td>${member.point}</td>
-											<td><a href="${pageContext.request.contextPath}/admin/admin_member_delete.do?Id=${member.id}&nick_name=${member.nick_name}" class="btn btn-danger btn-xs"
-														data-toggle="modal" data-target="#myModal">강제 탈퇴</a></td>
+											<td><a
+												href="${pageContext.request.contextPath}/admin/admin_member_delete.do?Id=${member.id}&nick_name=${member.nick_name}"
+												class="btn btn-danger btn-xs" data-toggle="modal"
+												data-target="#myModal">강제 탈퇴</a></td>
 										</tr>
 									</c:if>
 								</c:forEach>
