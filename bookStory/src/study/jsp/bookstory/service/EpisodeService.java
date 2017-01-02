@@ -137,4 +137,18 @@ public interface EpisodeService {
 	 * @throws Exception
 	 */
 	public Episode selectNextEpisode(Episode episode)throws Exception;
+	
+	/**
+	 * 에피소드 업데이트
+	 * @param episode - 현재Episode에 대한 정보가 저장된 Beans
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateEpisodeItem(Episode episode)throws Exception;
+	
+	
+	
+	
+	
+	
 }

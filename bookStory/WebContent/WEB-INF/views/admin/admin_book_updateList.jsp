@@ -228,7 +228,7 @@
 											<td>${episodeList.episode_rent}</td>
 											<td>${episodeList.total_star}</td>
 											<td>${fn:substring(episodeList.reg_date, 0, 11)}</td>
-											<td><a href="${pageContext.request.contextPath}/admin/admin_bookAndEpisodeUpdate.do?episode_id=${episodeList.id}" 
+											<td><a href="${pageContext.request.contextPath}/admin/admin_bookAndEpisodeUpdate.do?episode_id=${episodeList.id}&book_id=${bookItem.id}" 
 													class="btn btn-danger btn-xs">작품 수정</a></td>
 										</tr>
 								</c:forEach>

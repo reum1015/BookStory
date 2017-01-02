@@ -165,7 +165,7 @@
 			
 			<!-- 신규작품 Article Upload 폼 시작 -->
 			<form class="form-horizontal new_upload" enctype="multipart/form-data" 
-			action="${pageContext.request.contextPath}/admin/bookUpdate_ok.do" id="novel_upload" method="post">
+			action="${pageContext.request.contextPath}/admin/admin_book_edit_ok.do" id="novel_upload" method="post">
 				<fieldset>
 					<legend>작품 수정</legend>
 					<input type="hidden" value="${bookItem.id}" name="book_id" id="book_id">
@@ -229,7 +229,7 @@
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="carousel" id="carousel" multiple value="${bookItem.imagePathCarousel}"/>
+					<input type="file" class="form-control" name="carousel" id="carousel" multiple/>
 					<img src="#" alt="your image" style="width: 100%; display: none;"/>
 				</div>
 			</div>
@@ -255,7 +255,7 @@
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(메인)</label>
 				<div class="col-xs-10">
-					<input type="file" class="form-control" name="main" id="main" multiple value="${bookItem.imagePath}"/>
+					<input type="file" class="form-control" name="main" id="main" multiple/>
 					<img  src="#" alt="your image" style="width: 320px; height: 220px; display: none;"/>
 				</div>
 			</div>

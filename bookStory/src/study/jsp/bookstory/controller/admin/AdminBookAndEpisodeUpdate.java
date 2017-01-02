@@ -68,14 +68,14 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 		Book bookItem = new Book();
 		Episode epiItem = new Episode();
 		
-		if(tempBook_id != null){
+		if(tempEpisode_id == null){
 			book_id = Integer.parseInt(tempBook_id);
 			bookParam.setId(book_id);
 			
 			try{
 				bookItem = bookService.selectOneBookItem(bookParam);
 				
-				view = "admin/admin_update_book";
+				view = "admin/admin_edit_book";
 			}catch (Exception e) {
 				// TODO: handle exception
 				web.redirect(null, e.getLocalizedMessage());
@@ -83,13 +83,15 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 				sqlSession.close();
 			}
 			
-		}else if(tempEpisode_id != null){
+		}else if(tempEpisode_id != null && tempBook_id != null){
 			episode_id = Integer.parseInt(tempEpisode_id);
 			epiParam.setId(episode_id);
 			
+			book_id = Integer.parseInt(tempBook_id);
+			
 			try{
 				epiItem = episodeService.selectOneEpisodeItem(epiParam);
-				view = "admin/admin_update_episode";
+				view = "admin/admin_edit_episode";
 			}catch (Exception e) {
 				// TODO: handle exception
 				web.redirect(null, e.getLocalizedMessage());
@@ -101,6 +103,8 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 		
 		request.setAttribute("bookItem", bookItem);
 		request.setAttribute("epiItem", epiItem);
+		request.setAttribute("book_id", book_id);
+		
 		return view;
 	}
 	

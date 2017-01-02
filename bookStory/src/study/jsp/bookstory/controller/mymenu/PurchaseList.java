@@ -96,7 +96,7 @@ public class PurchaseList extends BaseController {
 			point = memberService.selectMyPointByMemberId(mem);
 			// 나머지 페이지 번호 계산하기
 			// --> 현재 페이지, 전체 게시물 수 , 한 페이지의 목록 수, 그룹갯수
-			pageHelper.pageProcess(page, totalCount, 12, 5);
+			pageHelper.pageProcess(page, totalCount, 7, 5);
 			
 			// 페이지 번호 계산 결과에서 Limit절에 필요한 값을  Beans에 추가 
 			buy.setLimitStart(pageHelper.getLimit_start());
@@ -116,7 +116,7 @@ public class PurchaseList extends BaseController {
 		request.setAttribute("member_level", member_level);
 		request.setAttribute("point", point);
 		request.setAttribute("purchase_list", purchase_list);
-
+		request.setAttribute("pageHelper", pageHelper);
 
            String view = "mymenu/purchase_list";
 

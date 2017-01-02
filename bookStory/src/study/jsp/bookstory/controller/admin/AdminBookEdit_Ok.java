@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,10 +24,9 @@ import study.jsp.helper.RegexHelper;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
-@WebServlet("/admin/bookUpdate_ok.do")
-public class AdminBookUpdate_Ok extends BaseController{
-	private static final long serialVersionUID = 7716826516818151068L;
-
+public class AdminBookEdit_Ok extends BaseController{
+	private static final long serialVersionUID = 7754357671954413892L;
+	
 	/** (1)사용하고자 하는 Helper + Serive 객체 선언*/
 	Logger logger;
 	SqlSession sqlSession;
@@ -38,9 +36,10 @@ public class AdminBookUpdate_Ok extends BaseController{
 	RegexHelper regex;
 	ImageFileService imageFileService;
 	BookService bookService;
-	
+
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
 		/** (2)사용하고자 하는 Helper + Serive 객체 선언*/
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
@@ -79,6 +78,8 @@ public class AdminBookUpdate_Ok extends BaseController{
 				String intro_temp = paramMap.get("intro");
 				String genre_temp = paramMap.get("genre");
 				String tempBook_id = paramMap.get("book_id");
+				String imgDel1 = paramMap.get("img_del1");
+				String imgDel2 = paramMap.get("img_del2");
 				
 				
 				String book_name = book_name_temp.trim();
@@ -96,6 +97,8 @@ public class AdminBookUpdate_Ok extends BaseController{
 				logger.debug("intro  -----------> " + intro);
 				logger.debug("genre  -----------> " + genre);
 				logger.debug("book_id  -----------> " + book_id);
+				logger.debug("imgDel1  -----------> " + imgDel1);
+				logger.debug("imgDel2  -----------> " + imgDel2);
 				
 				/** (5) 입력값의 유효성 검사 */
 				
@@ -129,6 +132,14 @@ public class AdminBookUpdate_Ok extends BaseController{
 					return null;
 				}
 				
+
+				
+				if(!regex.isValue(imgDel2)){
+					sqlSession.close();
+					web.redirect(null, "시놉시스를 입력하세요");
+					return null;
+				}
+				
 				//입력받은 파라미터를 Beans로 묶기
 				Book book = new Book();
 				book.setId(book_id);
@@ -148,8 +159,6 @@ public class AdminBookUpdate_Ok extends BaseController{
 				Book book_title = new Book();
 				book_title.setBook_name(resultBookName);
 				
-				
-		
 		return null;
 	}
 

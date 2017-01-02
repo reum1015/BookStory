@@ -77,7 +77,9 @@
 	<!-- 한개의 Episode Select -->
 	<select id="selectOneEpisodeItem" parameterType="study.jsp.bookstory.model.Episode" resultMap="Episode">
 		SELECT id, episode_name, content, hit, DATE_FORMAT(reg_date, '%Y-%m-%d') as reg_date, edit_date, author_comment, episode_buy,
-				episode_rent, book_id, episode_order, total_star, total_starcount
+				episode_rent, book_id, episode_order, total_star, total_starcount,
+				(SELECT concat(file_dir, '/', file_name) FROM imagefile WHERE episode_id=episode.id AND content_type LIKE ('image/%') AND image_type='episode'
+				ORDER BY id ASC LIMIT 0, 1) as imagePath
 		FROM episode WHERE id=#{id}
 	</select>
 	
@@ -147,8 +149,14 @@
 	<!-- 에피소드의 조회 수 +1-->
 	<update id="updateEpisodeHit" parameterType="study.jsp.bookstory.model.Episode">
 		UPDATE episode SET hit=hit+1 WHERE id=#{id}
-	</update>	
-
+	</update>
+	
+	<!-- 에피소드 수정 -->
+	<update id="updateEpisodeItem">
+		UPDATE episode SET episode_name=#{episode_name}, content=#{content}, author_comment=#{author_comment},
+		episode_buy = #{episode_buy}, episode_rent=#{episode_rent}, book_id=#{book_id},edit_date=now()
+		WHERE id=#{id}
+	</update>
 	
 	
 	
