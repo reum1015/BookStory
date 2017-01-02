@@ -395,4 +395,26 @@ public class BookServiceImpl implements BookService{
 		}
 		return bookList;
 	}
+
+	@Override
+	public void updateBook(Book book) throws Exception {
+		try{
+			int result = sqlSession.update("BookMapper.updateBook", book);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			throw new Exception("업데이트 할 작품이 없습니다.");
+		}catch (Exception e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품 업데이트에 실패 했습니다.");
+		}finally {
+			sqlSession.commit();
+		}
+		
+	}
 }

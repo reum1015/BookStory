@@ -411,21 +411,27 @@
 					</li>
 				</ul>
 
-				<div class="main_login">
-					<form
-						class="navbar-form navbar-left pull-right hidden-xs form-inline"
-						role="search"
-						action="${pageContext.request.contextPath}/totalsearch/total_search.do">
-						<fieldset>
-							<div class="input-group input-group-sm">
-								<input type="text" class="form-control" placeholder="통합검색">
-								<span class="input-group-btn">
-									<button type="submit" class="btn btn-default">검색</button>
-								</span>
-							</div>
-						</fieldset>
-					</form>
-				</div>
+				<form class="navbar-form navbar-left pull-right"
+							action="${pageContext.request.contextPath}/book/BookSearch.do"
+							method="post" id="search-form" style="padding-right: 0px;">
+							<fieldset>
+
+								<div class="col-xs-10 pull-right" style="padding-right: 0px;">
+									<div class="input-group">
+										<input type="text" class="form-control col-xs-10"
+											placeholder="작품명 or 작가명" id="keyword" name="keyword" /> <span
+											class="input-group-btn">
+											<button class="btn btn-info" type="submit"
+												style="background-color: #CD8F49; border-color: #CD8F49">
+												<i class="glyphicon glyphicon-search"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+				
+				
 			</div>
 		</div>
 	</div>
@@ -639,6 +645,18 @@
 
   </ul>
   
+  
+  comment_reported_modal
+  
+    <!-- 덧글 신고 modal -->
+  <div id="comment_reported_modal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+	  <div class="modal-content">
+
+	  </div>
+	</div>
+  </div>
+  
   <!-- 덧글 삭제 modal -->
   <div id="episode_comment_delete_modal" class="modal fade">
     <div class="modal-dialog modal-sm">
@@ -668,7 +686,7 @@
 		</ul>
 	</div>
 			
-			</div>
+</div>
 			
 			<!-- // 댓글 부분  끝 -->
 			

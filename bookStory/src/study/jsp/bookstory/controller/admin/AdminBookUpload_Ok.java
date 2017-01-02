@@ -147,7 +147,7 @@ public class AdminBookUpload_Ok extends BaseController{
 		temp_bookName.trim();
 		String resultBookName = temp_bookName.replaceAll(" ", "");
 		
-		//공백이 제거된 작품제목 
+		//공백이 제거된 작품제목 (중복 검사용)
 		Book book_title = new Book();
 		book_title.setBook_name(resultBookName);
 		

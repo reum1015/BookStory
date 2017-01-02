@@ -29,28 +29,30 @@
 				      return false;
 				     }
 			 });
-		
-			
 			
 			//작품 등록시 이미지 유효성 검사
 			$("#episode_update").submit(function() {
 				var episodeImgVal = document.getElementById('episode_img').value
+				var imgTagValue = $('#episode_imgBox').attr('src');
 				
-				
-				if(episodeImgVal == null || episodeImgVal==""){
+				if((episodeImgVal == null || episodeImgVal=="") &&(imgTagValue == null || imgTagValue=="") ){
 					alert("이미지를 등록해 주세요");
 					return false;
 				}
-				
 			});
 			
 			
+			/** 이미지 선택시 화면에 보여주기 */
 			 $("#episode_img").change(function(){
 			        readURL(this);
 			        var carousel_value = document.getElementById('episode_img').value
 			        if(carousel_value == null || carousel_value==""){
 			        	$('#episode_imgBox').css('display','none')
+			        	$('#episode_imgBox').attr('src', '');
+			        	$('#episode_imgBox').attr('name', '');
 						return false;
+					}else{
+						$('#episode_imgBox').attr('name', carousel_value);
 					}
 			        
 			   });
@@ -59,7 +61,7 @@
 			            var reader = new FileReader();
 			            
 			            reader.onload = function (e) {
-			            	$('#episode_imgBox').css('display','block')
+			            	$('#episode_imgBox').css('display','block');
 			                $('#episode_imgBox').attr('src', e.target.result);
 			            }
 			            
@@ -123,7 +125,7 @@
 			
 			<!-- 기존 에피소드 수정 폼 시작 -->
 			<form class="form-horizontal" enctype="multipart/form-data" 
-						action="${pageContext.request.contextPath}/admin/AdminEpisodeEdit_Ok" id="episode_update" method="post">
+						action="${pageContext.request.contextPath}/admin/adminEpisodeEdit_Ok" id="episode_update" method="post">
 				<fieldset>
 				
 				<legend>기존 작품</legend>
@@ -152,9 +154,7 @@
 				<div class="form-group">
 					<label class="col-xs-2 control-label" for="content">에피소드 내용</label>
 					<div class="col-xs-10">
-						<textarea class="form-control" rows="15" id="content" name="content">
-							${epiItem.content}
-						</textarea>
+						<textarea class="form-control" rows="15" id="content" name="content"> ${epiItem.content}</textarea>
 					</div>
 				</div>
 
@@ -206,30 +206,10 @@
 						<p>
 							<img src="${image_url}" alt="${epiItem.episode_name}" id="episode_imgBox"/>
 							
-							<label class="checkbox-inline" style="display: block;">
-								<input type="checkbox" name="img_del" id="img_del" value="Y"/>
-								이미지 삭제
-							</label>
 						</p>
-						
-
 					</div>
 			</div>
-			
-			<script type="text/javascript">
-							$(function(){
-								//이미지가 등록된 상태이므로, 파일의 신규 등록을 방지
-								$("#episode_img").prop("disabled",true);
-								$("#img_del").change(function(){
-									$("#episode_img").prop("disabled",!$(this).is(":checked"));
-								});
-								
-							});
-						</script>
-				
-				
-				
-				
+		
 				    <div class="form-group">
 			      <div class="col-xs-offset-2 col-xs-10">
 			        <button type="submit" class="btn btn-success">에피소드 수정</button>

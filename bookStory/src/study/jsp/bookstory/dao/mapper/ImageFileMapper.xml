@@ -54,15 +54,36 @@
 		FROM imagefile 
 		WHERE book_id=#{book_id}
 	</select>
+	
 
+	
+	<!-- 작품에 속한 모든 파일 삭제 -->
+	<delete id="deleteFileBook" parameterType="study.jsp.bookstory.model.ImageFile">
+		DELETE FROM imagefile WHERE book_id=#{book_id}
+	</delete>
 
+	<!-- 하나의 파일을 조회한다. -->
+	<select id="selectEpisodeFile" parameterType="study.jsp.bookstory.model.ImageFile" resultMap="imagefile">
+		SELECT file_dir,file_name FROM imagefile WHERE episode_id=#{episode_id}
+	</select>
 
-
-
-
-
-
-
+	<!-- 하나의 파일 삭제(에피소드) -->
+	<delete id="deleteEpisodeFile" parameterType="study.jsp.bookstory.model.ImageFile">
+		DELETE FROM imagefile WHERE episode_id=#{episode_id}
+	</delete>
+	
+		<!-- 하나의 파일을 조회한다. book-->
+	<select id="selectBookFile" parameterType="study.jsp.bookstory.model.ImageFile" resultMap="imagefile">
+		SELECT file_dir,file_name FROM imagefile WHERE book_id=#{book_id} AND image_type=#{image_type}
+	</select>	
+	
+		<!-- 하나의 파일 삭제(book) -->
+	<delete id="deleteBookFile" parameterType="study.jsp.bookstory.model.ImageFile">
+		DELETE FROM imagefile WHERE book_id=#{book_id} AND image_type=#{image_type}
+	</delete>
+	
+	
+	
 <!-- 
 	<insert id="insertFile" parameterType="study.jsp.mysite.model.BbsFile"
 		useGeneratedKeys="true" keyProperty="id">

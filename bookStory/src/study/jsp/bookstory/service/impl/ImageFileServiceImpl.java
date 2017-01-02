@@ -88,4 +88,91 @@ public class ImageFileServiceImpl implements ImageFileService{
 		return result;
 	}
 
+
+	@Override
+	public ImageFile selectEpisodeFile(ImageFile file) throws Exception {
+		// TODO Auto-generated method stub
+		ImageFile result = new ImageFile();
+		
+		try{
+			result = sqlSession.selectOne("ImamgeFileMapper.selectEpisodeFile", file);
+			if(result == null ){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			throw new Exception("저장된 에피소드 파일 정보가 없습니다.");
+		}catch (Exception e){
+			// TODO: handle exception
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 파일 정보 조회에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+
+	@Override
+	public void deleteEpisodeFile(ImageFile file) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.delete("ImamgeFileMapper.deleteEpisodeFile",file);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는에피소드 이미지 파일입니다.");
+		}catch (Exception e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("에피소드 이미지 파일 삭제에 실패했습니다.");
+		}
+	}
+
+
+	@Override
+	public ImageFile selectBookFile(ImageFile file) throws Exception {
+		// TODO Auto-generated method stub
+				ImageFile result = new ImageFile();
+				
+				try{
+					result = sqlSession.selectOne("ImamgeFileMapper.selectBookFile", file);
+					if(result == null ){
+						throw new NullPointerException();
+					}
+				}catch (NullPointerException e) {
+					throw new Exception("저장된 작품 파일 정보가 없습니다.");
+				}catch (Exception e){
+					// TODO: handle exception
+					logger.error(e.getLocalizedMessage());
+					throw new Exception("작품 파일 정보 조회에 실패했습니다.");
+				}
+				
+				return result;
+	}
+
+
+	@Override
+	public void deleteBookFile(ImageFile file) throws Exception {
+		// TODO Auto-generated method stub
+		try{
+			int result = sqlSession.delete("ImamgeFileMapper.deleteBookFile",file);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 작품 이미지 파일입니다.");
+		}catch (Exception e) {
+			// TODO: handle exception
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("작품 이미지 파일 삭제에 실패했습니다.");
+		}
+		
+	}
+
 }

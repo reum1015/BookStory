@@ -153,6 +153,14 @@ public interface BookService {
 	 * @throws Exception
 	 */
 	public List<Book> selectAllBookList(Book book)throws Exception;
+	
+	
+	/**
+	 * 작품 업데이트
+	 * @param book
+	 * @throws Exception
+	 */
+	public void updateBook(Book book)throws Exception;
 
 	
 	

@@ -22,7 +22,7 @@
 				     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
 
 				     if(s_name.toLowerCase() == '.jpg' || s_name.toLowerCase() == '.png'){//허용 확장자 비교
-				      $("#carousel_file").html(f_name);
+				      $("#carousel").html(f_name);
 				     }else{
 				      alert("jpg 이나 png 파일만 가능 합니다.");
 				      document.getElementById("carousel").value = "";
@@ -38,7 +38,7 @@
 				     s_name = f_name.substring(f_name.length-4, f_name.length);//확장자빼오기
 
 				     if(s_name.toLowerCase() == '.jpg' || s_name.toLowerCase() == '.png'){//허용 확장자 비교
-				      $("#carousel_file").html(f_name);
+				      $("#main").html(f_name);
 				     }else{
 				      alert("jpg 이나 png 파일만 가능 합니다.");
 				      document.getElementById("main").value = "";
@@ -51,11 +51,15 @@
 				var carousel_value = document.getElementById('carousel').value
 				var main_value = document.getElementById('main').value
 				
-				if(carousel_value == null || carousel_value==""){
+				var caroselImg = $('#carousel_img').attr('src');
+				var mainImg= $('#main_img').attr('src');
+				
+				if((carousel_value == null || carousel_value=="") &&(caroselImg == null || caroselImg=="") ){
 					alert("캐러셀 이미지를 등록해 주세요");
 					return false;
 				}
-				if(main_value == null || main_value ==""){
+				
+				if((main_value == null || main_value=="") &&(mainImg == null || mainImg=="") ){
 					alert("메인 이미지를 등록해 주세요");
 					return false;
 				}
@@ -63,13 +67,16 @@
 			
 			
 			
-			
 			 $("#carousel").change(function(){
 			        readURL(this);
 			        var carousel_value = document.getElementById('carousel').value
 			        if(carousel_value == null || carousel_value==""){
-			        	$('#carousel_img').css('display','none')
+			        	$('#carousel_img').css('display','none');
+			        	$('#carousel_img').attr('src','');
+			        	$('#carousel_img').attr('name','');
 						return false;
+					}else{
+						$('#carousel_img').attr('name',carousel_value);
 					}
 			        
 			   });
@@ -78,8 +85,8 @@
 			            var reader = new FileReader();
 			            
 			            reader.onload = function (e) {
-			            	$('#carousel_img').css('display','block')
-			                $('#carousel_img').attr('src', e.target.result);
+			            	$('#carousel_img').css('display','block');
+			            	$('#carousel_img').attr('src',e.target.result);
 			            }
 			            
 			            reader.readAsDataURL(input.files[0]);
@@ -90,8 +97,12 @@
 			        readURL_main(this);
 			        var carousel_value = document.getElementById('main').value
 			        if(carousel_value == null || carousel_value==""){
-			        	$('#main_img').css('display','none')
+			        	$('#main_img').css('display','none');
+			        	$('#main_img').attr('src','');
+			        	$('#main_img').attr('name','');
 						return false;
+					}else{
+						$('#main_img').attr('name',carousel_value);
 					}
 			        
 			   });
@@ -100,8 +111,8 @@
 			            var reader = new FileReader();
 			            
 			            reader.onload = function (e) {
-			            	$('#main_img').css('display','block')
-			                $('#main_img').attr('src', e.target.result);
+			            	$('#main_img').css('display','block');
+			            	$('#main_img').attr('src', e.target.result);
 			            }
 			            reader.readAsDataURL(input.files[0]);
 			        }
@@ -225,16 +236,15 @@
 				</div>
 				
 			
-			<!-- 파일 업로드 -->
+			<!-- 파일 업로드  캐러셀-->
 			<div class="form-group">
 				<label for="file" class="col-xs-2 control-label">파일첨부(캐러셀)</label>
 				<div class="col-xs-10">
 					<input type="file" class="form-control" name="carousel" id="carousel" multiple/>
-					<img src="#" alt="your image" style="width: 100%; display: none;"/>
 				</div>
 			</div>
 			
-			<!-- 이미지 캐러셀 -->
+			<!-- 이미지 캐러셀 메인 이미지-->
 			<div class="form-group">
 					<div class="col-xs-10 col-xs-offset-2">
 						<c:url var="image_url" value="/download.do">
@@ -242,14 +252,12 @@
 						</c:url>
 						<p>
 							<img src="${image_url}" alt="${bookItem.book_name}" style="width: 100%; height: 367px;"  id="carousel_img"/>
-							
-							<label class="checkbox-inline">
-								<input type="checkbox" name="img_del1" id="img_del1" value="Y"/>
-								이미지 삭제
-							</label>
 						</p>
 					</div>
 			</div>
+			
+			
+			
 			
 			<!-- 파일 업로드 -->
 			<div class="form-group">
@@ -260,7 +268,7 @@
 				</div>
 			</div>
 			
-						<!-- 이미지 캐러셀 -->
+			<!-- 이미지 캐러셀 -->
 			<div class="form-group">
 					<div class="col-xs-10 col-xs-offset-2">
 						<c:url var="image_url" value="/download.do">
@@ -268,33 +276,12 @@
 						</c:url>
 						
 						<p>
-							<img src="${image_url}" alt="${bookItem.book_name}" id="main_img"/>
-							
-							<label class="checkbox-inline" style="display: block;">
-								<input type="checkbox" name="img_del2" id="img_del2" value="Y"/>
-								이미지 삭제
-							</label>
+							<img src="${image_url}" alt="${bookItem.book_name}" id="main_img" style="width: 320px; height: 220px;"/>
 						</p>
 						
 
 					</div>
 			</div>
-			<script type="text/javascript">
-							$(function(){
-								//이미지가 등록된 상태이므로, 파일의 신규 등록을 방지
-								$("#carousel").prop("disabled",true);
-								$("#img_del1").change(function(){
-									$("#carousel").prop("disabled",!$(this).is(":checked"));
-								});
-								
-								$("#main").prop("disabled",true);
-								$("#img_del2").change(function(){
-									$("#main").prop("disabled",!$(this).is(":checked"));
-								});
-							});
-						</script>
-			
-			
 				    <div class="form-group">
 			      <div class="col-xs-offset-2 col-xs-10">
 			        <button type="submit" class="btn btn-success">작품 수정</button>

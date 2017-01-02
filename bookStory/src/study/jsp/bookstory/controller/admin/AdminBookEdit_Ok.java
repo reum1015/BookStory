@@ -1,9 +1,11 @@
 package study.jsp.bookstory.controller.admin;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.ImageFile;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
@@ -20,10 +23,12 @@ import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.FileInfo;
 import study.jsp.helper.RegexHelper;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
+@WebServlet("/admin/admin_book_edit_ok.do")
 public class AdminBookEdit_Ok extends BaseController{
 	private static final long serialVersionUID = 7754357671954413892L;
 	
@@ -78,9 +83,6 @@ public class AdminBookEdit_Ok extends BaseController{
 				String intro_temp = paramMap.get("intro");
 				String genre_temp = paramMap.get("genre");
 				String tempBook_id = paramMap.get("book_id");
-				String imgDel1 = paramMap.get("img_del1");
-				String imgDel2 = paramMap.get("img_del2");
-				
 				
 				String book_name = book_name_temp.trim();
 				String book_author = book_author_temp.trim();
@@ -97,9 +99,7 @@ public class AdminBookEdit_Ok extends BaseController{
 				logger.debug("intro  -----------> " + intro);
 				logger.debug("genre  -----------> " + genre);
 				logger.debug("book_id  -----------> " + book_id);
-				logger.debug("imgDel1  -----------> " + imgDel1);
-				logger.debug("imgDel2  -----------> " + imgDel2);
-				
+
 				/** (5) 입력값의 유효성 검사 */
 				
 				if(!regex.isValue(book_author)){
@@ -131,15 +131,7 @@ public class AdminBookEdit_Ok extends BaseController{
 					web.redirect(null, "시놉시스를 입력하세요");
 					return null;
 				}
-				
-
-				
-				if(!regex.isValue(imgDel2)){
-					sqlSession.close();
-					web.redirect(null, "시놉시스를 입력하세요");
-					return null;
-				}
-				
+			
 				//입력받은 파라미터를 Beans로 묶기
 				Book book = new Book();
 				book.setId(book_id);
@@ -149,15 +141,75 @@ public class AdminBookEdit_Ok extends BaseController{
 				book.setGenre(genre);
 				book.setIntro(intro);
 				
+				try{
+					bookService.updateBook(book);
+				}catch (Exception e) {
+					// TODO: handle exception
+					sqlSession.close();
+					web.redirect(null, e.getLocalizedMessage());
+					return null;
+				}
 				
-				//작품 제목의 공백처리
-				String temp_bookName = book.getBook_name();
-				temp_bookName.trim();
-				String resultBookName = temp_bookName.replaceAll(" ", "");
+				/**  업로드 된 파일 정보 추출(첨부 파일 목록 처리) */
+				List<FileInfo> fileList = upload.getFileList();
 				
-				//공백이 제거된 작품제목 
-				Book book_title = new Book();
-				book_title.setBook_name(resultBookName);
+				//업로드 된 파일이 존재할 경우만 변수값을 할당한다.
+				if(fileList != null){
+					try{
+						for(int i = 0; i <fileList.size(); i++){
+							//업로드 된 정보 하나 추출하여 데이터베이스에 저장하기위한 형태로 가공해야 한다.
+							FileInfo info = fileList.get(i);
+							
+							//기존에 있던 이미지 파일 삭제
+							ImageFile file = new ImageFile();
+							
+							//기존에 있던 이미지 파일 삭제 파라미터
+							file.setBook_id(book_id);
+							file.setImage_type(info.getFieldName());
+							
+							ImageFile item = new ImageFile();
+							
+							//작품의 실제 파일 삭제
+							item = imageFileService.selectBookFile(file);
+							upload.removeFile(item.getFile_dir() + "/" + item.getFile_name());
+							
+							//DB에서 삭제
+							imageFileService.deleteBookFile(file);
+							
+							
+							//DB에 저장하기 위한 항목 생성
+							ImageFile newfile = new ImageFile();
+							
+							// 데이터 복사
+							newfile.setBook_id(book_id);
+							newfile.setOrigin_name(info.getOrginName());
+							newfile.setFile_dir(info.getFileDir());
+							newfile.setFile_name(info.getFileName());
+							newfile.setContent_type(info.getContentType());
+							newfile.setFile_size(info.getFileSize());
+							newfile.setImage_type(info.getFieldName());
+							
+							
+							//저장처리
+							imageFileService.insertBookFile(newfile);
+						}//end for
+						
+					}catch (Exception e) {
+						web.redirect(null, e.getLocalizedMessage());
+						return null;
+					}finally{
+						sqlSession.close();
+					}//end try ~ catch
+				
+				}//end if
+				
+				
+				/** (13) 모든 절차가 종료되었으므로 DB접속 해제 후 페이지 이동 */
+				sqlSession.close();
+				String url ="%s/admin/book_manage.do";
+				url = String.format(url, web.getRootPath());
+				web.redirect(url, "작품 정보 수정이 완료 되었습니다.");
+				
 				
 		return null;
 	}

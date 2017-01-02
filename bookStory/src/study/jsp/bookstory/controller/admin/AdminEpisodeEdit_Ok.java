@@ -1,9 +1,11 @@
 package study.jsp.bookstory.controller.admin;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Episode;
+import study.jsp.bookstory.model.ImageFile;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
@@ -20,10 +23,13 @@ import study.jsp.bookstory.service.impl.BookServiceImpl;
 import study.jsp.bookstory.service.impl.EpisodeServiceImpl;
 import study.jsp.bookstory.service.impl.ImageFileServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.FileInfo;
 import study.jsp.helper.RegexHelper;
 import study.jsp.helper.UploadHelper;
 import study.jsp.helper.WebHelper;
 
+
+@WebServlet("/admin/adminEpisodeEdit_Ok")
 public class AdminEpisodeEdit_Ok extends BaseController{
 	private static final long serialVersionUID = 3245717943018114302L;
 	
@@ -50,6 +56,7 @@ public class AdminEpisodeEdit_Ok extends BaseController{
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		bookService = new BookServiceImpl(sqlSession, logger);
+		
 		
 		/** (3) 로그인 여부 검사*/
 		
@@ -80,10 +87,10 @@ public class AdminEpisodeEdit_Ok extends BaseController{
 		String content = content_temp.trim();
 		String author_comment = author_comment_temp.trim();
 	
-		String tempEpisode_id = web.getString("episode_id");
-		String tempBook_id = web.getString("book_id");
-		String tempEpisode_Rent = web.getString("episode_rent");
-		String tempEpisode_Buy = web.getString("episode_buy");
+		String tempEpisode_id = paramMap.get("episode_id");
+		String tempBook_id = paramMap.get("book_id");
+		String tempEpisode_Rent = paramMap.get("episode_rent");
+		String tempEpisode_Buy = paramMap.get("episode_buy");
 		
 		int episdoe_id = Integer.parseInt(tempEpisode_id);
 		int book_id = Integer.parseInt(tempBook_id);
@@ -151,13 +158,70 @@ public class AdminEpisodeEdit_Ok extends BaseController{
 			return null;
 		}
 		
-		String delFile = paramMap.get("del_file");
+		/** 업로드 된 파일 정보 처리 */
+		//업로드 된 파일 목록
+		List<FileInfo> fileInfoList = upload.getFileList();
 		
+		//업로드 된 이미지가 있다면
+		if(fileInfoList.size() > 0){
+			
+			//기존의 이미지 파일 삭제
+			ImageFile file = new ImageFile();
+			file.setEpisode_id(episdoe_id);
+			
+			//개별 파일에 대한 정보를 조회하여 실제 파일을 삭제한다.
+			ImageFile item = new ImageFile();
+			
+			
+			try{
+				
+				item=imageFileService.selectEpisodeFile(file);
+				upload.removeFile(item.getFile_dir() + "/" + item.getFile_name());
+				
+			//DB에서 파일정보 삭제처리
+			imageFileService.deleteEpisodeFile(file);
+			
+			
+			//새로운 이미지 저장
+			//단일 업로드 이므로 0번째 항목만
+			FileInfo info = fileInfoList.get(0);
+			
+			//DB에 저장하기 위한 항목 생성
+			ImageFile newfile = new ImageFile();
+			
+			//몇번 작품에 속한 파일인지 지정한다.
+			newfile.setEpisode_id(episdoe_id);
+			newfile.setBook_id(book_id);
+			
+			// 데이터 복사
+			newfile.setOrigin_name(info.getOrginName());
+			newfile.setFile_dir(info.getFileDir());
+			newfile.setFile_name(info.getFileName());
+			newfile.setContent_type(info.getContentType());
+			newfile.setFile_size(info.getFileSize());
+			newfile.setImage_type(info.getFieldName());
+			
+			//저장처리
+			imageFileService.insertEpisodeFile(newfile);
+			
+			}catch (Exception e) {
+				web.redirect(null, e.getLocalizedMessage());
+				return null;
+			}finally {
+				sqlSession.close();
+			}// end try ~ catch
+		}//end if
+	
+		/** (9) 업로드가 완료되었으면 어드민 메인페이지로 이동 */
 		
-		
-
+		/** (13) 모든 절차가 종료되었으므로 DB접속 해제 후 페이지 이동 */
+		sqlSession.close();
+		String url ="%s/admin/book_updateList.do?book_id=%d";
+		url = String.format(url, web.getRootPath(),book_id);
+		web.redirect(url, "에피소드 정보 수정이 완료 되었습니다.");
 		
 		return null;
+
 	}
 
 }

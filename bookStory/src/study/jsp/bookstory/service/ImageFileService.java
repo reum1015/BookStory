@@ -29,6 +29,40 @@ public interface ImageFileService {
 	 * @throws Exception
 	 */
 	public List<ImageFile> selectBookMainImage(ImageFile file)throws Exception;
+	
+	/**
+	 * 하나의 파일 조회(에피소드)
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
+	public ImageFile selectEpisodeFile(ImageFile file)throws Exception;
+	
+	/**
+	 * 하나의 파일 삭제 에피소드
+	 * @param file
+	 * @throws Exception
+	 */
+	public void deleteEpisodeFile(ImageFile file)throws Exception;
+	
+	/**
+	 * 하나의 파일 조회(작품)
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
+	public ImageFile selectBookFile(ImageFile file)throws Exception;
+	
+	/**
+	 * 하나의 파일 삭제 작품
+	 * @param file
+	 * @throws Exception
+	 */
+	public void deleteBookFile(ImageFile file)throws Exception;
+	
+	
+	
+	
 }
 
 	

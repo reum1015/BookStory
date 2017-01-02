@@ -177,7 +177,7 @@ public class Index extends BaseController{
 							logger.debug("thumbnail create ---------> " + bookItem.getImagePath());
 						}
 					}
-				}		
+				}
 				
 		request.setAttribute("member_level", member_level);
 		request.setAttribute("selectGenre", selectGenre);

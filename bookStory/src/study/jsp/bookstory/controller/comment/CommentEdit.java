@@ -61,7 +61,7 @@ public class CommentEdit extends BaseController {
 			member_id = loginInfo.getId();
 			user_nickname = loginInfo.getNick_name();
 		}else{
-			web.redirect(web.getRootPath() + "/community/article_read.do", "로그인 후에 이용 가능합니다.");
+			web.redirect(null, "로그인 후에 이용 가능합니다.");
 			return null;
 		}
 		logger.debug("memberId=" + member_id);
@@ -93,7 +93,6 @@ public class CommentEdit extends BaseController {
 		
 		/** (5) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("comment", readComment);
-		
 		
 		
 		return "comment/comment_edit";

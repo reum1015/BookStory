@@ -56,7 +56,7 @@ public class CommentDelete extends BaseController {
 		if(loginInfo!=null){
 			comment.setMember_id(loginInfo.getId());
 		}else{
-			web.redirect(web.getRootPath() + "/community/article_read.do", "로그인 후에 이용 가능합니다.");
+			web.redirect(null, "로그인 후에 이용 가능합니다.");
 			return null;
 		}
 		

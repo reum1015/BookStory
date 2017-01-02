@@ -61,7 +61,7 @@ public class BookSearch extends BaseController {
 		
 		
 		if(keyword == null || keyword == ""){
-			web.printJsonRt("검색어를 입력해 주세요");
+			web.redirect(null,"검색어를 입력해 주세요");
 		}
 		logger.debug("Keyword ---------> " + keyword);
 		

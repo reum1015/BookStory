@@ -29,8 +29,7 @@
 		</script>
 </head>
 <body>
-	<jsp:include
-		page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 
 	<!-- 메인 화면 시작 -->
 	<div class="container-fluid admin_main_container hidden-xs">

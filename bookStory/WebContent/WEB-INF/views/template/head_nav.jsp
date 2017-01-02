@@ -12,12 +12,12 @@
 			<c:when test="${loginInfo==null}">
 				<!-- 메인 헤더 로그인 회원가입 화면-->
 				<ul class="nav navbar-nav navbar-right hidden-xs">
-					<li><a
-						href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span
-							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/login/login.do"><span
-							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do" style="color: #464646;">
+					<span class="glyphicon glyphicon-user">
+					</span> Sign Up</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/login.do" style="color: #464646;">
+					<span class="glyphicon glyphicon-log-in">
+					</span > Login</a></li>
 				</ul>
 			</c:when>
 			<c:otherwise>
@@ -94,14 +94,14 @@
 						href="${pageContext.request.contextPath}/login/login.do"
 						class="visible-xs login_icon"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
-					<li>
+				</ul>
 
-						<form class="navbar-form navbar-left"
+			<form class="navbar-form navbar-left pull-right"
 							action="${pageContext.request.contextPath}/book/BookSearch.do"
-							method="post" id="search-form">
+							method="post" id="search-form" style="padding-right: 0px;">
 							<fieldset>
 
-								<div class="col-xs-10">
+								<div class="col-xs-10 pull-right" style="padding-right: 0px;">
 									<div class="input-group">
 										<input type="text" class="form-control col-xs-10"
 											placeholder="작품명 or 작가명" id="keyword" name="keyword" /> <span
@@ -117,8 +117,6 @@
 						</form>
 
 
-					</li>
-				</ul>
 
 			</div>
 		</div>

@@ -1,6 +1,7 @@
 package study.jsp.bookstory.controller.episodecomment;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,54 +19,40 @@ import study.jsp.bookstory.service.impl.CommentServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
-/**
- * Servlet implementation class EpisodeCommentEdit
- */
-@WebServlet("/episodecomment/episode_comment_edit.do")
-public class EpisodeCommentEdit extends BaseController {
+@WebServlet("/episodecomment/episode_comment_reported.do")
+public class EpisodeCommentReported extends BaseController{
+	private static final long serialVersionUID = 7427661135694768630L;
 
-	private static final long serialVersionUID = 793286213216029753L;
-	
 	/** (1) 사용하고자 하는 Helper 객체 선언 */
 	Logger logger;
 	SqlSession sqlSession;
 	WebHelper web;
 	CommentService commentService;
-
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/** (2) 사용하고자 하는 Helper+Service 객체 생성 */
+		// TODO Auto-generated method stub
+		
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		commentService = new CommentServiceImpl(sqlSession, logger);
 		
-		/** (3) 글 번호 파라미터 받기 */
+		
 		int comment_id = web.getInt("comment_id");
-		if(comment_id==0){
-			sqlSession.close();
-			web.redirect(null, "덧글 번호가 지정되지 않았습니다.");
-			return null;
+		int member_id = 0;
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		
+		if(loginInfo != null){
+			member_id = loginInfo.getId();
 		}
 		
 		// 파라미터를 Beans로 묶기
 		Comment comment = new Comment();
 		comment.setId(comment_id);
 		
-		int member_id = 0;
-		String user_nickname = null;
-		
-        Member loginInfo = (Member) web.getSession("loginInfo");
-		
-		if(loginInfo!=null){
-			member_id = loginInfo.getId();
-			user_nickname = loginInfo.getNick_name();
-		}else{
-			web.redirect(null, "로그인 후에 이용 가능합니다.");
-			return null;
-		}
-		logger.debug("memberId=" + member_id);
-		logger.debug("userNickname=" + user_nickname);
+		logger.debug("comment_id -------------> " + comment_id);
+		logger.debug("memmberId -------------> " + member_id);
 		
 		comment.setMember_id(member_id);
 		
@@ -77,10 +64,12 @@ public class EpisodeCommentEdit extends BaseController {
 		
 		try{
 			result = commentService.selectCommentCountByMemberId(comment);
-
+			if(result!=0){
+				throw new Exception();
+			}
 			readComment = commentService.selectComment(comment);
 		}catch(Exception e){
-			web.redirect(null, e.getLocalizedMessage());
+			logger.error(e.getLocalizedMessage());
 			return null;
 		}finally{
 			sqlSession.close();
@@ -90,8 +79,7 @@ public class EpisodeCommentEdit extends BaseController {
 		request.setAttribute("comment", readComment);
 		
 		
-		
-		return "episodecomment/episode_comment_edit";
+		return "episodecomment/episode_comment_report";
 	}
-	
+
 }

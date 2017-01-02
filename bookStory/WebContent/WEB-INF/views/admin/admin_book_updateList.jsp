@@ -201,6 +201,7 @@
 							<th>대여가격</th>
 							<th>별점</th>
 							<th>등록일</th>
+							<th>수정일</th>
 							<th>수정</th>
 						</tr>
 					</thead>
@@ -213,6 +214,7 @@
 							<th>대여가격</th>
 							<th>별점</th>
 							<th>등록일</th>
+							<th>수정일</th>
 							<th>수정</th>
 						</tr>
 					</tfoot>
@@ -228,6 +230,7 @@
 											<td>${episodeList.episode_rent}</td>
 											<td>${episodeList.total_star}</td>
 											<td>${fn:substring(episodeList.reg_date, 0, 11)}</td>
+											<td>${fn:substring(episodeList.edit_date, 0, 11)}</td>
 											<td><a href="${pageContext.request.contextPath}/admin/admin_bookAndEpisodeUpdate.do?episode_id=${episodeList.id}&book_id=${bookItem.id}" 
 													class="btn btn-danger btn-xs">작품 수정</a></td>
 										</tr>
