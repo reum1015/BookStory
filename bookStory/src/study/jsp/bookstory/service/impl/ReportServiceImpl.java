@@ -475,7 +475,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminBuy(Buy buy) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("BuyMapper.deleteBuyAll", buy);
+			result = sqlSession.delete("BuyMapper.deleteBuyAll", buy);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -506,7 +506,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminRent(Rent rent) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("RentMapper.deleteRentAll", rent);
+			result = sqlSession.delete("RentMapper.deleteRentAll", rent);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -537,7 +537,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminReport(Report report) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("ReportMapper.deleteAdminMemberReport", report);
+			result = sqlSession.delete("ReportMapper.deleteAdminMemberReport", report);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -569,7 +569,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminRecentEpisode(RecentEpisode recentEpisode) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("RecentEpisodeMapper.deleteRecentEpisodeAll", recentEpisode);
+			result = sqlSession.delete("RecentEpisodeMapper.deleteRecentEpisodeAll", recentEpisode);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -600,7 +600,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminFavorite(Favorite favorite) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("FavoriteMapper.deleteFavoriteAll", favorite);
+			result = sqlSession.delete("FavoriteMapper.deleteFavoriteAll", favorite);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -631,7 +631,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminBookMark(BookMark bookMark) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("BookMarkMapper.deleteBookMarkAll", bookMark);
+			result = sqlSession.delete("BookMarkMapper.deleteBookMarkAll", bookMark);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -649,7 +649,7 @@ public class ReportServiceImpl implements ReportService{
 	public int selectAdminCountStarMark(StarMark starMark) throws Exception {
 		int result= 0;
 		try{
-			result=sqlSession.selectOne("StarMarkMapper.selectCountAddStarById", starMark);
+			result=sqlSession.selectOne("StarMarkMapper.selectAdminCountStarMark", starMark);
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 StarMark의 count조회가 실패하였습니다.");
@@ -662,7 +662,7 @@ public class ReportServiceImpl implements ReportService{
 	public void deleteAdminStarMark(StarMark starMark) throws Exception {
 		int result = 0;
 		try{
-			result = sqlSession.update("StarMarkMapper.deleteStarMarkAll", starMark);
+			result = sqlSession.delete("StarMarkMapper.deleteStarMarkAll", starMark);
 			if(result == 0){
 				throw new NullPointerException();
 			}
@@ -688,10 +688,10 @@ public class ReportServiceImpl implements ReportService{
 			}
 		} catch (NullPointerException e) {
 			sqlSession.rollback();
-			throw new Exception("삭제하기위한 회원이 존재하지 않습니다.");
+			throw new Exception("회원을 강제 삭제하기 위한 회원이 존재하지 않습니다.");
 		} catch (Exception e) {
 			sqlSession.rollback();
-			throw new Exception("삭제하기 위한 회원이 존재하지 않습니다.");
+			throw new Exception("회원을 강제 삭제하기 위한 SQL문의 에러입니다.");
 		} finally {
 			sqlSession.commit();
 		}

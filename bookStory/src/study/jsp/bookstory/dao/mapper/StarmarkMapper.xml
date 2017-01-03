@@ -45,6 +45,11 @@
 	  DELETE FROM starmark WHERE member_id =#{member_id}
 	</delete>
 	
+	<!-- 회원을 삭제 하기위한 별점 등록 확인 여부 -->
+	<select id="selectAdminCountStarMark" parameterType="study.jsp.bookstory.model.StarMark" resultType="int">
+	SELECT COUNT(id) FROM starmark WHERE member_id=#{member_id}
+	</select>
+	
 	
 	<!-- 
 	<select id="selectStarAvgBook" parameterType="study.jsp.bookstory.model.StarMark" resultType="double">

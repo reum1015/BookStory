@@ -31,15 +31,10 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
-function change() {
-	var notice = document.getElementById("notice");
-	notice.style.backgroundColor = "#FFFF99";
-	notice.style.font = "bold";
-}
 
-$(function() {
-	change();
-})
+$(".retable").click(function(){
+	
+});
 </script>
 <!-- Article css -->
 <link rel="stylesheet" type="text/css"
@@ -73,7 +68,7 @@ $(function() {
 					<c:when test="${fn:length(articleList) > 0}">
 						<c:forEach var="article" items="${articleList}">
 							<c:if test="${article.category == 'notice'}">
-								<tr id="notice">
+								<tr id="TableCategory"  style="font-weight:bolder; background-color : #EEEEEE;">
 									<td class="text-center">${article.id}</td>
 									<td class="text-center"><c:url var="readUrl"
 											value="/community/article_read.do">
@@ -115,6 +110,7 @@ $(function() {
 				</c:choose>
 			</tbody>
 		</table>
+		
 		<!-- 검색폼 + 글 쓰기 버튼 시작 -->
 		<div class="clearfix">
 			<!-- 검색 폼 -->
@@ -158,7 +154,7 @@ $(function() {
 							<c:param name="page" value="${pageHelper.prevPage}"></c:param>
 						</c:url>
 
-						<li><a href="${prevUrl}">&laquo;</a></li>
+						<li><a href="${prevUrl}" class="retable">&laquo;</a></li>
 					</c:when>
 
 					<c:otherwise>
@@ -200,7 +196,7 @@ $(function() {
 							<c:param name="page" value="${pageHelper.nextPage}"></c:param>
 						</c:url>
 
-						<li><a href="${nextUrl}">&raquo;</a></li>
+						<li><a href="${nextUrl}" class="retable">&raquo;</a></li>
 					</c:when>
 
 					<c:otherwise>
