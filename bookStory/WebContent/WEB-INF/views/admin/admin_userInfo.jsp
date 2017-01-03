@@ -56,6 +56,19 @@
 	<jsp:include
 		page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 
+	<div id="myModal" class="modal fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- 메인 화면 시작 -->
 	<div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
