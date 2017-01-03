@@ -401,10 +401,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("ArticleMapper.selectAdminCountArticle", article);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 게시물의 count조회가 실패하였습니다.");
 		}
@@ -435,9 +432,6 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("CommentMapper.selectAdminCountComment", comment);
-			if(result == 0){
-				throw new NullPointerException();
-			}
 		} catch (NullPointerException e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 덧글의 count조회가 실패하였습니다.");
@@ -469,10 +463,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("BuyMapper.selectAdminCountBuy", buy);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 Buy의 count조회가 실패하였습니다.");
 		}
@@ -503,10 +494,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("RentMapper.selectRentCount", rent);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 Rent의 count조회가 실패하였습니다.");
 		}
@@ -537,10 +525,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("ReportMapper.selectAdminCountReport", report);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 Report의 count조회가 실패하였습니다.");
 		}
@@ -572,10 +557,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("RecentEpisodeMapper.selectAdminCountRecentEpisode", recentEpisode);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 RecentEpisode의 count조회가 실패하였습니다.");
 		}
@@ -606,10 +588,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("FavoriteMapper.selectFavoriteCount", favorite);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 Favorite의 count조회가 실패하였습니다.");
 		}
@@ -640,10 +619,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("BookMarkMapper.selectBookMarkCount", bookMark);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 BookMark의 count조회가 실패하였습니다.");
 		}
@@ -674,10 +650,7 @@ public class ReportServiceImpl implements ReportService{
 		int result= 0;
 		try{
 			result=sqlSession.selectOne("StarMarkMapper.selectCountAddStarById", starMark);
-			if(result == 0){
-				throw new NullPointerException();
-			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("특정 회원의 StarMark의 count조회가 실패하였습니다.");
 		}

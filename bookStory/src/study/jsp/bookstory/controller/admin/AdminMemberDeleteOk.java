@@ -140,7 +140,7 @@ public class AdminMemberDeleteOk extends BaseController {
 			}
 			reportService.deleteMemberId(member);
 		}catch(Exception e){
-			web.redirect(null, e.getLocalizedMessage());
+			web.printJsonRt(e.getLocalizedMessage());
 			return null;
 		}finally{
 			sqlSession.close();
