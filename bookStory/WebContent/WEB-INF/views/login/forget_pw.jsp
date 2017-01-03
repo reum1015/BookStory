@@ -23,7 +23,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <h1 class="page-header">비밀번호 재설정</h1>
       <p>
             가입시 입력한 이메일 주소를 입력하세요.
@@ -31,7 +31,7 @@
       </p>
       
       <!-- 이메일 주소 입력 폼 시작 -->
-      <form name="myform" method="post" action="${pageContext.request.contextPath}/login/forget_pw_ok.do">
+      <form name="myform" method="post" action="${pageContext.request.contextPath}/login/ForgetPwOk">
         <div class="form-group">
           <input type="text" name="email" class="form-control"/>
         </div>

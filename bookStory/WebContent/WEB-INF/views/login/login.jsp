@@ -49,7 +49,7 @@
 							<li><a href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기  /</a></li>
 							<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do">회원가입</a></li>
 						</ol>
-						</div>
+					</div>
 
 					</fieldset>
 				</form>

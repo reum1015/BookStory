@@ -215,7 +215,7 @@
 					GROUP BY book_id
 					ORDER BY count(book_id) DESC
 		)
-		limit 0,9;
+		limit 0,10;
 	</select>
 	
 	<!-- 모든 작품 리스트 -->

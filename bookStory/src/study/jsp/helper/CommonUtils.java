@@ -71,5 +71,30 @@ public class CommonUtils {
 		return num;
 	}	
 	
+	public String getRandomPassword(){
+		//리턴할 문자열
+		String password="";
+		
+		//A~Z, a~z, 0~9
+		String word = "ABCDEFGHIJKLMNOPQRSTUVWYZabcdefghijklmnopqrstuvwyz1234567890";
+		
+		//글자 길이
+		int word_len = word.length();
+		
+		for(int i = 0; i<8; i++){
+			//랜덤한 위치에서 한글자를 추출한다.
+			int random = random(0, word_len-1);
+			String c = word.substring(random, random+1);
+			
+			//추출한 글자를 미리 준비한 변수에 추가한다.
+			password += c;
+		}
+		
+		return password;
+	}
+	
+	
+	
+	
 	
 }

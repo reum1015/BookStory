@@ -113,4 +113,13 @@ public interface MemberService {
 	 * @throws Exception
 	 */
 	public void deleteMyPointByMemberId(Member member)throws Exception;	
+	
+	
+	/**
+	 * 회원 아이디 찾기
+	 * @param member
+	 * @return
+	 * @throws Exception
+	 */
+	public Member selectMemberIdByNameAndEmail(Member member)throws Exception;
 }

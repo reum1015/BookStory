@@ -25,7 +25,7 @@ import study.jsp.helper.WebHelper;
 /**
  * Servlet implementation class ForgetPwOk
  */
-@WebServlet("/ForgetPwOk")
+@WebServlet("/login/ForgetPwOk")
 public class ForgetPwOk extends BaseController {
 
 	private static final long serialVersionUID = -4300496915449591746L;
@@ -86,7 +86,7 @@ public class ForgetPwOk extends BaseController {
 		
 		/** (8) 발급된 비밀번호를 이메일로 발송하기 */
 		String sender = "reum1015@gmail.com";
-		String subject = "MySite 비밀번호 변경 안내 입니다.";
+		String subject = "BookStory 비밀번호 변경 안내 입니다.";
 		String content = "회원님의 새로운 비밀번호는 <strong>" + newPassword + "</strong>입니다.";
 		
 		try{

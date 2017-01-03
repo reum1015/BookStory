@@ -4,7 +4,7 @@
 <html lang='ko'>
 <head>
 
-		<jsp:include page="${pageContext.request.contextPath}/template/head.jsp"/>
+		<jsp:include page="/WEB-INF/views/template/head.jsp"/>
 		
 <!-- main css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/login_main.css" />
@@ -15,14 +15,15 @@
 <body>
 
 	<!-- 메인 헤더 -->
-	<jsp:include page="${pageContext.request.contextPath}/template/head_nav.jsp"/>	
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp"/>	
 
 
 	<!-- 메인 화면 시작 -->
 
 	<div class="container main_container">
 		<div class="container login_form">
-			<form class="form-horizontal" role="form">
+			<form class="form-horizontal" role="form" action="${pageContext.request.contextPath}/login/id_confirm.do"
+				method="post">
 				<fieldset>
 					<legend>아이디 찾기</legend>
 					<p>가입이 입력한 정보를 통해 아이디를 찾으세요.</p>
@@ -30,16 +31,25 @@
 					<br>
 
 					<div class="form-group">
-						<label for="name" class="col-md-3">이    름</label>
-						 <input type="text" id="name" class="form-control"
-							placeholder="본인 이름" />
+						<label for="name" class="col-md-2">이 름</label>
+						<div class="col-md-10">
+						 	<input type="text" id="name" name="name"class="form-control" placeholder="본인 이름" />
+						</div>
 					</div>
 					<div class="form-group">
-						<label for="phone" class="col-md-3">휴대폰 번호</label> 
-						<input type="text" id="phone" class="form-control"
-							placeholder="가입시 등록했던 휴대전화 번호를 입력하세요." />
+						<label for="email" class="col-md-2">이메일</label> 
+						<div class="col-md-10">
+							<input type="text" id="email" name="email" class="form-control" placeholder="가입시 등록했던 이메일을 입력하세요." />
+						</div>					
 					</div>
-					<a class="btn btn-success" href="${pageContext.request.contextPath}/login/id_confirm.do">확인</a>
+					
+					
+					<div class="form-group">
+			            <div class="col-md-offset-2 col-md-10">
+			                <button type="submit"class="btn btn-success" >확  인</button>
+			                <button type="reset" class="btn btn-danger">다시작성</button>
+			            </div>
+        			</div>
 				</fieldset>
 			</form>
 		</div>
@@ -50,6 +60,6 @@
 	<hr />
 
 <!-- footer -->
-	<jsp:include page="${pageContext.request.contextPath}/template/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 </body>
 </html>

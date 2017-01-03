@@ -646,7 +646,6 @@
   </ul>
   
   
-  comment_reported_modal
   
     <!-- 덧글 신고 modal -->
   <div id="comment_reported_modal" class="modal fade">

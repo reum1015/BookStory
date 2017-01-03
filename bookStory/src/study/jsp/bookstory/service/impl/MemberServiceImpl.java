@@ -323,4 +323,22 @@ public class MemberServiceImpl implements MemberService {
 			sqlSession.commit();
 		}
 	}
+
+	@Override
+	public Member selectMemberIdByNameAndEmail(Member member) throws Exception {
+		Member result = null;
+		
+		try{
+			result = sqlSession.selectOne("MemberMapper.selectMemberIdByNameAndEmail", member);
+			if(result==null){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			throw new Exception("회원의 조회된 아이디 정보가 없습니다.");
+		}catch(Exception e){
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("회원정보 조회에 실패했습니다.");
+		}
+		return result;
+	}
 }

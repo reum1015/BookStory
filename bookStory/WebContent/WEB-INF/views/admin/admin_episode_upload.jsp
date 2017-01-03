@@ -34,7 +34,7 @@
 	</head>
 	<body>
 
-	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/head_navs.jsp"/>
 
 	
 

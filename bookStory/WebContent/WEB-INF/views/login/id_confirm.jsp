@@ -20,25 +20,33 @@
 	<div class="container main_container">
 			<form class="form-horizontal login_form" role="form">
 				<fieldset>
-					<legend>아이디 찾기</legend>
-					<p>고객님의 정보와 일치하는 아이디 입니다.</p>
+					<legend>회원 정보</legend>
 
-					<div class="section section_id">
-						<div class="box1" style="text-align: center">
+					<br>
 
-							<p class="text-center">너가 찾는 아뒤임&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-								가입:2016.08.22</p>
-
-							<input type="hidden" name="nv_id" value="너가 찾는 아뒤임">
-
+					<div class="form-group">
+						<label for="name" class="col-md-2">아이디</label>
+						<div class="col-md-10">
+						 	<input type="text" id="name" class="form-control" value="${member.user_id}" readonly="readonly"/>
 						</div>
 					</div>
-					<br>
-					<div class="container login_button">
-					 <a class="btn btn-success" href="${pageContext.request.contextPath}/login/login.do">로그인하기</a> 
-					 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-					 <a class="btn btn-primary" href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기</a>
-					 </div>
+					<div class="form-group">
+						<label for="email" class="col-md-2">가입일</label> 
+						<div class="col-md-10">
+							<input type="text" id="email" class="form-control" value="${member.reg_date}" readonly="readonly"/>
+						</div>					
+					</div>
+					
+					<div class="form-group">
+					<div class="login_button col-md-offset-2 col-md-10" style="text-align: center;">					
+						<ol class="list-inline">
+							<li><a href="${pageContext.request.contextPath}/login/forget_pw.do">비밀번호 찾기</a></li>
+							<li>|</li>
+							<li><a href="${pageContext.request.contextPath}/login/login.do">로그인</a></li>
+							
+						</ol>
+					</div>
+					</div>
 				</fieldset>
 			</form>
 	</div>

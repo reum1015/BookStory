@@ -140,5 +140,10 @@
 		ORDER BY id DESC
 	</select>
 	<!-- 관리자 페이지에서 회원리스트를 출력하기 위한 mapper 끝 -->
+	
+	<!-- 회원의 아이디 찾기 -->
+	<select id="selectMemberIdByNameAndEmail" parameterType="study.jsp.bookstory.model.Member" resultMap="member"> 
+	SELECT user_id, left(reg_date,10) AS reg_date FROM member WHERE name=#{name} AND email=#{email}
+	</select>
 
 </mapper>
