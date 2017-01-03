@@ -76,7 +76,7 @@
 					<li class="todayNovel"><a
 						href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
 					<li class="novelList"><a
-						href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
+						href="${pageContext.request.contextPath}/novellist/novel_list.do">NovelList</a></li>
 					<li class="community"><a
 						href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
 					<li class="mymenu"><a
