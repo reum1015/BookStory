@@ -14,8 +14,11 @@ import org.apache.logging.log4j.Logger;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Comment;
 import study.jsp.bookstory.model.Member;
+import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.CommentService;
+import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.CommentServiceImpl;
+import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.WebHelper;
 
@@ -28,6 +31,7 @@ public class EpisodeCommentReported extends BaseController{
 	SqlSession sqlSession;
 	WebHelper web;
 	CommentService commentService;
+	ReportService reportService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +41,7 @@ public class EpisodeCommentReported extends BaseController{
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		commentService = new CommentServiceImpl(sqlSession, logger);
-		
+		reportService = new ReportServiceImpl(sqlSession, logger);
 		
 		int comment_id = web.getInt("comment_id");
 		int member_id = 0;
@@ -61,11 +65,16 @@ public class EpisodeCommentReported extends BaseController{
 		Comment readComment = null;
 		
 		int result = 0;
+		Report report = new Report();
+		report.setComment_id(comment_id);
 		
+		int reportCount = 0;
 		try{
 			result = commentService.selectCommentCountByMemberId(comment);
 		
 			readComment = commentService.selectComment(comment);
+			
+			reportCount = reportService.selectCountCommentReport(report);
 		}catch(Exception e){
 			logger.error(e.getLocalizedMessage());
 			return null;
@@ -74,8 +83,10 @@ public class EpisodeCommentReported extends BaseController{
 		}
 		
 		/** (5) 읽은 데이터를 View에게 전달한다. */
-		request.setAttribute("comment", readComment);
+		request.setAttribute("readComment", readComment);
 		request.setAttribute("member_id", member_id);
+		request.setAttribute("comment_id", comment_id);
+		request.setAttribute("reportCount", reportCount);
 		
 		return "episodecomment/episode_comment_report";
 	}

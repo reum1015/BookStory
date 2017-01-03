@@ -289,34 +289,32 @@
 				console.log("시작");
 				
 				var comment_id = $(this).find("#comment_id").val();
+				var member_id = $(this).find("#member_id").val();
+				var comment_memberId = $(this).find("#comment_memberId").val();
+				var comment_content = $(this).find("#comment_content").val();
+				var user_nickname = $(this).find("#user_nickname").val();
+				var report_reason =  $(this).find('input[name=report_reason]:checked').val();
 				
-				console.log(comment_id);
-				
+				console.log(report_reason);
 				
 				$.post('${pageContext.request.contextPath}/episodecomment/episode_comment_report_ok.do',
-						{comment_id:comment_id},function(data){
+						{comment_id:comment_id,member_id:member_id,comment_content:comment_content,					
+						comment_memberId:comment_memberId,report_reason:report_reason,user_nickname:user_nickname},
+						
+						function(data){
+						
 							
 							
 							
-							alert("성공");
 							
 							
 							// 별점 모달 강제로 닫기
 							$('.modal').modal('hide');
 							
+							$('#confirmReport').modal('show');
+							
 						});
-				
-			
-					
-					
-					
-		
-			
-				
-				
-				
-				
-				
+
 			});
 			
 			
@@ -693,6 +691,27 @@
   <ul style="margin: auto; width: 90%;" class="media-list" id="comment_list">
 
   </ul>
+  
+  
+  <!-- 확인용 Modal -->
+  <div class="modal fade" id="confirmReport" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+       
+        <div class="modal-body">
+         	댓글 신고 완료
+        </div>
+        <div class="modal-footer">
+         <button class="btn btn-success btn-block" type="button" data-dismiss="modal">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
   
   
   

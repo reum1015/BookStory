@@ -28,7 +28,7 @@
 	INSERT INTO report ( 
 		member_id, target_member_id, report_subject, report_content, article_id, reg_date,
 		nick_name, user_nickname
-	) 
+	)
 	VALUES (
 		#{member_id}, #{target_member_id}, #{report_subject}, #{report_content}, #{article_id}, now(),
 		#{nick_name}, #{user_nickname}
@@ -55,6 +55,7 @@
 	<select id="selectReportArticleList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
 	SELECT nick_name, user_nickname, report_content, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, report_subject, article_id
 	FROM report
+	WHERE article_id IS NOT NULL
 	ORDER BY id desc
 	</select>
 
@@ -108,6 +109,36 @@
 	<!-- 회원을 강제 탈퇴 시키기 위한 mapper 끝 -->
 	
 	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 -->
+	<!-- 신고된 게시글 등록 -->
+	<insert id="insertCommentReport" parameterType="study.jsp.bookstory.model.Report"
+		useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO report ( 
+		member_id, target_member_id, report_subject, report_content, reg_date,
+		nick_name, user_nickname, comment_id, comment_content
+	)
+	VALUES (
+		#{member_id}, #{target_member_id}, #{report_subject}, #{report_content}, now(),
+		#{nick_name}, #{user_nickname},#{comment_id}, #{comment_content}
+	)
+	</insert>
+	
+	
+	<!-- 신고된 댓글 인지에 대한 판별 -->
+	<select id="selectCountCommentReport" parameterType="study.jsp.bookstory.model.Report" resultType="int">		
+	SELECT COUNT(id) FROM report WHERE comment_id=#{comment_id}
+	</select>
+	
+	
+	<!-- 신고한 댓글을 리스트로 출력한다. -->
+	<select id="selectCommentReportList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
+	SELECT nick_name, user_nickname, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+	report_content, comment_content, comment_id
+	FROM report
+	WHERE comment_id IS NOT NULL
+	ORDER BY id desc
+	</select>
+	
+	
 	<!-- 덧글을 강제 삭제하기위한 사전 작업 -->
 	
 	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 끝 -->

@@ -103,5 +103,12 @@ public interface CommentService {
 	 * @throws Exception
 	 */
 	public void deleteEpisodeCommentAll(Comment comment) throws Exception;
-
+	
+	/**
+	 * 덧글 블라인드 처리 유무
+	 * @param comment - 덧글 데이터
+	 * @throws Exception
+	 */
+	public void updateCommentIsBlind(Comment comment) throws Exception;
+	
 }

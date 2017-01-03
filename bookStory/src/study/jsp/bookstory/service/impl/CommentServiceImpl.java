@@ -272,6 +272,26 @@ public class CommentServiceImpl implements CommentService {
 		}
 		
 	}
+
+	@Override
+	public void updateCommentIsBlind(Comment comment) throws Exception {
+		try{
+			int result = sqlSession.update("CommentMapper.updateCommentIsBlind", comment);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		}catch(NullPointerException e){
+			sqlSession.rollback();
+			throw new Exception("존재하지 않는 덧글에 대한 요청입니다.");
+		}catch(Exception e){
+			sqlSession.rollback();
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("덧글 블라인드 설정에 실패했습니다.");
+		}finally{
+			sqlSession.commit();
+		}
+		
+	}
 	
 	
 

@@ -697,6 +697,19 @@ public class ReportServiceImpl implements ReportService{
 		}
 	}
 
+	@Override
+	public int selectCountCommentReport(Report report) throws Exception {
+		int result= 0;
+		try{
+			result=sqlSession.selectOne("ReportMapper.selectCountCommentReport", report);
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("신고 판별 카운트 조회에 실패하였습니다.");
+		}
+		
+		return result;
+	}
+
 	
 	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
 }

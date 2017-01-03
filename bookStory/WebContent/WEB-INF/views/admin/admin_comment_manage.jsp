@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang='ko'>
 <head>
@@ -106,14 +107,20 @@
 			<div class="col-md-10 admin_content">
 				<div class="replymanage_container">
 					<h1 class="page-header">댓글 관리</h1>
+					
+					
 					<ul class="list-group">
-						<li class="list-group-item">
+					
+				<c:choose>
+		    		<c:when test="${fn:length(commentLists) > 0}">
+		    			<c:forEach var="commentLists" items="${commentLists}">
+		    	
+						<li class="list-group-item" id="${commentLists.comment_id}">
 							<div class="row">
-
-								<div class="col-xs-2 reply_name">홍금보</div>
-								<div class="col-xs-2 reply_id">화소도(dwis*****)</div>
+								<div class="col-xs-2 reply_name">${commentLists.nick_name }</div>
+								<div class="col-xs-2 reply_id">${commentLists.user_nickname }</div>
 								<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
-								<div class="col-xs-2 reply_date">2016-04-15 11:46</div>
+								<div class="col-xs-2 reply_date">${fn:substring(commentLists.reg_date,0,11)}</div>
 
 								<div class="col-xs-2 reply_button_group">
 									<div class="reply_button_group pull-right">
@@ -135,162 +142,24 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="reply_content">리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에
-									치중중하네요 어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구
-									저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 리라가
-									저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할
-									거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무
-									화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요
-									어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구
-									욜라욜라와 이 소설 진짜 갈 수록 재밌네요 처음엔 성녀의 취직관련 발언이 되게 거슬렸었는데 이젠 그 거슬림을
-									거뜬히 무시할 정도로 재밌어요 작가님 제가 결재를 하게 만들다니 대박이에요b 흥하세요~!</div>
+								<div class="reply_content">${commentLists.comment_content}</div>
 							</div>
 						</li>
-
-						<li class="list-group-item">
-							<div class="row">
-
-								<div class="col-xs-2 reply_name">유덕화</div>
-								<div class="col-xs-2 reply_id">화소도(dwis*****)</div>
-								<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
-								<div class="col-xs-2 reply_date">2016-04-15 11:46</div>
-
-								<div class="col-xs-2 reply_button_group">
-									<div class="reply_button_group pull-right">
-										<p data-placement="top" data-toggle="tooltip" title="edit"
-											class="cancel_button">
-											<button class="btn btn-success btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-edit"></span>
-											</button>
-										</p>
-										<p data-placement="top" data-toggle="tooltip" title="Delete"
-											class="delete_button">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<span class="reply_content"> 그냥 리라야, 너의 삶으로 돌아가 돈은 사람을
-									외롭게한다 오늘도 우리는 </span>
-							</div>
-						</li>
-
-
-						<li class="list-group-item">
-							<div class="row">
-
-								<div class="col-xs-2 reply_name">왕조현</div>
-								<div class="col-xs-2 reply_id">호둣골살다(kris****)</div>
-								<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
-								<div class="col-xs-2 reply_date">2016-04-15 11:46</div>
-
-								<div class="col-xs-2 reply_button_group">
-									<div class="reply_button_group pull-right">
-										<p data-placement="top" data-toggle="tooltip" title="edit"
-											class="cancel_button">
-											<button class="btn btn-success btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-edit"></span>
-											</button>
-										</p>
-										<p data-placement="top" data-toggle="tooltip" title="Delete"
-											class="delete_button">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<span class="reply_content">다희는 버려진 아픔. 윤호는 잘 못 잉태되어 냉대
-									속에 성장한 아픔. 상처를 가진 두 사람이. 서로를 잘 보듬어주며 사랑하면 좋겠어요. ~~~♡ </span>
-							</div>
-						</li>
-
-						<li class="list-group-item">
-							<div class="row">
-
-								<div class="col-xs-2 reply_name">금성무</div>
-								<div class="col-xs-2 reply_id">화소도(dwis*****)</div>
-								<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
-								<div class="col-xs-2 reply_date">2016-04-15 11:46</div>
-
-								<div class="col-xs-2 reply_button_group">
-									<div class="reply_button_group pull-right">
-										<p data-placement="top" data-toggle="tooltip" title="edit"
-											class="cancel_button">
-											<button class="btn btn-success btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-edit"></span>
-											</button>
-										</p>
-										<p data-placement="top" data-toggle="tooltip" title="Delete"
-											class="delete_button">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<span class="reply_content">리라가 저기서 잘 대처해야할 거 같은데요 너무
-									화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요
-									어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라
-									리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 </span>
-							</div>
-						</li>
-
-						<li class="list-group-item">
-							<div class="row">
-
-								<div class="col-xs-2 reply_name">알란탐</div>
-								<div class="col-xs-2 reply_id">화소도(dwis*****)</div>
-								<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
-								<div class="col-xs-2 reply_date">2016-04-15 11:46</div>
-
-								<div class="col-xs-2 reply_button_group">
-									<div class="reply_button_group pull-right">
-										<p data-placement="top" data-toggle="tooltip" title="edit"
-											class="cancel_button">
-											<button class="btn btn-success btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-edit"></span>
-											</button>
-										</p>
-										<p data-placement="top" data-toggle="tooltip" title="Delete"
-											class="delete_button">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<span class="reply_content">리라가 저기서 잘 대처해야할 거 같은데요 너무
-									화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요
-									어쩌구 저쩌구 욜라욜라 리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라
-									리라가 저기서 잘 대처해야할 거 같은데요 너무 화려함에 치중중하네요 어쩌구 저쩌구 욜라욜라와 이 소설 진짜 갈
-									수록 재밌네요 처음엔 성녀의 취직관련 발언이 되게 거슬렸었는데 이젠 그 거슬림을 거뜬히 무시할 정도로 재밌어요
-									작가님 제가 결재를 하게 만들다니 대박이에요b 흥하세요~! </span>
-							</div>
-						</li>
-
-
-
-
+		   
+		    			</c:forEach>
+		    		</c:when>
+		    		<c:otherwise>
+		    			<tr>
+				            <td colspan="5" class="text-center" style="line-height: 100px;">
+				                조회된 글이 없습니다.</td>
+				        </tr>
+		    		</c:otherwise>
+		    	</c:choose>
 
 					</ul>
+					
+					
+					
 					<!-- end list-group -->
 					<div class="page-nation text-center">
 						<div class=" reply_damin_pagenation">

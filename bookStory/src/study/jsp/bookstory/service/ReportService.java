@@ -117,5 +117,10 @@ public interface ReportService {
 	public void deleteComment(Comment comment)throws Exception;
 	// 신고 덧글을 reoprt에서만 삭제하기
 	public void deleteReportComment(Report report) throws Exception;
+	
+	
+	//신고된 횟수 
+	public int selectCountCommentReport(Report report)throws Exception;
+	
 	//----------------------------------------------------덧글 서비스 레이어 끝
 }
