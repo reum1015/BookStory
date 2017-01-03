@@ -22,6 +22,12 @@
 		$('#example').DataTable();
 	});
 
+	/** 호원리스트 폼의 submit 이벤트 ajax 구현 */
+	// <form>요소의 method, action속성과 <input>태그를
+	// ajax요청으로 자동 구성한다.
+	$("#member_delete_form").ajaxForm(function(json){
+		
+	});
 	/** 모든 모달창의 캐시방지 처리 */
 	$(function() {
 		$('.modal').on("hidden.bs.modal", function(e) {
@@ -42,8 +48,7 @@
 				// modal 강제로 닫기
 				$("#myModal").modal('hide');
 
-				var member_id = json.memberId;
-				$("#member_id" + member_id).remove();
+				$("#mem_" + json.memberId).remove();
 			});
 
 		});
@@ -155,7 +160,7 @@
 							<c:when test="${fn:length(memberlist) > 0}">
 								<c:forEach var="member" items="${memberlist}">
 									<c:if test="${member.member_level == 'AA'}">
-										<tr>
+										<tr id="mem_${member.id}">
 											<td>${member.id}</td>
 											<td>${member.name}</td>
 											<td>${member.nick_name}</td>
