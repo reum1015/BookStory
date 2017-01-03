@@ -52,7 +52,7 @@ public class EpisodeCommentReported extends BaseController{
 		comment.setId(comment_id);
 		
 		logger.debug("comment_id -------------> " + comment_id);
-		logger.debug("memmberId -------------> " + member_id);
+		logger.debug("member_id -------------> " + member_id);
 		
 		comment.setMember_id(member_id);
 		
@@ -64,9 +64,7 @@ public class EpisodeCommentReported extends BaseController{
 		
 		try{
 			result = commentService.selectCommentCountByMemberId(comment);
-			if(result!=0){
-				throw new Exception();
-			}
+		
 			readComment = commentService.selectComment(comment);
 		}catch(Exception e){
 			logger.error(e.getLocalizedMessage());
@@ -77,7 +75,7 @@ public class EpisodeCommentReported extends BaseController{
 		
 		/** (5) 읽은 데이터를 View에게 전달한다. */
 		request.setAttribute("comment", readComment);
-		
+		request.setAttribute("member_id", member_id);
 		
 		return "episodecomment/episode_comment_report";
 	}

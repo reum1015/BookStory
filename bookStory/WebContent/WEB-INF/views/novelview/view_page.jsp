@@ -159,6 +159,13 @@
 			});
 	
 		});
+		
+		
+		
+		
+		
+		
+		
 		// 코멘트 ajax
 		  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
 		  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
@@ -272,7 +279,49 @@
 				 $(document).bind("contextmenu", function(e) {
 				  return false;
 				 });
-				});
+			});
+			
+			
+			//덧글 신고 모달창
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on("submit", "#episode_comment_report_form", function(e) {
+				e.preventDefault();
+				console.log("시작");
+				
+				var comment_id = $(this).find("#comment_id").val();
+				
+				console.log(comment_id);
+				
+				
+				$.post('${pageContext.request.contextPath}/episodecomment/episode_comment_report_ok.do',
+						{comment_id:comment_id},function(data){
+							
+							
+							
+							alert("성공");
+							
+							
+							// 별점 모달 강제로 닫기
+							$('.modal').modal('hide');
+							
+						});
+				
+			
+					
+					
+					
+		
+			
+				
+				
+				
+				
+				
+			});
+			
+			
+			
+			
 });
 
 
@@ -647,14 +696,17 @@
   
   
   
-    <!-- 덧글 신고 modal -->
+  <!-- 덧글 신고 modal -->
   <div id="comment_reported_modal" class="modal fade">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
 	  <div class="modal-content">
 
 	  </div>
 	</div>
   </div>
+  
+  
+  
   
   <!-- 덧글 삭제 modal -->
   <div id="episode_comment_delete_modal" class="modal fade">
@@ -665,6 +717,9 @@
 	</div>
   </div>
   
+  
+  
+  
   <!-- 덧글 수정 modal -->
   <div id="episode_comment_edit_modal" class="modal fade">
     <div class="modal-dialog">
@@ -673,6 +728,9 @@
 	  </div>
 	</div>
   </div>
+  
+  
+  
   
 	<div class="jb-center">
 		<ul class="pagination">
