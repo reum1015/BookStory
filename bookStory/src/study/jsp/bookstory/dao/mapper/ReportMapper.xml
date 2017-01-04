@@ -38,7 +38,7 @@
 	<!-- 신고된 게시글의  reported 데이터 변경 -->
 	<update id="updateReportedDate" parameterType="study.jsp.bookstory.model.Article">
 	UPDATE article SET reported = "Y"
-	WHERE reported = "N" and (member_id = #{member_id} or id = #{id})
+	WHERE reported = "N" and member_id = #{member_id} and id = #{id}
 	</update>
 	
 	<!-- 신고된 게시판인지에 대한 판별 -->

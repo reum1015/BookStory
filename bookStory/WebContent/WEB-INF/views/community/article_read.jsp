@@ -126,7 +126,7 @@
 
 	<input type="hidden" value="${member_level}" id="memVal">
 	<!-- 게시글 신고 버튼 -->
-	<c:if test="${count==0}">
+	<c:if test="${count==0 && readArticle.category == 'free'}">
   	<div class="pull-left" >
   		<a href="${pageContext.request.contextPath}/community/article_report.do?member_id=${readArticle.member_id}&subject=${readArticle.subject}&article_id=${readArticle.id}&user_nickname=${readArticle.user_nickname}&nick_name=${nick_name}" class="btn btn-danger">게시글 신고</a>
   	</div>
