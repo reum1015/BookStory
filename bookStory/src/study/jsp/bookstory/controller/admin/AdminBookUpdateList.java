@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.Episode;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
@@ -65,6 +66,8 @@ public class AdminBookUpdateList extends BaseController{
 			book_id = Integer.parseInt(tempBook_id);
 		}
 		
+		Member member = (Member)web.getSession("loginInfo");
+		
 		logger.debug("book_id -------------> " + book_id);
 		
 		//파라미터 셋팅
@@ -90,6 +93,7 @@ public class AdminBookUpdateList extends BaseController{
 		}
 		request.setAttribute("bookItem", bookItem);
 		request.setAttribute("episodeList", episodeList);
+		request.setAttribute("member_level", member.getMember_level());
 		return view;
 	}
 

@@ -36,7 +36,7 @@
 	<div class="row">
     <div class="col-xs-12">
 	    <div class="radio">
-			  <label><input type="radio" name="report_reason" value="option1">음란성 또는 청소년에게 부적합한 내용</label>
+			  <label><input type="radio" name="report_reason" value="option1" checked="checked">음란성 또는 청소년에게 부적합한 내용</label>
 		</div>
 		<div class="radio">
 			  <label><input type="radio" name="report_reason" value="option2">폭언 또는 욕설</label>

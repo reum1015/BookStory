@@ -28,33 +28,12 @@
 		</script>
 	</head>
 	<body>
-	
-		<!-- 메인 헤더 -->
-		<header class="main_header clearfix page-header hidden-xs">
-			
-			<!-- 메인 wrapper div -->
-			<div class="container clearfix main_header_wrapperdiv">
-				
-				<!-- 메인 헤더 로그인 회원가입 화면-->
-				     <ul class="nav navbar-nav navbar-right hidden-xs">
-				        <li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-				        <li><a href="${pageContext.request.contextPath}/login/login.do"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-   					</ul>
-				
-				<!-- 메인 헤더 이미지 -->
-				<div class="container main_header_image">
-					<h1 class="main_h1">
-						<a href="${pageContext.request.contextPath}/index.do" id="main_image_link"></a>
-					</h1>
-					<p class="sr-only">북스토리 메인 헤더영역</p>
-				</div>
-				
-			</div>
-			<div id="top_mar"></div>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
+
 			
 			
 					
-		</header>
+
 	
 		<!-- 네비게이션 바 (메뉴 영역) -->
 			<nav class="navbar navbar-default main_navi">

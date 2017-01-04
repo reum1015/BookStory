@@ -100,22 +100,23 @@ public class ViewPage extends BaseController{
 			web.redirect(null, "에피소드 번호가 지정되지 않았습니다.");
 			return null;
 		}
-
 		/** 로그인 여부 검사 */
 		int member_id = 0;
 		
+		
+		String member_level = "AA";
 		Member loginInfo = new Member();
 		loginInfo = (Member)web.getSession("loginInfo");
 		logger.debug("loginInfo-------------------------------------->" + loginInfo);
 		
 		if(loginInfo != null){
 			member_id = loginInfo.getId();
+			member_level = loginInfo.getMember_level();
 		}else{
 			web.redirect(null, "로그인이 필요한 서비스 입니다.");
 			sqlSession.close();
 			return null;
 		}
-		
 		logger.debug("member_id -----------------------------------> " + member_id);
 		
 		/** 구매 여부와 대여 여부 확인 */
@@ -157,9 +158,7 @@ public class ViewPage extends BaseController{
 				sqlSession.close();
 				return null;
 			}
-			
-			logger.debug("**********************************************");
-			
+
 			if(isRented){
 				
 				String temp_date;
@@ -293,6 +292,7 @@ public class ViewPage extends BaseController{
 		request.setAttribute("book_id", book_id);
 		request.setAttribute("nextEpisode", nextEpisode);
 		request.setAttribute("preEpisode", preEpisode);
+		request.setAttribute("member_level", member_level);
 		
 		return view;
 	}

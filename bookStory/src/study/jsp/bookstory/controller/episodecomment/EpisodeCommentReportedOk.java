@@ -84,7 +84,6 @@ public class EpisodeCommentReportedOk extends BaseController{
 		logger.debug("user_nickname ----> " + user_nickname);
 		logger.debug("nick_name ----> " + nick_name);
 		
-		
 		Report report = new Report();
 		
 		report.setComment_content(comment_content);

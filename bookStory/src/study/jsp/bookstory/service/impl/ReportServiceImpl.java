@@ -270,11 +270,11 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public int selectCommentReportCount(Report report) throws Exception {
+	public int selectCommentReportCount() throws Exception {
 		int result;
 		
 		try{
-			result = sqlSession.selectOne("ReportMapper.selectCommentReportCount", report);
+			result = sqlSession.selectOne("ReportMapper.selectCommentReportCount");
 			if( result == 0){
 				throw new NullPointerException() ;
 			}

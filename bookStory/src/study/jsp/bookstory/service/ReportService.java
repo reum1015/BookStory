@@ -113,7 +113,7 @@ public interface ReportService {
 	// 덧글이 저장되면서 덧글을 reported 데이터가 변경
 	public void updateComment(Comment comment) throws Exception;
 	// 신고덧글의 총 개수값 구하기 (페이징 처리하기위한 값)
-	public int selectCommentReportCount(Report report) throws Exception;
+	public int selectCommentReportCount() throws Exception;
 	// 신고덧글을 List로 출력하기
 	public List<Report> selectCommentReportList(Report report) throws Exception;
 	// 신고덧글을 삭제하기
@@ -137,6 +137,8 @@ public interface ReportService {
 	
 	//리포트 테이블의 blind값 변경 --> Y
 	public void updateReportedCommentBlind(Report report)throws Exception;
+	
+
 	
 	//----------------------------------------------------덧글 서비스 레이어 끝
 }

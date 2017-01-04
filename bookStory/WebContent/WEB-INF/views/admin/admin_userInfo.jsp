@@ -58,8 +58,7 @@
 <body>
 
 	<!-- 메인 헤더 -->
-	<jsp:include
-		page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
+	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 
 	<div id="myModal" class="modal fade" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">

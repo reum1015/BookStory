@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
@@ -39,6 +40,30 @@ public class AmdinCommentDeleteList extends BaseController{
 		reportService = new ReportServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		web = WebHelper.getInstance(request, response);
+		
+		//session에서 id값 가져오기
+				Member loginInfo = null;
+				String member_level=null;
+				int member_id = 0;
+				
+				loginInfo = (Member) web.getSession("loginInfo");
+				
+				if(loginInfo == null){
+					web.redirect(null,"접근이 제한된 페이지 입니다.");
+					return null;
+				} 
+				if(loginInfo != null){	
+					loginInfo = (Member)web.getSession("loginInfo");
+					member_id = loginInfo.getId();
+					member_level = loginInfo.getMember_level();
+					if(member_id == 0 || member_level.equals("AA")){
+						web.redirect(null, "접근이 제한된 페이지 입니다.");
+						return null;
+					}
+				}
+		
+		
+		
 		
 		int comment_id = web.getInt("comment_id");
 		

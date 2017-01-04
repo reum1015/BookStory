@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
 import study.jsp.bookstory.model.Episode;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.EpisodeService;
 import study.jsp.bookstory.service.ImageFileService;
@@ -53,6 +54,32 @@ public class AdminBookAndEpisodeUpdate extends BaseController{
 		imageFileService = new ImageFileServiceImpl(sqlSession, logger);
 		episodeService = new EpisodeServiceImpl(sqlSession, logger);
 		bookService = new BookServiceImpl(sqlSession, logger);
+		
+		//session에서 id값 가져오기
+				Member loginInfo = null;
+				String member_level=null;
+				int member_id = 0;
+				
+				loginInfo = (Member) web.getSession("loginInfo");
+				
+				if(loginInfo == null){
+					web.redirect(null,"접근이 제한된 페이지 입니다.");
+					return null;
+				} 
+				if(loginInfo != null){	
+					loginInfo = (Member)web.getSession("loginInfo");
+					member_id = loginInfo.getId();
+					member_level = loginInfo.getMember_level();
+					if(member_id == 0 || member_level.equals("AA")){
+						web.redirect(null, "접근이 제한된 페이지 입니다.");
+						return null;
+					}
+				}
+		
+		
+		
+		
+		
 		
 		String tempBook_id = web.getString("book_id");
 		String tempEpisode_id = web.getString("episode_id");

@@ -41,13 +41,23 @@ public class AdminArticleManage extends BaseController{
 		reportService = new ReportServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		
-		Member LoginInfo = (Member) web.getSession("loginInfo");
+		//session에서 id값 가져오기
+		Member member = (Member)web.getSession("loginInfo");
+			
+		String member_level=null;
+		int member_id = 0;
 		
-		String member_level = null;
-		
-		if(LoginInfo != null) {
-			member_level = LoginInfo.getMember_level();
+		if(member != null){
+			 member_id = member.getId();
+			 member_level = member.getMember_level();
+				 if(member_id == 0 && member_level.equals("AA")){
+						web.redirect(null, "접근이 제한된 페이지 입니다.");
+					}
+				 
+		}else if(member == null){
+			web.redirect(null, "접근이 제한된 페이지 입니다.");
 		}
+		
 		
 		Report report = new Report();
 		

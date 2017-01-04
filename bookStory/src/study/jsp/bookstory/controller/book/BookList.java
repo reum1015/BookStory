@@ -92,9 +92,11 @@ public class BookList extends BaseController {
 			//session에서 id값 가져오기
 		Member member = (Member)web.getSession("loginInfo");
 			
+		String member_level=null;
 		int member_id = 0;
 		if(member != null){
 				 member_id = member.getId();
+				 member_level = member.getMember_level();
 		}
 		
 		logger.debug("member_id -------------------> " + member_id);
@@ -278,6 +280,7 @@ public class BookList extends BaseController {
 		request.setAttribute("buyList", buyList);									//작품 구매목록 리스트
 		request.setAttribute("rentList", rentList);
 		request.setAttribute("member", member);
+		request.setAttribute("member_level", member_level);
 		
 		return view;
 	}

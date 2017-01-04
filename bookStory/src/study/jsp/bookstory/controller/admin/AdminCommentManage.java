@@ -19,6 +19,7 @@ import study.jsp.bookstory.model.Report;
 import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
+import study.jsp.helper.PageHelper;
 import study.jsp.helper.WebHelper;
 
 @WebServlet("/admin/comment_manage.do")
@@ -30,6 +31,7 @@ public class AdminCommentManage extends BaseController{
 	Logger logger;
 	SqlSession sqlSession;
 	ReportService reportService; 
+	PageHelper pageHelper;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,6 +41,7 @@ public class AdminCommentManage extends BaseController{
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		reportService = new ReportServiceImpl(sqlSession, logger);
+		pageHelper = PageHelper.getInstance();
 		
 		Member LoginInfo = (Member) web.getSession("loginInfo");
 		
@@ -48,11 +51,35 @@ public class AdminCommentManage extends BaseController{
 			member_level = LoginInfo.getMember_level();
 		}
 		
+		// 현재 페이지 수 --> 기본값은 1페이지로 설정
+		
+
+		
+		int page = web.getInt("page", 1);
+		int totalCount = 0;
+		
+		Report report = new Report();
 		
 		List<Report> list = new ArrayList<>();
 		
 		try{
-			list = reportService.selectCommentReportList(null);
+			
+			
+			totalCount = reportService.selectCommentReportCount();
+			
+			logger.debug("totalCount --------------> " + totalCount);
+			
+			// 나머지 페이지 번호 계산하기
+			// --> 현제 페이지, 전체 게시물 수, 한페이지의 목록수, 그룹갯수
+			pageHelper.pageProcess(page, totalCount, 3, 5);
+						
+			// 페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
+			report.setLimitStart(pageHelper.getLimit_start());
+			report.setListCount(pageHelper.getList_count());
+			
+			list = reportService.selectCommentReportList(report);
+			
+			
 		}catch (Exception e) {
 			// TODO: handle exception
 			web.redirect(null, e.getLocalizedMessage());
@@ -66,7 +93,8 @@ public class AdminCommentManage extends BaseController{
 		
 		request.setAttribute("member_level", member_level);
 		request.setAttribute("commentLists", list);
-		
+		request.setAttribute("pageHelper", pageHelper);
+
 		
 		String view = "admin/admin_comment_manage";
 		

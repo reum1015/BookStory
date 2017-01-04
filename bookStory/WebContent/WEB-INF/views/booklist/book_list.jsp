@@ -8,7 +8,6 @@
 <head>
 
 <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
-<jsp:include page="/WEB-INF/views/template/head_nav.jsp"></jsp:include>
 <!-- Article css -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/article/articleList.css" />
 
@@ -278,6 +277,8 @@
 </head>
 
 <body>
+
+<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 	<!-- 컨테인 영역 -->
 	<div class="container">
 		<div class="content row book_headerBox">

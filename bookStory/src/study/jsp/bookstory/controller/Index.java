@@ -58,8 +58,11 @@ public class Index extends BaseController{
 		// 관리자에게만 admin버튼 활성화
 		String member_level = "AA";
 		
+		Member LoginInfo = (Member) web.getSession("loginInfo");
+		
+		
 		if(web.getSession("loginInfo") != null){
-			Member LoginInfo = (Member) web.getSession("loginInfo");
+			LoginInfo = (Member) web.getSession("loginInfo");
 			member_level = LoginInfo.getMember_level();
 		}
 		

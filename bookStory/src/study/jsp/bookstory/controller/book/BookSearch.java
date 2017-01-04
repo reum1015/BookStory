@@ -19,6 +19,7 @@ import org.apache.logging.log4j.Logger;
 
 import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Book;
+import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.BookService;
 import study.jsp.bookstory.service.ImageFileService;
 import study.jsp.bookstory.service.impl.BookServiceImpl;
@@ -41,8 +42,6 @@ public class BookSearch extends BaseController {
 	ImageFileService imageFileService;
 	UploadHelper upload;
 
-	
-	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -62,13 +61,23 @@ public class BookSearch extends BaseController {
 		
 		if(keyword == null || keyword == ""){
 			web.redirect(null,"검색어를 입력해 주세요");
+			return null;
 		}
 		logger.debug("Keyword ---------> " + keyword);
 		
-			//검색어 공백 제거
+		
+		//검색어 공백 제거
 		String trimKeyword = keyword.trim();
 		String tempKeword = trimKeyword.replaceAll("\\s", "");
 		
+		//session에서 id값 가져오기
+		String member_level=null;
+		
+		Member member = (Member)web.getSession("loginInfo");
+		if(member != null){
+			member_level = member.getMember_level();
+		}
+
 		/** (4) 파라미터를 Beans로 묶기 */	
 		Book book = new Book();
 		book.setBook_name(tempKeword);
@@ -103,6 +112,7 @@ public class BookSearch extends BaseController {
 		// --> import java.util.Map;
 		
 		request.setAttribute("bookitem", list);
+		request.setAttribute("member_level", member_level);
 		
 		String view = "booklist/book_search";
 		

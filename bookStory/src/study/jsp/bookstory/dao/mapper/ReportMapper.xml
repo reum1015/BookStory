@@ -131,11 +131,12 @@
 	
 	<!-- 신고한 댓글을 리스트로 출력한다. -->
 	<select id="selectCommentReportList" parameterType="study.jsp.bookstory.model.Report" resultMap="report">
-	SELECT nick_name, user_nickname, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+	SELECT id,nick_name, user_nickname, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
 	report_content, comment_content, comment_id
 	FROM report
 	WHERE comment_id IS NOT NULL
 	ORDER BY id desc
+	LIMIT #{limitStart}, #{listCount}
 	</select>
 	
 	
@@ -150,6 +151,10 @@
 	<update id="updateReportedCommentBlind">
 	UPDATE report SET blind = 'Y' WHERE comment_id=#{comment_id}
 	</update>
+	
+	<select id="selectCommentReportCount" resultType="int">
+	SELECT count(id) FROM report WHERE comment_id IS NOT NULL
+	</select>
 
 	
 	

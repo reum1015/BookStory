@@ -2,6 +2,7 @@ package study.jsp.bookstory.model;
 
 public class Report {
 
+	private int id;
 	private String reg_date;
 	private String blind;
 	private int member_id;
@@ -21,6 +22,13 @@ public class Report {
 	String user_nickname;
 	String comment_content;
 	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getReg_date() {
 		return reg_date;
 	}
@@ -99,14 +107,15 @@ public class Report {
 	public void setComment_content(String comment_content) {
 		this.comment_content = comment_content;
 	}
-	
 	@Override
 	public String toString() {
-		return "Report [reg_date=" + reg_date + ", blind=" + blind + ", member_id=" + member_id + ", target_member_id="
-				+ target_member_id + ", report_subject=" + report_subject + ", report_content=" + report_content
-				+ ", article_id=" + article_id + ", comment_id=" + comment_id + ", limitStart=" + limitStart
-				+ ", listCount=" + listCount + ", nick_name=" + nick_name + ", user_nickname=" + user_nickname
-				+ ", comment_content=" + comment_content + "]";
+		return "Report [id=" + id + ", reg_date=" + reg_date + ", blind=" + blind + ", member_id=" + member_id
+				+ ", target_member_id=" + target_member_id + ", report_subject=" + report_subject + ", report_content="
+				+ report_content + ", article_id=" + article_id + ", comment_id=" + comment_id + ", limitStart="
+				+ limitStart + ", listCount=" + listCount + ", nick_name=" + nick_name + ", user_nickname="
+				+ user_nickname + ", comment_content=" + comment_content + "]";
 	}
+	
+
 	
 }

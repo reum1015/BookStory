@@ -160,12 +160,6 @@
 	
 		});
 		
-		
-		
-		
-		
-		
-		
 		// 코멘트 ajax
 		  /** 페이지가 열리면서 동작하도록 이벤트 정의 없이 Ajax요청 */
 		  $.get("${pageContext.request.contextPath}/episodecomment/episode_comment_list.do", {
@@ -356,58 +350,13 @@
 </style>
 </head>
 <body>
+
+<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
    <!-- 메인 헤더 -->
 <!-- 메인 헤더 -->
-<header class="main_header clearfix page-header hidden-xs" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-
-	<!-- 메인 wrapper div -->
-	<div class="container clearfix main_header_wrapperdiv">
-      <c:choose>
-        <c:when test="${loginInfo==null}">
-		<!-- 메인 헤더 로그인 회원가입 화면-->
-		<ul class="nav navbar-nav navbar-right hidden-xs">
-			<li><a
-				href="${pageContext.request.contextPath}/login/sign_up_agree.do"><span
-					class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="${pageContext.request.contextPath}/login/login.do"><span
-					class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		</ul>
-        </c:when>
-        <c:otherwise>
-          <!-- 로그인 된 경우 -->
-      <ul class="nav navber-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px">
-            ${loginInfo.nick_name}님 <span class="caret"></span>
-          </a>
-          <!-- 로그인한 경우 표시될 메뉴 -->
-          <ul class="dropdown-menu">
-            <li><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
-            <li><a href="${pageContext.request.contextPath}/login/edit.do">회원정보 수정</a></li>
-            <li><a href="${pageContext.request.contextPath}/login/out.do">회원탈퇴</a></li>
-          </ul>
-        </li>
-      </ul>
-      <!-- // 로그인 된 경우 -->
-        </c:otherwise>
-      </c:choose>
-		<!-- 메인 헤더 이미지 -->
-		<div class="container main_header_image">
-			<h1 class="main_h1">
-				<a href="${pageContext.request.contextPath}/index.do"
-					id="main_image_link"></a>
-			</h1>
-			<p class="sr-only">북스토리 메인 헤더영역</p>
-		</div>
-
-	</div>
-	<div id="top_mar"></div>
 
 
-
-</header>
-
-<!-- 네비게이션 바 (메뉴 영역) -->
+<!-- 네비게이션 바 (메뉴 영역)
 <nav class="navbar navbar-default main_navi"  oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 	<div class="container">
 		<div class="navbar-header clearfix">
@@ -432,13 +381,30 @@
 						href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
 					<li class="mymenu"><a
 						href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
+					
+					
+					
+					
+					
+					
 					<li class="main_admin"><a
 						href="${pageContext.request.contextPath}/admin/admin_main.do"
 						class="main_navi_admin active">administrator</a></li>
+					
+					
+					
+					
+					
 					<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do" class="visible-xs signup_icon"><span
 							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 					<li><a href="${pageContext.request.contextPath}/login/login.do" class="visible-xs login_icon"><span
 							class="glyphicon glyphicon-log-in"></span> Login</a></li>
+							
+							
+							
+							
+							
+							
 					<li>
 						<form
 							class="navbar-form navbar-left pull-left search_form visible-xs"
@@ -483,7 +449,7 @@
 		</div>
 	</div>
 </nav>
-   
+    -->
 	<!-- 메인 화면 시작 -->
 	
 		<div class="container" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
