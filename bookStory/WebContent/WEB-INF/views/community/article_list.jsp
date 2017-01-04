@@ -66,7 +66,7 @@
 						<c:forEach var="adminArticle" items="${adminArticleList}">
 							<c:if test="${adminArticle.category == 'notice'}">
 								<tr id="TableCategory"  style="font-weight:bolder; background-color : #EEEEEE;">
-									<td class="text-center">${adminArticle.id}</td>
+									<td class="text-center">공지</td>
 									<td class="text-center"><c:url var="readUrl"
 											value="/community/article_read.do">
 											<c:param name="article_id" value="${adminArticle.id}" />
