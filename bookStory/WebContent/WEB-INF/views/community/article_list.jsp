@@ -32,9 +32,6 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script type="text/javascript">
 
-$(".retable").click(function(){
-	
-});
 </script>
 <!-- Article css -->
 <link rel="stylesheet" type="text/css"
@@ -66,17 +63,17 @@ $(".retable").click(function(){
 			<tbody>
 				<c:choose>
 					<c:when test="${fn:length(adminArticleList) > 0}">
-						<c:forEach var="article" items="${adminArticleList}">
-							<c:if test="${article.category == 'notice'}">
+						<c:forEach var="adminArticle" items="${adminArticleList}">
+							<c:if test="${adminArticle.category == 'notice'}">
 								<tr id="TableCategory"  style="font-weight:bolder; background-color : #EEEEEE;">
-									<td class="text-center">${article.id}</td>
+									<td class="text-center">${adminArticle.id}</td>
 									<td class="text-center"><c:url var="readUrl"
 											value="/community/article_read.do">
-											<c:param name="article_id" value="${article.id}" />
-										</c:url> <a href="${readUrl}">${article.subject}</a></td>
-									<td class="text-center">${article.user_nickname}</td>
-									<td class="text-center">${article.hit}</td>
-									<td class="text-center">${article.reg_date}</td>
+											<c:param name="article_id" value="${adminArticle.id}" />
+										</c:url> <a href="${readUrl}">${adminArticle.subject}</a></td>
+									<td class="text-center">${adminArticle.user_nickname}</td>
+									<td class="text-center">${adminArticle.hit}</td>
+									<td class="text-center">${adminArticle.reg_date}</td>
 								</tr>
 							</c:if>
 						</c:forEach>
@@ -154,7 +151,7 @@ $(".retable").click(function(){
 							<c:param name="page" value="${pageHelper.prevPage}"></c:param>
 						</c:url>
 
-						<li><a href="${prevUrl}" class="retable">&laquo;</a></li>
+						<li><a href="${prevUrl}">&laquo;</a></li>
 					</c:when>
 
 					<c:otherwise>
@@ -196,7 +193,7 @@ $(".retable").click(function(){
 							<c:param name="page" value="${pageHelper.nextPage}"></c:param>
 						</c:url>
 
-						<li><a href="${nextUrl}" class="retable">&raquo;</a></li>
+						<li><a href="${nextUrl}">&raquo;</a></li>
 					</c:when>
 
 					<c:otherwise>
