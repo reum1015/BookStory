@@ -88,9 +88,9 @@ public class ArticleList extends BaseController {
 			// 페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
 			article.setLimit_start(pageHelper.getLimit_start());
 			article.setList_count(pageHelper.getList_count());
-			
-			articleList = articleService.selectArticleList(article);
+				
 			adminArticleList = reportService.selectAdminArticleList(article);
+			articleList = articleService.selectArticleList(article);
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());
 			return null;

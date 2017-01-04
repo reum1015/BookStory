@@ -80,7 +80,7 @@
 	  
 	  FROM   article
 	  <where>
-	  
+	  category = 'free'
 	    <if test="subject != null or content != null">
 	      AND (
 	          <if test="subject != null">
@@ -101,7 +101,7 @@
 	<select id="selectArticleCount" parameterType="study.jsp.bookstory.model.Article" resultType="int">
 	  SELECT COUNT(id) FROM article
 	  <where>
-	    
+	  category = 'free'
 	    <if test="subject != null or content != null">
 	      AND (
 	          <if test="subject != null">
