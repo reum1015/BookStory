@@ -65,8 +65,8 @@ $(".retable").click(function(){
 			</thead>
 			<tbody>
 				<c:choose>
-					<c:when test="${fn:length(articleList) > 0}">
-						<c:forEach var="article" items="${articleList}">
+					<c:when test="${fn:length(adminArticleList) > 0}">
+						<c:forEach var="article" items="${adminArticleList}">
 							<c:if test="${article.category == 'notice'}">
 								<tr id="TableCategory"  style="font-weight:bolder; background-color : #EEEEEE;">
 									<td class="text-center">${article.id}</td>

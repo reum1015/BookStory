@@ -170,6 +170,14 @@
 	<update id="updateAdminArticle" parameterType="study.jsp.bookstory.model.Article">
 	 UPDATE article SET member_id=NULL WHERE member_id=#{member_id}
 	</update>
+	
+	<!-- 관리자 공지사항 리스트만 출력한다. -->
+	<select id="selectAdminArticleList" parameterType="study.jsp.bookstory.model.Article" resultMap="article">
+	SELECT id, category, subject, hit, member_id, user_nickname,
+	         DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+	FROM   article
+	WHERE category='notice'
+	</select>
 	<!-- 관리자가 회원 탈퇴 시키기위한 sql문 끝-->
 	
 </mapper>

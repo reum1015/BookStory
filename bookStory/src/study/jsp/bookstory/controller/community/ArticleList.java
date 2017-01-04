@@ -16,7 +16,9 @@ import study.jsp.bookstory.dao.MybatisConnectionFactory;
 import study.jsp.bookstory.model.Article;
 import study.jsp.bookstory.model.Member;
 import study.jsp.bookstory.service.ArticleService;
+import study.jsp.bookstory.service.ReportService;
 import study.jsp.bookstory.service.impl.ArticleserviceImpl;
+import study.jsp.bookstory.service.impl.ReportServiceImpl;
 import study.jsp.helper.BaseController;
 import study.jsp.helper.PageHelper;
 import study.jsp.helper.WebHelper;
@@ -34,6 +36,7 @@ public class ArticleList extends BaseController {
 	SqlSession sqlSession;
 	WebHelper web;
 	ArticleService articleService;
+	ReportService reportService;
 	PageHelper pageHelper;
 
 	@Override
@@ -43,6 +46,7 @@ public class ArticleList extends BaseController {
 		sqlSession = MybatisConnectionFactory.getSqlSession();
 		web = WebHelper.getInstance(request, response);
 		articleService = new ArticleserviceImpl(sqlSession, logger);
+		reportService = new ReportServiceImpl(sqlSession, logger);
 		pageHelper = PageHelper.getInstance();
 		
 		/** (3) 조회할 정보에 대한 Beans 생성 */
@@ -71,6 +75,7 @@ public class ArticleList extends BaseController {
 		/** (4) 게시글 목록 조회 */
 		int totalCount = 0;
 		List<Article> articleList = null;
+		List<Article> adminArticleList = null;
 		
 		try{
 			// 전체 게시물 수
@@ -85,6 +90,7 @@ public class ArticleList extends BaseController {
 			article.setList_count(pageHelper.getList_count());
 			
 			articleList = articleService.selectArticleList(article);
+			adminArticleList = reportService.selectAdminArticleList(article);
 		}catch(Exception e){
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -92,9 +98,11 @@ public class ArticleList extends BaseController {
 			sqlSession.close();
 		}
 		
+		
 		/** (5) 조회 결과를 View에 전달 */
 		request.setAttribute("member_level", member_level);
 		request.setAttribute("articleList", articleList);
+		request.setAttribute("adminArticleList", adminArticleList);
 		request.setAttribute("keywrod", keyword);
 		request.setAttribute("pageHelper", pageHelper);
 		

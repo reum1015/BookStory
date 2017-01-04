@@ -101,8 +101,9 @@ public interface ReportService {
 	//----------------------------------------------------공지사항 업로드
 	public void insertNoticeArticle(Article article) throws Exception;
 	//----------------------------------------------------공지사항 업로드 끝
-	
-	
+	//--------------------------------------------------- 공지사항 리스트 출력
+	public List<Article> selectAdminArticleList(Article article) throws Exception;
+	//--------------------------------------------------- 공지사항 리스트 출력 끝
 	
 	//----------------------------------------------------덧글 서비스 레이어 시작
 	// 덧글을 report테이블에 저장하기

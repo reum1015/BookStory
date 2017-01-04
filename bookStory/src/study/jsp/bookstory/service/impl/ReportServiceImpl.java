@@ -710,6 +710,28 @@ public class ReportServiceImpl implements ReportService{
 		return result;
 	}
 
+	//--------------------------------------------------- 공지사항 리스트 출력
+	
+	@Override
+	public List<Article> selectAdminArticleList(Article article) throws Exception {
+		List<Article> result;
+		
+		try{
+			result = sqlSession.selectList("ArticleMapper.selectAdminArticleList", article);
+			if (result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			logger.error(e.getLocalizedMessage());
+			throw new NullPointerException("AdminArticleList를 출력하기 위한 데이터가 없습니다.");
+		} catch (Exception e) {
+			logger.error(e.getLocalizedMessage());
+			throw new Exception("AdminArticleList를 출력하기 실패했습니다.");
+		} 
+		return result;
+	}
+
+	//--------------------------------------------------- 공지사항 리스트 출력
 	
 	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
 }
