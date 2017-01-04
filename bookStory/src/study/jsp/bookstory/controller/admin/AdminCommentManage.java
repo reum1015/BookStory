@@ -63,8 +63,6 @@ public class AdminCommentManage extends BaseController{
 		List<Report> list = new ArrayList<>();
 		
 		try{
-			
-			
 			totalCount = reportService.selectCommentReportCount();
 			
 			logger.debug("totalCount --------------> " + totalCount);

@@ -271,14 +271,17 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public int selectCommentReportCount() throws Exception {
-		int result;
+		int result = 0;
 		
 		try{
 			result = sqlSession.selectOne("ReportMapper.selectCommentReportCount");
-			if( result == 0){
-				throw new NullPointerException() ;
+			if(result == 0){
+				throw new NullPointerException();
 			}
-		} catch (NullPointerException e) {
+		}catch (NullPointerException e) {
+			// TODO: handle exception
+			throw new Exception("신고된 댓글 목록이 존재하지 않습니다.");
+		}catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("CommentReportCount를 실패하였습니다.");
 		}
@@ -296,7 +299,7 @@ public class ReportServiceImpl implements ReportService{
 			}
 		} catch (NullPointerException e) {
 			logger.error(e.getLocalizedMessage());
-			throw new NullPointerException("CommentReportList를 출력하기 위한 데이터가 없습니다.");
+			throw new NullPointerException("신고된 댓글 목록이 없습니다.");
 		} catch (Exception e) {
 			logger.error(e.getLocalizedMessage());
 			throw new Exception("CommentReportList를 출력하기 실패했습니다.");
