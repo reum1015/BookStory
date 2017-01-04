@@ -688,10 +688,10 @@ public class ReportServiceImpl implements ReportService{
 			}
 		} catch (NullPointerException e) {
 			sqlSession.rollback();
-			throw new Exception("회원을 강제 삭제하기 위한 회원이 존재하지 않습니다.");
+			throw new Exception("강제 삭제하기 위한 회원이 존재하지 않습니다.");
 		} catch (Exception e) {
 			sqlSession.rollback();
-			throw new Exception("회원을 강제 삭제하기 위한 SQL문의 에러입니다.");
+			throw new Exception("강제 삭제하기 위한 SQL문의 에러입니다.");
 		} finally {
 			sqlSession.commit();
 		}
@@ -710,6 +710,25 @@ public class ReportServiceImpl implements ReportService{
 		return result;
 	}
 
+	@Override
+	public void deleteReportedCommentOnlyReportList(Report report) throws Exception {
+		// TODO Auto-generated method stub
+		int result;
+		try{
+			result = sqlSession.delete("ReportMapper.deleteReportedCommentOnlyReportList", report);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("리스트에서 삭제된 댓글이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("회원 삭제 에러");
+		} finally {
+			sqlSession.commit();
+		}
+	}
 	//--------------------------------------------------- 공지사항 리스트 출력
 	
 	@Override
@@ -734,4 +753,31 @@ public class ReportServiceImpl implements ReportService{
 	//--------------------------------------------------- 공지사항 리스트 출력
 	
 	//------------------------------------------------------------------------ 회원 강제 삭제 서비스 레이어
+	
+	
+	@Override
+	public void updateReportedCommentBlind(Report report) throws Exception {
+		// TODO Auto-generated method stub
+		int result = 0;
+		try{
+			result = sqlSession.update("ReportMapper.updateReportedCommentBlind", report);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("블라인드 할 덧글이 존재하진 않습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("댓글 블라인드 실패."); 
+		}
+			sqlSession.commit();
+	}
+	
+	
+	
+	
+	
+	
+	
 }

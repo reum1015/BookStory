@@ -44,6 +44,101 @@
 		    
 		});
 	</script>
+	
+	<script type="text/javascript">
+		$(function() {
+			
+			
+			$('.modal').on('hidden.bs.modal', function(e){
+				//모달창 내의 내용을 강제로 지움.
+				$(this).removeData('bs.modal');
+			});
+			
+			
+			//댓글 리스트에서 삭제
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#commentDeleteList", function(e) {
+				e.preventDefault();
+
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					$("#editConfirm").modal('show');
+					
+					// modal 강제로 닫기
+					$("#edit").modal('hide');
+					
+					// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+					var comment_id = json.comment_id;
+					$("#comment_" + comment_id).remove();
+				});
+			});
+			
+			//댓글 블라인드 삭제
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#commentBlind", function(e) {
+				e.preventDefault();
+
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					$("#blindConfirm").modal('show');
+					
+					// modal 강제로 닫기
+					$("#blind").modal('hide');
+					
+					// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+					
+					
+				});
+			});
+			
+			
+			//댓글 삭제
+			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+			$(document).on('submit', "#commentDeleteByAdmin", function(e) {
+				e.preventDefault();
+
+				// AjaxForm 플러그인의 강제 호출
+				$(this).ajaxSubmit(function(json) {
+					if (json.rt != "OK") {
+						alert(json.rt);
+						return false;
+					}
+					
+					$("#deleteConfirm").modal('show');
+					
+					// modal 강제로 닫기
+					$("#delete").modal('hide');
+					
+					// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+					var comment_id = json.comment_id;
+					$("#comment_" + comment_id).remove();
+				});
+			});
+			
+			
+			
+			
+			
+			
+			
+		})
+	
+	
+	
+	
+	
+	
+	</script>
 
 </head>
 <body>
@@ -115,29 +210,47 @@
 		    		<c:when test="${fn:length(commentLists) > 0}">
 		    			<c:forEach var="commentLists" items="${commentLists}">
 		    	
-						<li class="list-group-item" id="${commentLists.comment_id}">
+						<li class="list-group-item" id="comment_${commentLists.comment_id}">
 							<div class="row">
 								<div class="col-xs-2 reply_name">${commentLists.nick_name }</div>
 								<div class="col-xs-2 reply_id">${commentLists.user_nickname }</div>
-								<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
+								<c:choose>
+											<c:when test="${commentLists.report_content == 'option1'}">
+												<div class="col-xs-4 reply_reason">음란성 또는 청소년에게 부적합한 내용</div>
+											</c:when>
+											<c:when test="${commentLists.report_content == 'option2'}">
+											<div class="col-xs-4 reply_reason">폭언 또는 욕설</div>
+											</c:when>
+											<c:otherwise>
+											<div class="col-xs-4 reply_reason">게시물 광고</div>
+											</c:otherwise>
+										</c:choose>
 								<div class="col-xs-2 reply_date">${fn:substring(commentLists.reg_date,0,11)}</div>
-
 								<div class="col-xs-2 reply_button_group">
 									<div class="reply_button_group pull-right">
-										<p data-placement="top" data-toggle="tooltip" title="edit"
-											class="cancel_button">
-											<button class="btn btn-success btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-edit"></span>
-											</button>
+										<p data-placement="top" data-toggle="tooltip" title="정상" class="cancel_button">
+											<a class="btn btn-success btn-xs" data-title="Delete" data-toggle="modal" data-target="#edit"
+											href="${pageContext.request.contextPath}/admin/comment_deleteList.do?comment_id=${commentLists.comment_id}">
+												<span class="glyphicon glyphicon-check"></span>
+											</a>
 										</p>
-										<p data-placement="top" data-toggle="tooltip" title="Delete"
-											class="delete_button">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
+										<p data-placement="top" data-toggle="tooltip" title="블라인드"class="delete_button">
+											<a class="btn btn-danger btn-xs" data-title="Delete"data-toggle="modal" data-target="#blind"
+											href="${pageContext.request.contextPath}/admin/comment_blind.do?comment_id=${commentLists.comment_id}">
+												<span class="glyphicon glyphicon-minus"></span>
+											</a>
 										</p>
+										<p data-placement="top" data-toggle="tooltip" title="삭제"class="delete_button">
+											<a class="btn btn-danger btn-xs" data-title="Delete"data-toggle="modal" data-target="#delete"
+											href="${pageContext.request.contextPath}/admin/comment_delete.do?comment_id=${commentLists.comment_id}">
+												<span class="glyphicon glyphicon-remove"></span>
+											</a>
+										</p>
+										
+										
+										
+										
+										
 									</div>
 								</div>
 							</div>
@@ -194,80 +307,138 @@
 
 	<!-- 메인 화면 끝 -->
 
-	<!-- 모달 시작 -->
+	<!-- 모달 시작 리스트목록에서 삭제 -->
 	<div class="modal fade" id="edit" tabindex="-1" role="dialog"
 		aria-labelledby="edit" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</button>
-					<h4 class="modal-title custom_align" id="Heading">Edit Your
-						Detail</h4>
-				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<input class="form-control " type="text" placeholder="Mohsin">
-					</div>
-					<div class="form-group">
-
-						<input class="form-control " type="text" placeholder="Irshad">
-					</div>
-					<div class="form-group">
-						<textarea rows="2" class="form-control"
-							placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
-
-
-					</div>
-				</div>
-				<div class="modal-footer ">
-					<button type="button" class="btn btn-warning btn-lg"
-						style="width: 100%;">
-						<span class="glyphicon glyphicon-ok-sign"></span> Update
-					</button>
-				</div>
+				
 			</div>
 			<!-- /.modal-content -->
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	<!-- 확인용 모달창 -->
+		<div class="modal fade" id="editConfirm" tabindex="-1" role="dialog"
+			aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">댓글 리스트 삭제</h4>
+					</div>
+					<div class="modal-body">
+	
+						<div class="alert alert-danger">
+							목록에서 삭제 되었습니다.
+						</div>
+	
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> 확인
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 
 
 
-	<div class="modal fade" id="delete" tabindex="-1" role="dialog"
+
+	<div class="modal fade" id="blind" tabindex="-1" role="dialog"
 		aria-labelledby="edit" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">
-						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-					</button>
-					<h4 class="modal-title custom_align" id="Heading">댓글 블라인드</h4>
-				</div>
-				<div class="modal-body">
-
-					<div class="alert alert-danger">
-						<span class="glyphicon glyphicon-warning-sign"></span> 이글을 정말 블라인드
-						하시겠습니까?
-					</div>
-
-				</div>
-				<div class="modal-footer ">
-					<button type="button" class="btn btn-success">
-						<span class="glyphicon glyphicon-ok-sign"></span> Yes
-					</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">
-						<span class="glyphicon glyphicon-remove"></span> No
-					</button>
-				</div>
+				
 			</div>
 			<!-- /.modal-content -->
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	
+	<!-- 확인용 모달창 -->
+		<div class="modal fade" id="blindConfirm" tabindex="-1" role="dialog"
+			aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">블라인드</h4>
+					</div>
+					<div class="modal-body">
+	
+						<div class="alert alert-danger">
+							블라인드 처리가 완료 되었습니다.
+						</div>
+	
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> 확인
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	
+	
+	
+	
+
+	<!--  -->
+		<div class="modal fade" id="delete" tabindex="-1" role="dialog"
+		aria-labelledby="edit" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	
+	<!-- 확인용 모달창 -->
+		<div class="modal fade" id="deleteConfirm" tabindex="-1" role="dialog"
+			aria-labelledby="edit" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+						<h4 class="modal-title custom_align" id="Heading">댓글 삭제</h4>
+					</div>
+					<div class="modal-body">
+	
+						<div class="alert alert-danger">
+							댓글 삭제 처리가 완료 되었습니다.
+						</div>
+	
+					</div>
+					<div class="modal-footer ">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove"></span> 확인
+						</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	
 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

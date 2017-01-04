@@ -139,6 +139,22 @@
 	</select>
 	
 	
+	
+	<!-- 신고한 댓글 리포트 리스트에서만 삭제(정상적인 글) -->
+	<delete id="deleteReportedCommentOnlyReportList">
+	DELETE FROM report WHERE comment_id=#{comment_id}	
+	</delete>
+	
+	
+	<!-- report테이블에 blind값 Y로 변경 -->
+	<update id="updateReportedCommentBlind">
+	UPDATE report SET blind = 'Y' WHERE comment_id=#{comment_id}
+	</update>
+
+	
+	
+	
+	
 	<!-- 덧글을 강제 삭제하기위한 사전 작업 -->
 	
 	<!-- 회원 덧글을 신고 및 강제 삭제하기 위한 메퍼 끝 -->
