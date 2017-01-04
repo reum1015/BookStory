@@ -248,16 +248,8 @@
   <ul class="media-list" id="comment_list">
 
   </ul>
-  
-  <!-- 덧글 신고 modal -->
-  <div id="comment_report_modal" class="modal fade">
-    <div class="modal-dialog modal-sm">
-	  <div class="modal-content">
-
-	  </div>
-	</div>
-  </div>
-  
+ 
+ 
   <!-- 덧글 삭제 modal -->
   <div id="comment_delete_modal" class="modal fade">
     <div class="modal-dialog modal-sm">
@@ -276,8 +268,43 @@
 	</div>
   </div>
   
+  <!-- 확인용 Modal -->
+  <div class="modal fade" id="confirmReport" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+       
+        <div class="modal-body">
+         	댓글 신고 완료
+        </div>
+        <div class="modal-footer">
+         <button class="btn btn-success btn-block" type="button" data-dismiss="modal">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- 덧글 신고 modal -->
+  <div id="comment_reported_modal" class="modal fade">
+    <div class="modal-dialog">
+	  <div class="modal-content">
+
+	  </div>
 	</div>
+  </div>
+  
+  
+  
+  
+  
 	</div>
+	</div><!-- end container -->
 
 
     
@@ -301,7 +328,7 @@
           </div>
           <!-- 수정,삭제,신고 버튼 -->
           <div class="pull-right {{restate blind}}">
-            <a href="${pageContext.request.contextPath}/comment/comment_reported.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
+            <a href="${pageContext.request.contextPath}/comment/comment_report.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_reported_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-scissors'></i></a>
             <a href="${pageContext.request.contextPath}/comment/comment_edit.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_edit_modal" class='btn btn-warning btn-xs'><i class='glyphicon glyphicon-edit'></i></a>
             <a href="${pageContext.request.contextPath}/comment/comment_delete.do?comment_id={{id}}" data-toggle="modal" data-target="#comment_delete_modal" class='btn btn-danger btn-xs'><i class='glyphicon glyphicon-remove'></i></a>
           </div>
@@ -446,6 +473,37 @@ $(function() {
 			}
 			
 		});
+		
+		//덧글 신고 모달창
+		/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
+		$(document).on("submit", "#episode_comment_report_form", function(e) {
+			e.preventDefault();
+			console.log("시작");
+			
+			var comment_id = $(this).find("#comment_id").val();
+			var member_id = $(this).find("#member_id").val();
+			var comment_memberId = $(this).find("#comment_memberId").val();
+			var comment_content = $(this).find("#comment_content").val();
+			var user_nickname = $(this).find("#user_nickname").val();
+			var report_reason =  $(this).find('input[name=report_reason]:checked').val();
+			
+			console.log(report_reason);
+			
+			$.post('${pageContext.request.contextPath}/episodecomment/episode_comment_report_ok.do',
+					{comment_id:comment_id,member_id:member_id,comment_content:comment_content,					
+					comment_memberId:comment_memberId,report_reason:report_reason,user_nickname:user_nickname},
+					
+					function(data){
+					
+						// 별점 모달 강제로 닫기
+						$('.modal').modal('hide');
+						
+						$('#confirmReport').modal('show');
+						
+					});
+
+		});
+		
 		
 		
 		

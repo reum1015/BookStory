@@ -55,7 +55,7 @@
 			});
 			
 			
-			//댓글 리스트에서 삭제
+			//댓글 리스트에서 삭제(report 테이블에서만 삭제, 원 게시물 유지)
 			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
 			$(document).on('submit', "#commentDeleteList", function(e) {
 				e.preventDefault();
@@ -78,7 +78,7 @@
 				});
 			});
 			
-			//댓글 블라인드 삭제
+			//댓글 블라인드
 			/** 동적으로 로드된 폼 안에서의 submit 이벤트 */
 			$(document).on('submit', "#commentBlind", function(e) {
 				e.preventDefault();
@@ -96,6 +96,10 @@
 					$("#blind").modal('hide');
 					
 					// JSON 결과에 포함된 덧글일련번호를 사용하여 삭제할 <li>의 id값을 찾는다.
+					var comment_id = json.comment_id;
+					$("#comment_" + comment_id).find('#edit_block').css('display','none');
+					$("#comment_" + comment_id).find('#blind_block').css('display','none');
+					
 					
 					
 				});
@@ -228,13 +232,15 @@
 								<div class="col-xs-2 reply_date">${fn:substring(commentLists.reg_date,0,11)}</div>
 								<div class="col-xs-2 reply_button_group">
 									<div class="reply_button_group pull-right">
-										<p data-placement="top" data-toggle="tooltip" title="정상" class="cancel_button">
+									<c:choose>
+										<c:when test="${commentLists.blind == '1'}">
+										<p data-placement="top" data-toggle="tooltip" title="정상" class="cancel_button" id="edit_block">
 											<a class="btn btn-success btn-xs" data-title="Delete" data-toggle="modal" data-target="#edit"
 											href="${pageContext.request.contextPath}/admin/comment_deleteList.do?comment_id=${commentLists.comment_id}">
 												<span class="glyphicon glyphicon-check"></span>
 											</a>
 										</p>
-										<p data-placement="top" data-toggle="tooltip" title="블라인드"class="delete_button">
+										<p data-placement="top" data-toggle="tooltip" title="블라인드"class="delete_button" id="blind_block">
 											<a class="btn btn-danger btn-xs" data-title="Delete"data-toggle="modal" data-target="#blind"
 											href="${pageContext.request.contextPath}/admin/comment_blind.do?comment_id=${commentLists.comment_id}">
 												<span class="glyphicon glyphicon-minus"></span>
@@ -246,8 +252,16 @@
 												<span class="glyphicon glyphicon-remove"></span>
 											</a>
 										</p>
-										
-										
+										</c:when>
+										<c:when test="${commentLists.blind == 'Y'}">	
+										<p data-placement="top" data-toggle="tooltip" title="삭제"class="delete_button">
+											<a class="btn btn-danger btn-xs" data-title="Delete"data-toggle="modal" data-target="#delete"
+											href="${pageContext.request.contextPath}/admin/comment_delete.do?comment_id=${commentLists.comment_id}">
+												<span class="glyphicon glyphicon-remove"></span>
+											</a>
+										</p>
+										</c:when>
+								</c:choose>		
 										
 										
 										

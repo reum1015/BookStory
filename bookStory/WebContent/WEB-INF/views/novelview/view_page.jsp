@@ -296,13 +296,7 @@
 						comment_memberId:comment_memberId,report_reason:report_reason,user_nickname:user_nickname},
 						
 						function(data){
-						
-							
-							
-							
-							
-							
-							// 별점 모달 강제로 닫기
+							//  모달 강제로 닫기
 							$('.modal').modal('hide');
 							
 							$('#confirmReport').modal('show');
@@ -539,7 +533,6 @@
 				<input type="hidden" value="${isBookMarkState}" id="isBookMarkState">
 				</div>
 				<div id="" class="col-sm-2 view_set" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-					<a>보기설정</a>
 				</div>
 				
 				</div>
@@ -712,22 +705,7 @@
 	           
 	  </div>
 	</div>
-  </div>
-  
-  
-  
-  
-	<div class="jb-center">
-		<ul class="pagination">
-			<li class="disabled"><a href="#"><span
-					class="glyphicon glyphicon-chevron-left"></span></a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-		</ul>
-	</div>
-			
+  </div>			
 </div>
 			
 			<!-- // 댓글 부분  끝 -->
