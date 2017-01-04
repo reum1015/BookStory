@@ -177,6 +177,7 @@
 	         DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
 	FROM   article
 	WHERE category='notice'
+	ORDER BY id desc
 	</select>
 	<!-- 관리자가 회원 탈퇴 시키기위한 sql문 끝-->
 	
