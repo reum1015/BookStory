@@ -6,31 +6,48 @@
 <html lang="ko">
 <head>
 <jsp:include page="/WEB-INF/views/template/head.jsp"></jsp:include>
+	<script src="${pageContext.request.contextPath}/assets/js/ckeditor/ckeditor.js"></script>
 <style type="text/css">
+.admin_main_container{
+	
+}
+#wrapper {
+	min-height:100%;
+	position:relative;
+}
+
+.main_footer{
+height:100px;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+
+
 </style>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript">
-	
-</script>
 
 <!-- admin css -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/css/admin/admin.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/css/admin/admin.css" />
 <!-- CKEditor -->
-<script src="http://cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+
 
 <script type="text/javascript">
-	$(function() {
-		function varHeight() {
-			var wheight = document.getElementById("content_height").offsetHeight;
-			var navheight = document.getElementById("slider_main").offsetHeight;
-			if(navheight <= wheight){
-				$("#slider_main").css({'height':wheight+'px'});
-			}
+$(window).ready(function(){ 
+	function varHeight() {
+		var wheight = document.getElementById("content_height").offsetHeight;
+		var navheight = document.getElementById("slider_main").offsetHeight;
+		if(navheight <= wheight){
+			$("#slider_main").css({'height':wheight+'px'});
 		}
+	}
 
-		varHeight();
+	varHeight();
+	});
+
+	$(function() {
+	
 
 		$(window).resize(function() {
 			var wheight = document.getElementById("content_height").offsetHeight;
@@ -38,7 +55,7 @@
 			if(navheight <= wheight){
 				$("#slider_main").css({'height':wheight+'px'});
 			}
-		});
+		}).resize();
 		
 		$(window).scroll(function() {
 			var wheight = document.getElementById("content_height").offsetHeight;
@@ -52,7 +69,7 @@
 </script>
 </head>
 <body>
-
+	<div id="wrapper">
 	<!-- 메인 헤더 -->
 	<jsp:include
 		page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
@@ -124,7 +141,7 @@
 						<div class="form-group">
 							<label class="control-label col-xs-2" for="intro">공지 내용</label>
 							<div class="col-xs-10">
-								<textarea class="ckeditor form-control" rows="7" id="intro"
+								<textarea class="form-control" rows="7" id="intro"
 									name="admin_content" placeholder="공지할 내용을 입력해 주세요"></textarea>
 							</div>
 						</div>
@@ -153,7 +170,7 @@
 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-
+</div><!-- end wrapper -->
 
 	<script
 		src="${pageContext.request.contextPath}/assets/js/admin/jquery.dataTables.min.js"></script>

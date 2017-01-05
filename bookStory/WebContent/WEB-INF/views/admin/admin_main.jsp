@@ -111,7 +111,7 @@
 			<!-- //어드민 슬라이드 메뉴 영역 -->
 
 			<!-- 어드민 컨텐트 영역 -->
-			<div class="col-md-10 admin_content" id="content_height">
+			<div class="col-md-10 admin_content" id="content_height" style="min-height: 500px;">
 				<h1>관리자 메인</h1>
 
 

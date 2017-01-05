@@ -347,105 +347,7 @@
 
 <jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
    <!-- 메인 헤더 -->
-<!-- 메인 헤더 -->
-
-
-<!-- 네비게이션 바 (메뉴 영역)
-<nav class="navbar navbar-default main_navi"  oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
-	<div class="container">
-		<div class="navbar-header clearfix">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#myNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a href="${pageContext.request.contextPath}/index.do"
-				class="navbar-brand bookstoryhome">BookStory</a>
-		</div>
-		<div class="container">
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-
-
-					<li class="todayNovel"><a
-						href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
-					<li class="novelList"><a
-						href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
-					<li class="community"><a
-						href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
-					<li class="mymenu"><a
-						href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
-					
-					
-					
-					
-					
-					
-					<li class="main_admin"><a
-						href="${pageContext.request.contextPath}/admin/admin_main.do"
-						class="main_navi_admin active">administrator</a></li>
-					
-					
-					
-					
-					
-					<li><a href="${pageContext.request.contextPath}/login/sign_up_agree.do" class="visible-xs signup_icon"><span
-							class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a href="${pageContext.request.contextPath}/login/login.do" class="visible-xs login_icon"><span
-							class="glyphicon glyphicon-log-in"></span> Login</a></li>
-							
-							
-							
-							
-							
-							
-					<li>
-						<form
-							class="navbar-form navbar-left pull-left search_form visible-xs"
-							role="search"
-							action="${pageContext.request.contextPath}/totalsearch/total_search.do">
-							<fieldset>
-								<div class="input-group form-group">
-
-									<label class="sr-only" for="total_search">통합검색</label> <input
-										type="text" class="form-control" placeholder="통합검색"
-										id="total_search"> <span class="input-group-btn">
-										<button type="submit" class="btn btn-default">검색</button>
-									</span>
-								</div>
-							</fieldset>
-						</form>
-					</li>
-				</ul>
-
-				<form class="navbar-form navbar-left pull-right"
-							action="${pageContext.request.contextPath}/book/BookSearch.do"
-							method="post" id="search-form" style="padding-right: 0px;">
-							<fieldset>
-
-								<div class="col-xs-10 pull-right" style="padding-right: 0px;">
-									<div class="input-group">
-										<input type="text" class="form-control col-xs-10"
-											placeholder="작품명 or 작가명" id="keyword" name="keyword" /> <span
-											class="input-group-btn">
-											<button class="btn btn-info" type="submit"
-												style="background-color: #CD8F49; border-color: #CD8F49">
-												<i class="glyphicon glyphicon-search"></i>
-											</button>
-										</span>
-									</div>
-								</div>
-							</fieldset>
-						</form>
-				
-				
-			</div>
-		</div>
-	</div>
-</nav>
-    -->
-	<!-- 메인 화면 시작 -->
-	
+<!-- 메인 헤더 -->	
 		<div class="container" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 			<div class="container_view" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 				<div class="section_area_viewer" oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
@@ -607,24 +509,7 @@
 				<!-- // 작가의말 -->
 			</div>
 				<!-- // view footer -->
-	
-	<!-- 
-	
-		<a href="#" id="previousVolumeBtn" class="lk_story_prev N=a:flt.prev _volumeMove(113897,321)" 
-	style="top: 200px; position: absolute; left: -1px;">
-			<span class="icon_story_prev"></span>
-			<div class="ly_move">
-			
-		<span class="htxt_story_prev">이전회로 가기</span>
-			
-			
-				<span class="ellipsis">제321화. 흙바닥에 줄을 그어도</span>
-			</div>
-		</a>
-		
-	<button type="button" class="nextpage_fix col-lg-1 btn-default">&gt;</button>
-	
-				 -->
+
 				 
 		</div>				
 			</div>	

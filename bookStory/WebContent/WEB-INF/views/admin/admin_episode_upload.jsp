@@ -134,7 +134,7 @@
 						action="${pageContext.request.contextPath}/admin/episode_upload_ok.do" id="episode_upload" method="post">
 				<fieldset>
 				
-				<legend>기존 작품</legend>
+				<legend>에피소드 업로드</legend>
 				
 				<!-- 작품 번호 hidden -->
 

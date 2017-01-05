@@ -179,6 +179,10 @@
 							</ul>
 						</c:forEach>
 					</c:when>
+					<c:otherwise>
+						<p>조회된 게시글이 없습니다.</p>
+					</c:otherwise>
+					
 				</c:choose>
 				<!-- 페이지 번호 시작 -->
 				<nav class="text-center">

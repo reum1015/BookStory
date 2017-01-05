@@ -126,9 +126,11 @@ body, html{height: 100%;}
 		
 			.admin_main_container{
 				
-				min-height: 200px;
+				
 			}
-			
+			.admin_content{
+				padding-bottom: 100px;
+			}
 			
 			
 			

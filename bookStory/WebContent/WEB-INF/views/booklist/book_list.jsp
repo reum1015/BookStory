@@ -160,7 +160,7 @@
 			for(var i = 0; i <buyListLength ; i++){
 				var epid = buyList[i].episode_id;
 				$("#episode_" + epid).empty();
-				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-3x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+				$("#episode_" + epid).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done"></div></div>')
 			};
 			
 			/*
@@ -199,7 +199,7 @@
 									for(var i = 0; i < total.length ; i++){
 										console.log(total[i]);
 										$("#episode_" + total[i]).empty();
-										$("#episode_" + total[i]).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done">구매 완료</div></div>')
+										$("#episode_" + total[i]).append('<div class="buystate pull-right"><i class="fa fa-cc-paypal fa-4x" aria-hidden="true" style="color:#f0ad4e"></i><div class="pay_done"></div></div>')
 									}
 									return false;						
 								}
@@ -264,7 +264,7 @@
 				}
 				
 			});
-	});
+	})
 
 	function getContextPath(){
 	    var offset=location.href.indexOf(location.host)+location.host.length;
@@ -416,19 +416,13 @@
 						</c:when>
 						<c:otherwise>
 					
-							<div class="col-xs-3 check_box_list pull-right" id="episode_${episode.id}">
-										
-											<div class="checkbox checkbox-success pull-right">
+							<div class="col-xs-3 check_box_list pull-right" id="episode_${episode.id}" style="padding-left: 0px;">
+											<div class="checkbox checkbox-success pull-right" style="margin-top: 0px;">
 									            <input type="checkbox" name="checkboxitem" id="${episode.id}" class="input_check check_btn" value="${episode.id}"/>
 									            <label for="${episode.id}" class="check_label">선택</label>
 								        	</div>
-								  			<!-- 
-								  			  <span class="button-checkbox button_span pull-right">
-										        <button type="button" class="btn check_btn" data-color="warning" id="${episode.id}">선택</button>
-										        <input type="checkbox" class="hidden" name="checkboxitem" class="input_check" value="${episode.id}" id="${episode.id}"/>
-										   		<label for="${episode.id}" class="check_label"></label>
-										    </span>
-								  			 	 -->
+		
+	
 											<div></div>
 							</div>
 						</c:otherwise>
