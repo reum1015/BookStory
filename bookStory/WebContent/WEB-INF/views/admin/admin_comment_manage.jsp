@@ -47,7 +47,31 @@
 	
 	<script type="text/javascript">
 		$(function() {
+			function varHeight() {
+				var wheight = document.getElementById("content_height").offsetHeight;
+				var navheight = document.getElementById("slider_main").offsetHeight;
+				if(navheight <= wheight){
+					$("#slider_main").css({'height':wheight+'px'});
+				}
+			}
+
+			varHeight();
+
+			$(window).resize(function() {
+				var wheight = document.getElementById("content_height").offsetHeight;
+				var navheight = document.getElementById("slider_main").offsetHeight;
+				if(navheight <= wheight){
+					$("#slider_main").css({'height':wheight+'px'});
+				}
+			});
 			
+			$(window).scroll(function() {
+				var wheight = document.getElementById("content_height").offsetHeight;
+				var navheight = document.getElementById("slider_main").offsetHeight;
+				if(navheight <= wheight){
+					$("#slider_main").css({'height':wheight+'px'});
+				}
+			});
 			
 			$('.modal').on('hidden.bs.modal', function(e){
 				//모달창 내의 내용을 강제로 지움.
@@ -155,7 +179,7 @@
 	<div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
 			<!-- 어드민 슬라이드 메뉴 영역 -->
-			<div class="col-md-2 amdin_main_slider">
+			<div class="col-md-2 amdin_main_slider" id="slider_main">
 				<ul class="nav main_slider_nav" id="admin_main_menu">
 					<li class="search_list"><a
 						href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
@@ -203,7 +227,7 @@
 			<!-- //어드민 슬라이드 메뉴 영역 -->
 
 			<!-- 어드민 컨텐트 영역 -->
-			<div class="col-md-10 admin_content">
+			<div class="col-md-10 admin_content" id="content_height">
 				<div class="replymanage_container">
 					<h1 class="page-header">댓글 관리</h1>
 					

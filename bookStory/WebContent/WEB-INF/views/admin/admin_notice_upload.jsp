@@ -19,6 +19,37 @@
 	href="${pageContext.request.contextPath}/assets/css/admin/admin.css" />
 <!-- CKEditor -->
 <script src="http://cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		function varHeight() {
+			var wheight = document.getElementById("content_height").offsetHeight;
+			var navheight = document.getElementById("slider_main").offsetHeight;
+			if(navheight <= wheight){
+				$("#slider_main").css({'height':wheight+'px'});
+			}
+		}
+
+		varHeight();
+
+		$(window).resize(function() {
+			var wheight = document.getElementById("content_height").offsetHeight;
+			var navheight = document.getElementById("slider_main").offsetHeight;
+			if(navheight <= wheight){
+				$("#slider_main").css({'height':wheight+'px'});
+			}
+		});
+		
+		$(window).scroll(function() {
+			var wheight = document.getElementById("content_height").offsetHeight;
+			var navheight = document.getElementById("slider_main").offsetHeight;
+			if(navheight <= wheight){
+				$("#slider_main").css({'height':wheight+'px'});
+			}
+		});
+	})
+
+</script>
 </head>
 <body>
 
@@ -30,7 +61,7 @@
 	<div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
 			<!-- 어드민 슬라이드 메뉴 영역 -->
-			<div class="col-md-2 amdin_main_slider">
+			<div class="col-md-2 amdin_main_slider" id="slider_main">
 				<ul class="nav main_slider_nav" id="admin_main_menu">
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
 	    				<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a>
@@ -64,7 +95,7 @@
 			<!-- //어드민 슬라이드 메뉴 영역 -->
 
 			<!-- 어드민 컨텐트 영역 -->
-			<div class="col-md-10 admin_content">
+			<div class="col-md-10 admin_content" id="content_height">
 
 
 				<h1 class="page-header" id="upload_title">공지항 업로드</h1>

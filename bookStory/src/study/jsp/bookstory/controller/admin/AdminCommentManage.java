@@ -69,7 +69,7 @@ public class AdminCommentManage extends BaseController{
 			
 			// 나머지 페이지 번호 계산하기
 			// --> 현제 페이지, 전체 게시물 수, 한페이지의 목록수, 그룹갯수
-			pageHelper.pageProcess(page, totalCount, 3, 5);
+			pageHelper.pageProcess(page, totalCount, 5, 5);
 						
 			// 페이지 번호 계산 결과에서 Limit절에 필요한 값을 Beans에 추가
 			report.setLimitStart(pageHelper.getLimit_start());

@@ -39,6 +39,35 @@
 					});
 					
 				});
+				
+				function varHeight() {
+					var wheight = document.getElementById("content_height").offsetHeight;
+					var navheight = document.getElementById("slider_main").offsetHeight;
+					if(navheight <= wheight){
+						$("#slider_main").css({'height':wheight+'px'});
+					}
+				}
+	
+				varHeight();
+	
+				$(window).resize(function() {
+					var wheight = document.getElementById("content_height").offsetHeight;
+					var navheight = document.getElementById("slider_main").offsetHeight;
+					if(navheight <= wheight){
+						$("#slider_main").css({'height':wheight+'px'});
+					}
+				});
+				
+				$(window).scroll(function() {
+					var wheight = document.getElementById("content_height").offsetHeight;
+					var navheight = document.getElementById("slider_main").offsetHeight;
+					if(navheight <= wheight){
+						$("#slider_main").css({'height':wheight+'px'});
+					}
+				});
+				
+				
+				
 			});
 			
 			
@@ -66,7 +95,7 @@
 	<div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
 			<!-- 어드민 슬라이드 메뉴 영역 -->
-			<div class="col-xs-2 amdin_main_slider">
+			<div class="col-xs-2 amdin_main_slider" id="slider_main">
 				<ul class="nav main_slider_nav" id="admin_main_menu">
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
 	    				<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a>
@@ -101,7 +130,7 @@
 			<!-- //어드민 슬라이드 메뉴 영역 -->
 
 			<!-- 어드민 컨텐트 영역 -->
-			<div class="col-xs-10 admin_content admin_userInfo_container">
+			<div class="col-xs-10 admin_content admin_userInfo_container" id="content_height">
 				<h1 class="page-header">작품 관리(작품 목록)</h1>
 				<table id="example"
 					class="table table-hover table-bordered table-responsive user_info_table"

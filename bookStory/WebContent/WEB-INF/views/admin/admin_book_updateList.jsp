@@ -24,94 +24,45 @@
 			$(document).ready(function() {
 			    $('#example').DataTable();
 			} );
+			
+			$(function() {
+				function varHeight() {
+					var wheight = document.getElementById("content_height").offsetHeight;
+					var navheight = document.getElementById("slider_main").offsetHeight;
+					if(navheight <= wheight){
+						$("#slider_main").css({'height':wheight+'px'});
+					}
+				}
+	
+				varHeight();
+	
+				$(window).resize(function() {
+					var wheight = document.getElementById("content_height").offsetHeight;
+					var navheight = document.getElementById("slider_main").offsetHeight;
+					if(navheight <= wheight){
+						$("#slider_main").css({'height':wheight+'px'});
+					}
+				});
+				
+				$(window).scroll(function() {
+					var wheight = document.getElementById("content_height").offsetHeight;
+					var navheight = document.getElementById("slider_main").offsetHeight;
+					if(navheight <= wheight){
+						$("#slider_main").css({'height':wheight+'px'});
+					}
+				});
+			})
 		
 		</script>
 	</head>
 	<body>
 	<jsp:include page="/WEB-INF/views/template/head_nav.jsp?member_level=${member_level}"></jsp:include>
 
-			
-			
-					
-
-	
-		<!-- 네비게이션 바 (메뉴 영역) -->
-			<nav class="navbar navbar-default main_navi">
-  				<div class="container">
-    				<div class="navbar-header clearfix">   
-				      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      </button>
-     				<a href="${pageContext.request.contextPath}/index.do" class="navbar-brand bookstoryhome">BookStory</a>
-    			</div>
-    				<div class="container">
-    					<div class="collapse navbar-collapse" id="myNavbar">
-      						<ul class="nav navbar-nav">
-						        <li class="todayNovel"><a href="${pageContext.request.contextPath}/todaynovel/today_novel.do">TodayNovel</a></li>
-						        <li class="novelList"><a href="${pageContext.request.contextPath}/novellist/novel_list.do">NoveList</a></li>
-						        <li class="community"><a href="${pageContext.request.contextPath}/community/article_list.do">Community</a></li>
-						        <li class="mymenu"><a href="${pageContext.request.contextPath}/mymenu/recentepisode_list.do">MyMenu</a></li>
-       							<li class="main_admin"><a href="${pageContext.request.contextPath}/admin/admin_main.do" class="main_navi_admin active">administrator</a></li>
-        						<li><a href="#" class="visible-xs signup_icon"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        						<li><a href="#" class="visible-xs login_icon"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-       							<li>
-				        			<form class="navbar-form navbar-left pull-left search_form visible-xs" role="search">
-							        	<fieldset>
-							        	<div class="input-group form-group">
-							        		
-								        		<label class="sr-only" for="total_search">통합검색</label>
-								          		<input type="text" class="form-control" placeholder="통합검색" id="total_search">
-								        	
-								          		<span class="input-group-btn">
-								          			<button type="submit" class="btn btn-default">검색</button>
-												</span>		          	
-							          		
-							          	</div>
-							        	</fieldset>
-							      	</form>
-        
-        
-        						</li>
-     					</ul>
- 
-	    	  		<div class="main_login">
-						<form class="navbar-form navbar-left pull-right hidden-xs form-inline" role="search">
-				        	<fieldset>
-				        	<div class="input-group input-group-sm">
-				          		<input type="text" class="form-control" placeholder="통합검색">
-				        		<span class="input-group-btn"> <button type="submit" class="btn btn-default">검색</button></span>
-				        	</div>
-				        	</fieldset>
-				      	</form>
-					</div>
-      
-    </div>
-    </div>
-  </div>
-</nav>	
-		<nav class="navbar navbar-default main_navi main_navi_sub visible-xs">
-  							<div class="container main_navi_sub_list">
-  							<div class="table-responsive">
-    							<table class="table">
-    								<tr>
-    									<td>업로드</td>
-    									<td>업로드</td>
-    									<td>업로드</td>
-    								<tr>
-    							</table>
-    							</div>
-    						</div>
-					</nav>	
-
-
-
 <!-- 메인 화면 시작 -->
 	<div class="container-fluid admin_main_container hidden-xs">
 		<div class="row admin_main_row">
 			<!-- 어드민 슬라이드 메뉴 영역 -->
-			<div class="col-md-2 amdin_main_slider">
+			<div class="col-md-2 amdin_main_slider" id="slider_main">
 	    		<ul class="nav main_slider_nav" id="admin_main_menu">
 	    			<li class="search_list"><a href="${pageContext.request.contextPath}/admin/admin_userInfo.do">
 	    				<span class="glyphicon glyphicon-user pull-left icon_color" aria-hidden="true"></span>회원 정보</a>
@@ -145,7 +96,7 @@
     	<!-- //어드민 슬라이드 메뉴 영역 -->
     		
 	    	<!-- 어드민 컨텐트 영역 -->
-			<div class="col-xs-10 admin_content admin_userInfo_container">
+			<div class="col-xs-10 admin_content admin_userInfo_container" id="content_height">
 				<h1 class="page-header">작품 정보</h1>
 
 				    <div class="media">
