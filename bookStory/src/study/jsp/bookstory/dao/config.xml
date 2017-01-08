@@ -33,9 +33,7 @@
 		<mapper resource="study/jsp/bookstory/dao/mapper/CommentMapper.xml"/>
 		<mapper resource="study/jsp/bookstory/dao/mapper/RecentEpisodeMapper.xml"/>
 	</mappers>
-
-	
-</configuration>    
+</configuration>
 
 
 
