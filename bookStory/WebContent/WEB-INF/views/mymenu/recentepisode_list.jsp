@@ -164,7 +164,7 @@
 	        <li class='active'><a href="#">${i}</a></li>
 	     </c:when>
 	     <c:otherwise>
-	         <li><a href="${pageUrl}"></a></li>
+	         <li><a href="${pageUrl}">${i}</a></li>
 	     </c:otherwise>
 	   </c:choose>
 	   
