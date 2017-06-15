@@ -36,7 +36,6 @@ public class AdminCommentBlind extends BaseController{
 		request.setAttribute("comment_id", comment_id);
 		
 		
-		
 		return "comment/comment_blind";
 	}
 

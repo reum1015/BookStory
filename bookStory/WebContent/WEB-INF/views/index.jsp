@@ -43,7 +43,7 @@
 				
 				 //장르별 드롭다운 선택시 ajax
 				 $(document).on("click","#genreList a",function(e){
-					 e.preventDefault();							 
+					 e.preventDefault();
 					 var genre = $(this).attr("data-value");
 					 var aa = jenreTextChange(genre);
 					 $("#genre_button").text(aa);
